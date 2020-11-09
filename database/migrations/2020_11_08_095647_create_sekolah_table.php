@@ -19,8 +19,9 @@ class CreateSekolahTable extends Migration
             $table->string('nama');
             $table->string('alamat');
             $table->string('logo');
+            $table->string('kode_referal');
             $table->timestamps();
-            $table->foreign('user_id')->on('uesrs')->references('id')->onDelete('cascade');
+            $table->foreign('user_id')->on('users')->references('id')->onDelete('cascade');
         });
     }
 

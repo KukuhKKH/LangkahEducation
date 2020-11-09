@@ -18,7 +18,7 @@ class CreateMentorTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('pendidikan_terakhir');
             $table->timestamps();
-            $table->foreign('user_id')->on('uesrs')->references('id')->onDelete('cascade');
+            $table->foreign('user_id')->on('users')->references('id')->onDelete('cascade');
         });
     }
 

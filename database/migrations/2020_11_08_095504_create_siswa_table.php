@@ -22,7 +22,7 @@ class CreateSiswaTable extends Migration
             $table->string('nomor_hp');
             $table->char('batch', 1)->comment("0: Daftar sendiri; 1: Didaftarkan Sekolah")->default(0);
             $table->timestamps();
-            $table->foreign('user_id')->on('uesrs')->references('id')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

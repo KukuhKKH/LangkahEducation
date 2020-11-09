@@ -21,7 +21,7 @@ class CreateBlogTable extends Migration
             $table->string('foto')->nullable();
             $table->string('tags')->nullable();
             $table->timestamps();
-            $table->foreign('user_id')->on('uesrs')->references('id')->onDelete('cascade');
+            $table->foreign('user_id')->on('users')->references('id')->onDelete('cascade');
         });
     }
 

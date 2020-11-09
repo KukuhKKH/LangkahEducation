@@ -20,7 +20,7 @@ class CreateKategoriTable extends Migration
             $table->string('slug');
             $table->string('foto')->nullable();
             $table->timestamps();
-            $table->foreign('user_id')->on('uesrs')->references('id')->onDelete('cascade');
+            $table->foreign('user_id')->on('users')->references('id')->onDelete('cascade');
         });
     }
 
