@@ -23,19 +23,22 @@
     <li class="nav-item">
         <a class="nav-link" href="#">
             <i class="fas fa-fw fa-desktop"></i>
-            <span>Try Out</span></a>
+            <span>Try Out</span>
+        </a>
     </li>
 
     <li class="nav-item">
         <a class="nav-link" href="#">
             <i class="fas fa-fw fa-percent"></i>
-            <span>Passing Grade</span></a>
+            <span>Passing Grade</span>
+        </a>
     </li>
 
     <li class="nav-item">
         <a class="nav-link" href="#">
             <i class="fas fa-fw fa-microphone"></i>
-            <span>Virtual Mentoring</span></a>
+            <span>Virtual Mentoring</span>
+        </a>
     </li>
 
     <li class="nav-item">
@@ -52,13 +55,15 @@
     <li class="nav-item">
         <a class="nav-link" href="#">
             <i class="fas fa-bell fa-fw"></i>
-            <span>Pemberitahuan</span> <span class="badge badge-success">0</span></a>
+            <span>Pemberitahuan</span> <span class="badge badge-success">0</span>
+        </a>
     </li>
 
     <li class="nav-item">
         <a class="nav-link" href="#">
             <i class="fas fa-fw fa-money-bill"></i>
-            <span>Pembayaran</span> <span class="badge badge-success">0</span></a>
+            <span>Pembayaran</span> <span class="badge badge-success">0</span>
+        </a>
     </li>
 
     <li class="nav-item">
@@ -76,6 +81,7 @@
         </div>
     </li>
 
+{{--    @hasanyrole('superadmin|admin')--}}
     <!-- Divider -->
     <hr class="sidebar-divider">
 
@@ -84,25 +90,39 @@
         ROLE USER
     </div>
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('siswa.index') }}">
             <i class="fas fa-fw fa-user-friends"></i>
-            <span>Siswa</span></a>
+            <span>Siswa</span>
+        </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('mentor.index') }}">
             <i class="fas fa-fw fa-chalkboard-teacher"></i>
-            <span>Mentor</span></a>
+            <span>Mentor</span>
+        </a>
     </li>
+{{--    @hasanyrole('superadmin')--}}
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('admin.index') }}">
             <i class="fas fa-fw fa-headphones"></i>
-            <span>Admin</span> </a>
+            <span>Admin</span>
+        </a>
     </li>
+{{--    @endhasanyrole--}}
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('superadmin.index') }}">
             <i class="fas fa-fw fa-crown"></i>
-            <span>Superadmin</span></a>
+            <span>Superadmin</span>
+        </a>
     </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('role.index') }}">
+            <i class="fas fa-fw fa-crown"></i>
+            <span>Role & Permission</span>
+        </a>
+    </li>
+{{--    @endhasanyrole--}}
 
     <!-- Divider -->
     <hr class="sidebar-divider">

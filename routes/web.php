@@ -14,12 +14,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-//    return view('welcome');
-    $location = \Illuminate\Support\Facades\Request::ip();
-    $hasil = \Stevebauman\Location\Facades\Location::get("125.166.7.206");
-    dd($hasil);
+    return view('welcome');
 });
 
 Auth::routes();
+
+Route::group(['namespace' => 'Web'], function() {
+    Route::resource('role', 'RolePermissionController')->except(['create', 'show']);
+    Route::group(['namespace' => 'User'], function() {
+        Route::resource('user', 'UserController');
+        Route::resource('mentor', 'MentorController');
+        Route::resource('sekolah', 'SekolahController');
+        Route::resource('admin', 'AdminController');
+        Route::resource('superadmin', 'SuperadminController');
+        Route::resource('siswa', 'SiswaController');
+    });
+});
 
 Route::get('/home', 'HomeController@index')->name('home');
