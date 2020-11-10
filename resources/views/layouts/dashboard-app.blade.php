@@ -8,13 +8,50 @@
 
     <!-- Custom fonts for this template-->
     <link href="{{asset('assets/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+{{--    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">--}}
 
     <link rel="stylesheet" href="{{ asset('assets/vendor/toastr/toastr.min.css') }}">
     <!-- Custom styles for this template-->
     <link href="{{asset('assets/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <style>
+        .toast-success {
+            color: #ffffff;
+            border-color: #1bbf89;
+            background-color: #1bbf89;
+        }
+        .toast-warning {
+            color: #ffffff;
+            border-color: #f7af3e;
+            background-color: #f7af3e;
+        }
+        .toast-info {
+            color: #ffffff;
+            border-color: #56c0e0;
+            background-color: #56c0e0;
+        }
+        .toast-error {
+            color: #ffffff;
+            border-color: #db524b;
+            background-color: #db524b;
+        }
+        #toast-container > div {
+            opacity: 1;
+            margin-top: 20px;
+            border-radius: 4px;
+            padding: 20px 20px 20px 50px;
+            -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            -moz-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        #toast-container > div:hover {
+            -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
+            -moz-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
+        }
+        #toast-container.toast-top-right > div {
+            margin-top: 60px;
+        }
+    </style>
 
     @yield('css')
 </head>

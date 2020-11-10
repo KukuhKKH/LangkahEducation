@@ -15,7 +15,7 @@
     </li>
 
     <hr class="sidebar-divider">
-
+    @hasanyrole('siswa')
     <div class="sidebar-heading">
         FITUR
     </div>
@@ -48,10 +48,12 @@
     </li>
 
     <hr class="sidebar-divider">
+    @endhasanyrole
 
     <div class="sidebar-heading">
         Umum
     </div>
+    @hasanyrole('siswa')
     <li class="nav-item">
         <a class="nav-link" href="#">
             <i class="fas fa-bell fa-fw"></i>
@@ -65,7 +67,8 @@
             <span>Pembayaran</span> <span class="badge badge-success">0</span>
         </a>
     </li>
-
+    @endhasanyrole
+    @hasanyrole('superadmin|admin|sekolah')
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePembayaran"
             aria-expanded="true" aria-controls="collapseTwo">
@@ -80,8 +83,9 @@
             </div>
         </div>
     </li>
+    @endhasanyrole
 
-{{--    @hasanyrole('superadmin|admin')--}}
+    @hasanyrole('superadmin|admin')
     <!-- Divider -->
     <hr class="sidebar-divider">
 
@@ -96,19 +100,25 @@
         </a>
     </li>
     <li class="nav-item">
+        <a class="nav-link" href="{{ route('sekolah.index') }}">
+            <i class="fas fa-fw fa-school"></i>
+            <span>Sekolah</span>
+        </a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" href="{{ route('mentor.index') }}">
             <i class="fas fa-fw fa-chalkboard-teacher"></i>
             <span>Mentor</span>
         </a>
     </li>
-{{--    @hasanyrole('superadmin')--}}
+    @hasanyrole('superadmin')
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.index') }}">
             <i class="fas fa-fw fa-headphones"></i>
             <span>Admin</span>
         </a>
     </li>
-{{--    @endhasanyrole--}}
+
     <li class="nav-item">
         <a class="nav-link" href="{{ route('superadmin.index') }}">
             <i class="fas fa-fw fa-crown"></i>
@@ -117,12 +127,21 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('role.index') }}">
-            <i class="fas fa-fw fa-crown"></i>
-            <span>Role & Permission</span>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRolePermission"
+           aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-money-bill"></i>
+            <span>Role & permission</span>
         </a>
+        <div id="collapseRolePermission" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ route('role.index') }}">Role</a>
+                <a class="collapse-item" href="{{ route('role.permission') }}">Permission</a>
+                <a class="collapse-item" href="{{ route('permission.attach') }}">Attach Permission</a>
+            </div>
+        </div>
     </li>
-{{--    @endhasanyrole--}}
+    @endhasanyrole
+    @endhasanyrole
 
     <!-- Divider -->
     <hr class="sidebar-divider">

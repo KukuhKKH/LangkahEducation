@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class RolePermissionController extends Controller
@@ -19,11 +20,35 @@ class RolePermissionController extends Controller
         return view('pages.role.index', compact('role'));
     }
 
+    public function permission() {
+        $permission = Permission::paginate(5);
+        return view('pages.role.permission', compact('permission'));
+    }
+
+    public function create(Request $request) {
+        $total = $request->total;
+        return view('pages.role.create_permission', compact('total'));
+    }
+
+    public function store_permission(Request $request) {
+        try {
+            foreach ($request->permission as $value) {
+                Permission::create([
+                    'name' => $value
+                ]);
+            }
+            return redirect()->route('role.permission')->with(['success' => "Berhasil tambah permission"]);
+        } catch (\Exception $e) {
+            return redirect()->route('role.permission')->with(['error' => $e->getMessage()]);
+        }
+
+    }
+
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -31,7 +56,7 @@ class RolePermissionController extends Controller
             Role::create([
                 'name' => $request->role
             ]);
-            return redirect()->route('kategori.index')->with(['success' => 'Tambah Role']);
+            return redirect()->route('kategori.index')->with(['success' => 'Sukses Tambah Role']);
         } catch (\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
@@ -80,5 +105,9 @@ class RolePermissionController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function attach() {
+        return view('pages.role.attach');
     }
 }

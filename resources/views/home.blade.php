@@ -8,6 +8,11 @@
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
                 <div class="card-body">
+                    @if(auth()->user()->is_active != 1)
+                        <div class="alert alert-danger" role="alert">
+                            Silahkan activasi akun lewat email / hubungi pihak sekolah
+                        </div>
+                    @endif
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}

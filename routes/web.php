@@ -19,15 +19,30 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::group(['namespace' => 'Web'], function() {
-    Route::resource('role', 'RolePermissionController')->except(['create', 'show']);
-    Route::group(['namespace' => 'User'], function() {
-        Route::resource('user', 'UserController');
-        Route::resource('mentor', 'MentorController');
-        Route::resource('sekolah', 'SekolahController');
-        Route::resource('admin', 'AdminController');
-        Route::resource('superadmin', 'SuperadminController');
-        Route::resource('siswa', 'SiswaController');
+Route::group(['middleware' => ['auth', 'email']], function() {
+    Route::get('dashboard', 'HomeController@dashboard')->name('dashboard');
+
+    Route::group(['namespace' => 'Web'], function () {
+        Route::group(['prefix' => 'dashboard'], function() {
+
+            Route::group(['middleware' => ['role:superadmin']], function () {
+                Route::resource('role', 'RolePermissionController')->except(['create', 'show']);
+                Route::get('permission', 'RolePermissionController@permission')->name('role.permission');
+                Route::post('permission/create', 'RolePermissionController@create')->name('permission.create');
+                Route::post('permission', 'RolePermissionController@store_permission')->name('permission.store');
+                Route::get('permission/attach', 'RolePermissionController@attach')->name('permission.attach');
+            });
+
+            Route::group(['namespace' => 'User', 'middleware' => ['role:admin|superadmin']], function() {
+
+                Route::resource('user', 'UserController');
+                Route::resource('mentor', 'MentorController');
+                Route::resource('sekolah', 'SekolahController');
+                Route::resource('admin', 'AdminController');
+                Route::resource('superadmin', 'SuperadminController');
+                Route::resource('siswa', 'SiswaController');
+            });
+        });
     });
 });
 

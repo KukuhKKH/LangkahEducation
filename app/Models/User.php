@@ -6,10 +6,11 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -17,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'api_token', 'is_active', 'foto'
     ];
 
     /**
@@ -40,5 +41,9 @@ class User extends Authenticatable
 
     public function setPasswordAttribute($value) {
         $this->attributes['password'] = Hash::make($value);
+    }
+
+    public function siswa() {
+        return $this->hasOne('App\Models\Siswa');
     }
 }
