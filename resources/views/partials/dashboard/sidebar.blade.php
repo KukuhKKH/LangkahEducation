@@ -11,11 +11,13 @@
     <li class="nav-item active">
         <a class="nav-link" href="#">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
+            <span>Dashboard</span>
+        </a>
     </li>
+    @hasanyrole('siswa')
 
     <hr class="sidebar-divider">
-    @hasanyrole('siswa')
+    
     <div class="sidebar-heading">
         FITUR
     </div>
@@ -50,10 +52,11 @@
     <hr class="sidebar-divider">
     @endhasanyrole
 
+    @hasanyrole('siswa')
     <div class="sidebar-heading">
         Umum
     </div>
-    @hasanyrole('siswa')
+
     <li class="nav-item">
         <a class="nav-link" href="#">
             <i class="fas fa-bell fa-fw"></i>
@@ -68,7 +71,7 @@
         </a>
     </li>
     @endhasanyrole
-    @hasanyrole('superadmin|admin|sekolah')
+    @hasanyrole('admin|sekolah')
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePembayaran"
             aria-expanded="true" aria-controls="collapseTwo">
@@ -85,7 +88,7 @@
     </li>
     @endhasanyrole
 
-    @hasanyrole('superadmin|admin')
+    @hasanyrole('superadmin|sekolah|admin')
     <!-- Divider -->
     <hr class="sidebar-divider">
 
@@ -93,6 +96,8 @@
     <div class="sidebar-heading">
         ROLE USER
     </div>
+    @endhasanyrole
+    @hasanyrole('admin')
     <li class="nav-item">
         <a class="nav-link" href="{{ route('siswa.index') }}">
             <i class="fas fa-fw fa-user-friends"></i>
@@ -111,7 +116,8 @@
             <span>Mentor</span>
         </a>
     </li>
-    @hasanyrole('superadmin')
+    @endhasanyrole
+    @role('superadmin')
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.index') }}">
             <i class="fas fa-fw fa-headphones"></i>
@@ -140,16 +146,16 @@
             </div>
         </div>
     </li>
-    @endhasanyrole
-    @endhasanyrole
+    @endrole
 
     <!-- Divider -->
     <hr class="sidebar-divider">
-
+    
     <!-- Heading -->
     <div class="sidebar-heading">
         PENGATURAN
     </div>
+    @hasanyrole('admin')
 
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseHalaman"
@@ -165,7 +171,7 @@
             </div>
         </div>
     </li>
-
+    @endhasanyrole
     <li class="nav-item">
         <a class="nav-link" href="#">
             <i class="fas fa-fw fa-user"></i>

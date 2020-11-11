@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
@@ -38,6 +39,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function boot() {
+        parent::boot();
+        static::saving(function ($model) {
+            $model->api_token = Str::random(10);
+        });
+    }
 
     public function setPasswordAttribute($value) {
         $this->attributes['password'] = Hash::make($value);

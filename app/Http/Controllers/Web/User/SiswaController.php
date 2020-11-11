@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Web\User;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class SiswaController extends Controller
 {
@@ -20,33 +22,12 @@ class SiswaController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
     {
         //
     }
@@ -82,6 +63,16 @@ class SiswaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $user = User::find($id);
+            $user->siswa()->delete();
+            $user->delete();
+            DB::commit();
+            return \redirect()->back()->with(['success' => "Berhasil hapus superadmin"]);
+        } catch(\Exception $e) {
+            DB::rollBack();
+            return \redirect()->back()->with(['error' => $e->getMessage()]);
+        }
     }
 }
