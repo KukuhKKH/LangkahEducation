@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Sekolah;
 use Illuminate\Http\Request;
 
 class SekolahController extends Controller
@@ -14,7 +15,8 @@ class SekolahController extends Controller
      */
     public function index()
     {
-        //
+        $sekolah = Sekolah::paginate(10);
+        return view('pages.users.sekolah.index', compact('sekolah'));
     }
 
     /**
