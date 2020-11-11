@@ -2,14 +2,14 @@
 <ul class="navbar-nav bg-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <img src="img/logo-primary.svg" class="img-fluid" alt="" srcset="">
+        <img src="{{ asset('assets/img/logo-primary.svg') }}" class="img-fluid" alt="" srcset="">
     </a>
 
     <hr class="sidebar-divider my-0 mb-3">
 
 
-    <li class="nav-item active">
-        <a class="nav-link" href="#">
+    <li class="nav-item {{ (request()->is('dashboard')) ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('dashboard') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span>
         </a>
@@ -17,10 +17,36 @@
     @hasanyrole('siswa')
 
     <hr class="sidebar-divider">
-    
     <div class="sidebar-heading">
         FITUR
     </div>
+    
+    @hasanyrole('superadmin|admin|mentor|sekolah')
+    {{-- Try Out Superadmin|Admin|Mentor --}}
+    <li class="nav-item">
+        <a class="nav-link" href="#">
+            <i class="fas fa-fw fa-desktop"></i>
+            <span>Try Out</span>
+        </a>
+    </li>
+
+    @endhasanyrole
+
+    {{-- CRUD Passing Grade --}}
+    @hasanyrole('superadmin|admin')
+    <li class="nav-item">
+        <a class="nav-link" href="#">
+            <i class="fas fa-fw fa-percent"></i>
+            <span>Passing Grade</span>
+        </a>
+    </li>
+
+    @endhasanyrole
+    @endhasanyrole
+
+    @hasanyrole('mentor|sekolah|siswa')
+
+    {{-- Try Out Siswa --}}
 
     <li class="nav-item">
         <a class="nav-link" href="#">
@@ -46,7 +72,8 @@
     <li class="nav-item">
         <a class="nav-link" href="#">
             <i class="fas fa-fw fa-chart-bar"></i>
-            <span>Statistik</span></a>
+            <span>Statistik</span>
+        </a>
     </li>
 
     <hr class="sidebar-divider">
@@ -96,43 +123,44 @@
     <div class="sidebar-heading">
         ROLE USER
     </div>
-    @endhasanyrole
-    @hasanyrole('admin')
+    
     <li class="nav-item">
+    <li class="nav-item {{ (request()->is('dashboard/siswa')) ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('siswa.index') }}">
             <i class="fas fa-fw fa-user-friends"></i>
             <span>Siswa</span>
         </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item {{ (request()->is('dashboard/sekolah')) ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('sekolah.index') }}">
             <i class="fas fa-fw fa-school"></i>
             <span>Sekolah</span>
         </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item {{ (request()->is('dashboard/mentor')) ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('mentor.index') }}">
             <i class="fas fa-fw fa-chalkboard-teacher"></i>
             <span>Mentor</span>
         </a>
     </li>
-    @endhasanyrole
-    @role('superadmin')
+    
     <li class="nav-item">
+    @hasanyrole('superadmin')
+    <li class="nav-item {{ (request()->is('dashboard/admin')) ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin.index') }}">
             <i class="fas fa-fw fa-headphones"></i>
             <span>Admin</span>
         </a>
     </li>
 
-    <li class="nav-item">
+    <li class="nav-item {{ (request()->is('dashboard/superadmin')) ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('superadmin.index') }}">
             <i class="fas fa-fw fa-crown"></i>
             <span>Superadmin</span>
         </a>
     </li>
 
-    <li class="nav-item">
+    <li class="nav-item {{ (request()->is('dashboard/role')|request()->is('dashboard/permission')|request()->is('dashboard/permission/attach')) ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRolePermission"
            aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-money-bill"></i>
@@ -146,7 +174,8 @@
             </div>
         </div>
     </li>
-    @endrole
+    @endhasanyrole
+    @endhasanyrole
 
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -156,7 +185,6 @@
         PENGATURAN
     </div>
     @hasanyrole('admin')
-
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseHalaman"
             aria-expanded="true" aria-controls="collapseTwo">
@@ -175,7 +203,8 @@
     <li class="nav-item">
         <a class="nav-link" href="#">
             <i class="fas fa-fw fa-user"></i>
-            <span>Profil</span></a>
+            <span>Profil</span>
+        </a>
     </li>
 
     <!-- Divider -->
@@ -188,11 +217,8 @@
 
     <!-- Sidebar Message -->
     <div class="sidebar-card">
-        <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="">
-        <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components,
-            and more!</p>
-        <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to
-            Pro!</a>
+        <img class="sidebar-card-illustration mb-2" src="{{ asset('assets/img/undraw_rocket.svg') }}" alt="">
+        <p class="text-center mb-2"><strong>Langkah Education</strong> Lorem ipsum dolor sit amet consectetur adipisicing.</p>
     </div>
 
 </ul>
