@@ -14,14 +14,13 @@
             <span>Dashboard</span>
         </a>
     </li>
-    @hasanyrole('siswa')
 
     <hr class="sidebar-divider">
     <div class="sidebar-heading">
         FITUR
     </div>
     
-    @hasanyrole('superadmin|admin|mentor|sekolah')
+    @hasanyrole('superadmin|admin')
     {{-- Try Out Superadmin|Admin|Mentor --}}
     <li class="nav-item">
         <a class="nav-link" href="#">
@@ -41,7 +40,6 @@
         </a>
     </li>
 
-    @endhasanyrole
     @endhasanyrole
 
     @hasanyrole('mentor|sekolah|siswa')

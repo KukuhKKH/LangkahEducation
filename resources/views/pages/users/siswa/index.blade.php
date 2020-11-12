@@ -40,12 +40,6 @@
                     </div>
                 </div>
             @endhasanyrole
-            <div class="d-flex justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Siswa</h6>
-                <div class="btn-group btn-group-md">
-                    <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#modalData"><i class="fa fa-plus"></i> Tambah Siswa</button>
-                </div>
-            </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
