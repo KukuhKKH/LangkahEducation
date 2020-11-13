@@ -67,7 +67,8 @@ class MentorController extends Controller
             $id[] = $value->siswa_id;
         }
         $siswa = Siswa::with(['user'])->whereNotIn('id', $id)->get();
-        return view('pages.users.mentor.show', compact('mentor', 'siswa'));
+        $hapus = false;
+        return view('pages.users.mentor.show', compact('mentor', 'siswa', 'hapus'));
     }
 
     /**
@@ -173,6 +174,18 @@ class MentorController extends Controller
             $mentor = Mentor::find($id);
             $mentor->siswa()->attach($request->siswa);
             return redirect()->route('mentor.index')->with(['success' => 'Berhasil integrasi siswa ke mentor']);
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()])->withInput($request->all());
+        }
+    }
+
+    public function hapus_integrasi(Request $request, $id) {
+        try {
+            DB::table('siswa_has_mentor')
+                ->where('mentor_id', $id)
+                ->whereIn('siswa_id', $request->siswa)
+                ->delete();
+            return redirect()->route('mentor.index')->with(['success' => 'Berhasil hapus integrasi siswa ke mentor']);
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()])->withInput($request->all());
         }

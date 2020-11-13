@@ -15,8 +15,13 @@
                             <div class="p-5">
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Selamat Datang!</h1>
-                                    @if(Session::has('info'))
+                                    @if(Session::has('error'))
                                     <div class="alert alert-danger" role="alert">
+                                        {{ Session::get('error') }}
+                                    </div>
+                                    @endif
+                                    @if(Session::has('info'))
+                                    <div class="alert alert-warning" role="alert">
                                         {{ Session::get('info') }}
                                     </div>
                                     @endif
@@ -26,7 +31,7 @@
                                     <div class="form-group">
                                         <input type="email" class="form-control form-control-user @error('email') is-invalid @enderror"
                                                id="exampleInputEmail" aria-describedby="emailHelp"
-                                               placeholder="Masukkan Email"  value="{{ old('email') }}" name="email">
+                                               placeholder="Masukkan Email" value="{{ old('email') }}" name="email">
                                         @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -34,8 +39,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control form-control-user @error('password') is-invalid @enderror"
-                                               id="exampleInputPassword" placeholder="Password" name="password">
+                                        <input type="password" class="form-control form-control-user @error('password') is-invalid @enderror" id="exampleInputPassword" placeholder="Password" name="password">
                                         @error('password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -44,9 +48,8 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox small">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck">
-                                            <label class="custom-control-label" for="customCheck">Remember
-                                                Me</label>
+                                            <input type="checkbox" class="custom-control-input" name="remember" id="suctomCheck" {{ old('remember') ? 'checked' : '' }}>
+                                            <label class="custom-control-label" for="customCheck">Remember Me</label>
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-primary btn-user btn-block">

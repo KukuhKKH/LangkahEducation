@@ -46,7 +46,9 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
 
                 // Integrasi Data
                 Route::post('sekolah/integrasi/{id}', 'SekolahController@integrasi')->name('sekolah.integrasi');
+                Route::post('sekolah/integrasi/{id}/hapus', 'SekolahController@hapus_integrasi')->name('sekolah.integrasi.hapus');
                 Route::post('mentor/integrasi/{id}', 'MentorController@integrasi')->name('mentor.integrasi');
+                Route::post('mentor/integrasi/{id}/hapus', 'MentorController@hapus_integrasi')->name('mentor.integrasi.hapus');
             });
 
             Route::group(['middleware' => ['role:admin|superadmin|sekolah']], function () {

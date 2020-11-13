@@ -145,7 +145,7 @@ class SiswaController extends Controller
             $user->siswa()->delete();
             $user->delete();
             DB::commit();
-            return \redirect()->back()->with(['success' => "Berhasil hapus superadmin"]);
+            return \redirect()->back()->with(['success' => "Berhasil hapus siswa"]);
         } catch(\Exception $e) {
             DB::rollBack();
             return \redirect()->back()->with(['error' => $e->getMessage()]);

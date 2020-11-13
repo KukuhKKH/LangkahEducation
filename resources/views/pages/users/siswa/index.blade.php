@@ -89,7 +89,7 @@
                                     <a href="{{ route('siswa.edit', $value->id) }}" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    <button type="button" data-id="{{ $value->id }}" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus">
+                                    <button type="button" data-id="{{ $value->id }}" class="btn btn-danger hapus" data-toggle="tooltip" data-placement="top" title="Hapus">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>

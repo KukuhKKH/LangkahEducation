@@ -85,7 +85,8 @@ class SekolahController extends Controller
             $id[] = $value->siswa_id;
         }
         $siswa = Siswa::with(['user'])->whereNotIn('id', $id)->get();
-        return view('pages.users.sekolah.show', compact('sekolah', 'siswa'));
+        $hapus = false;
+        return view('pages.users.sekolah.show', compact('sekolah', 'siswa', 'hapus'));
     }
 
     /**
@@ -191,6 +192,18 @@ class SekolahController extends Controller
             $sekolah = Sekolah::find($id);
             $sekolah->siswa()->attach($request->siswa);
             return redirect()->route('sekolah.index')->with(['success' => 'Berhasil integrasi siswa ke sekolah']);
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()])->withInput($request->all());
+        }
+    }
+
+    public function hapus_integrasi(Request $request, $id) {
+        try {
+            DB::table('siswa_has_sekolah')
+                ->where('sekolah_id', $id)
+                ->whereIn('siswa_id', $request->siswa)
+                ->delete();
+            return redirect()->route('sekolah.index')->with(['success' => 'Berhasil hapus integrasi siswa ke sekolah']);
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()])->withInput($request->all());
         }
