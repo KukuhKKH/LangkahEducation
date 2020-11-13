@@ -46,10 +46,14 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
 
                 // Integrasi Data
                 Route::post('sekolah/integrasi/{id}', 'SekolahController@integrasi')->name('sekolah.integrasi');
+                Route::post('mentor/integrasi/{id}', 'MentorController@integrasi')->name('mentor.integrasi');
             });
 
             Route::group(['middleware' => ['role:admin|superadmin|sekolah']], function () {
+                // Import dan Eksport
                 Route::post('siswa/import', 'User\SiswaController@import')->name('siswa.import');
+                Route::post('sekolah/import', 'User\SekolahController@import')->name('sekolah.import');
+                Route::post('mentor/import', 'User\MentorController@import')->name('mentor.import');
             });
         });
     });

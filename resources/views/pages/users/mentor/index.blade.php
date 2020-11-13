@@ -2,7 +2,14 @@
 @section('title', 'Mentor')
 
 @section('content')
-    <h1 class="h3 mb-4 text-gray-800">Mentor</h1>
+    <div class="row">
+        <div class="col-10">
+            <h1 class="h3 mb-4 text-gray-800">Mentor</h1>
+        </div>
+        <div class="col-2 text-right">
+            <a href="{{ asset('template/TemplateMentor.xlsx') }}" download="" class="btn btn-success"><i class="fas fa-fw fa-file-excel"></i> Template Excel</a>
+        </div>
+    </div>
     <div class="card shadow mb-4">
         <div class="card-header">
             @hasanyrole('admin|superadmin')
@@ -40,9 +47,9 @@
                     <thead>
                     <tr>
                         <th>No</th>
-                        <th>NISN</th>
-                        <th>Asal Sekolah</th>
                         <th>Nama</th>
+                        <th>Email</th>
+                        <th>Total Siswa</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
@@ -50,19 +57,44 @@
                     <tfoot>
                     <tr>
                         <th>No</th>
-                        <th>NISN</th>
-                        <th>Asal Sekolah</th>
                         <th>Nama</th>
+                        <th>Email</th>
+                        <th>Total Siswa</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
                     </tfoot>
                     <tbody>
-                        <tr>
-                            <td colspan="6" class="text-center">
-                                Tidak ada data
-                            </td>
-                        </tr>
+                        @forelse ($mentor as $value)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $value->user->name }}</td>
+                                <td>{{ $value->user->email }}</td>
+                                <td>{{ count($value->siswa) }}</td>
+                                <td>{!! ($value->user->is_active == 1) ? '<div class="badge badge-success">Aktif</div>' : '<div class="badge badge-danger">Tidak Aktif</div>'  !!}</div>
+                                <td>
+                                    <form action="{{ route('mentor.destroy', $value->id) }}" method="POST" id="form-{{ $value->id }}">
+                                        @csrf
+                                        @method("DELETE")
+                                        <a href="{{ route('mentor.edit', $value->id) }}" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="{{ route('mentor.show', $value->id) }}" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Integrasi siswa ke mentor ini">
+                                            <i class="fa fa-user-friends"></i>
+                                        </a>
+                                        <button type="button" data-id="{{ $value->id }}" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="6" class="text-center">
+                                    Tidak ada data
+                                </td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
@@ -78,12 +110,12 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ route('role.store') }}" method="post">
+                <form action="{{ route('mentor.store') }}" method="post">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="name">Nama Sekolah</label>
-                            <input name="name" type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleFirstName" placeholder="Nama Sekolah" value="{{ old('name') }}">
+                            <label for="name">Nama Mentor</label>
+                            <input name="name" type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleFirstName" placeholder="Nama Mentor" value="{{ old('name') }}">
                             @error('name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -100,11 +132,11 @@
                             @enderror
                         </div>
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-12">
                                 <div class="form-group">
-                                    <label for="nomor_hp">Nomor HP</label>
-                                    <input name="nomor_hp" type="number" class="form-control form-control-user @error('nomor_hp') is-invalid @enderror" placeholder="Nomer HP Aktif" value="{{ old('nomor_hp') }}">
-                                    @error('nomor_hp')
+                                    <label for="pendidikan_terakhir">Pendidikan Terakhir</label>
+                                    <input name="pendidikan_terakhir" type="text" class="form-control form-control-user @error('pendidikan_terakhir') is-invalid @enderror" placeholder="Pendidikan Terakhir" value="{{ old('pendidikan_terakhir') }}">
+                                    @error('pendidikan_terakhir')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -126,4 +158,31 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+    <script src="{{ asset('assets/vendor/select2/dist/js/select2.js') }}"></script>
+    <script>
+        $(".hapus").on('click', function() {
+            Swal.fire({
+                title: 'Yakin?',
+                text: "Ingin menghapus mentor ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Tidak',
+                confirmButtonText: 'Ya!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let id = $(this).data('id')
+                    $(`#form-${id}`).submit()
+                }
+            })
+        })
+    </script>
+@endsection
+
+@section('css')
+    <link rel="stylesheet" href="{{ asset('assets/vendor/select2/dist/css/select2.min.css') }}">
 @endsection

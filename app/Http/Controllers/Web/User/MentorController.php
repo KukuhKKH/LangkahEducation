@@ -2,9 +2,16 @@
 
 namespace App\Http\Controllers\Web\User;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Models\Siswa;
 use App\Models\Mentor;
 use Illuminate\Http\Request;
+use App\Imports\MentorImport;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Requests\Mentor\MentorCreateRequest;
+use App\Http\Requests\Mentor\MentorUpdateRequest;
 
 class MentorController extends Controller
 {
@@ -20,24 +27,29 @@ class MentorController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MentorCreateRequest $request)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $request->merge([
+                'is_active' => 1,
+                'password' => 123456,
+                'email_verified_at' => date('Y-m-d')
+            ]);
+            $user = User::create($request->all());
+            $user->mentor()->create($request->all());
+            $user->assignRole('mentor');
+            DB::commit();
+            return redirect()->back()->with(['success' => 'Berhasil tambah mentor']);
+        } catch(\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with(['error' => $e->getMessage()])->withInput($request->all());
+        }
     }
 
     /**
@@ -48,7 +60,14 @@ class MentorController extends Controller
      */
     public function show($id)
     {
-        //
+        $mentor = Mentor::with(['user', 'siswa'])->find($id);
+        $id_siswa = DB::table('siswa_has_mentor')->select('siswa_id')->get();
+        $id = [];
+        foreach($id_siswa as $value) {
+            $id[] = $value->siswa_id;
+        }
+        $siswa = Siswa::with(['user'])->whereNotIn('id', $id)->get();
+        return view('pages.users.mentor.show', compact('mentor', 'siswa'));
     }
 
     /**
@@ -59,7 +78,8 @@ class MentorController extends Controller
      */
     public function edit($id)
     {
-        //
+        $mentor = Mentor::with('user')->find($id);
+        return view('pages.users.mentor.edit', compact('mentor'));
     }
 
     /**
@@ -69,9 +89,45 @@ class MentorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(MentorUpdateRequest $request, $id)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $foto = $request->foto;
+            $mentor = Mentor::find($id);
+            if($request->password_old) {
+                if(!Hash::check($request->password_old, $mentor->user->password)) {
+                    return redirect()->back()->with(['error' => 'Password lama tidak cocok']);
+                }
+            }
+            if($request->hasFile('foto')) {
+                $foto_name = time().'-'.$request->foto->extension();  
+                $request->foto->move(public_path('upload/users/'), $foto_name);
+                $foto = $foto_name;
+            }
+            $mentor->update([
+                'pendidikan_terakhir' => $request->pendidikan_terakhir
+            ]);
+            if($request->password_old) {
+                $mentor->user()->update([
+                    'name' => $request->name,
+                    'password' => $request->password_old,
+                    'email' => $request->email
+                ]);
+            } else {
+                $mentor->user()->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'is_active' => $request->is_active,
+                    'foto' => $foto
+                ]);
+            }
+            DB::commit();
+            return redirect()->route('mentor.index')->with(['success' => 'Berhasil update mentor']);
+        } catch(\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with(['error' => $e->getMessage()])->withInput($request->all());
+        }
     }
 
     /**
@@ -82,6 +138,43 @@ class MentorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $mentor = Mentor::find($id);
+            $mentor->siswa()->delete();
+            $mentor->delete();
+            $mentor->user()->delete();
+            return \redirect()->back()->with(['success' => "Berhasil hapus mentor"]);
+        } catch(\Exception $e) {
+            return \redirect()->back()->with(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function import(Request $request) {
+        $this->validate($request, [
+            'file'  => 'required|mimes:xls,xlsx',
+        ]);
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            try {
+                Excel::import(new MentorImport(), $file);
+                return \redirect()->back()->with(['success' => 'Import mentor berhasil']);
+                return redirect(route('mentor.index'));
+            } catch (\Exception $e) {
+                $message = $e->getMessage();
+                if (!$message == "Start row (2) is beyond highest row (1)") throw $e;
+                return \redirect()->back()->with(['error' => $message])->withInput();
+            }
+        }
+        return \redirect()->back()->with(['error' => "Anda belum memilih file"])->withInput();
+    }
+
+    public function integrasi(Request $request, $id) {
+        try {
+            $mentor = Mentor::find($id);
+            $mentor->siswa()->attach($request->siswa);
+            return redirect()->route('mentor.index')->with(['success' => 'Berhasil integrasi siswa ke mentor']);
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()])->withInput($request->all());
+        }
     }
 }

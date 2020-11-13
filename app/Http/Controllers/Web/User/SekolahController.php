@@ -7,8 +7,12 @@ use App\Models\Siswa;
 use App\Models\Sekolah;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Imports\SekolahImport;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Requests\Sekolah\SekolahCreateRequest;
+use App\Http\Requests\Sekolah\SekolahUpdateRequest;
 
 class SekolahController extends Controller
 {
@@ -29,16 +33,9 @@ class SekolahController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SekolahCreateRequest $request)
     {
         try {
-            $this->validate($request, [
-                'name' => 'required',
-                'email' => 'required|unique:users,email',
-                'foto' => 'nullable',
-                'alamat' => 'required',
-                'kode_referal' => 'nullable',
-            ]);
             $request->merge([
                 'is_active' => 1,
                 'password' => ($request->password) ? $request->password : '123456',
@@ -81,7 +78,7 @@ class SekolahController extends Controller
      */
     public function show($id)
     {
-        $sekolah = Sekolah::with('user')->find($id);
+        $sekolah = Sekolah::with(['user', 'siswa'])->find($id);
         $id_siswa = DB::table('siswa_has_sekolah')->select('siswa_id')->get();
         $id = [];
         foreach($id_siswa as $value) {
@@ -110,16 +107,9 @@ class SekolahController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SekolahUpdateRequest $request, $id)
     {
         try {
-            $this->validate($request, [
-                'name' => 'required',
-                'email' => 'required|unique:users,email,'.$request->user_id,
-                'foto' => 'nullable',
-                'alamat' => 'required',
-                'kode_referal' => 'nullable',
-            ]);
             $sekolah = Sekolah::with('user')->find($id);
             if($request->password_old) {
                 if(!Hash::check($request->password_old, $sekolah->user->password)) {
@@ -177,10 +167,29 @@ class SekolahController extends Controller
         }
     }
 
+    public function import(Request $request) {
+        $this->validate($request, [
+            'file'  => 'required|mimes:xls,xlsx',
+        ]);
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            try {
+                Excel::import(new SekolahImport(), $file);
+                return \redirect()->back()->with(['success' => 'Import sekolah berhasil']);
+                return redirect(route('sekolah.index'));
+            } catch (\Exception $e) {
+                $message = $e->getMessage();
+                if (!$message == "Start row (2) is beyond highest row (1)") throw $e;
+                return \redirect()->back()->with(['error' => $message])->withInput();
+            }
+        }
+        return \redirect()->back()->with(['error' => "Anda belum memilih file"])->withInput();
+    }
+
     public function integrasi(Request $request, $id) {
         try {
             $sekolah = Sekolah::find($id);
-            $sekolah->siswa()->sync($request->siswa);
+            $sekolah->siswa()->attach($request->siswa);
             return redirect()->route('sekolah.index')->with(['success' => 'Berhasil integrasi siswa ke sekolah']);
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()])->withInput($request->all());

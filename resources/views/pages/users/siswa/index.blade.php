@@ -217,7 +217,7 @@
         $(".hapus").on('click', function() {
             Swal.fire({
                 title: 'Yakin?',
-                text: "Ingin menghapus admin ini!",
+                text: "Ingin menghapus siswa ini!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',

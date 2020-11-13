@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Web\User;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Superadmin\SuperadminCreateRequest;
+use App\Http\Requests\Superadmin\SuperadminUpdateRequest;
 
 class SuperadminController extends Controller
 {
@@ -39,16 +41,9 @@ class SuperadminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SuperadminCreateRequest $request)
     {
         try {
-            $this->validate($request, [
-                'name' => 'required',
-                'email' => 'required|unique:users',
-                'password' => 'required|confirmed',
-                'foto' => 'nullable'
-            ]);
-
             $request->merge([
                 'is_active' => 1,
                 'email_verified_at' => date('Y-m-d')
@@ -89,17 +84,9 @@ class SuperadminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SuperadminUpdateRequest $request, $id)
     {
         try {
-            $this->validate($request, [
-                'name' => 'required',
-                'email' => 'required|unique:users,email,'.$id,
-                'password_old' => 'nullable',
-                'password' => 'nullable|confirmed',
-                'foto' => 'nullable|mimes:jpg,jpeg,gif,png|max:2000',
-                'is_active' => 'required'
-            ]);
             $admin = User::find($id);
             if($request->password_old) {
                 if(!Hash::check($request->password_old, $admin->password)) {

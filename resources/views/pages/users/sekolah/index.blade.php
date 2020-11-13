@@ -7,7 +7,7 @@
             <h1 class="h3 mb-4 text-gray-800">Sekolah</h1>
         </div>
         <div class="col-2 text-right">
-            <a href="{{ asset('template/TemplateSiswa.xlsx') }}" download="" class="btn btn-success"><i class="fas fa-fw fa-file-excel"></i> Template Excel</a>
+            <a href="{{ asset('template/TemplateSekolah.xlsx') }}" download="" class="btn btn-success"><i class="fas fa-fw fa-file-excel"></i> Template Excel</a>
         </div>
     </div>
     <div class="card shadow mb-4">

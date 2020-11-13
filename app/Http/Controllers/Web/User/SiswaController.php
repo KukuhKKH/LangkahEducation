@@ -7,6 +7,8 @@ use App\Models\Siswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Siswa\SiswaCreateRequest;
+use App\Http\Requests\Siswa\SiswaUpdateRequest;
 use App\Imports\SiswaImport;
 use App\Models\Sekolah;
 use Illuminate\Validation\ValidationException as ValidationException;
@@ -36,17 +38,9 @@ class SiswaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SiswaCreateRequest $request)
     {
         try {
-            $this->validate($request, [
-                'name' => 'required',
-                'email' => 'required|unique:users,email',
-                'nisn' => 'required|numeric',
-                'asal_sekolah' => 'required',
-                'nomor_hp' => 'required|numeric',
-                'tanggal_lahir' => 'required'
-            ]);
             DB::beginTransaction();
             $request->merge([
                 'is_active' => 1,
@@ -88,21 +82,9 @@ class SiswaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SiswaUpdateRequest $request, $id)
     {
         try {
-            $this->validate($request, [
-                'name' => 'required',
-                'email' => 'required|unique:users,email,'.$request->user_id,
-                'nisn' => 'required|numeric',
-                'asal_sekolah' => 'required',
-                'tanggal_lahir' => 'required',
-                'nomor_hp' => 'required|numeric',
-                'password_old' => 'nullable',
-                'password' => 'nullable|confirmed',
-                'foto' => 'nullable|mimes:jpg,jpeg,gif,png|max:2000',
-                'is_active' => 'required'
-            ]);
             DB::beginTransaction();
             $siswa = Siswa::with('user')->find($id);
             $foto = $siswa->user->foto;
@@ -184,7 +166,7 @@ class SiswaController extends Controller
                 }
                 Excel::import(new SiswaImport($asal_sekolah), $file);
                 return \redirect()->back()->with(['success' => 'Import siswa berhasil']);
-                return redirect(route('dashboard.cabang.index'));
+                return redirect(route('siswa.index'));
             } catch (\Exception $e) {
                 $message = $e->getMessage();
                 if (!$message == "Start row (2) is beyond highest row (1)") throw $e;

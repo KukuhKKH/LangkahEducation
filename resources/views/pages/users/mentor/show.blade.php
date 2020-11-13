@@ -1,17 +1,17 @@
 @extends('layouts.dashboard-app')
-@section('title', 'Edit '.$sekolah->user->name)
+@section('title', 'Edit '.$mentor->user->name)
 
 @section('content')
-<h1 class="h3 mb-2 text-gray-800">Sekolah</h1>
+<h1 class="h3 mb-2 text-gray-800">Mentor</h1>
 
 <div class="card shadow mb-4">
    <div class="card-header py-3">
       <div class="d-flex justify-content-between">
-         <h6 class="m-0 font-weight-bold text-primary">Sekolah - {{ $sekolah->user->name }}</h6>
+         <h6 class="m-0 font-weight-bold text-primary">Mentor - {{ $mentor->user->name }}</h6>
       </div>
    </div>
    <div class="card-body">
-      <form action="{{ route('sekolah.integrasi', $sekolah->id) }}" id="form" method="post">
+      <form action="{{ route('mentor.integrasi', $mentor->id) }}" id="form" method="post">
          @csrf
          <div class="row">
             <div class="col-12">
@@ -32,7 +32,7 @@
             <div class="col-12">
                <form action="">
                   <ol>
-                     @forelse ($sekolah->siswa as $value)
+                     @forelse ($mentor->siswa as $value)
                      <li>
                         <input type="checkbox" value="{{ $value->id }}">
                         <label>{{ $value->user->name }}</label>
