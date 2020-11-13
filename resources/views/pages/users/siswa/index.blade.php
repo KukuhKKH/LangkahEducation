@@ -7,7 +7,7 @@
             <h1 class="h3 mb-4 text-gray-800">Siswa</h1>
         </div>
         <div class="col-2 text-right">
-            <a href="" class="btn btn-success"><i class="fas fa-fw fa-file-excel"></i> Template Excel</a>
+            <a href="{{ asset('template/TemplateSiswa.xlsx') }}" download="" class="btn btn-success"><i class="fas fa-fw fa-file-excel"></i> Template Excel</a>
         </div>
     </div>
     <div class="card shadow mb-4">
@@ -15,19 +15,29 @@
             @hasanyrole('admin|superadmin')
                 <div class="row">
                     <div class="col-8">
-                        <form action="" method="POST" enctype="multipart/form-data">
-                        @csrf
+                        <form action="{{ route('siswa.import') }}" method="POST" id="form-import" enctype="multipart/form-data">
+                            @csrf
+                            @hasanyrole('superadmin|admin')
+                                <div class="form-group">
+                                    <label for="">Sekolah</label>
+                                    <select name="sekolah" id="sekolah-select" class="form-control" required>
+                                        @foreach ($sekolah as $item)
+                                            <option value="{{ $item->nama }}">{{ $item->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endhasanyrole
                             <div class="form-group">
                                 <div class="input-group">
                                     <div class="mr-2 d-flex align-items-center">
                                         Import Data Excel 
                                     </div>
                                     <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="inputGroupFile02">
+                                    <input type="file" name="file" class="custom-file-input" id="inputGroupFile02" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" required>
                                     <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
                                     </div>
-                                    <div class="input-group-append">
-                                    <span class="input-group-text" id="">Upload</span>
+                                    <div class="input-group-append" id="btn-submit">
+                                    <button type="submit" class="input-group-text">Upload</button>
                                     </div>
                                 </div>
                             </div>
@@ -108,12 +118,12 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ route('siswa.store') }}" method="post" id="form" enctype="multipart/form-data">
+                <form action="{{ route('siswa.store') }}" method="post" id="form">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="name">Nama Lengkap</label>
-                            <input name="name" type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleFirstName" placeholder="Nama Lengkap" value="{{ old('name') }}">
+                            <input name="name" type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleFirstName" placeholder="Nama Lengkap" value="{{ old('name') }}" required>
                             @error('name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -122,7 +132,7 @@
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input name="email" type="email" class="form-control form-control-user @error('email') is-invalid @enderror" id="exampleInputEmail" placeholder="Alamat Email" value="{{ old('email') }}">
+                            <input name="email" type="email" class="form-control form-control-user @error('email') is-invalid @enderror" id="exampleInputEmail" placeholder="Alamat Email" value="{{ old('email') }}" required>
                             @error('email')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -133,7 +143,7 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="nisn">NISN</label>
-                                    <input name="nisn" type="number" class="form-control form-control-user @error('nisn') is-invalid @enderror" placeholder="NSIN" value="{{ old('nisn') }}">
+                                    <input name="nisn" type="number" class="form-control form-control-user @error('nisn') is-invalid @enderror" placeholder="NSIN" value="{{ old('nisn') }}" required>
                                     @error('nisn')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -144,7 +154,7 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="asal_sekolah">Asal Sekolah</label>
-                                    <input name="asal_sekolah" type="text" class="form-control form-control-user @error('asal_sekolah') is-invalid @enderror" placeholder="Asal Sekolah" value="{{ old('asal_sekolah') }}">
+                                    <input name="asal_sekolah" type="text" class="form-control form-control-user @error('asal_sekolah') is-invalid @enderror" placeholder="Asal Sekolah" value="{{ old('asal_sekolah') }}" required>
                                     @error('asal_sekolah')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -157,7 +167,7 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="nomor_hp">Nomor HP</label>
-                                    <input name="nomor_hp" type="number" class="form-control form-control-user @error('nomor_hp') is-invalid @enderror" placeholder="Nomer HP Aktif" value="{{ old('nomor_hp') }}">
+                                    <input name="nomor_hp" type="number" class="form-control form-control-user @error('nomor_hp') is-invalid @enderror" placeholder="Nomer HP Aktif" value="{{ old('nomor_hp') }}" required>
                                     @error('nomor_hp')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -168,7 +178,7 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="tanggal_lahir">Tanggal Lahir</label>
-                                    <input name="tanggal_lahir" type="text" class="datepicker form-control form-control-user @error('tanggal_lahir') is-invalid @enderror" placeholder="Tanggal Lahir" value="{{ old('tanggal_lahir') }}">
+                                    <input name="tanggal_lahir" type="text" class="datepicker form-control form-control-user @error('tanggal_lahir') is-invalid @enderror" placeholder="Tanggal Lahir" value="{{ old('tanggal_lahir') }}" required>
                                     @error('tanggal_lahir')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -178,9 +188,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="password">Password</label>
-                            <input name="password" class="form-control form-control-user" disabled value="123456">
-                            <small>Password Default</small>
+                            <label for="password">Password Default sama dengan NISN</label>
+                            {{-- <input name="password" class="form-control form-control-user" disabled value="123456">
+                            <small>Password Default</small> --}}
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -195,29 +205,13 @@
 
 @section('js')
     <script src="{{ asset('assets/vendor/datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/select2/dist/js/select2.js') }}"></script>
     <script>
         $.fn.datepicker.defaults.format = "dd/mm/yyyy"
         $('.datepicker').datepicker()
 
-        $("#form").on('submit', function(e) {
-            if($("#password_confirmation").val() != $("#password").val()) {
-                swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Password konfirmasi tidak sama',
-                })
-                return false
-            }
-            if($("#password").val().length < 8) {
-                swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Password minimal 8 karakter',
-                })
-                return false
-            }
-            return
-            e.preventDefault()
+        $('#sekolah-select').select2({
+            tags: true
         })
 
         $(".hapus").on('click', function() {
@@ -242,4 +236,5 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets/vendor/datepicker/css/bootstrap-datepicker3.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/select2/dist/css/select2.min.css') }}">
 @endsection

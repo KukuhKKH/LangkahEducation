@@ -50,9 +50,10 @@ class AdminController extends Controller
             ]);
 
             $request->merge([
-                'is_active' => 1
+                'is_active' => 1,
+                'email_verified_at' => date('Y-m-d')
             ]);
-            if($request->file('foto')) {
+            if($request->hasFile('foto')) {
                 $foto_name = time().'-'.$request->foto->extension();  
                 $request->foto->move(public_path('upload/users/'), $foto_name);
                 $request->foto = $foto_name;
@@ -105,19 +106,20 @@ class AdminController extends Controller
                     return redirect()->back()->with(['error' => 'Password lama tidak cocok']);
                 }
             }
-            if($request->file('foto')) {
+            $foto = $admin->foto;
+            if($request->hasFile('foto')) {
                 if(file_exists(public_path('upload/users/'.$admin->foto))){
                     unlink(public_path('upload/users/'.$admin->foto));
                 }
                 $foto_name = time().'.'.$request->foto->extension();  
                 $request->foto->move(public_path('upload/users/'), $foto_name);
-                $request->foto = $foto_name;
+                $foto = $foto_name;
             }
             $admin->update([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => $request->password,
-                'foto' => $request->foto,
+                'foto' => $foto,
                 'is_active' => $request->is_active,
             ]);
             $admin->save();

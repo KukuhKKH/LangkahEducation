@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class StatusUser
+class ValidasiEmail
 {
     /**
      * Handle an incoming request.
@@ -16,8 +16,8 @@ class StatusUser
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::user()->is_active == 1) return $next($request);
-        $request->session()->flash('error', 'Akun tidak aktif silahkan hubungi CS atau Sekolah');
+        if(Auth::user()->email_verified_at) return $next($request);
+        $request->session()->flash('error', 'Silahkan activasi akun lewat email');
         return redirect('/');
     }
 }

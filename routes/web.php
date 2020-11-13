@@ -18,8 +18,9 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+Route::get('verify/{token}', 'HomeController@verifyUserRegistration')->name('user.verify');
 
-Route::group(['middleware' => ['auth', 'email']], function() {
+Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function() {
     Route::get('dashboard', 'HomeController@dashboard')->name('dashboard');
 
     Route::group(['namespace' => 'Web'], function () {
@@ -38,10 +39,17 @@ Route::group(['middleware' => ['auth', 'email']], function() {
             Route::group(['namespace' => 'User', 'middleware' => ['role:admin|superadmin']], function() {
                 // Manajemen Users
                 Route::resource('mentor', 'MentorController');
-                Route::resource('sekolah', 'SekolahController');
+                Route::resource('sekolah', 'SekolahController')->except(['create']);
                 Route::resource('admin', 'AdminController')->except(['create', 'show']);
                 Route::resource('superadmin', 'SuperadminController')->except(['create', 'show']);
-                Route::resource('siswa', 'SiswaController');
+                Route::resource('siswa', 'SiswaController')->except(['create', 'show']);
+
+                // Integrasi Data
+                Route::post('sekolah/integrasi/{id}', 'SekolahController@integrasi')->name('sekolah.integrasi');
+            });
+
+            Route::group(['middleware' => ['role:admin|superadmin|sekolah']], function () {
+                Route::post('siswa/import', 'User\SiswaController@import')->name('siswa.import');
             });
         });
     });

@@ -8,7 +8,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
-
+        <link href="{{asset('assets/css/sb-admin-2.min.css')}}" rel="stylesheet">
         <!-- Styles -->
         <style>
             html, body {
@@ -80,6 +80,11 @@
             @endif
 
             <div class="content">
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {!! session('error') !!}
+                    </div>
+                @endif
                 <div class="title m-b-md">
                     {{-- Laravel --}}
                     COMING SOON

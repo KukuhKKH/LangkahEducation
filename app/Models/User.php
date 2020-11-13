@@ -54,4 +54,12 @@ class User extends Authenticatable
     public function siswa() {
         return $this->hasOne('App\Models\Siswa');
     }
+
+    public function sekolah() {
+        return $this->hasOne('App\Models\Sekolah');
+    }
+
+    public function mentor() {
+        return $this->hasOne('App\Models\Mentor');
+    }
 }

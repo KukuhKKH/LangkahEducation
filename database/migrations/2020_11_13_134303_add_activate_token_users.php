@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddSlugBlogTable extends Migration
+class AddActivateTokenUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddSlugBlogTable extends Migration
      */
     public function up()
     {
-        Schema::table('blog', function (Blueprint $table) {
-            $table->string('slug')->after('judul');
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('activate_token')->nullable()->after('is_active');
         });
     }
 
@@ -25,8 +25,8 @@ class AddSlugBlogTable extends Migration
      */
     public function down()
     {
-        Schema::table('blog', function (Blueprint $table) {
-            $table->dropColumn('slug');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('activate_token');
         });
     }
 }

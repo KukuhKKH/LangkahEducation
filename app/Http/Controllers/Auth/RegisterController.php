@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Auth;
 use App\Models\Siswa;
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Mail\VerifikasiEmail;
 use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class RegisterController extends Controller
@@ -74,7 +76,8 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'api_token' => Str::random(10)
+            'api_token' => Str::random(10),
+            'activate_token' => Str::random(30),
         ]);
         $user->assignRole('siswa');
         $tgl = explode('/', $data['tanggal_lahir']);
@@ -86,6 +89,7 @@ class RegisterController extends Controller
             'asal_sekolah' => $data['asal_sekolah'],
             'tanggal_lahir' => $new_tgl,
         ]);
+        Mail::to($user->email)->send(VerifikasiEmail($user));
         return $user;
     }
 }

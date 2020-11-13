@@ -1,25 +1,25 @@
 @extends('layouts.dashboard-app')
-@section('title', 'Edit '.$user->user->name)
+@section('title', 'Edit '.$sekolah->user->name)
 
 @section('content')
-<h1 class="h3 mb-2 text-gray-800">Update Siswa</h1>
+<h1 class="h3 mb-2 text-gray-800">Update Sekolah</h1>
 
 <div class="card shadow mb-4">
    <div class="card-header py-3">
       <div class="d-flex justify-content-between">
-         <h6 class="m-0 font-weight-bold text-primary">Siswa - {{ $user->user->name }}</h6>
+         <h6 class="m-0 font-weight-bold text-primary">Sekolah - {{ $sekolah->user->name }}</h6>
       </div>
    </div>
    <div class="card-body">
-      <form action="{{ route('siswa.update', $user->id) }}" id="form" method="post" enctype="multipart/form-data">
+      <form action="{{ route('sekolah.update', $sekolah->id) }}" id="form" method="post" enctype="multipart/form-data">
          @csrf
          @method("PUT")
-         <input type="hidden" name="user_id" value="{{ $user->user->id }}">
+         <input type="hidden" name="user_id" value="{{ $sekolah->user->id }}">
          <div class="row">
             <div class="col-6">
                <div class="form-group">
-                  <label for="">Nama / Username</label>
-                  <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ $user->user->name }}" placeholder="Nama / username">
+                  <label for="">Nama Sekolah</label>
+                  <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ $sekolah->user->name }}" placeholder="Nama / username">
                   @error('name')
                   <span class="invalid-feedback" role="alert">
                      <strong>{{ $message }}</strong>
@@ -30,7 +30,7 @@
             <div class="col-6">
                <div class="form-group">
                   <label for="">Email</label>
-                  <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ $user->user->email }}" placeholder="Email">
+                  <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ $sekolah->user->email }}" placeholder="Email">
                   @error('email')
                   <span class="invalid-feedback" role="alert">
                      <strong>{{ $message }}</strong>
@@ -38,12 +38,12 @@
                   @enderror
                </div>
             </div>
-            {{-- Data Tabel Siswa --}}
+            {{-- Data Tabel Sekolah --}}
             <div class="col-6">
                <div class="form-group">
-                  <label for="">NISN</label>
-                  <input type="text" name="nisn" class="form-control @error('nisn') is-invalid @enderror" value="{{ $user->nisn }}" placeholder="NISN">
-                  @error('nisn')
+                  <label for="">Alamat Sekolah</label>
+                  <input type="text" name="alamat" class="form-control @error('alamat') is-invalid @enderror" value="{{ $sekolah->alamat }}" placeholder="Alamat Sekolah">
+                  @error('alamat')
                   <span class="invalid-feedback" role="alert">
                      <strong>{{ $message }}</strong>
                   </span>
@@ -52,38 +52,16 @@
             </div>
             <div class="col-6">
                <div class="form-group">
-                  <label for="">Asal Sekolah</label>
-                  <input type="text" name="asal_sekolah" class="form-control @error('asal_sekolah') is-invalid @enderror" value="{{ $user->asal_sekolah }}" placeholder="Asal Sekolah">
-                  @error('asal_sekolah')
+                  <label for="">Kode Referal</label>
+                  <input type="text" name="kode_referal" class="form-control @error('kode_referal') is-invalid @enderror" value="{{ $sekolah->kode_referal }}" placeholder="Kode Referal">
+                  @error('kode_referal')
                   <span class="invalid-feedback" role="alert">
                      <strong>{{ $message }}</strong>
                   </span>
                   @enderror
                </div>
             </div>
-            <div class="col-6">
-               <div class="form-group">
-                  <label for="">Tanggal Lahir</label>
-                  <input type="text" name="tanggal_lahir" class="form-control datepicker @error('tanggal_lahir') is-invalid @enderror" value="{{ $user->tanggal_lahir }}" placeholder="Tanggal Lahir">
-                  @error('nisn')
-                  <span class="invalid-feedback" role="alert">
-                     <strong>{{ $message }}</strong>
-                  </span>
-                  @enderror
-               </div>
-            </div>
-            <div class="col-6">
-               <div class="form-group">
-                  <label for="">Nomer HP</label>
-                  <input type="number" name="nomor_hp" class="form-control @error('nomor_hp') is-invalid @enderror" value="{{ $user->nomor_hp }}" placeholder="Nomer HP">
-                  @error('nomor_hp')
-                  <span class="invalid-feedback" role="alert">
-                     <strong>{{ $message }}</strong>
-                  </span>
-                  @enderror
-               </div>
-            </div>
-            {{-- End Data Tabel Siswa --}}
+            {{-- End Data Tabel Sekolah --}}
             <div class="col-12">
                <div class="form-group">
                   <label for="">Password Lama <small>Kosongkan jika tidak mengganti password</small></label>
@@ -127,8 +105,8 @@
                <div class="form-group">
                   <label for="">Status Aktif</label>
                   <select name="is_active" class="form-control @error('is_active') is-invalid @enderror" autocomplete="off">
-                     <option value="1" {{ ($user->user->is_active == 1) ? 'selected' : '' }}>Aktif</option>
-                     <option value="0" {{ ($user->user->is_active == 0) ? 'selected' : '' }}>Tidak Aktif</option>
+                     <option value="1" {{ ($sekolah->user->is_active == 1) ? 'selected' : '' }}>Aktif</option>
+                     <option value="0" {{ ($sekolah->user->is_active == 0) ? 'selected' : '' }}>Tidak Aktif</option>
                   </select>
                   @error('is_active')
                   <span class="invalid-feedback" role="alert">
@@ -140,8 +118,8 @@
          </div>
          <div class="row">
             <div class="col-6">
-               @if ($user->user->foto)
-                  <img src="{{ asset('upload/users/'.$user->user->foto) }}" alt="{{ $user->user->name }}" class="img-fluid w-100">
+               @if ($sekolah->user->foto)
+                  <img src="{{ asset('upload/users/'.$sekolah->user->foto) }}" alt="{{ $sekolah->user->name }}" class="img-fluid w-100">
                @endif
             </div>
             <div class="col-6">
@@ -157,10 +135,7 @@
 @endsection
 
 @section('js')
-   <script src="{{ asset('assets/vendor/datepicker/js/bootstrap-datepicker.min.js') }}"></script>
    <script>
-      $.fn.datepicker.defaults.format = "dd/mm/yyyy"
-      $('.datepicker').datepicker();
       $("#form").on('submit', function(e) {
       if($("#password_confirmation").val() != $("#password").val()) {
          swal.fire({
@@ -182,8 +157,4 @@
       e.preventDefault()
    })
    </script>
-@endsection
-
-@section('css')
-   <link rel="stylesheet" href="{{ asset('assets/vendor/datepicker/css/bootstrap-datepicker3.min.css') }}">
 @endsection

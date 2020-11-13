@@ -11,14 +11,15 @@ class VerifikasiEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    protected $user;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($user)
     {
-        //
+        $this->user = $user;
     }
 
     /**
@@ -28,6 +29,10 @@ class VerifikasiEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this->subject('Verifikasi Pendaftaran Anda')
+                    ->view('emails.register')
+                    ->with([
+                        'user' => $this->user
+                    ]);
     }
 }

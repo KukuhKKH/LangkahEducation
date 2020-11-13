@@ -8,6 +8,7 @@ class Siswa extends Model
 {
     protected $table = 'siswa';
     protected $fillable = ['user_id', 'nisn', 'asal_sekolah', 'tanggal_lahir', 'nomor_hp', 'batch'];
+    protected $with = ['user'];
 
     public function user() {
         return $this->belongsTo('App\Models\User');

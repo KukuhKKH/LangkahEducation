@@ -113,7 +113,7 @@
     </li>
     @endhasanyrole
 
-    @hasanyrole('superadmin|sekolah|admin')
+    @hasanyrole('superadmin|admin')
     <!-- Divider -->
     <hr class="sidebar-divider">
 

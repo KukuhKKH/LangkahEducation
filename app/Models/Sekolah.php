@@ -8,6 +8,7 @@ class Sekolah extends Model
 {
     protected $table = 'sekolah';
     protected $fillable = ['user_id', 'nama', 'alamat', 'logo', 'kode_referal'];
+    protected $with = ['user'];
 
     public function user() {
         return $this->belongsTo('App\Models\User');

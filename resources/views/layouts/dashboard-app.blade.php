@@ -53,6 +53,13 @@
         #toast-container.toast-top-right > div {
             margin-top: 60px;
         }
+        #btn-submit {
+            cursor: pointer;
+        }
+        .select2-container {
+            width: 100% !important;
+            padding: 0;
+        }
     </style>
 
     @yield('css')
