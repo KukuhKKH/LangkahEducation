@@ -13,10 +13,10 @@
                     <!-- Nested Row within Card Body -->
                     <div  id="auth" class="row">
                         <div class="col-lg-6 d-none d-lg-block bg-password-image"></div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 align-self-center">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-2">Lupa Password?</h1>
+                                    <h1 class="h4 text-gray-900 mb-5">Lupa Password?</h1>
                                     @if (session('status'))
                                         <div class="alert alert-success" role="alert">
                                             {{ session('status') }}
@@ -35,15 +35,15 @@
                                             @enderror
                                     </div>
                                     <button type="submit" class="btn btn-langkah btn-user btn-block">
-                                        Reset Password
+                                        Atur Ulang Kata Sandi
                                     </button>
                                 </form>
                                 <hr>
                                 <div class="text-center">
-                                    <a class="small" href="register.html">Create an Account!</a>
+                                    <a class="small" href="{{ route('register') }}">Saya Belum Punya Akun, Daftar!</a>
                                 </div>
                                 <div class="text-center">
-                                    <a class="small" href="login.html">Already have an account? Login!</a>
+                                    <a class="small" href="{{ route('login') }}">Sudah punya akun? Masuk!</a>
                                 </div>
                             </div>
                         </div>
