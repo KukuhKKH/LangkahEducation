@@ -45,13 +45,6 @@
                                         Atur Ulang Kata Sandi
                                     </button>
                                 </form>
-                                <hr>
-                                <div class="text-center">
-                                    <a class="small" href="{{ route('register') }}">Saya Belum Punya Akun, Daftar!</a>
-                                </div>
-                                <div class="text-center">
-                                    <a class="small" href="{{ route('login') }}">Sudah punya akun? Masuk!</a>
-                                </div>
                             </div>
                         </div>
                     </div>
