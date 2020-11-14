@@ -25,10 +25,9 @@ class SiswaUpdateRequest extends FormRequest
      */
     public function rules()
     {
-        $siswa = Siswa::with('user')->find(request()->segment(3));
         return [
             'name' => 'required',
-            'email' => ['required', Rule::unique('users')->ignore($siswa->user->id)],
+            'email' => 'required|unique:users,email,'.request()->user_id,
             'nisn' => 'required|numeric',
             'asal_sekolah' => 'required',
             'tanggal_lahir' => 'required',

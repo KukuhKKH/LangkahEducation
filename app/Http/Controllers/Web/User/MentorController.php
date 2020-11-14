@@ -20,10 +20,11 @@ class MentorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $mentor = Mentor::paginate(10);
-        return view('pages.users.mentor.index', compact('mentor'));
+        $data = $request->all();
+        return view('pages.users.mentor.index', compact('mentor', 'data'));
     }
 
     /**

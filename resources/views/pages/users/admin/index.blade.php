@@ -66,7 +66,7 @@
                @endforelse
             </tbody>
          </table>
-         {{ $admin->links() }}
+         {{ $admin->appends($data)->links() }}
       </div>
    </div>
 </div>

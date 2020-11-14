@@ -97,6 +97,7 @@
                         @endforelse
                     </tbody>
                 </table>
+                {{ $sekolah->appends($data)->links() }}
             </div>
         </div>
     </div>

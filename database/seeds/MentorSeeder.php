@@ -12,7 +12,7 @@ class MentorSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Mentor::class, 100)->create()->each(function($user) {
+        factory(App\Models\Mentor::class, 17)->create()->each(function($user) {
             $id = $user->user_id;
             $user = User::find($id);
             $user->assignRole('mentor');

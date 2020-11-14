@@ -66,7 +66,7 @@
                @endforelse
             </tbody>
          </table>
-         {{ $superadmin->links() }}
+         {{ $superadmin->appends($data)->links() }}
       </div>
    </div>
 </div>

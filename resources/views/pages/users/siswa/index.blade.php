@@ -52,6 +52,24 @@
             @endhasanyrole
         </div>
         <div class="card-body">
+            <form action="" method="get">
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <select name="q" class="form-control">
+                            <option value="nisn">NISN</option>
+                            <option value="nama">Nama</option>
+                            <option value="asal">Asal Sekolah</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" name="keyword" placeholder="Masukkan Filter">
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary">Cari</button>
+                        <a href="{{ route('siswa.index') }}" class="btn btn-danger">Hapus Filter</a>
+                    </div>
+                </div>
+            </form>
             <div class="table-responsive">
                 <table class="table table-bordered" width="100%" cellspacing="0">
                     <thead>
@@ -104,7 +122,7 @@
                     @endforelse
                     </tbody>
                 </table>
-                {{ $siswa->links() }}
+                {{ $siswa->appends($data)->links() }}
             </div>
         </div>
     </div>

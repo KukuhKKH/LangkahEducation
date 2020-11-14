@@ -97,6 +97,7 @@
                         @endforelse
                     </tbody>
                 </table>
+                {{ $mentor->appends($data)->links() }}
             </div>
         </div>
     </div>

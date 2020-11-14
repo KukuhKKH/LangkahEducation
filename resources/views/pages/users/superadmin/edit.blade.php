@@ -14,6 +14,7 @@
       <form action="{{ route('admin.update', $superadmin->id) }}" id="form" method="post" enctype="multipart/form-data">
          @csrf
          @method("PUT")
+         <input type="hidden" name="user_id" value="{{ $superadmin->id }}">
          <div class="row">
             <div class="col-6">
                <div class="form-group">

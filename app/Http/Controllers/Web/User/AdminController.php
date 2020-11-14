@@ -27,12 +27,13 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $admin = User::whereHas('roles', function($q){
             $q->where('name', 'admin');
         })->paginate(10);
-        return view('pages.users.admin.index', compact("admin"));
+        $data = $request->all();
+        return view('pages.users.admin.index', compact("admin", "data"));
     }
 
     /**

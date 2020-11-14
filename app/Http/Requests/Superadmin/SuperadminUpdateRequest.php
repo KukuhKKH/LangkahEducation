@@ -25,7 +25,7 @@ class SuperadminUpdateRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'email' => 'required|unique:users,email,'.$id,
+            'email' => 'required|unique:users,email,'.request()->user_id,
             'password_old' => 'nullable',
             'password' => 'nullable|confirmed',
             'foto' => 'nullable|mimes:jpg,jpeg,gif,png|max:2000',

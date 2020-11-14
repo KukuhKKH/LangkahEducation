@@ -27,12 +27,13 @@ class SuperadminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $superadmin = User::whereHas('roles', function($q){
             $q->where('name', 'superadmin');
         })->paginate(10);
-        return view('pages.users.superadmin.index', compact("superadmin"));
+        $data = $request->all();
+        return view('pages.users.superadmin.index', compact("superadmin", "data"));
     }
 
     /**

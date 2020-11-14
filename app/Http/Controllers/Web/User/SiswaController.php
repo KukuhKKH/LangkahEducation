@@ -22,14 +22,32 @@ class SiswaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $siswa = Siswa::paginate(10);
+        $nama = false;
+        $nisn = false;
+        $asal = false;
+        if($request->q == 'nama') {
+            $nama = $request->keyword;
+        } else if($request->q == 'nisn') {
+            $nisn = $request->keyword;
+        } else if($request->q == 'asal') {
+            $asal = $request->keyword;
+        }
+
+        $siswa = Siswa::when($request->q, function($siswa) use($nama, $nisn, $asal) {
+            if($nama) $siswa->whereHas('user', function($q) use ($nama) {
+                $q->where('name', 'LIKE', "%$nama%");
+            });
+            if($nisn) $siswa->where('nisn', 'LIKE', "%$nisn%");
+            if($asal) $siswa->where('asal_sekolah', 'LIKE', "%$asal%");
+        })->paginate(10);
         $sekolah = [];
         if(auth()->user()->getRoleNames()->first() != 'sekolah') {
             $sekolah = Sekolah::all('nama');
         }
-        return view('pages.users.siswa.index', compact('siswa', 'sekolah'));
+        $data = $request->all();
+        return view('pages.users.siswa.index', compact('siswa', 'sekolah', 'data'));
     }
 
     /**

@@ -23,7 +23,7 @@
                                     @csrf
                                     <input type="hidden" name="token" value="{{ $token }}">
                                     <div class="form-group">
-                                        <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Masukkan email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                        <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Masukkan email" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email">
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -31,8 +31,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <input id="password" type="password" class="form-control form-control-user @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-            
+                                        <input id="password" type="password" class="form-control form-control-user @error('password') is-invalid @enderror" name="password" placeholder="Password baru" required autocomplete="new-password" autofocus>
                                         @error('password')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -40,7 +39,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                            <input id="password-confirm" type="password" class="form-control form-control-user" name="password_confirmation" required autocomplete="new-password">
+                                        <input id="password-confirm" type="password" class="form-control form-control-user" name="password_confirmation" required placeholder="Konfirmasi Password baru" autocomplete="new-password">
                                     </div>
                                     <button type="submit" class="btn btn-langkah btn-user btn-block">
                                         Atur Ulang Kata Sandi
