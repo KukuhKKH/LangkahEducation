@@ -157,18 +157,19 @@
             <span>Superadmin</span>
         </a>
     </li>
-
-    <li class="nav-item {{ (request()->is('dashboard/role')|request()->is('dashboard/permission')|request()->is('dashboard/permission/attach')) ? 'active' : '' }}">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRolePermission"
-           aria-expanded="true" aria-controls="collapseTwo">
+@php
+    $aktif_role = (request()->is('dashboard/role')|request()->is('dashboard/permission')|request()->is('dashboard/permission/attach')|request()->segment(2)=='permission') ? true : false
+@endphp
+    <li class="nav-item {{ ($aktif_role) ? 'active' : '' }}">
+        <a class="nav-link {{ ($aktif_role) ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseRolePermission"
+           aria-expanded="{{ $aktif_role }}" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-money-bill"></i>
             <span>Role & permission</span>
         </a>
-        <div id="collapseRolePermission" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseRolePermission" class="{{ ($aktif_role) ? 'show collapse' : 'collapse' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('role.index') }}">Role</a>
-                <a class="collapse-item" href="{{ route('role.permission') }}">Permission</a>
-                <a class="collapse-item" href="{{ route('permission.attach') }}">Attach Permission</a>
+                <a class="collapse-item {{ (request()->is('dashboard/role')) ? 'active' : '' }}" href="{{ route('role.index') }}">Role</a>
+                <a class="collapse-item {{ (request()->is('dashboard/permission')) ? 'active' : '' }}" href="{{ route('role.permission') }}">Permission</a>
             </div>
         </div>
     </li>

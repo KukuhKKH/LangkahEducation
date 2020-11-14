@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -16,12 +17,12 @@ class RolePermissionController extends Controller
      */
     public function index()
     {
-        $role = Role::paginate(5);
+        $role = Role::paginate(10);
         return view('pages.role.index', compact('role'));
     }
 
     public function permission() {
-        $permission = Permission::paginate(5);
+        $permission = Permission::paginate(10);
         return view('pages.role.permission', compact('permission'));
     }
 
@@ -56,7 +57,7 @@ class RolePermissionController extends Controller
             Role::create([
                 'name' => $request->role
             ]);
-            return redirect()->route('kategori.index')->with(['success' => 'Sukses Tambah Role']);
+            return redirect()->route('role.index')->with(['success' => 'Sukses Tambah Role']);
         } catch (\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
@@ -104,10 +105,28 @@ class RolePermissionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $role = Role::findOrFail($id);
+            $role->delete();
+            return redirect()->back()->with(['success' => 'Role: <strong>' . $role->name . '</strong> Dihapus']);
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
     }
 
-    public function attach() {
-        return view('pages.role.attach');
+    public function attach($id) {
+        $role = Role::find($id);
+        $hasPermission = DB::table('role_has_permissions')
+                    ->select('permissions.name')
+                    ->join('permissions', 'role_has_permissions.permission_id', '=', 'permissions.id')
+                    ->where('role_id', $role->id)->get()->pluck('name')->all();
+        $permissions = Permission::all()->pluck('name');
+        return view('pages.role.attach', compact('role', 'hasPermission', 'permissions'));
+    }
+
+    public function setRolePermission(Request $request, $role) {
+        $role = Role::findByName($role);
+        $role->syncPermissions($request->permission);
+        return redirect()->route('role.index')->with(['success' => "Berhasil attach permission"]);
     }
 }

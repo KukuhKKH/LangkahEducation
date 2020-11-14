@@ -31,7 +31,7 @@ class SuperadminController extends Controller
     {
         $superadmin = User::whereHas('roles', function($q){
             $q->where('name', 'superadmin');
-        })->paginate(10);
+        })->latest()->paginate(10);
         $data = $request->all();
         return view('pages.users.superadmin.index', compact("superadmin", "data"));
     }

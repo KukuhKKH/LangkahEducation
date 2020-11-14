@@ -23,7 +23,7 @@ class SekolahController extends Controller
      */
     public function index(Request $request)
     {
-        $sekolah = Sekolah::paginate(10);
+        $sekolah = Sekolah::latest()->paginate(10);
         $data = $request->all();
         return view('pages.users.sekolah.index', compact('sekolah', 'data'));
     }

@@ -11,7 +11,7 @@
         <div class="card-body">
             <form action="{{ route('permission.store') }}" method="POST">
                 @csrf
-                @php($j = 0)
+                <?php $j = 0; ?>
                 @for($i = 0; $i < $total; $i++)
                 <div class="form-group">
                     <label for="">Permission ke-{{ ++$j }}</label>

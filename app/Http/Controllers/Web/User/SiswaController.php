@@ -41,7 +41,7 @@ class SiswaController extends Controller
             });
             if($nisn) $siswa->where('nisn', 'LIKE', "%$nisn%");
             if($asal) $siswa->where('asal_sekolah', 'LIKE', "%$asal%");
-        })->paginate(10);
+        })->latest()->paginate(10);
         $sekolah = [];
         if(auth()->user()->getRoleNames()->first() != 'sekolah') {
             $sekolah = Sekolah::all('nama');

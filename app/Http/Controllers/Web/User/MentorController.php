@@ -22,7 +22,7 @@ class MentorController extends Controller
      */
     public function index(Request $request)
     {
-        $mentor = Mentor::paginate(10);
+        $mentor = Mentor::latest()->paginate(10);
         $data = $request->all();
         return view('pages.users.mentor.index', compact('mentor', 'data'));
     }

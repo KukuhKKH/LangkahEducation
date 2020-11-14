@@ -33,7 +33,8 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                 Route::get('permission', 'RolePermissionController@permission')->name('role.permission');
                 Route::post('permission/create', 'RolePermissionController@create')->name('permission.create');
                 Route::post('permission', 'RolePermissionController@store_permission')->name('permission.store');
-                Route::get('permission/attach', 'RolePermissionController@attach')->name('permission.attach');
+                Route::get('permission/attach/{id}', 'RolePermissionController@attach')->name('permission.attach');
+                Route::put('/users/permission/{role}', 'RolePermissionController@setRolePermission')->name('users.setRolePermission');
             });
 
             Route::group(['namespace' => 'User', 'middleware' => ['role:admin|superadmin']], function() {

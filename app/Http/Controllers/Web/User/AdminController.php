@@ -31,7 +31,7 @@ class AdminController extends Controller
     {
         $admin = User::whereHas('roles', function($q){
             $q->where('name', 'admin');
-        })->paginate(10);
+        })->latest()->paginate(10);
         $data = $request->all();
         return view('pages.users.admin.index', compact("admin", "data"));
     }
