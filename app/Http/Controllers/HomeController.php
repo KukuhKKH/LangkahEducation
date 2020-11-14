@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,7 +15,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except(['verifyUserRegistration']);
     }
 
     /**
@@ -37,9 +38,10 @@ class HomeController extends Controller
 		if ($user) {
             $user->update([
 				'activate_token' => null,
-				'email_verified_at' => date('Y-m-d')
+                'email_verified_at' => now(),
+                'is_active' => 1
 			]);
-			return redirect()->route('/')->with(['success' => "Berhasil Aktivasi Akun"]);
+			return redirect()->route('dashboard')->with(['success' => "Berhasil Aktivasi Akun"]);
 		}
 		return redirect(route('login'))->with(['error' => 'Token salah']);
     }

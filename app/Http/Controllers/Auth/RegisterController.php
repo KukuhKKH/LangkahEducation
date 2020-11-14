@@ -57,7 +57,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'nisn' => ['required', 'numeric'],
+            'nisn' => ['required', 'numeric', 'unique:siswa,nisn'],
             'asal_sekolah' => ['required', 'string'],
             'nomor_hp' => ['required', 'numeric'],
             'tanggal_lahir' => ['required', 'string']
@@ -75,7 +75,7 @@ class RegisterController extends Controller
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => $data['password'],
             'api_token' => Str::random(10),
             'activate_token' => Str::random(30),
         ]);
@@ -89,7 +89,7 @@ class RegisterController extends Controller
             'asal_sekolah' => $data['asal_sekolah'],
             'tanggal_lahir' => $new_tgl,
         ]);
-        Mail::to($user->email)->send(VerifikasiEmail($user));
+        Mail::to($user->email)->send(new VerifikasiEmail($user));
         return $user;
     }
 }
