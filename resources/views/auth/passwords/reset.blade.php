@@ -16,7 +16,6 @@
                         <div class="col-lg-6 align-self-center">
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-5">Atur Ulang Kata Sandi</h1>
-                                
                             </div>
                             <div class="p-5">
                                 {{-- ASLI --}}
@@ -41,9 +40,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <div class="col-md-6">
                                             <input id="password-confirm" type="password" class="form-control form-control-user" name="password_confirmation" required autocomplete="new-password">
-                                        </div>
                                     </div>
                                     <button type="submit" class="btn btn-langkah btn-user btn-block">
                                         Atur Ulang Kata Sandi
