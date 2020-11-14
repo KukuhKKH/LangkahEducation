@@ -1,7 +1,7 @@
 <!-- Sidebar -->
-<ul class="navbar-nav bg-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-white sidebar sidebar-light accordion" id="accordionSidebar">
 
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
         <img src="{{ asset('assets/img/logo-primary.svg') }}" class="img-fluid" alt="" srcset="">
     </a>
 
