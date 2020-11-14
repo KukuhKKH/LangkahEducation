@@ -68,20 +68,21 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input name="password" type="password" class="form-control form-control-user @error('password') is-invalid @enderror" id="exampleInputPassword" placeholder="Password">
+                                    <input name="password" type="password" class="form-control form-control-user @error('password') is-invalid @enderror" id="exampleInputPassword" placeholder="Kata Sandi">
                                     @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
+                                    <small class="ml-3 text-langkah">Kata sandi minimal 8 karakter</small>
                                 </div>
                                 <div class="col-sm-6">
                                     <input name="password_confirmation" type="password" class="form-control form-control-user"
-                                           id="exampleRepeatPassword" placeholder="Ulangi Password">
+                                           id="exampleRepeatPassword" placeholder="Ulangi Kata Sandi">
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-user btn-block">
-                                Daftar
+                            <button type="submit" class="btn btn-langkah btn-user btn-block">
+                                Daftar Sekarang
                             </button>
                         </form>
                         <hr>
@@ -89,7 +90,7 @@
                             <a class="small" href="{{ route('password.request') }}">Lupa Password?</a>
                         </div>
                         <div class="text-center">
-                            <a class="small" href="{{ route('login') }}">Sudah punya akun? Login!</a>
+                            <a class="small" href="{{ route('login') }}">Sudah punya akun? Masuk!</a>
                         </div>
                     </div>
                 </div>

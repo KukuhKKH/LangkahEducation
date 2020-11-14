@@ -17,11 +17,12 @@
 
     <!-- Custom styles for this template-->
     <link href="{{asset('assets/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/css/langkahedu.css')}}" rel="stylesheet">
 
     @yield('css')
 </head>
 
-<body class="bg-gradient-primary">
+<body class="bg-light">
     <div class="container">
         @yield('content')
     </div>

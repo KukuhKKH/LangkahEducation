@@ -29,6 +29,7 @@
                                 <form class="user" action="{{ route('login') }}" method="post">
                                     @csrf
                                     <div class="form-group">
+                                        <label for="email">Email</label>
                                         <input type="email" class="form-control form-control-user @error('email') is-invalid @enderror"
                                                id="exampleInputEmail" aria-describedby="emailHelp"
                                                placeholder="Masukkan Email" value="{{ old('email') }}" name="email">
@@ -39,7 +40,8 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control form-control-user @error('password') is-invalid @enderror" id="exampleInputPassword" placeholder="Password" name="password">
+                                        <label for="password">Kata Sandi</label>
+                                        <input type="password" class="form-control form-control-user @error('password') is-invalid @enderror" id="exampleInputPassword" placeholder="Kata Sandi" name="password">
                                         @error('password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -49,19 +51,19 @@
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox small">
                                             <input type="checkbox" class="custom-control-input" name="remember" id="suctomCheck" {{ old('remember') ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="customCheck">Remember Me</label>
+                                            <label class="custom-control-label" for="customCheck">Ingatkan Saya</label>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary btn-user btn-block">
+                                    <button type="submit" class="btn btn-langkah btn-user btn-block">
                                         Login
                                     </button>
                                 </form>
                                 <hr>
                                 <div class="text-center">
-                                    <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                    <a class="small" href="{{ route('password.request') }}">Lupa Kata Sandi?</a>
                                 </div>
                                 <div class="text-center">
-                                    <a class="small" href="{{ route('register') }}">Create an Account!</a>
+                                    <a class="small" href="{{ route('register') }}">Saya Belum Punya Akun, Daftar!</a>
                                 </div>
                             </div>
                         </div>
