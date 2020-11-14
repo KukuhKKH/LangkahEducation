@@ -14,6 +14,10 @@
                     <div  id="auth" class="row">
                         <div class="col-lg-6 d-none d-lg-block bg-password-image"></div>
                         <div class="col-lg-6 align-self-center">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-5">Atur Ulang Kata Sandi</h1>
+                                
+                            </div>
                             <div class="p-5">
                                 {{-- ASLI --}}
                                 <form class="user" method="POST" action="{{ route('password.update') }}">
