@@ -10,44 +10,50 @@
             <div class="d-flex justify-content-between mb-1">
             <h6 class="m-0 font-weight-bold text-primary">Soal Try out - {{ $paket->nama }}</h6>
                 <div class="btn-group btn-group-md mb-3">
-                    <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#modalData"><i class="fa fa-plus"></i> Tambah Paket</button>
+                    <a href="{{ route('soal.create', $paket->slug) }}" class="btn btn-outline-primary btn-sm"><i class="fa fa-plus"></i> Tambah Soal</a>
                 </div>
             </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" width="100%" cellspacing="0">
-                    {{-- <thead>
+                    <thead>
                     <tr>
                         <th>No</th>
-                        <th>Nama Paket</th>
-                        <th>Total Soal Tryout</th>
-                        <th width="20%">Aksi</th>
+                        <th>Soal</th>
+                        <th>Nilai Benar</th>
+                        <th>Nilai Salah</th>
+                        <th>Tgl Dibuat</th>
+                        <th>Tgl Diupdate</th>
+                        <th width="15%">Aksi</th>
                     </tr>
                     </thead>
                     <tfoot>
                     <tr>
                         <th>No</th>
-                        <th>Nama Paket</th>
-                        <th>Total Soal Tryout</th>
-                        <th width="20%">Aksi</th>
+                        <th>Soal</th>
+                        <th>Nilai Benar</th>
+                        <th>Nilai Salah</th>
+                        <th>Tgl Dibuat</th>
+                        <th>Tgl Diupdate</th>
+                        <th width="15%">Aksi</th>
                     </tr>
                     </tfoot>
                     <tbody>
                     @forelse($tryout as $value)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $value->nama }}</td>
-                            <td>{{ count($value->soal) }}</td>
+                            <td>{{ $value->soal }}</td>
+                            <td>{{ $value->benar }}</td>
+                            <td>{{ $value->salah }}</td>
+                            <td>{{ \Carbon\Carbon::parse($value->created_at)->format('d F Y') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($value->updated_at)->format('d F Y') }}</td>
                             <td>
-                                <form action="{{ route('kategori.destroy', $value->id) }}" method="POST" id="form-{{ $value->id }}">
+                                <form action="{{ route('soal.destroy', $value->id) }}" method="POST" id="form-{{ $value->id }}">
                                     @csrf
                                     @method('DELETE')
                                     <a href="#" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit">
                                         <i class="fas fa-edit"></i>
-                                    </a>
-                                    <a href="{{ route('tryout.show', $value->slug) }}" class="btn btn-warning text-dark">
-                                        <i class="fas fa-plus"></i> Soal Tryout
                                     </a>
                                     <button type="button" class="btn btn-danger hapus" data-id="{{ $value->id }}" data-toggle="tooltip" data-placement="top" title="Hapus">
                                         <i class="fas fa-trash"></i>
@@ -57,46 +63,14 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4" class="text-center">
+                            <td colspan="7" class="text-center">
                                 Tidak ada data
                             </td>
                         </tr>
                     @endforelse
-                    </tbody> --}}
+                    </tbody>
                 </table>
-                {{-- {{ $paket->appends($data)->links() }} --}}
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="modalData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tambah Role</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                {{-- <form action="{{ route('paket.store') }}" method="post">
-                    @csrf
-                    <input type="hidden" name="tryout_kategori_id" value="{{ $kategori->id }}">
-                    <div class="modal-body">
-                        <div class="form-group">
-                           <label for="">Nama Kategori</label>
-                           <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" placeholder="Masukkan Role">
-                           @error('nama')
-                              <span class="invalid-feedback" role="alert">
-                                 <strong>{{ $message }}</strong>
-                              </span>
-                           @enderror
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </div>
-                </form> --}}
+                {{ $tryout->appends($data)->links() }}
             </div>
         </div>
     </div>

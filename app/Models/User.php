@@ -73,4 +73,8 @@ class User extends Authenticatable
     public function mentor() {
         return $this->hasOne('App\Models\Mentor');
     }
+
+    public function soal() {
+        return $this->hasMany('App\Models\TryoutSoal');
+    }
 }

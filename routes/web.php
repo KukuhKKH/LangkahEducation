@@ -60,7 +60,8 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
 
                 // Tryout Route
                 Route::group(['namespace' => 'Tryout', 'prefix' => 'tryout'], function () {
-                    Route::resource('soal', 'TryoutController');
+                    Route::resource('soal', 'TryoutController')->except(['create']);
+                    Route::get('soal/create/{slug}', 'TryoutController@create')->name('soal.create');
                     Route::resource('kategori', 'KategoriController');
                     Route::resource('paket', 'PaketController');
                 });
