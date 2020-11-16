@@ -50,7 +50,7 @@ class SuperadminController extends Controller
                 'email_verified_at' => date('Y-m-d')
             ]);
             if($request->file('foto')) {
-                $foto_name = time().'-'.$request->foto->extension();  
+                $foto_name = time().'.'.$request->foto->extension();  
                 $request->foto->move(public_path('upload/users/'), $foto_name);
                 $request->foto = $foto_name;
             }

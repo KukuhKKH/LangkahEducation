@@ -125,6 +125,10 @@
                 @if (session('error'))
                 toastr.error(`{!! session('error') !!}`, 'Error')
                 @endif
+
+                @foreach ($errors->all() as $error)
+                    toastr.error(`{!! $error !!}`, 'Error')
+                @endforeach
             })
         </script>
 

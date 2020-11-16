@@ -23,7 +23,7 @@
     @hasanyrole('superadmin|admin')
     {{-- Try Out Superadmin|Admin|Mentor --}}
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('kategori.index') }}">
             <i class="fas fa-fw fa-desktop"></i>
             <span>Try Out</span>
         </a>

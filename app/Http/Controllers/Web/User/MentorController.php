@@ -103,7 +103,7 @@ class MentorController extends Controller
                 }
             }
             if($request->hasFile('foto')) {
-                $foto_name = time().'-'.$request->foto->extension();  
+                $foto_name = time().'.'.$request->foto->extension();  
                 $request->foto->move(public_path('upload/users/'), $foto_name);
                 $foto = $foto_name;
             }

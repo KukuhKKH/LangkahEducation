@@ -105,7 +105,7 @@
                </div>
                <div class="form-group">
                   <label for="">Foto <small>Opsional</small></label>
-                  <input type="file" class="form-control" name="foto">
+                  <input type="file" class="form-control" name="foto" accept="image/*">
                </div>
             </div>
             <div class="modal-footer">
