@@ -1,5 +1,7 @@
 @extends('errors::illustrated-layout')
 
 @section('title', __('Too Many Requests'))
-@section('code', '429')
+@section('image')
+ <img class="img-fluid p-3"  src="{{asset('assets/img/429-illustration.svg')}}">
+@endsection
 @section('message', __('Too Many Requests'))

@@ -1,5 +1,7 @@
 @extends('errors::illustrated-layout')
 
 @section('title', __('Forbidden'))
-@section('code', '403')
+@section('image')
+ <img class="img-fluid p-3"  src="{{asset('assets/img/403-illustration.svg')}}">
+@endsection
 @section('message', __($exception->getMessage() ?: 'Forbidden'))
