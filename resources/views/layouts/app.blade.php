@@ -3,6 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="langkah edu, langkah education, tryout sma, sbmptn online, bimbel sbmptn, info sbmptn, simulasi sbmptn, ,lolos sbmptn, lolos ptn, info ptn, passing grade,trik lulus sbpmtn,bimbingan sbmptn, bimbel saintek, bimbel soshum, soal sbmptn, pengumuman sbmptn, sbmptn, maba, soshum, saintek ,ptn, utul, simak ui">
+    <meta name="description" content="Langkah Education adalah website belajar untuk persiapan tes seleksi masuk PTN">
+    <meta property="og:site_name" content="Langkah Education">
+    <meta property="og:url" content="https://langkaheducation.com">
+    <meta property="og:title" content="Langkah Education">
+    <meta property="og:description" content="Belajar persiapan masuk PTN secara praktis dan efektif. Dilengkapi fitur tryout latihan beserta statistik pencapaian.">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
