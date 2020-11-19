@@ -11,7 +11,7 @@
 
     <link rel="stylesheet" href="{{ asset('assets/vendor/toastr/toastr.min.css') }}">
     <!-- Custom styles for this template-->
-    <link href="{{asset('assets/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link href="{{asset('assets-tryout/css/sb-admin-2.min.css')}}" rel="stylesheet">
 
     <style>
         html,
@@ -64,14 +64,38 @@
 
     <!-- Core plugin JavaScript-->
     <script src="{{asset('assets/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+    <script src="{{ asset('assets/vendor/sweet-alert/sweetalert.min.js') }}"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="{{asset('assets/js/sb-admin-2.min.js')}}"></script>
     
-    <!-- <script src="js/quiz.js"></script> -->
-    <script src="{{asset('assets/js/tryout.js')}}"></script>
-
     @yield('js')
+    <!-- <script src="js/quiz.js"></script> -->
+    <script src="{{asset('assets-tryout/js/tryout.js')}}"></script>
+
+    <script>
+
+        function sisawaktu(t) {
+            var time = new Date(t);
+            var n = new Date();
+            var x = setInterval(function() {
+                var now = new Date().getTime();
+                var dis = time.getTime() - now;
+                var h = Math.floor((dis % (1000 * 60 * 60 * 60)) / (1000 * 60 * 60));
+                var m = Math.floor((dis % (1000 * 60 * 60)) / (1000 * 60));
+                var s = Math.floor((dis % (1000 * 60)) / (1000));
+                h = ("0" + h).slice(-2);
+                m = ("0" + m).slice(-2);
+                s = ("0" + s).slice(-2);
+                var cd = h + ":" + m + ":" + s;
+                $('.sisawaktu').html(cd);
+            }, 100);
+            setTimeout(function() {
+                waktuHabis();
+            }, (time.getTime() - n.getTime()));
+        }
+    </script>
+
 </body>
 
 </html>

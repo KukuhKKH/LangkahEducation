@@ -73,11 +73,19 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
 Route::get('/home', 'HomeController@index')->name('home');
 
 // URL COBA COBA
+use App\Models\TryoutSoal;
 Route::group(['prefix' => 'dev'], function() {
     Route::get('email', function() {
         $user = new stdClass;
         $user->name = "siapa";
         $user->activate_token = "awdawdawd";
         return view('emails.register', compact('user'));
+    });
+    Route::get('tryout', function() {
+        $soal = TryoutSoal::where('tryout_paket_id', 1)
+                        ->inRandomOrder()
+                        ->limit(10)
+                        ->get();
+        return view('tryout.index', compact('soal'));
     });
 });
