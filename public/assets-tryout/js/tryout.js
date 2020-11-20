@@ -8,15 +8,21 @@ var questList = document.getElementById("daftar-soal");
 function loadQuest(indexQuest) {
     if (indexQuest == 0) {
         $("#btn-kembali").prop("disabled", true);
+        $("#btn-kumpulkan").prop("disabled", true);
+        $("#btn-lanjut").prop("disabled", false);
     } else if (indexQuest == lengthQuest - 1) {
         $("#btn-lanjut").prop("disabled", true);
         $("#btn-kumpulkan").prop("disabled", false);
+        $("#btn-kembali").prop("disabled", false);
     } else {
         $("#btn-kumpulkan").prop("disabled", true);
         $("#btn-lanjut").prop("disabled", false);
         $("#btn-kembali").prop("disabled", false);
     }
     document.getElementById("question"+indexQuest).classList.add('show');
+
+    $("#listSoal"+indexQuest).removeClass('btn-outline-dark');
+    $("#listSoal"+indexQuest).addClass('btn-primary');
     position.textContent = indexQuest + 1 + "/" + lengthQuest;
     currentQuest = indexQuest;
     return;
@@ -25,9 +31,12 @@ function loadQuest(indexQuest) {
 function loadQuesList() {
     var htmlSoal = "";
     for (let i = 0; i < lengthQuest; i++) {
-        htmlSoal += '<div class="p-0 col-lg-2 mr-1 mb-1"><button name="btnList" onclick="goToIndex(' + i + ')" class="btn btn-outline-dark quiz-list">' + (i + 1) + '</button></div>'
+        htmlSoal += '<div class="p-0 col-lg-2 mr-1 mb-1"><button id="listSoal'+i+'" name="btnList" onclick="goToIndex(' + i + ')" class="btn btn-outline-dark quiz-list">' + (i + 1) + '</button></div>'
     }
     questList.innerHTML = htmlSoal;
+
+    $("#listSoal"+indexQuest).removeClass('btn-outline-dark');
+    $("#listSoal"+indexQuest).addClass('btn-primary');
 }
 
 function getChoice(currentQuest) {
@@ -38,7 +47,11 @@ function getChoice(currentQuest) {
 function goToIndex(index){
     getChoice(currentQuest);
     document.getElementById("question"+currentQuest).classList.remove('show');
-    loadQuest(index);
+
+    $("#listSoal"+currentQuest).removeClass('btn-primary');
+    $("#listSoal"+currentQuest).addClass('btn-outline-dark');
+    indexQuest = index;
+    loadQuest(indexQuest);
 }
 
 $("#btn-lanjut").on('click', function () {

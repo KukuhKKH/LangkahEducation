@@ -68,17 +68,27 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input name="password" type="password" class="form-control form-control-user @error('password') is-invalid @enderror" id="exampleInputPassword" placeholder="Kata Sandi">
+                                    <div class="input-group" id="show_hide_password">
+                                        <input name="password" type="password" class="form-control form-control-user @error('password') is-invalid @enderror" id="exampleInputPassword" placeholder="Kata Sandi">
                                     @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
+                                        <div class="input-group-addon d-flex align-items-center">
+                                            <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                                          </div>
+                                    </div>
                                     <small class="ml-3 text-langkah">Kata sandi minimal 8 karakter</small>
                                 </div>
                                 <div class="col-sm-6">
-                                    <input name="password_confirmation" type="password" class="form-control form-control-user"
+                                    <div class="input-group" id="show_hide_password2">
+                                        <input name="password_confirmation" type="password" class="form-control form-control-user"
                                            id="exampleRepeatPassword" placeholder="Ulangi Kata Sandi">
+                                        <div class="input-group-addon d-flex align-items-center">
+                                            <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                                          </div>
+                                    </div>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-langkah btn-user btn-block">
@@ -104,6 +114,34 @@
         $.fn.datepicker.defaults.format = "dd/mm/yyyy"
         $('.datepicker').datepicker();
     </script>
+    <script>
+        $(document).ready(function() {
+        $("#show_hide_password a").on('click', function(event) {
+            event.preventDefault();
+            if($('#show_hide_password input').attr("type") == "text"){
+                $('#show_hide_password input').attr('type', 'password');
+                $('#show_hide_password i').addClass( "fa-eye-slash" );
+                $('#show_hide_password i').removeClass( "fa-eye" );
+            }else if($('#show_hide_password input').attr("type") == "password"){
+                $('#show_hide_password input').attr('type', 'text');
+                $('#show_hide_password i').removeClass( "fa-eye-slash" );
+                $('#show_hide_password i').addClass( "fa-eye" );
+            }
+        });
+        $("#show_hide_password2 a").on('click', function(event) {
+            event.preventDefault();
+            if($('#show_hide_password2 input').attr("type") == "text"){
+                $('#show_hide_password2 input').attr('type', 'password');
+                $('#show_hide_password2 i').addClass( "fa-eye-slash" );
+                $('#show_hide_password2 i').removeClass( "fa-eye" );
+            }else if($('#show_hide_password2 input').attr("type") == "password"){
+                $('#show_hide_password2 input').attr('type', 'text');
+                $('#show_hide_password2 i').removeClass( "fa-eye-slash" );
+                $('#show_hide_password2 i').addClass( "fa-eye" );
+            }
+        });
+    });
+    </script>   
 @endsection
 
 {{--<div class="container">--}}

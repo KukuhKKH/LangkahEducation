@@ -95,3 +95,13 @@
 .sidebar .sidebar-card p {
   color: #fff !important;
 }
+
+.input-group-addon{
+  background-color: #ECB811;
+  padding: 1vw;
+  border-radius: 0 .35rem .35rem 0;
+}
+
+.input-group-addon a{ 
+  color : #fff !important;
+}
