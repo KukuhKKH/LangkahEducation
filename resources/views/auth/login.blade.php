@@ -37,14 +37,19 @@
                                         </span>
                                         @enderror
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group rounded-circle">
                                         <label for="password">Kata Sandi</label>
-                                        <input type="password" class="form-control form-control-user @error('password') is-invalid @enderror" id="exampleInputPassword" placeholder="Kata Sandi" name="password">
-                                        @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
+                                        <div class="input-group" id="show_hide_password">
+                                            <input type="password" class="form-control form-control-user @error('password') is-invalid @enderror" id="exampleInputPassword" placeholder="Kata Sandi" name="password">
+                                            <div class="input-group-addon d-flex align-items-center">
+                                                <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                                              </div>
+                                            @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox small">
@@ -141,3 +146,24 @@
 {{--                </div>--}}
 {{--            </div>--}}
 {{--        </div>--}}
+
+@section('js')
+
+<script>
+    $(document).ready(function() {
+    $("#show_hide_password a").on('click', function(event) {
+        event.preventDefault();
+        if($('#show_hide_password input').attr("type") == "text"){
+            $('#show_hide_password input').attr('type', 'password');
+            $('#show_hide_password i').addClass( "fa-eye-slash" );
+            $('#show_hide_password i').removeClass( "fa-eye" );
+        }else if($('#show_hide_password input').attr("type") == "password"){
+            $('#show_hide_password input').attr('type', 'text');
+            $('#show_hide_password i').removeClass( "fa-eye-slash" );
+            $('#show_hide_password i').addClass( "fa-eye" );
+        }
+    });
+});
+</script>
+    
+@endsection
