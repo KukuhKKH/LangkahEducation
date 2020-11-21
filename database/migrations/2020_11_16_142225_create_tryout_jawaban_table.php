@@ -16,7 +16,7 @@ class CreateTryoutJawabanTable extends Migration
         Schema::create('tryout_jawaban', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('tryout_soal_id');
-            $table->string('jawaban');
+            $table->text('jawaban');
             $table->integer('benar')->default(0)->comment('0: salah, 1: benar');
             $table->timestamps();
             $table->foreign('tryout_soal_id')->references('id')->on('tryout_soal')->onDelete('CASCADE');

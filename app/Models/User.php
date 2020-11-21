@@ -77,4 +77,8 @@ class User extends Authenticatable
     public function soal() {
         return $this->hasMany('App\Models\TryoutSoal');
     }
+
+    public function tryout_hasil() {
+        return $this->hasMany('App\Models\TryoutHasil');
+    }
 }

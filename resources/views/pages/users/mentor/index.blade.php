@@ -82,7 +82,7 @@
                                         <a href="{{ route('mentor.show', $value->id) }}" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Integrasi siswa ke mentor ini">
                                             <i class="fa fa-user-friends"></i>
                                         </a>
-                                        <button type="button" data-id="{{ $value->id }}" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus">
+                                        <button type="button" data-id="{{ $value->id }}" class="btn btn-danger hapus" data-toggle="tooltip" data-placement="top" title="Hapus">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </form>

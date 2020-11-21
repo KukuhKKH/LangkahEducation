@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group(['prefix' => 'filemanager'], function() {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});
+
 Auth::routes();
 Route::get('verify/{token}', 'HomeController@verifyUserRegistration')->name('user.verify');
 
@@ -26,6 +30,11 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
     Route::group(['namespace' => 'Web'], function () {
 
         Route::group(['prefix' => 'dashboard'], function() {
+
+            Route::get('profil', 'ProfileController@index')->name('profile.index');
+            Route::get('profil/{user}/edit', 'ProfileController@edit')->name('profile.edit');
+            Route::put('profil/{user}', 'ProfileController@update')->name('profile.update');
+            Route::post('profil/kode_referal/{user}', 'ProfileController@kode_referal')->name('profil.kode_referal');
 
             Route::group(['middleware' => ['role:superadmin']], function () {
                 // Manajemen Role & Permission
@@ -37,19 +46,26 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                 Route::put('/users/permission/{role}', 'RolePermissionController@setRolePermission')->name('users.setRolePermission');
             });
 
-            Route::group(['namespace' => 'User', 'middleware' => ['role:admin|superadmin']], function() {
-                // Manajemen Users
-                Route::resource('mentor', 'MentorController');
-                Route::resource('sekolah', 'SekolahController')->except(['create']);
-                Route::resource('admin', 'AdminController')->except(['create', 'show']);
-                Route::resource('superadmin', 'SuperadminController')->except(['create', 'show']);
-                Route::resource('siswa', 'SiswaController')->except(['create', 'show']);
+            Route::group(['middleware' => ['role:admin|superadmin']], function() {
+                // Lain lain
+                Route::resource('universitas', 'UniversitasController')->except(['create']);
+                Route::resource('universitas/passing-grade', 'PassingGradeController');
+                Route::resource('pendaftaran', 'PendaftaranController');
 
-                // Integrasi Data
-                Route::post('sekolah/integrasi/{id}', 'SekolahController@integrasi')->name('sekolah.integrasi');
-                Route::post('sekolah/integrasi/{id}/hapus', 'SekolahController@hapus_integrasi')->name('sekolah.integrasi.hapus');
-                Route::post('mentor/integrasi/{id}', 'MentorController@integrasi')->name('mentor.integrasi');
-                Route::post('mentor/integrasi/{id}/hapus', 'MentorController@hapus_integrasi')->name('mentor.integrasi.hapus');
+                Route::group(['namespace' => 'User'], function () {
+                    // Manajemen Users
+                    Route::resource('mentor', 'MentorController');
+                    Route::resource('sekolah', 'SekolahController')->except(['create']);
+                    Route::resource('admin', 'AdminController')->except(['create', 'show']);
+                    Route::resource('superadmin', 'SuperadminController')->except(['create', 'show']);
+                    Route::resource('siswa', 'SiswaController')->except(['create', 'show']);
+    
+                    // Integrasi Data
+                    Route::post('sekolah/integrasi/{id}', 'SekolahController@integrasi')->name('sekolah.integrasi');
+                    Route::post('sekolah/integrasi/{id}/hapus', 'SekolahController@hapus_integrasi')->name('sekolah.integrasi.hapus');
+                    Route::post('mentor/integrasi/{id}', 'MentorController@integrasi')->name('mentor.integrasi');
+                    Route::post('mentor/integrasi/{id}/hapus', 'MentorController@hapus_integrasi')->name('mentor.integrasi.hapus');
+                });
             });
 
             Route::group(['middleware' => ['role:admin|superadmin|sekolah']], function () {
@@ -57,15 +73,26 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                 Route::post('siswa/import', 'User\SiswaController@import')->name('siswa.import');
                 Route::post('sekolah/import', 'User\SekolahController@import')->name('sekolah.import');
                 Route::post('mentor/import', 'User\MentorController@import')->name('mentor.import');
+                route::post('universitas/import', 'UniversitasController@import')->name('universitas.import');
 
                 // Tryout Route
                 Route::group(['namespace' => 'Tryout', 'prefix' => 'tryout'], function () {
                     Route::resource('soal', 'TryoutController')->except(['create']);
                     Route::get('soal/create/{slug}', 'TryoutController@create')->name('soal.create');
-                    Route::resource('kategori', 'KategoriController');
-                    Route::resource('paket', 'PaketController');
+                    Route::resource('kategori', 'KategoriController')->except(['create', 'show']);
+                    Route::resource('paket', 'PaketController')->except(['create']);
                 });
             });
+            
+            Route::group(['middleware' => 'role:siswa', 'namespace' => 'Siswa'], function () {
+                Route::get('siswa/tryout', 'TryoutController@index')->name('siswa.tryout.index');
+                Route::get('siswa/tryout/{kategori}', 'TryoutController@kategori')->name('siswa.tryout.kategori');
+            });
+        });
+
+        Route::group(['middleware' => 'role:siswa'], function () {
+
+            Route::post('tryout/{paket}/{kategori}', 'Tryout\TryoutController@tryout_store')->name('tryout.soal.store');
         });
     });
 });
@@ -74,6 +101,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // URL COBA COBA
 use App\Models\TryoutSoal;
+use App\Models\TryoutKategori;
+use App\Models\TryoutPaket;
 Route::group(['prefix' => 'dev'], function() {
     Route::get('email', function() {
         $user = new stdClass;
@@ -86,6 +115,8 @@ Route::group(['prefix' => 'dev'], function() {
                         ->inRandomOrder()
                         ->limit(10)
                         ->get();
-        return view('tryout.index', compact('soal'));
+        $kategori = TryoutKategori::find(1);
+        $paket = TryoutPaket::find(1);
+        return view('tryout.index', compact('soal', 'kategori', 'paket'));
     });
 });

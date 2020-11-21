@@ -6,6 +6,7 @@ use App\Models\TryoutPaket;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tryout\Paket\PaketStore;
+use App\Http\Requests\Tryout\Paket\PaketUpdate;
 use App\Models\TryoutKategori;
 
 class PaketController extends Controller
@@ -22,16 +23,6 @@ class PaketController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -41,7 +32,8 @@ class PaketController extends Controller
     {
         try {
             $request->merge([
-                'user_id' => auth()->user()->id
+                'user_id' => auth()->user()->id,
+                'tgl_akhir' => date('Y-m-d H:i:s', time() + 24*7*60*60) // 7 Hari
             ]);
             TryoutPaket::create($request->all());
             return redirect()->back()->with(['success' => 'Berhasil tambah paket tryout']);
@@ -74,7 +66,12 @@ class PaketController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $paket = TryoutPaket::find($id);
+            return view('pages.tryout.paket.edit', compact('paket'));
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -84,9 +81,18 @@ class PaketController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PaketUpdate $request, $id)
     {
-        //
+        try {
+            $paket = TryoutPaket::find($id);
+            $paket->update([
+                'nama' => $request->nama,
+                'status' => $request->status
+            ]);
+            return redirect()->route('paket.show', $paket->kategori->nama)->with(['success' => 'Berhasil update paket tryout']);
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -97,6 +103,12 @@ class PaketController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $paket = TryoutPaket::find($id);
+            $paket->delete();
+            return redirect()->route('paket.show', $paket->kategori->nama)->with(['success' => 'Berhasil hapus paket tryout']);
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
     }
 }

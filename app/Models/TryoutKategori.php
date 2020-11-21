@@ -17,6 +17,10 @@ class TryoutKategori extends Model
         });
     }
 
+    public function scopeFindSlug($query, $slug) {
+        return $query->where('slug', $slug)->firstOrFail();
+    }
+
     public function paket() {
         return $this->hasMany('App\Models\TryoutPaket');
     }

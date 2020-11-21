@@ -21,7 +21,7 @@
                     <tr>
                         <th>No</th>
                         <th>Nama Kategori</th>
-                        <th>Total Tryout</th>
+                        <th>Total Paket Tryout</th>
                         <th width="25%">Aksi</th>
                     </tr>
                     </thead>
@@ -29,7 +29,7 @@
                     <tr>
                         <th>No</th>
                         <th>Nama Kategori</th>
-                        <th>Total Tryout</th>
+                        <th>Total Paket Tryout</th>
                         <th width="25%">Aksi</th>
                     </tr>
                     </tfoot>
@@ -43,7 +43,7 @@
                                 <form action="{{ route('kategori.destroy', $value->id) }}" method="POST" id="form-{{ $value->id }}">
                                     @csrf
                                     @method('DELETE')
-                                    <a href="#" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit">
+                                    <a href="{{ route('kategori.edit', $value->id) }}" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <a href="{{ route('paket.show', $value->slug) }}" class="btn btn-warning text-dark">

@@ -10,6 +10,7 @@
             <div class="d-flex justify-content-between mb-1">
             <h6 class="m-0 font-weight-bold text-primary">Paket Try out - {{ $kategori->nama }}</h6>
                 <div class="btn-group btn-group-md mb-3">
+                    <a href="{{ route('kategori.index') }}" class="btn btn-warning text-dark">Kembali</a>
                     <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#modalData"><i class="fa fa-plus"></i> Tambah Paket</button>
                 </div>
             </div>
@@ -21,6 +22,7 @@
                     <tr>
                         <th>No</th>
                         <th>Nama Paket</th>
+                        <th>Status</th>
                         <th>Total Soal Tryout</th>
                         <th width="20%">Aksi</th>
                     </tr>
@@ -29,6 +31,7 @@
                     <tr>
                         <th>No</th>
                         <th>Nama Paket</th>
+                        <th>Status</th>
                         <th>Total Soal Tryout</th>
                         <th width="20%">Aksi</th>
                     </tr>
@@ -38,12 +41,19 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $value->nama }}</td>
-                            <td>{{ "as" }}</td>
                             <td>
-                                <form action="{{ route('kategori.destroy', $value->id) }}" method="POST" id="form-{{ $value->id }}">
+                                @if ($value->status)
+                                    <span class="badge badge-success p-2">Aktif</span>
+                                @else
+                                    <span class="badge badge-danger p-2">Tidak Aktif</span>
+                                @endif
+                            </td>
+                            <td>{{ count($value->soal) }}</td>
+                            <td>
+                                <form action="{{ route('paket.destroy', $value->id) }}" method="POST" id="form-{{ $value->id }}">
                                     @csrf
                                     @method('DELETE')
-                                    <a href="#" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit">
+                                    <a href="{{ route('paket.edit', $value->id) }}" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <a href="{{ route('soal.show', $value->slug) }}" class="btn btn-warning text-dark">
@@ -73,7 +83,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tambah Role</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Paket Soal</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -83,13 +93,25 @@
                     <input type="hidden" name="tryout_kategori_id" value="{{ $kategori->id }}">
                     <div class="modal-body">
                         <div class="form-group">
-                           <label for="">Nama Kategori</label>
-                           <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" placeholder="Masukkan Role">
+                           <label for="">Nama Paket Soal</label>
+                           <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" placeholder="Masukkan Nama Paket Soal">
                            @error('nama')
                               <span class="invalid-feedback" role="alert">
                                  <strong>{{ $message }}</strong>
                               </span>
                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="">Status</label>
+                            <select name="status" class="form-control @error('status') is-invalid @enderror">
+                               <option value="1">Aktif</option>
+                               <option value="0">Tidak Aktif</option>
+                            </select>
+                            @error('status')
+                               <span class="invalid-feedback" role="alert">
+                                  <strong>{{ $message }}</strong>
+                               </span>
+                            @enderror
                         </div>
                     </div>
                     <div class="modal-footer">

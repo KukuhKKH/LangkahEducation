@@ -10,6 +10,7 @@
             <div class="d-flex justify-content-between mb-1">
             <h6 class="m-0 font-weight-bold text-primary">Soal Try out - {{ $paket->nama }}</h6>
                 <div class="btn-group btn-group-md mb-3">
+                    <a href="{{ route('paket.show', $paket->kategori->slug) }}" class="btn btn-warning text-dark">Kembali</a>
                     <a href="{{ route('soal.create', $paket->slug) }}" class="btn btn-outline-primary btn-sm"><i class="fa fa-plus"></i> Tambah Soal</a>
                 </div>
             </div>
@@ -43,7 +44,7 @@
                     @forelse($tryout as $value)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $value->soal }}</td>
+                            <td>{{ strip_tags($value->soal) }}</td>
                             <td>{{ $value->benar }}</td>
                             <td>{{ $value->salah }}</td>
                             <td>{{ \Carbon\Carbon::parse($value->created_at)->format('d F Y') }}</td>
@@ -52,7 +53,7 @@
                                 <form action="{{ route('soal.destroy', $value->id) }}" method="POST" id="form-{{ $value->id }}">
                                     @csrf
                                     @method('DELETE')
-                                    <a href="#" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit">
+                                    <a href="{{ route('soal.edit', $value->id) }}" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <button type="button" class="btn btn-danger hapus" data-id="{{ $value->id }}" data-toggle="tooltip" data-placement="top" title="Hapus">
@@ -81,7 +82,7 @@
    $(".hapus").on('click', function() {
       Swal.fire({
          title: 'Yakin?',
-         text: "Ingin menghapus paket ini!",
+         text: "Ingin menghapus soal ini!",
          icon: 'warning',
          showCancelButton: true,
          confirmButtonColor: '#3085d6',

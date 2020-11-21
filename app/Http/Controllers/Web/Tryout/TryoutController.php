@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Web\Tryout;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tryout\Soal\SoalCreate;
+use App\Http\Requests\Tryout\Soal\SoalUpdate;
+use App\Models\TryoutJawaban;
+use App\Models\TryoutKategori;
 use App\Models\TryoutPaket;
 use App\Models\TryoutSoal;
 use Illuminate\Http\Request;
@@ -93,7 +96,20 @@ class TryoutController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $soal = TryoutSoal::find($id);
+            $jawaban = [];
+            $benar = 'pilihan';
+            foreach ($soal->jawaban as $key => $value) {
+                $jawaban[] = $value->jawaban;
+                if($value->benar == 1) {
+                    $benar .= $key+1;
+                }
+            }
+            return view('pages.tryout.soal.edit', compact('soal', 'jawaban', 'benar'));
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -103,9 +119,35 @@ class TryoutController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SoalUpdate $request, $id)
     {
-        //
+        // dd($request->input());
+        try {
+            DB::beginTransaction();
+            $soal = TryoutSoal::findOrFail($id);
+            
+            $soal->update([
+                'soal' => $request->soal,
+                'pembahasan' => $request->pembahasan,
+                'benar' => $request->nilai_benar,
+                'salah' => $request->nilai_salah
+            ]);
+            $i = 0;
+            foreach ($request->input() as $key => $value) {
+                if(strpos($key, 'pilihan') !== false && $value != '') {
+                    $benar = $request->input('benar') == $key ? 1 : 0;
+                    $soal->jawaban->all()[$i++]->update([
+                        'jawaban'   => $value,
+                        'benar'     => $benar
+                    ]);
+                }
+            }
+            DB::commit();
+            return redirect()->route('soal.show', $soal->paket->slug)->with(['success' => "Berhasil menambahkan soal"]);
+        } catch(\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -116,6 +158,57 @@ class TryoutController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            DB::beginTransaction();
+
+            $soal = TryoutSoal::findOrFail($id);
+            // Delete Data Jawaban
+            $soal->jawaban()->delete();
+            // Delete Data Soal
+            $soal->delete();
+
+            DB::commit();
+            return redirect()->route('soal.show', $soal->paket->slug)->with(['success' => "Berhasil hapus soal"]);
+        } catch(\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function tryout_store(Request $request, $kategori_slug, $paket_slug) {
+        $kategori_id = TryoutKategori::findSlug($kategori_slug)->id;
+        $paket_id = TryoutPaket::findSlug($paket_slug)->id;
+
+        $data_hasil = Auth::user()->tryout_hasil()->create([
+            'tryout_kategori_id' => $kategori_id,
+            'tryout_paket_id' => $paket_id,
+            'nilai_awal' => 0,
+            'nilai_sekarang' => 0,
+            'nilai_maksimal' => 0
+        ]);
+        $nilai_sekarang = 0;
+        $nilai_maksimal = 0;
+        foreach ($request->input('soal', []) as $key => $value) {
+            $soal = TryoutSoal::find($value);
+            $benar = $soal->benar;
+            $salah = $soal->salah;
+            $nilai_maksimal += $benar;
+            if (TryoutJawaban::find($request->jawaban[$value])->benar) {
+                $nilai_sekarang += $benar;
+            } else {
+                $nilai_sekarang -= $salah;
+            }
+
+            $data_hasil->tryout_hasil_jawaban()->create([
+                'tryout_soal_id' => $value,
+                'tryout_jawaban_id' => $request->jawaban[$value]
+            ]);
+        }
+        $data_hasil->update([
+            'nilai_awal' => $nilai_sekarang,
+            'nilai_sekarang' => $nilai_sekarang,
+            'nilai_maksimal' => $nilai_maksimal
+        ]);
+        return "Berhaasil";
     }
 }

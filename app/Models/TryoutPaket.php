@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class TryoutPaket extends Model
 {
     protected $table = "tryout_paket";
-    protected $fillable = ['user_id', 'tryout_kategori_id', 'nama', 'slug'];
+    protected $fillable = ['user_id', 'tryout_kategori_id', 'nama', 'slug', 'tgl_akhir', 'status'];
 
     public static function boot() {
         parent::boot();
@@ -17,8 +17,12 @@ class TryoutPaket extends Model
         });
     }
 
+    public function scopeFindSlug($query, $slug) {
+        return $query->where('slug', $slug)->firstOrFail();
+    }
+
     public function soal() {
-        return $this->hasMany('App\Models\TryoutSoal', 'id' ,'tryout_soal_id');
+        return $this->hasMany('App\Models\TryoutSoal');
     }
 
     public function kategori() {

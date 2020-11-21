@@ -22,19 +22,15 @@
     
     @hasanyrole('superadmin|admin')
     {{-- Try Out Superadmin|Admin|Mentor --}}
-    <li class="nav-item">
+    <li class="nav-item {{ request()->segment(2) == 'tryout' ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('kategori.index') }}">
             <i class="fas fa-fw fa-desktop"></i>
             <span>Try Out</span>
         </a>
     </li>
-
-    @endhasanyrole
-
-    {{-- CRUD Passing Grade --}}
-    @hasanyrole('superadmin|admin')
-    <li class="nav-item">
-        <a class="nav-link" href="#">
+    
+    <li class="nav-item {{ request()->segment(2) == 'universitas' ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('universitas.index') }}">
             <i class="fas fa-fw fa-percent"></i>
             <span>Passing Grade</span>
         </a>
@@ -46,8 +42,8 @@
 
     {{-- Try Out Siswa --}}
 
-    <li class="nav-item">
-        <a class="nav-link" href="#">
+    <li class="nav-item {{ (request()->segment(2) == 'siswa' && request()->segment(3) == 'tryout') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('siswa.tryout.index') }}">
             <i class="fas fa-fw fa-desktop"></i>
             <span>Try Out</span>
         </a>
@@ -183,7 +179,7 @@
     <div class="sidebar-heading">
         PENGATURAN
     </div>
-    @hasanyrole('admin')
+    @hasanyrole('admin|superadmin')
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseHalaman"
             aria-expanded="true" aria-controls="collapseTwo">
@@ -198,13 +194,20 @@
             </div>
         </div>
     </li>
+    <li class="nav-item {{ request()->segment(2) == 'pendaftaran' ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('pendaftaran.index') }}">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Pendaftaran</span>
+        </a>
+    </li>
     @endhasanyrole
-    <li class="nav-item">
-        <a class="nav-link" href="#">
+    <li class="nav-item {{ request()->segment(2) == 'profil' ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('profile.index') }}">
             <i class="fas fa-fw fa-user"></i>
             <span>Profil</span>
         </a>
     </li>
+
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

@@ -18,7 +18,7 @@
             <input type="hidden" name="tryout_paket_id" value="{{ $paket->id }}">
             <div class="form-group">
                <label for="">Soal</label>
-               <input type="text" class="form-control @error('soal') is-invalid @enderror" name="soal" placeholder="Soal" value="{{ old('soal') }}" required>
+               <textarea type="text" class="form-control @error('soal') is-invalid @enderror" id="soal" name="soal" placeholder="Soal">{{ old('soal') }}</textarea>
                @error('soal')
                   <span class="invalid-feedback" role="alert">
                      <strong>{{ $message }}</strong>
@@ -27,39 +27,17 @@
             </div>
             <div class="form-group">
                <label for="">Pembahasan</label>
-               <input type="text" class="form-control @error('pembahasan') is-invalid @enderror" name="pembahasan" placeholder="Pembahaasan" value="{{ old('pembahasan') }}" required>
+               <textarea type="text" class="form-control @error('pembahasan') is-invalid @enderror" id="pembahasan" name="pembahasan" placeholder="Pembahaasan">{{ old('pembahasan') }}</textarea>
                @error('pembahasan')
                   <span class="invalid-feedback" role="alert">
                      <strong>{{ $message }}</strong>
                   </span>
                @enderror
             </div>
-            <div class="form-group">
-               <div class="row">
-                  <div class="col-6">
-                     <label for="">Benar</label>
-                     <input type="number" class="form-control @error('nilai_benar') is-invalid @enderror" name="nilai_benar" placeholder="Nilai Ketika benar" value="4" value="{{ old('nilai_benar') }}" required>
-                     @error('nilai_benar')
-                        <span class="invalid-feedback" role="alert">
-                           <strong>{{ $message }}</strong>
-                        </span>
-                     @enderror
-                  </div>
-                  <div class="col-6">
-                     <label for="">Salah <span class="text-danger">Tidak perlu menggunakan tanda minus (-)</span></label>
-                     <input type="number" class="form-control @error('nilai_salah') is-invalid @enderror" name="nilai_salah" placeholder="Nilai Ketika salah" value="1" value="{{ old('nilai_salah') }}" required>
-                     @error('nilai_salah')
-                        <span class="invalid-feedback" role="alert">
-                           <strong>{{ $message }}</strong>
-                        </span>
-                     @enderror
-                  </div>
-               </div>
-            </div>
             <div class="form-group row">
                <div class="col-6">
-                  <label for="">Soal A</label>
-                  <input type="text" name="pilihan1" class="form-control @error('pilihan1') is-invalid @enderror" placeholder="Soal A" value="{{ old('pilihan1') }}" required>
+                  <label for="">Jawaban A</label>
+                  <textarea type="text" name="pilihan1" id="pilihan1" class="form-control @error('pilihan1') is-invalid @enderror" placeholder="Jawaban A">{{ old('pilihan1') }}</textarea>
                   @error('pilihan1')
                      <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -67,8 +45,8 @@
                   @enderror
                </div>
                <div class="col-6">
-                  <label for="">Soal B</label>
-                  <input type="text" name="pilihan2" class="form-control @error('pilihan2') is-invalid @enderror" placeholder="Soal B" value="{{ old('pilihan2') }}" required>
+                  <label for="">Jawaban B</label>
+                  <textarea type="text" name="pilihan2" id="pilihan2" class="form-control @error('pilihan2') is-invalid @enderror" placeholder="Jawaban B">{{ old('pilihan2') }}</textarea>
                   @error('pilihan2')
                      <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -76,8 +54,8 @@
                   @enderror
                </div>
                <div class="col-6">
-                  <label for="">Soal C</label>
-                  <input type="text" name="pilihan3" class="form-control @error('pilihan3') is-invalid @enderror" placeholder="Soal C" value="{{ old('pilihan3') }}" required>
+                  <label for="">Jawaban C</label>
+                  <textarea type="text" name="pilihan3" id="pilihan3" class="form-control @error('pilihan3') is-invalid @enderror" placeholder="Jawaban C">{{ old('pilihan3') }}</textarea>
                   @error('pilihan3')
                      <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -85,8 +63,8 @@
                   @enderror
                </div>
                <div class="col-6">
-                  <label for="">Soal D</label>
-                  <input type="text" name="pilihan4" class="form-control @error('pilihan4') is-invalid @enderror" placeholder="Soal D" value="{{ old('pilihan4') }}" required>
+                  <label for="">Jawaban D</label>
+                  <textarea type="text" name="pilihan4" id="pilihan4" class="form-control @error('pilihan4') is-invalid @enderror" placeholder="Jawaban D">{{ old('pilihan4') }}</textarea>
                   @error('pilihan4')
                      <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -94,8 +72,8 @@
                   @enderror
                </div>
                <div class="col-12">
-                  <label for="">Soal E</label>
-                  <input type="text" name="pilihan5" class="form-control @error('pilihan5') is-invalid @enderror" placeholder="Soal E" value="{{ old('pilihan5') }}" required>
+                  <label for="">Jawaban E</label>
+                  <textarea type="text" name="pilihan5" id="pilihan5" class="form-control @error('pilihan5') is-invalid @enderror" placeholder="Jawaban E">{{ old('pilihan5') }}</textarea>
                   @error('pilihan5')
                      <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -119,6 +97,28 @@
                   @enderror
                </div>
             </div>
+            <div class="form-group">
+               <div class="row">
+                  <div class="col-6">
+                     <label for="">Benar</label>
+                     <input type="number" class="form-control @error('nilai_benar') is-invalid @enderror" name="nilai_benar" placeholder="Nilai Ketika benar" value="4" value="{{ old('nilai_benar') }}" required>
+                     @error('nilai_benar')
+                        <span class="invalid-feedback" role="alert">
+                           <strong>{{ $message }}</strong>
+                        </span>
+                     @enderror
+                  </div>
+                  <div class="col-6">
+                     <label for="">Salah <span class="text-danger">Tidak perlu menggunakan tanda minus (-)</span></label>
+                     <input type="number" class="form-control @error('nilai_salah') is-invalid @enderror" name="nilai_salah" placeholder="Nilai Ketika salah" value="1" value="{{ old('nilai_salah') }}" required>
+                     @error('nilai_salah')
+                        <span class="invalid-feedback" role="alert">
+                           <strong>{{ $message }}</strong>
+                        </span>
+                     @enderror
+                  </div>
+               </div>
+            </div>
             <a href="{{ url()->previous() }}" type="button" class="btn btn-secondary" >Kembali</a>
             <button type="submit" class="btn btn-primary">Simpan</button>
         </form>
@@ -126,5 +126,27 @@
    </div>
 @endsection
 
+@section('css')
+   {{-- <link rel="stylesheet" href="{{ asset('assets/vendor/ckeditor/contents.css') }}"> --}}
+@endsection
+
 @section('js')
+   <script src="{{ asset('assets/vendor/ckeditor/ckeditor.js') }}"></script>
+   {{-- <script src="{{ asset('assets/vendor/ckeditor/styles.js') }}"></script> --}}
+   <script>
+      const option =  {
+         filebrowserImageBrowseUrl: '/filemanager?type=Images',
+         filebrowserImageUploadUrl: '/filemanager/upload?type=Images&_token=',
+         filebrowserBrowseUrl: '/filemanager?type=Files',
+         filebrowserUploadUrl: '/filemanager/upload?type=Files&_token='
+      }
+
+      CKEDITOR.replace('soal', option)
+      CKEDITOR.replace('pembahasan', option)
+      CKEDITOR.replace('pilihan1', option)
+      CKEDITOR.replace('pilihan2', option)
+      CKEDITOR.replace('pilihan3', option)
+      CKEDITOR.replace('pilihan4', option)
+      CKEDITOR.replace('pilihan5', option)
+   </script>
 @endsection

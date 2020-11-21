@@ -25,7 +25,7 @@ function loadQuest(indexQuest) {
 function loadQuesList() {
     var htmlSoal = "";
     for (let i = 0; i < lengthQuest; i++) {
-        htmlSoal += '<div class="p-0 col-lg-2 mr-1 mb-1"><button name="btnList" onclick="goToIndex(' + i + ')" class="btn btn-outline-dark quiz-list">' + (i + 1) + '</button></div>'
+        htmlSoal += '<div class="p-0 col-lg-2 mr-1 mb-1"><button type="button" name="btnList" onclick="goToIndex(' + i + ')" class="btn btn-outline-dark quiz-list">' + (i + 1) + '</button></div>'
     }
     questList.innerHTML = htmlSoal;
 }

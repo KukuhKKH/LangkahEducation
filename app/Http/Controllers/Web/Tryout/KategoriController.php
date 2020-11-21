@@ -22,16 +22,6 @@ class KategoriController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -56,17 +46,6 @@ class KategoriController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -74,7 +53,12 @@ class KategoriController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $kategori = TryoutKategori::find($id);
+            return view('pages.tryout.kategori.edit', compact('kategori'));
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -86,7 +70,16 @@ class KategoriController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $kategori = TryoutKategori::find($id);
+            $kategori->update([
+                'nama' => $request->nama,
+                'deskripsi' => $request->deskripsi
+            ]);
+            return redirect()->route('kategori.index')->with(['success' => 'Berhasil Update Kategori']);
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -97,6 +90,12 @@ class KategoriController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $kategori = TryoutKategori::find($id);
+            $kategori->delete();
+            return redirect()->route('kategori.index')->with(['success' => 'Berhasil Hapus Kategori']);
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
     }
 }
