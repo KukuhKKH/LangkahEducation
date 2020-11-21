@@ -74,6 +74,7 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                 Route::post('sekolah/import', 'User\SekolahController@import')->name('sekolah.import');
                 Route::post('mentor/import', 'User\MentorController@import')->name('mentor.import');
                 route::post('universitas/import', 'UniversitasController@import')->name('universitas.import');
+                route::post('passing-grade/import', 'PassingGradeController@import')->name('passing-grade.import');
 
                 // Tryout Route
                 Route::group(['namespace' => 'Tryout', 'prefix' => 'tryout'], function () {
