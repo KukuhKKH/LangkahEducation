@@ -175,7 +175,7 @@ class TryoutController extends Controller
         }
     }
 
-    public function tryout_store(Request $request, $kategori_slug, $paket_slug) {
+    public function tryout_store(Request $request, $paket_slug, $kategori_slug) {
         $kategori_id = TryoutKategori::findSlug($kategori_slug)->id;
         $paket_id = TryoutPaket::findSlug($paket_slug)->id;
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Gelombang\GelombangStore;
 use App\Models\Gelombang;
 use Illuminate\Http\Request;
 
@@ -38,7 +39,30 @@ class PendaftaranController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $raw_tgl_awal = \explode('/', $request->tgl_awal);
+            $raw_tgl_akhir = \explode('/', $request->tgl_akhir);
+            $tgl_awal = "$raw_tgl_awal[1]/$raw_tgl_awal[0]/$raw_tgl_awal[2]";
+            $tgl_akhir = "$raw_tgl_akhir[1]/$raw_tgl_akhir[0]/$raw_tgl_akhir[2]";
+            $gelombang = Gelombang::latest()->first();
+            $data = [
+                'nama' => $request->nama,
+                'kode_referal' => $request->kode_referal,
+                'total_tryout' => $request->total_tryout,
+                'status' => $request->status,
+                'tgl_awal' => $tgl_awal,
+                'tgl_akhir' => $tgl_akhir
+            ];
+            if($gelombang) {
+                $data['gelombang'] = $gelombang->gelombang + 1;
+            } else {
+                $data['gelombang'] = 1;
+            }
+            Gelombang::create($data);
+            return redirect()->back()->with(['success' => 'Berhasil menambah gelombang']);
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
     }
 
     /**

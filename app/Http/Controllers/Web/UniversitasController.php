@@ -17,7 +17,7 @@ class UniversitasController extends Controller
      */
     public function index(Request $request)
     {
-        $universitas = Universitas::latest()->paginate(10);
+        $universitas = Universitas::with('passing_grade')->latest()->paginate(10);
         $data = $request->all();
         return view('pages.passing-grade.index', compact('universitas', 'data'));
     }
@@ -46,12 +46,12 @@ class UniversitasController extends Controller
      */
     public function show($id)
     {
-        try {
-            $universitas = Universitas::find($id);
-            return view('pages.passing-grade.show', compact('universitas'));
-        } catch(\Exception $e) {
-            return redirect()->back()->with(['error' => $e->getMessage()]);
-        }
+        // try {
+        //     $universitas = Universitas::find($id);
+        //     return view('pages.passing-grade.show', compact('universitas'));
+        // } catch(\Exception $e) {
+        //     return redirect()->back()->with(['error' => $e->getMessage()]);
+        // }
     }
 
     /**

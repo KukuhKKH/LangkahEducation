@@ -76,7 +76,11 @@
                                  <a href="#" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit">
                                     <i class="fas fa-edit"></i>
                                  </a>
+<<<<<<< HEAD
                                  <a href="#" class="btn btn-secondary">Tambah Prodi</a>
+=======
+                                 <a href="{{ route('passing-grade.show', $value->id) }}" class="btn btn-secondary">Tamah Prodi</a>
+>>>>>>> b4b094418e20856bc7e9e201df652ecb3a39918a
                                  <button type="button" class="btn btn-danger hapus" data-id="{{ $value->id }}" data-toggle="tooltip" data-placement="top" title="Hapus">
                                     <i class="fas fa-trash"></i>
                                  </button>
