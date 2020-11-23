@@ -28,6 +28,13 @@
             <span>Try Out</span>
         </a>
     </li>
+
+    <li class="nav-item {{ request()->segment(2) == 'pendaftaran' ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('pendaftaran.index') }}">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Peserta Batch</span>
+        </a>
+    </li>
     
     <li class="nav-item {{ request()->segment(2) == 'universitas' ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('universitas.index') }}">
@@ -137,6 +144,13 @@
             <span>Mentor</span>
         </a>
     </li>
+
+    <li class="nav-item ">
+        <a class="nav-link" href="#">
+            <i class="fas fa-fw fa-chalkboard-teacher"></i>
+            <span>Author</span>
+        </a>
+    </li>
     
     <li class="nav-item">
     @hasanyrole('superadmin')
@@ -193,12 +207,6 @@
                 <a class="collapse-item" href="#">Blog</a>
             </div>
         </div>
-    </li>
-    <li class="nav-item {{ request()->segment(2) == 'pendaftaran' ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('pendaftaran.index') }}">
-            <i class="fas fa-fw fa-user"></i>
-            <span>Pendaftaran</span>
-        </a>
     </li>
     @endhasanyrole
     <li class="nav-item {{ request()->segment(2) == 'profil' ? 'active' : '' }}">

@@ -76,7 +76,7 @@
                                  <a href="#" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit">
                                     <i class="fas fa-edit"></i>
                                  </a>
-                                 <a href="#" class="btn btn-secondary">Tamah Prodi</a>
+                                 <a href="#" class="btn btn-secondary">Tambah Prodi</a>
                                  <button type="button" class="btn btn-danger hapus" data-id="{{ $value->id }}" data-toggle="tooltip" data-placement="top" title="Hapus">
                                     <i class="fas fa-trash"></i>
                                  </button>
