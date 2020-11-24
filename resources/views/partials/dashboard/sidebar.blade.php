@@ -21,12 +21,19 @@
     </div>
     
     @hasanyrole('superadmin|admin')
-    {{-- Try Out Superadmin|Admin|Mentor --}}
-    <li class="nav-item {{ request()->segment(2) == 'tryout' ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('kategori.index') }}">
-            <i class="fas fa-fw fa-desktop"></i>
-            <span>Try Out</span>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTryOut"
+            aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-money-bill"></i>
+            <span>TryOut</span>
         </a>
+        <div id="collapseTryOut" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Try Out :</h6>
+                <a class="collapse-item" href="{{ route('kategori.index') }}">Paket Soal</a>
+                <a class="collapse-item" href="#">Kategori Soal</a>
+            </div>
+        </div>
     </li>
 
     <li class="nav-item {{ request()->segment(2) == 'pendaftaran' ? 'active' : '' }}">
@@ -211,7 +218,7 @@
     <li class="nav-item {{ request()->segment(2) == 'rekening' ? 'active' : '' }}">
         <a class="nav-link" href="#">
             <i class="fas fa-fw fa-credit-card"></i>
-            <span>Rekening Bank</span>
+            <span>Rekening Pembayaran</span>
         </a>
     </li>
     @endhasanyrole
@@ -236,6 +243,6 @@
         <img class="sidebar-card-illustration mb-2" src="{{ asset('assets/img/undraw_rocket.svg') }}" alt="">
         <p class="text-center mb-2"><strong>Langkah Education</strong> Lorem ipsum dolor sit amet consectetur adipisicing.</p>
     </div>
-
+    
 </ul>
 <!-- End of Sidebar -->

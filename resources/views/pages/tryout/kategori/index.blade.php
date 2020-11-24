@@ -2,15 +2,14 @@
 @section('title', 'Kategori Try out')
 
 @section('content')
-    <h1 class="h3 mb-2 text-gray-800">Kategori Try out</h1>
-    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the</p>
+    <h1 class="h3 mb-2 text-gray-800">Kategori Ujian</h1>
+    <p class="mb-4">Kategori Try Out pada biasanya Saintek, Soshum dan Campuran (IPC)</p>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <div class="d-flex justify-content-between mb-1">
-            <h6 class="m-0 font-weight-bold text-primary">Kategori Try out</h6>
-                <div class="btn-group btn-group-md mb-3">
-                    <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#modalData"><i class="fa fa-plus"></i> Tambah Kategori</button>
+            <div class="row">
+                <div class="col-xl-12 text-right">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalData"><i class="fa fa-plus-circle"></i> Tambah Kategori</button>
                 </div>
             </div>
         </div>
@@ -21,7 +20,7 @@
                     <tr>
                         <th>No</th>
                         <th>Nama Kategori</th>
-                        <th>Total Paket Tryout</th>
+                        <th width="25%">Total Paket Tryout</th>
                         <th width="25%">Aksi</th>
                     </tr>
                     </thead>
@@ -46,8 +45,8 @@
                                     <a href="{{ route('kategori.edit', $value->id) }}" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    <a href="{{ route('paket.show', $value->slug) }}" class="btn btn-warning text-dark">
-                                        <i class="fas fa-plus"></i> Paket Tryout
+                                    <a href="{{ route('paket.show', $value->slug) }}" class="btn btn-info ">
+                                        <i class="fas fa-eye"></i> Paket Tryout
                                     </a>
                                     <button type="button" class="btn btn-danger hapus" data-id="{{ $value->id }}" data-toggle="tooltip" data-placement="top" title="Hapus">
                                         <i class="fas fa-trash"></i>
@@ -73,7 +72,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tambah Role</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Kategori Try Out</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -110,8 +109,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                         <button type="submit" class="btn btn-primary">Simpan</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Batal</button>
                     </div>
                 </form>
             </div>

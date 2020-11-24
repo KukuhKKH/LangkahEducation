@@ -105,3 +105,7 @@
 .input-group-addon a{ 
   color : #fff !important;
 }
+
+.timepicker{
+  z-index: 999;
+}

@@ -2,16 +2,42 @@
 @section('title', "Paket Try out - ".$kategori->nama)
 
 @section('content')
-    <h1 class="h3 mb-2 text-gray-800">Paket Try out - {{ $kategori->nama }}</h1>
-    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the</p>
-
-    <div class="card shadow mb-4">
+    <div class="row">
+        <div class="col-10">
+            <h1 class="h3 mb-2 text-gray-800">Paket Try out - {{ $kategori->nama }}</h1>
+        </div>
+        <div class="col-2 text-right">
+            <a href="#" download="" class="btn btn-success"><i class="fas fa-fw fa-file-excel"></i> Template Excel</a>
+        </div>
+    </div>
+    <div class="card shadow mt-4">
         <div class="card-header py-3">
-            <div class="d-flex justify-content-between mb-1">
-            <h6 class="m-0 font-weight-bold text-primary">Paket Try out - {{ $kategori->nama }}</h6>
-                <div class="btn-group btn-group-md mb-3">
-                    <a href="{{ route('kategori.index') }}" class="btn btn-warning text-dark">Kembali</a>
-                    <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#modalData"><i class="fa fa-plus"></i> Tambah Paket</button>
+            <div class="row">
+                <div class="col-xl-4">
+                    <a href="{{ route('kategori.index') }}" class="btn btn-light">&larr; Kembali</a>
+                </div>
+                <div class="col-xl-8">
+                    <div class="row">
+                        <div class="col-xl-8 ">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="mr-2 d-flex align-items-center">
+                                        Import Data Excel 
+                                    </div>
+                                    <div class="custom-file">
+                                    <input type="file" name="file" class="custom-file-input" id="inputGroupFile02" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" required>
+                                    <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+                                    </div>
+                                    <div class="input-group-append" id="btn-submit">
+                                    <button type="submit" class="input-group-text">Upload</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 text-right">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalData"><i class="fa fa-plus-circle"></i> Tambah Paket</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -115,8 +141,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                         <button type="submit" class="btn btn-primary">Simpan</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Batal</button>
                     </div>
                 </form>
             </div>

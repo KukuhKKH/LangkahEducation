@@ -3,7 +3,6 @@
 
 @section('content')
    <h1 class="h3 mb-2 text-gray-800">Edit Kategori Try out - {{ $kategori->nama }}</h1>
-   <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the</p>
 
    <div class="card shadow mb-4">
       <div class="card-header py-3">
@@ -45,13 +44,13 @@
                       @enderror
                    </div>
                    <div class="col-6">
-                      <img src="{{ asset("upload/>tryout/kategori/$kategori->image") }}" alt="ini gambar" class="img-fluid" width="300">
+                      <img src="{{ asset("upload/>tryout/kategori/$kategori->image") }}" alt="Image" class="img-fluid" width="300">
                    </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                 <button type="submit" class="btn btn-primary">Simpan</button>
+                <a href="{{ route('kategori.index') }}" type="button" class="btn btn-light">Batal</a>
             </div>
         </form>
       </div>
