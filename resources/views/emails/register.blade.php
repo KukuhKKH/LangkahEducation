@@ -268,6 +268,16 @@
                                                                     style="font-size: 16px; font-family: Helvetica, Arial, sans-serif; font-weight: normal; color: #ffffff; text-decoration: none; background-color: #ECB811; border-top: 15px solid #ECB811; border-bottom: 15px solid #ECB811; border-left: 25px solid #ECB811; border-right: 25px solid #ECB811; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; display: inline-block;"
                                                                     class="mobile-button">Verifikasi Sekarang &rarr;</a></td>
                                                         </tr>
+                                                        <tr>
+                                                            <td align="center">
+                                                                <p style="margin-top: 20px;">Atau Copy Link dibawah ini</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td align="center">
+                                                                <a href="{{ route('user.verify', $user->activate_token) }}"></a>
+                                                            </td>
+                                                        </tr>
                                                     </table>
                                                 </td>
                                             </tr>
