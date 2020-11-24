@@ -1,130 +1,107 @@
 @extends('layouts.dashboard-app')
-@section('title', 'Kategori Soal')
-
-@section('css')
-<link href="{{asset('assets/vendor/clockpicker/clockpicker.css')}}" rel="stylesheet">
-@endsection
+@section('title', 'Dashboard')
 
 @section('content')
+<h1 class="h3 mb-4 text-gray-800">Dashboard</h1>
 <div class="row">
-    <div class="col-10">
-        <h1 class="h3 mb-4 text-gray-800">Kategori Soal</h1>
-    </div>
-</div>
-<div class="card shadow mb-4">
-    <div class="card-header">
-        <div class="row">
-            <div class="col-xl-12 text-right">
-                <div class="btn-group btn-group-md">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalData"><i
-                            class="fas fa-fw fa-plus-circle"></i> Tambah Kategori</button>
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-danger shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Belum Dikonfirmasi</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">15</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-receipt fa-2x text-gray-300"></i>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-bordered" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama Kategori</th>
-                        <th>Kode Kategori</th>
-                        <th>Waktu Pengerjaan</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama Kategori</th>
-                        <th>Kode Kategori</th>
-                        <th>Waktu Pengerjaan</th>
-                        <th>Aksi</th>
-                    </tr>
-                </tfoot>
-                <tbody>
-                    <tr>
-                        <td colspan="4" class="text-center">
-                            Tidak ada data
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Sekolah
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-home fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
+    <!-- Pending Requests Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            Total Siswa</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-user-circle fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Pengunjung Hari ini</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">100</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-search fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 </div>
 
-<div class="modal fade" id="modalData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Kategori Soal</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+<div class="row">
+    <!-- Area Chart -->
+    <div class="col-xl-12 col-lg-12">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-dark">Statistik Pengunjung Harian</h6>
             </div>
-            <form action="#" method="post" enctype="multipart/form-data">
-                @csrf
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="name">Nama Kategori</label>
-                        <input name="name" type="text"
-                            class="form-control form-control-user @error('name') is-invalid @enderror" id="namaKategori"
-                            placeholder="Nama Kategori" value="{{ old('name') }}" required>
-                        @error('name')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="name">Kode Kategori </label><small class="text-danger ml-2">*Huruf Kapital</small>
-                        <input name="name" type="text"
-                            class="form-control form-control-user @error('name') is-invalid @enderror" id="kodeKategori"
-                            placeholder="Nama Kategori" value="{{ old('name') }}" required>
-                        @error('name')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="name">Waktu Pengerjaan</label>
-                        <div class="input-group">
-                            <input name="name" type="text"
-                            class="form-control form-control-user clockpicker @error('name') is-invalid @enderror"
-                            id="waktuSoal" placeholder="Waktu Pengerjaan" value="{{ old('name') }}" required>
-                        </div>
-                        @error('name')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div class="chart-area">
+                    <canvas id="myAreaChart"></canvas>
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                    <button type="button" class="btn btn-light" data-dismiss="modal">Batal</button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
+    
 </div>
+
 @endsection
 
 @section('js')
-<script src="{{ asset('assets/vendor/clockpicker/clockpicker.js') }}"></script>
-<script>
-    jQuery(function ($) {
+    <!-- Page level plugins -->
+    <script src="{{ asset('assets/vendor/chart.js/Chart.min.js') }}"></script>
 
-        $('.clockpicker').clockpicker({
-            placement: 'bottom',
-            align: 'right',
-            autoclose : true
-        });
-    });
-
-</script>
+    <!-- Page level custom scripts -->
+    <script src="{{ asset('assets/js/chart-pengunjung-harian.js') }}"></script>
 @endsection
