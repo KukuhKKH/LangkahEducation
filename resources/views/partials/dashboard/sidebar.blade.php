@@ -80,7 +80,7 @@
     <hr class="sidebar-divider">
     @endhasanyrole
 
-    @hasanyrole('siswa')
+    @hasanyrole('siswa|sekolah')
     <div class="sidebar-heading">
         Umum
     </div>
@@ -99,7 +99,7 @@
         </a>
     </li>
     @endhasanyrole
-    @hasanyrole('admin|sekolah')
+    @hasanyrole('superadmin|admin')
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePembayaran"
             aria-expanded="true" aria-controls="collapseTwo">
@@ -207,6 +207,12 @@
                 <a class="collapse-item" href="#">Blog</a>
             </div>
         </div>
+    </li>
+    <li class="nav-item {{ request()->segment(2) == 'rekening' ? 'active' : '' }}">
+        <a class="nav-link" href="#">
+            <i class="fas fa-fw fa-credit-card"></i>
+            <span>Rekening Bank</span>
+        </a>
     </li>
     @endhasanyrole
     <li class="nav-item {{ request()->segment(2) == 'profil' ? 'active' : '' }}">
