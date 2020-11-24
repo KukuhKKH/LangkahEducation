@@ -3,6 +3,7 @@
 
 @section('content')
 <h1 class="h3 mb-4 text-gray-800">Dashboard</h1>
+@hasanyrole('superadmin|admin')
 <div class="row">
 
     <!-- Earnings (Monthly) Card Example -->
@@ -93,9 +94,17 @@
             </div>
         </div>
     </div>
-    
 </div>
+@endhasanyrole
 
+@hasanyrole('sekolah|siswa|mentor|author')
+    <div class="row">
+        <div class="col-xl-12 text-center">
+            <img class="img-fluid" src="{{asset('assets/img/welcome-illustration.svg')}}" alt="">
+            <h2 class="mt-3">Selamat Datang <span class="font-weight-bold">{{ auth()->user()->name }}</span></h2>
+        </div>
+    </div>
+@endhasanyrole
 @endsection
 
 @section('js')

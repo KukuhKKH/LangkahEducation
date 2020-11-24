@@ -21,7 +21,8 @@
     </div>
     
     @hasanyrole('superadmin|admin')
-    <li class="nav-item">
+
+    <li class="nav-item {{ (request()->is('dashboard/tryout/*')) ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTryOut"
             aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-money-bill"></i>
@@ -87,7 +88,6 @@
     <hr class="sidebar-divider">
     @endhasanyrole
 
-    @hasanyrole('siswa|sekolah')
     <div class="sidebar-heading">
         Umum
     </div>
@@ -95,9 +95,14 @@
     <li class="nav-item">
         <a class="nav-link" href="#">
             <i class="fas fa-bell fa-fw"></i>
-            <span>Pemberitahuan</span> <span class="badge badge-success">0</span>
+            <span>Pemberitahuan</span>
+            @hasanyrole('siswa|sekolah')
+            <span class="badge badge-success">0</span>
+            @endhasanyrole
         </a>
     </li>
+    
+    @hasanyrole('siswa|sekolah')
 
     <li class="nav-item">
         <a class="nav-link" href="#">
@@ -107,7 +112,10 @@
     </li>
     @endhasanyrole
     @hasanyrole('superadmin|admin')
-    <li class="nav-item">
+    @php
+    $aktif_bayar = (request()->is('dashboard/belum-bayar')|request()->is('dashboard/sudah-bayar')) ? true : false
+    @endphp
+    <li class="nav-item {{ ($aktif_bayar) ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePembayaran"
             aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-money-bill"></i>
