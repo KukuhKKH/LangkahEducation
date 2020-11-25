@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddTotalTryoutTable extends Migration
+class AddSubbabTryoutSoal extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddTotalTryoutTable extends Migration
      */
     public function up()
     {
-        Schema::table('gelombang', function (Blueprint $table) {
-            $table->char('total_tryout', 2)->after('kode_referal');
+        Schema::table('tryout_soal', function (Blueprint $table) {
+            $table->string('subbab')->after('tryout_paket_id');
         });
     }
 
@@ -25,8 +25,8 @@ class AddTotalTryoutTable extends Migration
      */
     public function down()
     {
-        Schema::table('gelombang', function (Blueprint $table) {
-            $table->dropColumn('total_tryout');
+        Schema::table('tryout_soal', function (Blueprint $table) {
+            $table->dropColumn('subbab');
         });
     }
 }

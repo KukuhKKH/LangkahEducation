@@ -14,7 +14,6 @@
       <div class="card-body">
          <form action="{{ route('soal.store') }}" method="post">
             @csrf
-            <input type="hidden" name="kategori_id" value="{{ $paket->kategori->id }}">
             <input type="hidden" name="tryout_paket_id" value="{{ $paket->id }}">
             <div class="form-group">
                <label for="">Soal</label>
@@ -112,6 +111,19 @@
                      <label for="">Salah <span class="text-danger">Tidak perlu menggunakan tanda minus (-)</span></label>
                      <input type="number" class="form-control @error('nilai_salah') is-invalid @enderror" name="nilai_salah" placeholder="Nilai Ketika salah" value="1" value="{{ old('nilai_salah') }}" required>
                      @error('nilai_salah')
+                        <span class="invalid-feedback" role="alert">
+                           <strong>{{ $message }}</strong>
+                        </span>
+                     @enderror
+                  </div>
+                  <div class="col-12">
+                     <label for="subbab">Subbab Soal</label>
+                     <select name="subbab" class="form-control @error('subbab') is-invalid @enderror">
+                        <option value="PU">PU</option>
+                        <option value="PMM">PMM</option>
+                        <option value="PPU">PPU</option>
+                     </select>
+                     @error('subbab')
                         <span class="invalid-feedback" role="alert">
                            <strong>{{ $message }}</strong>
                         </span>

@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\Sekolah\SekolahCreateRequest;
 use App\Http\Requests\Sekolah\SekolahUpdateRequest;
+use App\Models\TryoutPaket;
 
 class SekolahController extends Controller
 {
@@ -207,6 +208,26 @@ class SekolahController extends Controller
             return redirect()->route('sekolah.index')->with(['success' => 'Berhasil hapus integrasi siswa ke sekolah']);
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()])->withInput($request->all());
+        }
+    }
+
+    public function integrasi_tryout($id) {
+        try {
+            $sekolah = Sekolah::find($id);
+            $tryout = TryoutPaket::where('status', 1)->latest()->get();
+            return view('pages.users.sekolah.sekolah_tryout', compact('sekolah', 'tryout'));
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function integrasi_tryout_store(Request $request, $id) {
+        try {
+            $sekolah = Sekolah::find($id);
+            $sekolah->tryout()->sync($request->tryout);
+            return redirect()->route('sekolah.index')->with(['success' => "Tryout berhasil diintegrasikan"]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()])->withInput();
         }
     }
 }

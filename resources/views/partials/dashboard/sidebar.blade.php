@@ -23,7 +23,7 @@
     @hasanyrole('superadmin|admin')
     {{-- Try Out Superadmin|Admin|Mentor --}}
     <li class="nav-item {{ request()->segment(2) == 'tryout' ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('kategori.index') }}">
+        <a class="nav-link" href="{{ route('paket.index') }}">
             <i class="fas fa-fw fa-desktop"></i>
             <span>Try Out</span>
         </a>
@@ -197,7 +197,7 @@
     <li class="nav-item {{ request()->segment(2) == 'pendaftaran' ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('pendaftaran.index') }}">
             <i class="fas fa-fw fa-user"></i>
-            <span>Pendaftaran</span>
+            <span>Gelombang</span>
         </a>
     </li>
     @endhasanyrole

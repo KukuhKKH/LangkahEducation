@@ -5,12 +5,37 @@
     <h1 class="h3 mb-2 text-gray-800">Soal Try out - {{ $paket->nama }}</h1>
     <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the</p>
 
+    <div class="mb-3">
+        <a href="{{ asset('template/TemplateUniversitas.xlsx') }}" download="" class="btn btn-success"><i class="fas fa-fw fa-file-excel"></i> Template Soal</a>
+    </div>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
+            <div class="row">
+                <div class="col-md-8">
+                   <form action="{{ route('soal.import_batch') }}" method="POST" id="form-import" enctype="multipart/form-data">
+                      @csrf
+                      <input type="hidden" name="paket_id" value="{{ $paket->id }}">
+                      <div class="form-group">
+                         <div class="input-group">
+                            <div class="mr-2 d-flex align-items-center">
+                               Import Soal
+                            </div>
+                            <div class="custom-file">
+                               <input type="file" name="file" class="custom-file-input" id="inputGroupFile02" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" required>
+                               <label class="custom-file-label" for="inputGroupFile02">Pilih FIle</label>
+                            </div>
+                            <div class="input-group-append" id="btn-submit">
+                               <button type="submit" class="input-group-text">Upload</button>
+                            </div>
+                         </div>
+                      </div>
+                   </form>
+                </div>
+             </div>
             <div class="d-flex justify-content-between mb-1">
             <h6 class="m-0 font-weight-bold text-primary">Soal Try out - {{ $paket->nama }}</h6>
                 <div class="btn-group btn-group-md mb-3">
-                    <a href="{{ route('paket.show', $paket->kategori->slug) }}" class="btn btn-warning text-dark">Kembali</a>
+                    <a href="{{ route('paket.index') }}" class="btn btn-warning text-dark">Kembali</a>
                     <a href="{{ route('soal.create', $paket->slug) }}" class="btn btn-outline-primary btn-sm"><i class="fa fa-plus"></i> Tambah Soal</a>
                 </div>
             </div>

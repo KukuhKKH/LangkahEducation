@@ -6,6 +6,7 @@ use App\Models\Universitas;
 use Illuminate\Http\Request;
 use App\Imports\UniversitasImport;
 use App\Http\Controllers\Controller;
+use App\Imports\UniversitasImportBatch;
 use Maatwebsite\Excel\Facades\Excel;
 
 class UniversitasController extends Controller
@@ -102,6 +103,25 @@ class UniversitasController extends Controller
             $file = $request->file('file');
             try {
                 Excel::import(new UniversitasImport(), $file);
+                return redirect()->back()->with(['success' => 'Import Universitas berhasil']);
+                return redirect(route('universitas.index'));
+            } catch (\Exception $e) {
+                $message = $e->getMessage();
+                if (!$message == "Start row (2) is beyond highest row (1)") throw $e;
+                return \redirect()->back()->with(['error' => $message])->withInput();
+            }
+        }
+        return \redirect()->back()->with(['error' => "Anda belum memilih file"])->withInput();
+    }
+
+    public function import_batch(Request $request) {
+        $this->validate($request, [
+            'file'  => 'required|mimes:xls,xlsx',
+        ]);
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            try {
+                Excel::import(new UniversitasImportBatch(), $file);
                 return redirect()->back()->with(['success' => 'Import Universitas berhasil']);
                 return redirect(route('universitas.index'));
             } catch (\Exception $e) {

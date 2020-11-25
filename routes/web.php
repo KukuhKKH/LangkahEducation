@@ -49,8 +49,9 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
             Route::group(['middleware' => ['role:admin|superadmin']], function() {
                 // Lain lain
                 Route::resource('universitas', 'UniversitasController')->except(['create']);
+                Route::post('universitas/import/batch', 'UniversitasController@import_batch')->name('universitas.import_batch');
                 Route::resource('universitas/passing-grade', 'PassingGradeController');
-                Route::resource('pendaftaran', 'PendaftaranController');
+                Route::resource('pendaftaran', 'PendaftaranController')->except(['create', 'show']);
 
                 Route::group(['namespace' => 'User'], function () {
                     // Manajemen Users
@@ -65,6 +66,8 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                     Route::post('sekolah/integrasi/{id}/hapus', 'SekolahController@hapus_integrasi')->name('sekolah.integrasi.hapus');
                     Route::post('mentor/integrasi/{id}', 'MentorController@integrasi')->name('mentor.integrasi');
                     Route::post('mentor/integrasi/{id}/hapus', 'MentorController@hapus_integrasi')->name('mentor.integrasi.hapus');
+                    Route::get('sekolah/tryout/{id}', 'SekolahController@integrasi_tryout')->name('sekolah.tryout');
+                    Route::post('sekolah/tryout/{id}', 'SekolahController@integrasi_tryout_store')->name('sekolah.tryout.store');
                 });
             });
 
@@ -80,14 +83,16 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                 Route::group(['namespace' => 'Tryout', 'prefix' => 'tryout'], function () {
                     Route::resource('soal', 'TryoutController')->except(['create']);
                     Route::get('soal/create/{slug}', 'TryoutController@create')->name('soal.create');
-                    Route::resource('kategori', 'KategoriController')->except(['create', 'show']);
                     Route::resource('paket', 'PaketController')->except(['create']);
+
+                    // Import
+                    Route::post('soal/import/batch', 'TryoutController@import_batch')->name('soal.import_batch');
                 });
             });
             
             Route::group(['middleware' => 'role:siswa', 'namespace' => 'Siswa'], function () {
                 Route::get('siswa/tryout', 'TryoutController@index')->name('siswa.tryout.index');
-                Route::get('siswa/tryout/{kategori}', 'TryoutController@kategori')->name('siswa.tryout.kategori');
+                Route::get('siswa/tryout/{paket}', 'TryoutController@paket')->name('siswa.tryout.paket');
             });
         });
 

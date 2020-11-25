@@ -22,7 +22,8 @@
                         <th>No</th>
                         <th>Nama</th>
                         <th>Gelombang</th>
-                        <th>Status</th>
+                        <th>Tgl Awal</th>
+                        <th>Tgl Akhir</th>
                         <th width="25%">Aksi</th>
                     </tr>
                     </thead>
@@ -31,35 +32,34 @@
                         <th>No</th>
                         <th>Nama</th>
                         <th>Gelombang</th>
-                        <th>Status</th>
+                        <th>Tgl Awal</th>
+                        <th>Tgl Akhir</th>
                         <th width="25%">Aksi</th>
                     </tr>
                     </tfoot>
                     <tbody>
                     @forelse($gelombang as $value)
                         <tr>
-                           <td>{{ $loop->iteration }}</td>
-                           <td>{{ $value->nama }}</td>
-                           <td>{{ $value->gelombang }}</td>
-                           <td>
-                              @if ($value->status)
-                                 <span class="badge badge-success p-2">Aktif</span>
-                              @else
-                                 <span class="badge badge-danger p-2">Tidak Aktif</span>
-                              @endif
-                           </td>
-                           <td>
-                              <form action="{{ route('pendaftaran.destroy', $value->id) }}" method="POST" id="form-{{ $value->id }}">
-                                 @csrf
-                                 @method('DELETE')
-                                 <a href="#" class="btn btn-success">Edit</a>
-                                 <button type="button" class="btn btn-danger hapus" data-id="{{ $value->id }}">Hapus</button>
-                              </form>
-                           </td>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $value->nama }}</td>
+                            <td>{{ $value->gelombang }}</td>
+                            <td>{{ Carbon\Carbon::parse($value->tgl_awal)->format('d F Y') }}</td>
+                            <td>{{ Carbon\Carbon::parse($value->tgl_akhir)->format('d F Y') }}</td>
+                            <td>
+                                <form action="{{ route('pendaftaran.destroy', $value->id) }}" method="POST" id="form-{{ $value->id }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <a href="{{ route('pendaftaran.edit', $value->id) }}" class="btn btn-success">Edit</a>
+                                    <a href="#" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Integrasi tryout ke gelombang ini">
+                                    <i class="fas fa-fw fa-desktop"></i>
+                                    </a>
+                                    <button type="button" class="btn btn-danger hapus" data-id="{{ $value->id }}">Hapus</button>
+                                </form>
+                            </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="text-center">
+                            <td colspan="6" class="text-center">
                                 Tidak ada data
                             </td>
                         </tr>
@@ -92,29 +92,8 @@
                             <input type="text" class="form-control @error('kode_referal') is-invalid @enderror" name="kode_referal" placeholder="Masukkan Kode Gelombang" value="{{ old('kode_referal') }}">
                         </div>
                         <div class="form-group">
-                            <label for="">Total Tryout</label>
-                            <input type="number" class="form-control @error('kode_referal') is-invalid @enderror" name="total_tryout" placeholder="Total Pengerjaan Tryout" value="{{ old('kode_referal') }}">
-                            @error('total_tryout')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="">Status</label>
-                            <select name="status" class="form-control @error('status') is-invalid @enderror" autocomplete="off">
-                                <option value="1">Aktif</option>
-                                <option value="0">Tidak Aktif</option>
-                            </select>
-                            @error('status')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="tgl_awal">Tanggal Lahir</label>
-                            <input name="tgl_awal" id="tgl_awal" type="text" class="datepicker form-control form-control-user @error('tgl_awal') is-invalid @enderror" placeholder="Tanggal Lahir" value="{{ old('tgl_awal') }}" value="{{ old('tgl_akhir') }}" required>
+                            <label for="tgl_awal">Tanggal Awal</label>
+                            <input name="tgl_awal" id="tgl_awal" type="text" class="datepicker form-control form-control-user @error('tgl_awal') is-invalid @enderror" placeholder="Tanggal Awal" value="{{ old('tgl_awal') }}" value="{{ old('tgl_akhir') }}" required>
                             @error('tgl_awal')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -123,7 +102,7 @@
                         </div>
                         <div class="form-group">
                             <label for="tgl_akhir">Tanggal Akhir</label>
-                            <input name="tgl_akhir" id="tgl_akhir" type="text" class="datepicker form-control form-control-user @error('tgl_akhir') is-invalid @enderror" placeholder="Tanggal Lahir" value="{{ old('tgl_akhir') }}" required>
+                            <input name="tgl_akhir" id="tgl_akhir" type="text" class="datepicker form-control form-control-user @error('tgl_akhir') is-invalid @enderror" placeholder="Tanggal Akhir" value="{{ old('tgl_akhir') }}" required>
                             @error('tgl_akhir')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
