@@ -81,6 +81,7 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
 
                 // Tryout Route
                 Route::group(['namespace' => 'Tryout', 'prefix' => 'tryout'], function () {
+                    Route::resource('kategori-soal', 'KategoriSoalController')->except(['create', 'show']);
                     Route::resource('soal', 'TryoutController')->except(['create']);
                     Route::get('soal/create/{slug}', 'TryoutController@create')->name('soal.create');
                     Route::resource('paket', 'PaketController')->except(['create']);
@@ -90,6 +91,7 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                 });
             });
             
+            // Tryout Siswa
             Route::group(['middleware' => 'role:siswa', 'namespace' => 'Siswa'], function () {
                 Route::get('siswa/tryout', 'TryoutController@index')->name('siswa.tryout.index');
                 Route::get('siswa/tryout/{paket}', 'TryoutController@paket')->name('siswa.tryout.paket');

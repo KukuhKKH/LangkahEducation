@@ -21,11 +21,28 @@
     </div>
     
     @hasanyrole('superadmin|admin')
-    {{-- Try Out Superadmin|Admin|Mentor --}}
-    <li class="nav-item {{ request()->segment(2) == 'tryout' ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('paket.index') }}">
-            <i class="fas fa-fw fa-desktop"></i>
-            <span>Try Out</span>
+    @php
+        $nav_tryout = request()->is('dashboard/tryout/*') ? true : false
+    @endphp
+    <li class="nav-item {{ (request()->is('dashboard/tryout/*')) ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTryOut"
+            aria-expanded="{{ $nav_tryout }}" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-money-bill"></i>
+            <span>TryOut</span>
+        </a>
+        <div id="collapseTryOut" class="{{ ($nav_tryout) ? 'show collapse' : 'collapse' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Try Out :</h6>
+                <a class="collapse-item {{ request()->is('dashboard/tryout/paket/*') ? 'active' : '' }}" href="{{ route('paket.index') }}">Paket Soal</a>
+                <a class="collapse-item {{ request()->is('dashboard/tryout/kategori-soal') ? 'active' : '' }}" href="{{ route('kategori-soal.index') }}">Kategori Soal</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item {{ request()->segment(2) == 'pendaftaran' ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('pendaftaran.index') }}">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Peserta Batch</span>
         </a>
     </li>
     
@@ -73,7 +90,6 @@
     <hr class="sidebar-divider">
     @endhasanyrole
 
-    @hasanyrole('siswa')
     <div class="sidebar-heading">
         Umum
     </div>
@@ -81,9 +97,14 @@
     <li class="nav-item">
         <a class="nav-link" href="#">
             <i class="fas fa-bell fa-fw"></i>
-            <span>Pemberitahuan</span> <span class="badge badge-success">0</span>
+            <span>Pemberitahuan</span>
+            @hasanyrole('siswa|sekolah')
+            <span class="badge badge-success">0</span>
+            @endhasanyrole
         </a>
     </li>
+    
+    @hasanyrole('siswa|sekolah')
 
     <li class="nav-item">
         <a class="nav-link" href="#">
@@ -92,14 +113,17 @@
         </a>
     </li>
     @endhasanyrole
-    @hasanyrole('admin|sekolah')
-    <li class="nav-item">
+    @hasanyrole('superadmin|admin')
+    @php
+    $aktif_bayar = (request()->is('dashboard/belum-bayar')|request()->is('dashboard/sudah-bayar')) ? true : false
+    @endphp
+    <li class="nav-item {{ ($aktif_bayar) ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePembayaran"
-            aria-expanded="true" aria-controls="collapseTwo">
+            aria-expanded="{{ $aktif_bayar }}" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-money-bill"></i>
             <span>Pembayaran</span>
         </a>
-        <div id="collapsePembayaran" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapsePembayaran" class="{{ ($aktif_bayar) ? 'show collapse' : 'collapse' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Pembayaran :</h6>
                 <a class="collapse-item" href="#">Belum Bayar</a>
@@ -135,6 +159,13 @@
         <a class="nav-link" href="{{ route('mentor.index') }}">
             <i class="fas fa-fw fa-chalkboard-teacher"></i>
             <span>Mentor</span>
+        </a>
+    </li>
+
+    <li class="nav-item ">
+        <a class="nav-link" href="#">
+            <i class="fas fa-fw fa-chalkboard-teacher"></i>
+            <span>Author</span>
         </a>
     </li>
     
@@ -194,10 +225,10 @@
             </div>
         </div>
     </li>
-    <li class="nav-item {{ request()->segment(2) == 'pendaftaran' ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('pendaftaran.index') }}">
-            <i class="fas fa-fw fa-user"></i>
-            <span>Gelombang</span>
+    <li class="nav-item {{ request()->segment(2) == 'rekening' ? 'active' : '' }}">
+        <a class="nav-link" href="#">
+            <i class="fas fa-fw fa-credit-card"></i>
+            <span>Rekening Pembayaran</span>
         </a>
     </li>
     @endhasanyrole
@@ -222,6 +253,6 @@
         <img class="sidebar-card-illustration mb-2" src="{{ asset('assets/img/undraw_rocket.svg') }}" alt="">
         <p class="text-center mb-2"><strong>Langkah Education</strong> Lorem ipsum dolor sit amet consectetur adipisicing.</p>
     </div>
-
+    
 </ul>
 <!-- End of Sidebar -->

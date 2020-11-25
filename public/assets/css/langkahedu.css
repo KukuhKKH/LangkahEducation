@@ -77,6 +77,10 @@
 }
 
 
+.sidebar-light .nav-item.active .nav-link[data-toggle=collapse]::after {
+  color: #fff !important;
+}
+
 /* Text */
 .text-langkah{
     color: #D4A60F !important;
@@ -104,4 +108,8 @@
 
 .input-group-addon a{ 
   color : #fff !important;
+}
+
+.timepicker{
+  z-index: 999;
 }
