@@ -35,14 +35,16 @@
 <h1 class="h3 mb-4 text-gray-800">Try Out</h1>
 
 <div class="row">
-    {{-- @forelse ($paket as $value) --}}
+    @forelse ($paket as $value)
     <div class="col-md-3 col-xs-6">
         <div class="card" style="width: 18rem;">
-            {{-- <img class="card-img-top" src="{{ $value->image }}" alt="Try Out"> --}}
+            @if ($value->image)
+            <img class="card-img-top" src="{{ $value->image }}" alt="Try Out">
+            @else
             <img class="card-img-top" src="{{asset('assets/img/email-verification.png')}}" alt="Try Out">
+            @endif
             <div class="card-body">
-                {{-- <h5 class="card-text">{{ $value->nama }}</h5> --}}
-                <h5 class="card-text font-wight-bold">Try Out Batch 1</h5>
+                <h5 class="card-text">{{ $value->nama }}</h5>
                 <table>
                     <tr>
                         <td>
@@ -50,7 +52,7 @@
                         </td>
                         <td>:</td>
                         <td>
-                            DD/MM/YYYY
+                            {{ Carbon\Carbon::parse($value->tgl_awal)->format('d F Y') }}
                         </td>
                     </tr>
                     <tr>
@@ -59,23 +61,24 @@
                         </td>
                         <td>:</td>
                         <td>
-                            HH:MM WIB
+                            00:00 WIB
                         </td>
                     </tr>
                 </table>
-                <button data-toggle="modal" data-target="#exampleModal"
-                    class="btn btn-langkah btn-block mt-4">Kerjakan</button>
+                <a href="{{ route('tryout.mulai', $value->slug) }}" class="btn btn-langkah btn-block mt-4">
+                    Kerjakan
+                </a>
                 <a class="btn btn-light btn-block" href="#">Hasil Analisis</a>
             </div>
         </div>
     </div>
-    {{-- @empty
-      <div class="col-xl-12 text-center p-5">
-         <img class="img-fluid" src="{{asset('assets/img/empty-illustration.svg')}}" alt="">
-    <h3 class="mt-3">Wah Kamu Belum mengikuti Try Out Apapun</h3>
-    <a class="btn btn-langkah mt-3" href="#">Daftar Try Out</a>
-</div>
-@endforelse --}}
+    @empty
+    <div class="col-xl-12 text-center p-5">
+        <img class="img-fluid" src="{{asset('assets/img/empty-illustration.svg')}}" alt="">
+        <h3 class="mt-3">Wah Kamu Belum mengikuti Try Out Apapun</h3>
+        <a class="btn btn-langkah mt-3" href="#">Daftar Try Out</a>
+    </div>
+    @endforelse
 </div>
 
 <!-- Modal -->

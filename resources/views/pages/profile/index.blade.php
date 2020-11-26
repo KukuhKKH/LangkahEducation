@@ -15,7 +15,11 @@
    <div class="card-body">
       <div class="row">
          <div class="col-md-4">
-            <img src="{{ asset("upload/users/>$user->foto") }}" alt="foto-{{ $user->name }}">
+            @if ($user->foto)
+            <img src="{{ asset("upload/users/$user->foto") }}" alt="foto-{{ $user->name }}">
+            @else
+            <img src="{{ asset("assets/img/undraw_profile.svg") }}" alt="foto-{{ $user->name }}">
+            @endif
          </div>
          <div class="col-md-8">
             <h2>{{ $user->name }}</h2>

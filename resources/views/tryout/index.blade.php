@@ -49,7 +49,7 @@
          <!-- Begin Page Content -->
          <div class="container-fluid">
             <div class="card p-3">
-               <form action="{{ route('tryout.soal.store', ['kategori' => $kategori->slug, 'paket' => $paket->slug]) }}" method="post" id="form-data">
+               <form action="{{ route('tryout.soal.store', ['paket' => $paket->slug]) }}" method="post" id="form-data">
                @csrf
                   <div class="card-body">
                      <h4>
@@ -63,7 +63,8 @@
                            <?php $i = 1; ?>
                            <?php $k = 0; ?>
                            @foreach ($soal as $value)
-                              <div id="question{{ $k }}" class="{{ $k == 0 ? 'show' : '' }}">
+                              <div id="question{{ $k }}" class="{{ $k == 0 ? 'show' : '' }}" data-kategori="{{ $value->kategori_soal->nama }}">
+                                 <h1>Kategori {{ $value->kategori_soal->nama }}</h1>
                                  <h3 id="pertanyaan" class="h4 mt-3 mb-2 text-gray-800 font-weight-bold">
                                     {{-- {{ $i }}.  --}}
                                     {!! $value->soal !!}

@@ -123,7 +123,10 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                 Route::put('pembayaran-siswa/{pembayaran_id}', 'PembayaranController@siswa_update')->name('pembayaran.siswa.update');
             });
             
-            Route::post('tryout/{paket}/{kategori}', 'Tryout\TryoutController@tryout_store')->name('tryout.soal.store');
+            Route::group(['namespace' => 'Siswa'], function () {
+                Route::get('tryout/{slug}', 'TryoutController@tryout_mulai')->name('tryout.mulai');
+                Route::post('tryout/{paket}', 'TryoutController@tryout_store')->name('tryout.soal.store');
+            });
         });
     });
 });
@@ -146,8 +149,7 @@ Route::group(['prefix' => 'dev'], function() {
                         ->inRandomOrder()
                         ->limit(10)
                         ->get();
-        $kategori = TryoutKategori::find(1);
         $paket = TryoutPaket::find(1);
-        return view('tryout.index', compact('soal', 'kategori', 'paket'));
+        return view('tryout.index', compact('soal', 'paket'));
     });
 });

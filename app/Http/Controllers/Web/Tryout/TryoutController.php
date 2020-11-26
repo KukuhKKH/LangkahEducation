@@ -180,43 +180,6 @@ class TryoutController extends Controller
         }
     }
 
-    public function tryout_store(Request $request, $paket_slug, $kategori_slug) {
-        $kategori_id = TryoutKategori::findSlug($kategori_slug)->id;
-        $paket_id = TryoutPaket::findSlug($paket_slug)->id;
-
-        $data_hasil = Auth::user()->tryout_hasil()->create([
-            'tryout_kategori_id' => $kategori_id,
-            'tryout_paket_id' => $paket_id,
-            'nilai_awal' => 0,
-            'nilai_sekarang' => 0,
-            'nilai_maksimal' => 0
-        ]);
-        $nilai_sekarang = 0;
-        $nilai_maksimal = 0;
-        foreach ($request->input('soal', []) as $key => $value) {
-            $soal = TryoutSoal::find($value);
-            $benar = $soal->benar;
-            $salah = $soal->salah;
-            $nilai_maksimal += $benar;
-            if (TryoutJawaban::find($request->jawaban[$value])->benar) {
-                $nilai_sekarang += $benar;
-            } else {
-                $nilai_sekarang -= $salah;
-            }
-
-            $data_hasil->tryout_hasil_jawaban()->create([
-                'tryout_soal_id' => $value,
-                'tryout_jawaban_id' => $request->jawaban[$value]
-            ]);
-        }
-        $data_hasil->update([
-            'nilai_awal' => $nilai_sekarang,
-            'nilai_sekarang' => $nilai_sekarang,
-            'nilai_maksimal' => $nilai_maksimal
-        ]);
-        return "Berhaasil";
-    }
-
     public function import_batch(Request $request) {
         $this->validate($request, [
             'file'  => 'required|mimes:xls,xlsx',

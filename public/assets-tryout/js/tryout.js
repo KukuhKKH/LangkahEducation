@@ -55,14 +55,49 @@ function goToIndex(index){
 }
 
 $("#btn-lanjut").on('click', function () {
-    indexQuest++;
-    goToIndex(indexQuest);
+    let indexNow = currentQuest
+    let now = document.getElementById("question"+indexNow).getAttribute('data-kategori')
+    let indexNext = indexNow + 1
+    let next = document.getElementById("question"+indexNext).getAttribute('data-kategori')
+
+    if(now != next) {
+        swal.fire({
+            title: 'Yakin?',
+            text: "Yakin ingin pindah kategori ke "+next,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Tidak',
+            confirmButtonText: 'Ya!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                indexQuest++;
+                goToIndex(indexQuest);
+            }
+         })
+    } else {
+        indexQuest++;
+        goToIndex(indexQuest);
+    }
     // loadQuest(indexQuest);
 });
 
 $("#btn-kembali").on('click', function () {
-    indexQuest--;
-    goToIndex(indexQuest);
+    let indexNow = currentQuest
+    let now = document.getElementById("question"+indexNow).getAttribute('data-kategori')
+    let indexPrev = indexNow - 1
+    let prev = document.getElementById("question"+indexPrev).getAttribute('data-kategori')
+
+    if(now != prev) {
+        swal.fire({
+            icon: 'error',
+            text: 'anda tidak bisa kembali ke kategori '+prev
+         })
+    } else {
+        indexQuest--;
+        goToIndex(indexQuest);
+    }
     // loadQuest(indexQuest);
 });
 
