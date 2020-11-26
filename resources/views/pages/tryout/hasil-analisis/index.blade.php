@@ -147,7 +147,7 @@
 
 <div class="row">
     <!-- Area Chart -->
-    <div class="col-xl-12 col-lg-12">
+    <div class="col-xl-8 col-lg-8">
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-dark">Riwayat Nilai</h6>
@@ -156,6 +156,23 @@
                 <div class="chart-area">
                     <canvas id="myRiwayatNilai"></canvas>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-4">
+        <div class="card shadow mb-4 text-center">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-dark">Komentar Mentor</h6>
+            </div>
+            <div class="card-body">
+                <img class="my-3" src="{{asset('assets/img/undraw_profile.svg')}}" alt="profil-mentor"
+                style="height:100px">
+                <div class="form-group">
+                    <textarea class="form-control mt-4" id="komentarMentor" rows="5" disabled>Bagus Pertahankan</textarea>
+                </div>
+                @hasanyrole('mentor')
+                <button class="btn btn-langkah btn-block" type="submit">Kirim Komentar</button>
+                @endhasanyrole
             </div>
         </div>
     </div>
