@@ -44,11 +44,32 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    <tr>
-                        <td colspan="4" class="text-center">
-                            Tidak ada data
-                        </td>
-                    </tr>
+                    @forelse ($kategori as $value)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $value->nama }}</td>
+                            <td>{{ $value->kode }}</td>
+                            <td>{{ $value->waktu }}</td>
+                            <td>
+                                <form action="{{ route('kategori-soal.destroy', $value->id) }}" method="POST" id="form-{{ $value->id }}">
+                                    @csrf
+                                    @method("DELETE")
+                                    <a href="{{ route('kategori-soal.edit', $value->id) }}" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit">
+                                       <i class="fas fa-edit"></i>
+                                    </a>
+                                    <button type="button" data-id="{{ $value->id }}" class="btn btn-danger hapus" data-toggle="tooltip" data-placement="top" title="Hapus">
+                                       <i class="fas fa-trash"></i>
+                                    </button>
+                                 </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="4" class="text-center">
+                                Tidak ada data
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
@@ -65,39 +86,33 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="#" method="post" enctype="multipart/form-data">
+            <form action="{{ route('kategori-soal.store') }}" method="post">
                 @csrf
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="name">Nama Kategori</label>
-                        <input name="name" type="text"
-                            class="form-control form-control-user @error('name') is-invalid @enderror" id="namaKategori"
-                            placeholder="Nama Kategori" value="{{ old('name') }}" required>
-                        @error('name')
+                        <label for="nama">Nama Kategori</label>
+                        <input name="nama" type="text" class="form-control form-control-user @error('nama') is-invalid @enderror" id="namaKategori" placeholder="Nama Kategori" value="{{ old('nama') }}" required>
+                        @error('nama')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="name">Kode Kategori </label><small class="text-danger ml-2">*Huruf Kapital</small>
-                        <input name="name" type="text"
-                            class="form-control form-control-user @error('name') is-invalid @enderror" id="kodeKategori"
-                            placeholder="Nama Kategori" value="{{ old('name') }}" required>
-                        @error('name')
+                        <label for="kode">Kode Kategori </label><small class="text-danger ml-2">*Huruf Kapital</small>
+                        <input name="kode" type="text" class="form-control form-control-user @error('kode') is-invalid @enderror" id="kodeKategori" placeholder="Nama Kategori" value="{{ old('kode') }}" required>
+                        @error('kode')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="name">Waktu Pengerjaan</label>
+                        <label for="waktu">Waktu Pengerjaan <small class="text-danger">*Dalam menit</small></label>
                         <div class="input-group">
-                            <input name="name" type="text"
-                            class="form-control form-control-user clockpicker @error('name') is-invalid @enderror"
-                            id="waktuSoal" placeholder="Waktu Pengerjaan" value="{{ old('name') }}" required>
+                            <input name="waktu" type="number" class="form-control form-control-user clockpicker @error('waktu') is-invalid @enderror" id="waktuSoal" placeholder="Waktu Pengerjaan" value="{{ old('waktu') }}" required>
                         </div>
-                        @error('name')
+                        @error('waktu')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -117,14 +132,23 @@
 @section('js')
 <script src="{{ asset('assets/vendor/clockpicker/clockpicker.js') }}"></script>
 <script>
-    jQuery(function ($) {
-
-        $('.clockpicker').clockpicker({
-            placement: 'bottom',
-            align: 'right',
-            autoclose : true
-        });
-    });
+    $(".hapus").on('click', function() {
+      Swal.fire({
+         title: 'Yakin?',
+         text: "Ingin menghapus kategori soal ini!",
+         icon: 'warning',
+         showCancelButton: true,
+         confirmButtonColor: '#3085d6',
+         cancelButtonColor: '#d33',
+         cancelButtonText: 'Tidak',
+         confirmButtonText: 'Ya!'
+      }).then((result) => {
+         if (result.isConfirmed) {
+            let id = $(this).data('id')
+            $(`#form-${id}`).submit()
+         }
+      })
+   })
 
 </script>
 @endsection

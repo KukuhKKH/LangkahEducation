@@ -16,10 +16,11 @@ class PaketController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $paket = TryoutPaket::latest()->paginate(10);
-        return view('pages.tryout.paket.index', compact('paket'));
+        $data = $request->input();
+        return view('pages.tryout.paket.index', compact('paket', 'data'));
     }
 
     /**

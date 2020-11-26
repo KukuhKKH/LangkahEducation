@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTryoutKategoriTable extends Migration
+class CreateTryoutKategoriSoalTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreateTryoutKategoriTable extends Migration
      */
     public function up()
     {
-        Schema::create('tryout_kategori', function (Blueprint $table) {
+        Schema::create('tryout_kategori_soal', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
             $table->string('nama');
-            $table->string('slug');
-            $table->string('image')->nullable();
-            $table->text('deskripsi')->nullable();
+            $table->string('kode');
+            $table->string('waktu');
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
         });
     }
 
@@ -32,6 +29,6 @@ class CreateTryoutKategoriTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tryout_kategori');
+        Schema::dropIfExists('tryout_kategori_soal');
     }
 }

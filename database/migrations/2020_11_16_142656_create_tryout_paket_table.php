@@ -15,12 +15,10 @@ class CreateTryoutPaketTable extends Migration
     {
         Schema::create('tryout_paket', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('tryout_kategori_id');
             $table->unsignedBigInteger('user_id');
             $table->string('nama');
             $table->string('slug');
             $table->timestamps();
-            $table->foreign('tryout_kategori_id')->references('id')->on('tryout_kategori')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers\Web\Tryout;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Tryout\Soal\SoalCreate;
-use App\Http\Requests\Tryout\Soal\SoalUpdate;
+use App\Models\TryoutSoal;
+use App\Models\TryoutPaket;
+use Illuminate\Http\Request;
 use App\Models\TryoutJawaban;
 use App\Models\TryoutKategori;
-use App\Models\TryoutPaket;
-use App\Models\TryoutSoal;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Imports\SoalImportBatch;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Requests\Tryout\Soal\SoalCreate;
+use App\Http\Requests\Tryout\Soal\SoalUpdate;
 
 class TryoutController extends Controller
 {
@@ -48,8 +50,8 @@ class TryoutController extends Controller
             DB::beginTransaction();
             $soal = Auth::user()->soal()->create([
                 'tryout_paket_id' => $request->tryout_paket_id,
-                'kategori_id' => $request->kategori_id,
                 'soal' => $request->soal,
+                'subbab' => $request->subbab,
                 'pembahasan' => $request->pembahasan,
                 'benar' => $request->nilai_benar,
                 'salah' => $request->nilai_salah,
@@ -128,6 +130,7 @@ class TryoutController extends Controller
             
             $soal->update([
                 'soal' => $request->soal,
+                'subbab' => $request->subbab,
                 'pembahasan' => $request->pembahasan,
                 'benar' => $request->nilai_benar,
                 'salah' => $request->nilai_salah
@@ -210,5 +213,25 @@ class TryoutController extends Controller
             'nilai_maksimal' => $nilai_maksimal
         ]);
         return "Berhaasil";
+    }
+
+    public function import_batch(Request $request) {
+        $this->validate($request, [
+            'file'  => 'required|mimes:xls,xlsx',
+        ]);
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            try {
+                $paket_id = $request->paket_id;
+                $kategori_id = $request->kategori_id;
+                Excel::import(new SoalImportBatch($kategori_id, $paket_id), $file);
+                return redirect()->back()->with(['success' => 'Import Soal berhasil']);
+            } catch (\Exception $e) {
+                $message = $e->getMessage();
+                if (!$message == "Start row (2) is beyond highest row (1)") throw $e;
+                return \redirect()->back()->with(['error' => $message])->withInput();
+            }
+        }
+        return \redirect()->back()->with(['error' => "Anda belum memilih file"])->withInput();
     }
 }

@@ -2,30 +2,28 @@
 @section('title', 'Passing Grade - Universitas')
 
 @section('content')
-   <div class="row">
-      <div class="col-10">
-         <h1 class="h3 mb-2 text-gray-800">Passing Grade - Universitas</h1>
-      </div>
-      <div class="col-2 text-right">
-         <a href="{{ asset('template/TemplateUniversitas.xlsx') }}" download="" class="btn btn-success"><i class="fas fa-fw fa-file-excel"></i> Template Excel</a>
-      </div>
-   </div>
+   <h1 class="h3 mb-2 text-gray-800">Passing Grade - Universitas</h1>
     <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the</p>
+
+    <div class="mb-2">
+         <a href="{{ asset('template/TemplateUniversitas.xlsx') }}" download="" class="btn btn-success"><i class="fas fa-fw fa-file-excel"></i> Template Universitas</a>
+         <a href="{{ asset('template/TemplateUniversitasKedua.xlsx') }}" download="" class="btn btn-success"><i class="fas fa-fw fa-file-excel"></i> Template Universitas + Prodi + Passing Grade</a>
+    </div>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="row">
-               <div class="col-8">
+               <div class="col-md-8">
                   <form action="{{ route('universitas.import') }}" method="POST" id="form-import" enctype="multipart/form-data">
                      @csrf
                      <div class="form-group">
                         <div class="input-group">
                            <div class="mr-2 d-flex align-items-center">
-                              Import Data Excel 
+                              Import Universitas
                            </div>
                            <div class="custom-file">
                               <input type="file" name="file" class="custom-file-input" id="inputGroupFile02" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" required>
-                              <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+                              <label class="custom-file-label" for="inputGroupFile02">Pilih File</label>
                            </div>
                            <div class="input-group-append" id="btn-submit">
                               <button type="submit" class="input-group-text">Upload</button>
@@ -34,10 +32,31 @@
                      </div>
                   </form>
                </div>
-               <div class="col-4 text-right">
+               <div class="col-md-4 text-right">
                   <div class="btn-group btn-group-md">
                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalData"><i class="fas fa-fw fa-plus-circle"></i> Tambah Universitas</button>
                   </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-8">
+                  <form action="{{ route('universitas.import_batch') }}" method="POST" id="form-import" enctype="multipart/form-data">
+                     @csrf
+                     <div class="form-group">
+                        <div class="input-group">
+                           <div class="mr-2 d-flex align-items-center">
+                              Import Universitas + Prodi + Passing Grade
+                           </div>
+                           <div class="custom-file">
+                              <input type="file" name="file" class="custom-file-input" id="inputGroupFile02" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" required>
+                              <label class="custom-file-label" for="inputGroupFile02">Pilih FIle</label>
+                           </div>
+                           <div class="input-group-append" id="btn-submit">
+                              <button type="submit" class="input-group-text">Upload</button>
+                           </div>
+                        </div>
+                     </div>
+                  </form>
                </div>
             </div>
          <div class="d-flex justify-content-between mb-1">

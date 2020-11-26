@@ -82,6 +82,9 @@
                                         <a href="{{ route('sekolah.show', $value->id) }}" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Integrasi siswa ke sekolah ini">
                                             <i class="fa fa-user-friends"></i>
                                         </a>
+                                        <a href="{{ route('sekolah.tryout', $value->id) }}" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Integrasi tryout ke sekolah ini">
+                                            <i class="fas fa-fw fa-desktop"></i>
+                                        </a>
                                         <button type="button" data-id="{{ $value->id }}" class="btn btn-danger hapus" data-toggle="tooltip" data-placement="top" title="Hapus">
                                             <i class="fas fa-trash"></i>
                                         </button>

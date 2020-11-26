@@ -17,4 +17,8 @@ class Sekolah extends Model
     public function siswa() {
         return $this->belongsToMany("App\Models\Siswa", "siswa_has_sekolah");
     }
+
+    public function tryout() {
+        return $this->belongsToMany("App\Models\TryoutPaket", "sekolah_tryout", 'sekolah_id', 'tryout_paket_id');
+    }
 }

@@ -21,18 +21,20 @@
     </div>
     
     @hasanyrole('superadmin|admin')
-
+    @php
+        $nav_tryout = request()->is('dashboard/tryout/*') ? true : false
+    @endphp
     <li class="nav-item {{ (request()->is('dashboard/tryout/*')) ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTryOut"
-            aria-expanded="true" aria-controls="collapseTwo">
+            aria-expanded="{{ $nav_tryout }}" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-money-bill"></i>
             <span>TryOut</span>
         </a>
-        <div id="collapseTryOut" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseTryOut" class="{{ ($nav_tryout) ? 'show collapse' : 'collapse' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Try Out :</h6>
-                <a class="collapse-item" href="{{ route('kategori.index') }}">Paket Soal</a>
-                <a class="collapse-item" href="#">Kategori Soal</a>
+                <a class="collapse-item {{ request()->is('dashboard/tryout/paket/*') ? 'active' : '' }}" href="{{ route('paket.index') }}">Paket Soal</a>
+                <a class="collapse-item {{ request()->is('dashboard/tryout/kategori-soal') ? 'active' : '' }}" href="{{ route('kategori-soal.index') }}">Kategori Soal</a>
             </div>
         </div>
     </li>
@@ -117,11 +119,11 @@
     @endphp
     <li class="nav-item {{ ($aktif_bayar) ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePembayaran"
-            aria-expanded="true" aria-controls="collapseTwo">
+            aria-expanded="{{ $aktif_bayar }}" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-money-bill"></i>
             <span>Pembayaran</span>
         </a>
-        <div id="collapsePembayaran" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapsePembayaran" class="{{ ($aktif_bayar) ? 'show collapse' : 'collapse' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Pembayaran :</h6>
                 <a class="collapse-item" href="#">Belum Bayar</a>

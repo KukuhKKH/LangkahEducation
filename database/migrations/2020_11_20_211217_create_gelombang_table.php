@@ -19,7 +19,6 @@ class CreateGelombangTable extends Migration
             $table->string('slug');
             $table->string('gelombang');
             $table->string('kode_referal');
-            $table->char('status', 1)->comment('0: Di tutup; 1 Dibuka');
             $table->string('tgl_awal');
             $table->string('tgl_akhir');
             $table->timestamps();

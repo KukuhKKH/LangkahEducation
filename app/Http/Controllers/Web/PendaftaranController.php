@@ -16,19 +16,9 @@ class PendaftaranController extends Controller
      */
     public function index(Request $request)
     {
-        $gelombang = Gelombang::paginate(10);
+        $gelombang = Gelombang::latest()->paginate(10);
         $data = $request->all();
         return view('pages.pendaftaran.index', compact('gelombang', 'data'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -37,7 +27,7 @@ class PendaftaranController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GelombangStore $request)
     {
         try {
             $raw_tgl_awal = \explode('/', $request->tgl_awal);
@@ -48,8 +38,6 @@ class PendaftaranController extends Controller
             $data = [
                 'nama' => $request->nama,
                 'kode_referal' => $request->kode_referal,
-                'total_tryout' => $request->total_tryout,
-                'status' => $request->status,
                 'tgl_awal' => $tgl_awal,
                 'tgl_akhir' => $tgl_akhir
             ];
@@ -66,17 +54,6 @@ class PendaftaranController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -84,7 +61,12 @@ class PendaftaranController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $pendftaran = Gelombang::find($id);
+            return view('pages.pendaftaran.edit', compact('pendftaran'));
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -96,7 +78,22 @@ class PendaftaranController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $pendftaran = Gelombang::find($id);
+            $raw_tgl_awal = \explode('/', $request->tgl_awal);
+            $raw_tgl_akhir = \explode('/', $request->tgl_akhir);
+            $tgl_awal = "$raw_tgl_awal[1]/$raw_tgl_awal[0]/$raw_tgl_awal[2]";
+            $tgl_akhir = "$raw_tgl_akhir[1]/$raw_tgl_akhir[0]/$raw_tgl_akhir[2]";
+            $pendftaran->update([
+                'nama' => $request->nama,
+                'kode_referal' => $request->kode_referal,
+                'tgl_awal' => $tgl_awal,
+                'tgl_akhir' => $tgl_akhir
+            ]);
+            return redirect()->route('pendaftaran.index')->with(['success' => 'Berhasil update gelombang']);
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -107,6 +104,11 @@ class PendaftaranController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            Gelombang::find($id)->delete();
+            return redirect()->back()->with(['success' => 'Berhasil Hapus Gelombang']);
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
     }
 }
