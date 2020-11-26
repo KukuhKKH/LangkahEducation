@@ -215,7 +215,11 @@ class SekolahController extends Controller
         try {
             $sekolah = Sekolah::find($id);
             $tryout = TryoutPaket::where('status', 1)->latest()->get();
-            return view('pages.users.sekolah.sekolah_tryout', compact('sekolah', 'tryout'));
+            $hasTryout = DB::table('sekolah_tryout')
+                                ->select('tryout_paket.nama')
+                                ->join('tryout_paket', 'tryout_paket.id', '=', 'sekolah_tryout.tryout_paket_id')
+                                ->where('sekolah_id', $sekolah->id)->get()->pluck('nama')->all();
+            return view('pages.users.sekolah.sekolah_tryout', compact('sekolah', 'tryout', 'hasTryout'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }

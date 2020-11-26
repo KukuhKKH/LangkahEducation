@@ -21,4 +21,8 @@ class Siswa extends Model
     public function mentor() {
         return $this->belongsToMany("App\Models\Mentor", "siswa_has_mentor");
     }
+
+    public function pembayaran() {
+        return $this->hasMany('App\Models\Pembayaran');
+    }
 }

@@ -32,9 +32,15 @@ class PaketController extends Controller
     public function store(PaketStore $request)
     {
         try {
+            $raw_tgl_awal = \explode('/', $request->tgl_awal);
+            $raw_tgl_akhir = \explode('/', $request->tgl_akhir);
+            $tgl_awal = "$raw_tgl_awal[1]/$raw_tgl_awal[0]/$raw_tgl_awal[2]";
+            $tgl_akhir = "$raw_tgl_akhir[1]/$raw_tgl_akhir[0]/$raw_tgl_akhir[2]";
             $request->merge([
                 'user_id' => auth()->user()->id,
-                'tgl_akhir' => date('Y-m-d H:i:s', time() + 24*7*60*60) // 7 Hari
+                // 'tgl_akhir' => date('Y-m-d H:i:s', time() + 24*7*60*60) // 7 Hari
+                'tgl_awal' => $tgl_awal,
+                'tgl_akhir' => $tgl_akhir
             ]);
             TryoutPaket::create($request->all());
             return redirect()->back()->with(['success' => 'Berhasil tambah paket tryout']);
@@ -86,12 +92,19 @@ class PaketController extends Controller
     {
         try {
             $paket = TryoutPaket::find($id);
+            $raw_tgl_awal = \explode('/', $request->tgl_awal);
+            $raw_tgl_akhir = \explode('/', $request->tgl_akhir);
+            $tgl_awal = "$raw_tgl_awal[1]/$raw_tgl_awal[0]/$raw_tgl_awal[2]";
+            $tgl_akhir = "$raw_tgl_akhir[1]/$raw_tgl_akhir[0]/$raw_tgl_akhir[2]";
             $paket->update([
                 'nama' => $request->nama,
-                'status' => $request->status
+                'status' => $request->status,
+                'tgl_awal' => $tgl_awal,
+                'tgl_akhir' => $tgl_akhir
             ]);
-            return redirect()->route('paket.show', $paket->kategori->nama)->with(['success' => 'Berhasil update paket tryout']);
+            return redirect()->route('paket.index')->with(['success' => 'Berhasil update paket tryout']);
         } catch(\Exception $e) {
+            dd($e->getMessage());
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
     }

@@ -81,4 +81,8 @@ class User extends Authenticatable
     public function tryout_hasil() {
         return $this->hasMany('App\Models\TryoutHasil');
     }
+
+    public function pembayaran() {
+        return $this->hasMany('App\Models\Pembayaran');
+    }
 }

@@ -13,7 +13,7 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Belum Dikonfirmasi</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">15</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $belum_bayar }}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-receipt fa-2x text-gray-300"></i>
@@ -31,7 +31,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Sekolah
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $sekolah }}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-home fa-2x text-gray-300"></i>
@@ -49,7 +49,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                             Total Siswa</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $siswa }}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-user-circle fa-2x text-gray-300"></i>
@@ -66,7 +66,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                 Pengunjung Hari ini</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">100</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $pengunjung }}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-search fa-2x text-gray-300"></i>

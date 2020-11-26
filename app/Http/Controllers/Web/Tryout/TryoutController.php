@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\Tryout\Soal\SoalCreate;
 use App\Http\Requests\Tryout\Soal\SoalUpdate;
+use App\Models\TryoutKategoriSoal;
 
 class TryoutController extends Controller
 {
@@ -35,7 +36,8 @@ class TryoutController extends Controller
     public function create($slug)
     {
         $paket = TryoutPaket::where('slug', $slug)->first();
-        return view('pages.tryout.soal.create', compact('paket'));
+        $kategori_soal = TryoutKategoriSoal::all();
+        return view('pages.tryout.soal.create', compact('paket', 'kategori_soal'));
     }
 
     /**
@@ -51,7 +53,7 @@ class TryoutController extends Controller
             $soal = Auth::user()->soal()->create([
                 'tryout_paket_id' => $request->tryout_paket_id,
                 'soal' => $request->soal,
-                'subbab' => $request->subbab,
+                'tryout_kategori_soal_id' => $request->tryout_kategori_soal_id,
                 'pembahasan' => $request->pembahasan,
                 'benar' => $request->nilai_benar,
                 'salah' => $request->nilai_salah,
@@ -99,6 +101,7 @@ class TryoutController extends Controller
     public function edit($id)
     {
         try {
+            $kategori_soal = TryoutKategoriSoal::all();
             $soal = TryoutSoal::find($id);
             $jawaban = [];
             $benar = 'pilihan';
@@ -108,7 +111,7 @@ class TryoutController extends Controller
                     $benar .= $key+1;
                 }
             }
-            return view('pages.tryout.soal.edit', compact('soal', 'jawaban', 'benar'));
+            return view('pages.tryout.soal.edit', compact('soal', 'jawaban', 'benar', 'kategori_soal'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
@@ -123,14 +126,13 @@ class TryoutController extends Controller
      */
     public function update(SoalUpdate $request, $id)
     {
-        // dd($request->input());
         try {
             DB::beginTransaction();
             $soal = TryoutSoal::findOrFail($id);
             
             $soal->update([
                 'soal' => $request->soal,
-                'subbab' => $request->subbab,
+                'tryout_kategori_soal_id' => $request->tryout_kategori_soal_id,
                 'pembahasan' => $request->pembahasan,
                 'benar' => $request->nilai_benar,
                 'salah' => $request->nilai_salah

@@ -22,6 +22,7 @@
                         <th>No</th>
                         <th>Nama</th>
                         <th>Gelombang</th>
+                        <th>Harga</th>
                         <th>Tgl Awal</th>
                         <th>Tgl Akhir</th>
                         <th width="25%">Aksi</th>
@@ -32,6 +33,7 @@
                         <th>No</th>
                         <th>Nama</th>
                         <th>Gelombang</th>
+                        <th>Harga</th>
                         <th>Tgl Awal</th>
                         <th>Tgl Akhir</th>
                         <th width="25%">Aksi</th>
@@ -43,6 +45,7 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $value->nama }}</td>
                             <td>{{ $value->gelombang }}</td>
+                            <td>Rp. {{ number_format($value->harga) }}</td>
                             <td>{{ Carbon\Carbon::parse($value->tgl_awal)->format('d F Y') }}</td>
                             <td>{{ Carbon\Carbon::parse($value->tgl_akhir)->format('d F Y') }}</td>
                             <td>
@@ -50,7 +53,7 @@
                                     @csrf
                                     @method('DELETE')
                                     <a href="{{ route('pendaftaran.edit', $value->id) }}" class="btn btn-success">Edit</a>
-                                    <a href="#" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Integrasi tryout ke gelombang ini">
+                                    <a href="{{ route('pendaftaran.tryout', $value->id) }}" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Integrasi tryout ke gelombang ini">
                                     <i class="fas fa-fw fa-desktop"></i>
                                     </a>
                                     <button type="button" class="btn btn-danger hapus" data-id="{{ $value->id }}">Hapus</button>
@@ -86,10 +89,29 @@
                         <div class="form-group">
                             <label for="">Nama Gelombang</label>
                             <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" placeholder="Masukkan Nama Gelombang" value="{{ old('nama') }}">
+                            @error('nama')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="">Kode Gelombang</label>
                             <input type="text" class="form-control @error('kode_referal') is-invalid @enderror" name="kode_referal" placeholder="Masukkan Kode Gelombang" value="{{ old('kode_referal') }}">
+                            @error('kode_referal')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="">Harga</label>
+                            <input type="text" class="form-control @error('harga') is-invalid @enderror" id="harga" name="harga" placeholder="Masukkan Harga Gelombang" value="{{ old('harga') }}">
+                            @error('harga')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="tgl_awal">Tanggal Awal</label>
@@ -126,10 +148,17 @@
 
 @section('js')
     <script src="{{ asset('assets/vendor/datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/autoNumeric.js') }}"></script>
     <script>
         $.fn.datepicker.defaults.format = "dd/mm/yyyy"
         $('#tgl_awal').datepicker()
         $('#tgl_akhir').datepicker()
+
+        $('#harga').autoNumeric('init', {
+            aSep: '.',
+            aDec: ',',
+            aSign: 'Rp. '
+        })
 
         $("#tgl_awal").change(function() {
             var dateAwal = $("#dateAwal").val();

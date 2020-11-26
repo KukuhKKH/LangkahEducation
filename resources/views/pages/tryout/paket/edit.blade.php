@@ -24,9 +24,33 @@
                   </span>
                @enderror
             </div>
+            <div class="row">
+               <div class="col-md-6">
+                   <div class="form-group">
+                       <label for="tgl_awal">Tanggal Awal</label>
+                       <input name="tgl_awal" id="tgl_awal" type="text" class="datepicker form-control form-control-user @error('tgl_awal') is-invalid @enderror" placeholder="Tanggal Awal" value="{{ date('d/m/Y', strtotime($paket->tgl_awal)) }}" required>
+                       @error('tgl_awal')
+                           <span class="invalid-feedback" role="alert">
+                               <strong>{{ $message }}</strong>
+                           </span>
+                       @enderror
+                   </div>
+               </div>
+               <div class="col-md-6">
+                   <div class="form-group">
+                       <label for="tgl_akhir">Tanggal Akhir</label>
+                       <input name="tgl_akhir" id="tgl_akhir" type="text" class="datepicker form-control form-control-user @error('tgl_akhir') is-invalid @enderror" placeholder="Tanggal Akhir" value="{{ date('d/m/Y', strtotime($paket->tgl_akhir)) }}" required>
+                       @error('tgl_akhir')
+                           <span class="invalid-feedback" role="alert">
+                               <strong>{{ $message }}</strong>
+                           </span>
+                       @enderror
+                   </div>
+               </div>
+           </div>
             <div class="form-group">
                <label for="">Status</label>
-               <select name="status" class="form-control @error('status') is-invalid @enderror">
+               <select name="status" class="form-control @error('status') is-invalid @enderror" autocomplete="off">
                   <option value="1" {{ $paket->status == 1 ? 'selected': '' }}>Aktif</option>
                   <option value="0" {{ $paket->status == 0 ? 'selected': '' }}>Tidak Aktif</option>
                </select>
@@ -41,4 +65,24 @@
         </form>
       </div>
    </div>
+@endsection
+
+@section('css')
+    <link rel="stylesheet" href="{{ asset('assets/vendor/datepicker/css/bootstrap-datepicker3.min.css') }}">
+@endsection
+
+@section('js')
+<script src="{{ asset('assets/vendor/datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+<script>
+   $.fn.datepicker.defaults.format = "dd/mm/yyyy"
+    $('#tgl_awal').datepicker()
+    $('#tgl_akhir').datepicker()
+
+    $("#tgl_awal").change(function() {
+        var dateAwal = $("#dateAwal").val();
+    }).on('changeDate', function(e) {
+        var tanggal = new Date(e.date.valueOf());
+        $("#tgl_akhir").datepicker('setStartDate', tanggal);
+    })
+</script>
 @endsection

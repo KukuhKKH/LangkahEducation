@@ -11,8 +11,13 @@ class TryoutController extends Controller
 {
     public function index() {
         $user = Auth::user();
-        $paket = $user->siswa->sekolah->first()->tryout;
-        return view('pages.siswa.tryout.index',compact('paket'));
+        if($user->siswa->batch == 1) {
+            $paket = $user->siswa->sekolah->first()->tryout;
+        } else if($user->siswa->batch == 0) {
+            $paket = $user->pembayaran->first()->gelombang->tryout;
+        }
+        $status_bayar = $user->pembayaran()->latest()->first()->status;
+        return view('pages.siswa.tryout.index',compact('paket', 'status_bayar'));
     }
 
     public function paket($slug) {

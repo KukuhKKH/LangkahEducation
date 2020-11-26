@@ -37,19 +37,29 @@
                   @enderror
                </div>
             </div>
-            {{-- Data Tabel Sekolah --}}
             <div class="col-12">
                <div class="form-group">
-                  <label for="tgl_awal">Tanggal Lahir</label>
-                  <input name="tgl_awal" id="tgl_awal" type="text" class="datepicker form-control form-control-user @error('tgl_awal') is-invalid @enderror" placeholder="Tanggal Awal" value="{{ date('d/m/Y', strtotime($pendftaran->tgl_awal)) }}" required>
-                  @error('tgl_awal')
+                  <label for="">Harga</label>
+                  <input type="text" class="form-control @error('harga') is-invalid @enderror" id="harga" name="harga" placeholder="Masukkan Harga Gelombang" value="{{ $pendftaran->harga }}">
+                  @error('harga')
                       <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
                       </span>
                   @enderror
                </div>
             </div>
-            <div class="col-12">
+            <div class="col-6">
+               <div class="form-group">
+                  <label for="tgl_awal">Tanggal Awal</label>
+                  <input name="tgl_awal" id="tgl_awal" type="text" class="datepicker form-control form-control-user @error('tgl_awal') is-invalid @enderror" placeholder="Tanggal Awal" value="{{ date('d/m/Y', strtotime($pendftaran->tgl_awal)) }}" required>
+                  @error('tgl_awal')
+                        <span class="invalid-feedback" role="alert">
+                           <strong>{{ $message }}</strong>
+                        </span>
+                  @enderror
+               </div>
+            </div>
+            <div class="col-6">
                <div class="form-group">
                   <label for="tgl_akhir">Tanggal Akhir</label>
                   <input name="tgl_akhir" id="tgl_akhir" type="text" class="datepicker form-control form-control-user @error('tgl_akhir') is-invalid @enderror" placeholder="Tanggal Akhir" value="{{ date('d/m/Y', strtotime($pendftaran->tgl_akhir)) }}" required>
@@ -76,10 +86,17 @@
 
 @section('js')
     <script src="{{ asset('assets/vendor/datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/autoNumeric.js') }}"></script>
     <script>
         $.fn.datepicker.defaults.format = "dd/mm/yyyy"
         $('#tgl_awal').datepicker()
         $('#tgl_akhir').datepicker()
+
+        $('#harga').autoNumeric('init', {
+            aSep: '.',
+            aDec: ',',
+            aSign: 'Rp. '
+        })
 
         $("#tgl_awal").change(function() {
             var dateAwal = $("#dateAwal").val();

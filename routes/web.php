@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Gelombang;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,7 +22,15 @@ Route::group(['prefix' => 'filemanager'], function() {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
 
-Auth::routes();
+
+$gelombang = Gelombang::latest()->first();
+$today = date('m/d/Y');
+if($today > $gelombang->tgl_awal && $today <$gelombang->tgl_akhir) {
+    Auth::routes();
+} else {
+    Auth::routes(['register' => false]);
+}
+
 Route::get('verify/{token}', 'HomeController@verifyUserRegistration')->name('user.verify');
 
 Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function() {
@@ -52,6 +61,12 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                 Route::post('universitas/import/batch', 'UniversitasController@import_batch')->name('universitas.import_batch');
                 Route::resource('universitas/passing-grade', 'PassingGradeController');
                 Route::resource('pendaftaran', 'PendaftaranController')->except(['create', 'show']);
+                Route::resource('pembayaran', 'PembayaranController')->except(['create']);
+                // Route::get('pembayaran/{status}', 'PembayaranController@index')->name('pembayaran.index');
+                Route::get('pembayaran-siswa/status/{id}/{status}', 'PembayaranController@set_status');
+                // Integrasi Gelombang Tryout
+                Route::get('pendaftaran/tryout/{id}', 'PendaftaranController@integrasi_tryout')->name('pendaftaran.tryout');
+                Route::post('pendaftaran/tryout/{id}', 'PendaftaranController@integrasi_tryout_store')->name('pendaftaran.tryout.store');
 
                 Route::group(['namespace' => 'User'], function () {
                     // Manajemen Users
@@ -60,6 +75,7 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                     Route::resource('admin', 'AdminController')->except(['create', 'show']);
                     Route::resource('superadmin', 'SuperadminController')->except(['create', 'show']);
                     Route::resource('siswa', 'SiswaController')->except(['create', 'show']);
+                    Route::resource('author', 'AuthorController')->except(['create', 'show']);
     
                     // Integrasi Data
                     Route::post('sekolah/integrasi/{id}', 'SekolahController@integrasi')->name('sekolah.integrasi');
@@ -99,7 +115,14 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
         });
 
         Route::group(['middleware' => 'role:siswa'], function () {
-
+            Route::group(['prefix' => 'dashboard'], function() {
+                Route::get('pembayaran-siswa', 'PembayaranController@siswa')->name('pembayaran.siswa');
+                Route::get('pembayaran-siswa/{pembayaran_id}/{slug}', 'PembayaranController@siswa_show')->name('pembayaran.siswa.show');
+                Route::post('pembayaran-siswa/{pembayaran_id}', 'PembayaranController@siswa_bayar')->name('pembayaran.siswa.bayar');
+                Route::get('pembayaran-siswa/{pembayaran_id}', 'PembayaranController@siswa_edit')->name('pembayaran.siswa.edit');
+                Route::put('pembayaran-siswa/{pembayaran_id}', 'PembayaranController@siswa_update')->name('pembayaran.siswa.update');
+            });
+            
             Route::post('tryout/{paket}/{kategori}', 'Tryout\TryoutController@tryout_store')->name('tryout.soal.store');
         });
     });

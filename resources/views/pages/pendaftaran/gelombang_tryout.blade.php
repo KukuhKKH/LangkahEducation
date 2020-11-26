@@ -1,17 +1,17 @@
 @extends('layouts.dashboard-app')
-@section('title', 'Integrasi Tryout ke Sekolah '. $sekolah->user->nama)
+@section('title', 'Integrasi Tryout ke Gelombang '. $gelombang->nama)
 
 @section('content')
-    <h1 class="h3 mb-2 text-gray-800">Integrasi Tryout ke Sekolah {{ $sekolah->user->nama }} </h1>
+    <h1 class="h3 mb-2 text-gray-800">Integrasi Tryout ke Gelombang {{ $gelombang->nama }} </h1>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="d-flex justify-content-between mb-1">
-            <h6 class="m-0 font-weight-bold text-primary">Integrasi Tryout ke Sekolah {{ $sekolah->user->nama }}</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Integrasi Tryout ke Gelombang {{ $gelombang->nama }}</h6>
             </div>
         </div>
         <div class="card-body container">
-            <form action="{{ route('sekolah.tryout.store', $sekolah->id) }}" method="post">
+            <form action="{{ route('pendaftaran.tryout.store', $gelombang->id) }}" method="post">
                 @csrf
                 <div class="form-group">
                     <div class="row">
