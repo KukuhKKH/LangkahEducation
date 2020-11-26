@@ -117,13 +117,17 @@
                      @enderror
                   </div>
                   <div class="col-12">
-                     <label for="subbab">Subbab Soal</label>
-                     <select name="subbab" class="form-control @error('subbab') is-invalid @enderror" autocomplete="off">
-                        <option value="PU" {{ $soal->subbab == "PU" ? "selected" : "" }}>PU</option>
-                        <option value="PMM" {{ $soal->subbab == "PMM" ? "selected" : "" }}>PMM</option>
-                        <option value="PPU" {{ $soal->subbab == "PPU" ? "selected" : "" }}>PPU</option>
+                     <label for="tryout_kategori_soal_id">Subbab Soal</label>
+                     <select name="tryout_kategori_soal_id" class="form-control @error('tryout_kategori_soal_id') is-invalid @enderror" autocomplete="off">
+                        @foreach ($kategori_soal as $value)
+                        @if ($value->id == $soal->kategori_soal->id)
+                           <option value="{{ $value->id }}" selected>{{ $value->nama }}</option>
+                        @else
+                           <option value="{{ $value->id }}">{{ $value->nama }}</option>
+                        @endif
+                        @endforeach
                      </select>
-                     @error('subbab')
+                     @error('tryout_kategori_soal_id')
                         <span class="invalid-feedback" role="alert">
                            <strong>{{ $message }}</strong>
                         </span>

@@ -65,9 +65,11 @@
                                 <div class="text-center">
                                     <a class="small" href="{{ route('password.request') }}">Lupa Kata Sandi?</a>
                                 </div>
+                                @if (Route::has('register'))
                                 <div class="text-center">
                                     <a class="small" href="{{ route('register') }}">Saya Belum Punya Akun, Daftar!</a>
                                 </div>
+                                @endif
                             </div>
                         </div>
                     </div>

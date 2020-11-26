@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class TryoutSoal extends Model
 {
     protected $table = "tryout_soal";
-    protected $fillable = ['user_id', 'tryout_paket_id', 'tryout_kategori_soal','soal', 'pembahasan', 'benar', 'salah'];
+    protected $fillable = ['user_id', 'tryout_paket_id', 'tryout_kategori_soal_id','soal', 'pembahasan', 'benar', 'salah'];
 
     public function paket() {
         return $this->belongsTo('App\Models\TryoutPaket', 'tryout_paket_id');
@@ -26,6 +26,10 @@ class TryoutSoal extends Model
     }
 
     public function kategori_soal() {
-        return $this->belongsTo('App\Models\TryoutKategoriSoal');
+        return $this->belongsTo('App\Models\TryoutKategoriSoal', 'tryout_kategori_soal_id');
+    }
+
+    public function hasil_detail() {
+        return $this->hasMany('App\Models\TryoutHasilDetail');
     }
 }

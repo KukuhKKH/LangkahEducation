@@ -7,6 +7,7 @@ use App\Models\Sekolah;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProfileController extends Controller
 {
@@ -26,11 +27,17 @@ class ProfileController extends Controller
 
     public function kode_referal(Request $request, $id) {
         try {
+            DB::beginTransaction();
             $user = User::find($id);
             $sekolah = Sekolah::where('kode_referal', $request->kode_referal)->first();
+            $user->siswa()->update([
+                'batch' => 1
+            ]);
             $sekolah->siswa()->attach($user->siswa->id);
+            DB::commit();
             return redirect()->back()->with(['success' => 'Berhasil memakai kode referal']);
         } catch (\Exception $e) {
+            DB::rollback();
             return redirect()->back()->with(['error' => $e->getMessage()])->withInput();
         }
     }

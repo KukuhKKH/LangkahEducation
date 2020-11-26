@@ -106,8 +106,8 @@
     
     @hasanyrole('siswa|sekolah')
 
-    <li class="nav-item">
-        <a class="nav-link" href="#">
+    <li class="nav-item {{ request()->is('dashboard/pembayaran-siswa') ? 'active' : "" }}">
+        <a class="nav-link" href="{{ route('pembayaran.siswa') }}">
             <i class="fas fa-fw fa-money-bill"></i>
             <span>Pembayaran</span> <span class="badge badge-success">0</span>
         </a>
@@ -115,7 +115,7 @@
     @endhasanyrole
     @hasanyrole('superadmin|admin')
     @php
-    $aktif_bayar = (request()->is('dashboard/belum-bayar')|request()->is('dashboard/sudah-bayar')) ? true : false
+    $aktif_bayar = (request()->is('dashboard/pembayaran/belum-bayar')|request()->is('dashboard/pembayaran/sudah-bayar')) ? true : false
     @endphp
     <li class="nav-item {{ ($aktif_bayar) ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePembayaran"
@@ -126,8 +126,8 @@
         <div id="collapsePembayaran" class="{{ ($aktif_bayar) ? 'show collapse' : 'collapse' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Pembayaran :</h6>
-                <a class="collapse-item" href="#">Belum Bayar</a>
-                <a class="collapse-item" href="#">Sudah Bayar</a>
+                <a class="collapse-item" href="{{ route('pembayaran.show', 'belum-bayar') }}">Belum Bayar</a>
+                <a class="collapse-item" href="{{ route('pembayaran.show', 'sudah-bayar') }}">Sudah Bayar</a>
             </div>
         </div>
     </li>

@@ -16,4 +16,16 @@ class Gelombang extends Model
             $model->slug = Str::slug($model->nama);
         });
     }
+
+    public function setHargaAttribute($value) {
+        $this->attributes['harga'] = floor(preg_replace('/[Rp. ]/', '', $value));
+    }
+
+    public function pembayaran() {
+        return $this->hasMany('App\Models\Pembayaran');
+    }
+
+    public function tryout() {
+        return $this->belongsToMany("App\Models\TryoutPaket", "gelombang_tryout", 'gelombang_id', 'tryout_paket_id');
+    }
 }

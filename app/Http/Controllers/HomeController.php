@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Siswa;
+use App\Models\Sekolah;
+use App\Models\Pembayaran;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use App\Models\StatistikPengunjung;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -29,8 +34,17 @@ class HomeController extends Controller
     }
 
     public function dashboard() {
-//        if(Auth::user()->is_active != 1) return redirect('login')->with(['info' => 'Silahkan activasi akun lewat email / hubungi pihak sekolah']);
-        return view('pages.dashboard');
+        $user = Auth::user();
+        // dd($user->getRoleNames()->first());
+        if($user->getRoleNames()->first() == 'superadmin' || $user->getRoleNames()->first() == 'admin') {
+            $sekolah = Sekolah::count();
+            $siswa = Siswa::count();
+            $belum_bayar = Pembayaran::where('status', 0)->count();
+            $pengunjung = StatistikPengunjung::whereDate('created_at', Carbon::today())->count();
+            return view('pages.dashboard', compact('sekolah', 'siswa', 'belum_bayar', 'pengunjung'));
+        } else {
+            return view('pages.dashboard');
+        }
     }
 
     public function verifyUserRegistration($token) {

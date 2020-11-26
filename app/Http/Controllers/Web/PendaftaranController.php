@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Models\Gelombang;
+use App\Models\TryoutPaket;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Gelombang\GelombangStore;
-use App\Models\Gelombang;
-use Illuminate\Http\Request;
 
 class PendaftaranController extends Controller
 {
@@ -38,6 +40,7 @@ class PendaftaranController extends Controller
             $data = [
                 'nama' => $request->nama,
                 'kode_referal' => $request->kode_referal,
+                'harga' => $request->harga,
                 'tgl_awal' => $tgl_awal,
                 'tgl_akhir' => $tgl_akhir
             ];
@@ -49,6 +52,7 @@ class PendaftaranController extends Controller
             Gelombang::create($data);
             return redirect()->back()->with(['success' => 'Berhasil menambah gelombang']);
         } catch(\Exception $e) {
+            // dd($e->getMessage());
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
     }
@@ -87,6 +91,7 @@ class PendaftaranController extends Controller
             $pendftaran->update([
                 'nama' => $request->nama,
                 'kode_referal' => $request->kode_referal,
+                'harga' => $request->harga,
                 'tgl_awal' => $tgl_awal,
                 'tgl_akhir' => $tgl_akhir
             ]);
@@ -109,6 +114,30 @@ class PendaftaranController extends Controller
             return redirect()->back()->with(['success' => 'Berhasil Hapus Gelombang']);
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function integrasi_tryout($id) {
+        try {
+            $gelombang = Gelombang::find($id);
+            $tryout = TryoutPaket::where('status', 1)->latest()->get();
+            $hasTryout = DB::table('gelombang_tryout')
+                                ->select('tryout_paket.nama')
+                                ->join('tryout_paket', 'tryout_paket.id', '=', 'gelombang_tryout.tryout_paket_id')
+                                ->where('gelombang_id', $gelombang->id)->get()->pluck('nama')->all();
+            return view('pages.pendaftaran.gelombang_tryout', compact('gelombang', 'tryout', 'hasTryout'));
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function integrasi_tryout_store(Request $request, $id) {
+        try {
+            $gelombang = Gelombang::find($id);
+            $gelombang->tryout()->sync($request->tryout);
+            return redirect()->route('pendaftaran.index')->with(['success' => "Tryout berhasil diintegrasikan"]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()])->withInput();
         }
     }
 }

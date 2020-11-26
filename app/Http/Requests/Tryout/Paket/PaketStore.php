@@ -25,7 +25,9 @@ class PaketStore extends FormRequest
     {
         return [
             'nama' => 'required',
-            'status' => 'required'
+            'status' => 'required',
+            'tgl_awal' => 'required',
+            'tgl_akhir' => 'required'
         ];
     }
 }
