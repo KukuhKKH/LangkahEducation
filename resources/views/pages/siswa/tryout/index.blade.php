@@ -35,7 +35,8 @@
                     </tr>
                 </table>
                 <button data-toggle="modal" data-target="#exampleModal"
-                    class="btn btn-langkah btn-block mt-4">Pilih</button>
+                    class="btn btn-langkah btn-block mt-4">Kerjakan</button>
+                <a class="btn btn-light btn-block" href="#">Hasil Analisis</a>
             </div>
         </div>
     </div>
@@ -54,16 +55,17 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
+                <h5 class="card-text font-wight-bold">Try Out Batch 1</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <h5 class="card-text font-wight-bold">Try Out Batch 1</h5>
                 {{-- <img class="card-img-top" src="{{ $value->image }}" alt="Try Out"> --}}
                 <img class="card-img-top" src="{{asset('assets/img/email-verification.png')}}" alt="Try Out">
                 {{-- <p>{{ $value->deskripsi }}</p> --}}
-                <p class="mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro et corporis ex est nisi ad veniam,
+                <p class="mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro et corporis ex est nisi
+                    ad veniam,
                     libero necessitatibus tenetur quia voluptatem magnam odit recusandae culpa quasi. Magni inventore
                     error deserunt!</p>
                 <table>
