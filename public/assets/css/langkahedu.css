@@ -113,3 +113,38 @@
 .timepicker{
   z-index: 999;
 }
+
+#mentoring{
+  max-height: 60vh;
+  overflow-y: scroll;
+}
+
+.chat{
+  max-width: 50%;
+  width: auto;
+  padding: 2vh;
+  margin-bottom: 3vh;
+  border-radius: 10px;
+}
+
+.other-chat{
+  background-color: #f8f9fc !important;
+  color: #4c4c4c;
+}
+
+.chat .send-time{
+  text-align: right;
+}
+
+.your-chat{
+  background-color:#ECB811!important;
+  color: #141414;
+  flex-direction: row-reverse;
+  margin-left: auto;
+}
+
+@media (max-width: 1000px) {
+  .chat{
+    max-width: 80%;
+  }
+}
