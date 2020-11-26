@@ -101,7 +101,7 @@
     <div class="row">
         <div class="col-xl-12 text-center">
             <img class="img-fluid" src="{{asset('assets/img/welcome-illustration.svg')}}" alt="">
-            <h2 class="mt-3">Selamat Datang <span class="font-weight-bold">{{ auth()->user()->name }}</span></h2>
+            <h3 class="mt-3">Selamat Datang <span class="font-weight-bold">{{ auth()->user()->name }}</span></h3>
         </div>
     </div>
 @endhasanyrole
