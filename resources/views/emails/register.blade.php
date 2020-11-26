@@ -185,7 +185,7 @@
                                     <tr>
                                         <td bgcolor="#ffffff" width="100" align="center"><a
                                                 href="https://langkaheducation.com/" target="_blank"><img alt="Logo"
-                                                    src="{{ asset('assets/img/logo-primary.svg') }}" width="50%"
+                                                    src="https://www.dev.langkaheducation.com/assets/img/logo-primary.png" width="50%"
                                                     style="display: block; font-family: Helvetica, Arial, sans-serif; color: #666666; font-size: 16px;"
                                                     border="0"></a></td>
                                     </tr>
@@ -219,10 +219,11 @@
                                                             cellspacing="0" cellpadding="0">
                                                             <tr>
                                                                 <td>
-                                                                    <img src="{{ asset('assets/img/email-verification.svg') }}"
-                                                                        width="500" height="200" border="0"
+                                                                    
+                                                                    <img src="https://dev.langkaheducation.com/assets/img/email-verification.png"
+                                                                        border="0"
                                                                         alt="illustration"
-                                                                        style="display: block; padding: 0; color: #666666; text-decoration: none; font-family: Helvetica, arial, sans-serif; font-size: 16px; width: 500px; height: 200px;"
+                                                                        style="display: block; padding: 0; color: #666666; text-decoration: none; font-family: Helvetica, arial, sans-serif; font-size: 16px; width: 500px;"
                                                                         class="img-max">
                                                                 </td>
                                                             </tr>
@@ -275,7 +276,7 @@
                                                         </tr>
                                                         <tr>
                                                             <td align="center">
-                                                                <a href="{{ route('user.verify', $user->activate_token) }}"></a>
+                                                                <a href="{{ route('user.verify', $user->activate_token) }}">{{ route('user.verify', $user->activate_token) }}</a>
                                                             </td>
                                                         </tr>
                                                     </table>

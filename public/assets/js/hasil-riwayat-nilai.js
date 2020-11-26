@@ -28,13 +28,13 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 }
 
 // Area Chart Example
-var ctx = document.getElementById("myAreaChart");
+var ctx = document.getElementById("myRiwayatNilai");
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
-    labels: ["6 Des", "7 Des", "8 Des", "9 Des", "10 Des", "11 Des", "12 Des"],
+    labels: ["Batch 1", "Batch 2", "Batch 3"],
     datasets: [{
-      label: "Total Pengunjung",
+      label: "Nilai",
       lineTension: 0.3,
       backgroundColor: "rgba(236, 184, 17, 0.05)",
       borderColor: "rgba(236, 184, 17, 1)",
@@ -46,7 +46,7 @@ var myLineChart = new Chart(ctx, {
       pointHoverBorderColor: "rgba(51, 51, 51, 1)",
       pointHitRadius: 10,
       pointBorderWidth: 2,
-      data: [10, 100, 50, 400, 10, 200, 150],
+      data: [90, 120, 100],
     }],
   },
   options: {
