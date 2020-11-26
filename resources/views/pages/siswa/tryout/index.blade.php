@@ -65,10 +65,25 @@
                         </td>
                     </tr>
                 </table>
-                <a href="{{ route('tryout.mulai', $value->slug) }}" class="btn btn-langkah btn-block mt-4">
-                    Kerjakan
-                </a>
-                <a class="btn btn-light btn-block" href="#">Hasil Analisis</a>
+                @php
+                    $cek = $value->wherehas('hasil', function($q) {
+                                $q->where('user_id', auth()->user()->id);
+                            })->get();
+                    $today = date('m/d/Y');
+                @endphp 
+                @if ($today > $value->tgl_awal && $today < $value->tgl_akhir)
+                    @if (count($cek) > 0)
+                    <a class="btn btn-light btn-block" href="#">Hasil Analisis</a>
+                    @else
+                    <a href="{{ route('tryout.mulai', $value->slug) }}" class="btn btn-langkah btn-block mt-4">
+                        Kerjakan
+                    </a>
+                    @endif
+                @elseif($today < $value->tgl_awal)
+                <a href="#" class="btn btn-primary disabled" disabled>Belum Waktunya</a>
+                @else
+                <a href="#" class="btn btn-primary disabled" disabled>Tryout Telah Selesai</a>
+                @endif
             </div>
         </div>
     </div>

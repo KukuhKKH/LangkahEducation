@@ -16,14 +16,14 @@ class CreateHasilDetailTable extends Migration
         Schema::create('tryout_hasil_detail', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('tryout_paket_id');
-            $table->unsignedBigInteger('tryout_soal_id');
+            $table->unsignedBigInteger('tryout_hasil_id');
             $table->unsignedBigInteger('tryout_kategori_soal_id');
             $table->unsignedBigInteger('user_id');
             $table->string('nilai');
             $table->timestamps();
 
             $table->foreign('tryout_paket_id')->on("tryout_paket")->references('id')->onDelete('cascade');
-            $table->foreign('tryout_soal_id')->references('id')->on('tryout_soal')->onDelete('CASCADE');
+            $table->foreign('tryout_hasil_id')->references('id')->on('tryout_hasil')->onDelete('CASCADE');
             $table->foreign('tryout_kategori_soal_id')->references('id')->on('tryout_kategori_soal')->onDelete('CASCADE');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
         });

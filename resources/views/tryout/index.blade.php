@@ -161,14 +161,16 @@
 @section('js')
    <script>
       const total_soal = {{ count($soal) }}
+      const paket_slug = `{{ $paket->slug }}`
+      const user = `{{ auth()->user()->name }}`
       $(document).ready(function() {
-         let waktu = localStorage.getItem('waktu')
+         let waktu = localStorage.getItem(`waktu-${user}-${paket_slug}`)
          let compSiswaWaktu = document.querySelector('.sisawaktu')
          if(waktu != null) {
             compSiswaWaktu.setAttribute('data-time', waktu)
          } else {
             const waktu_sekarang = "{{ date('Y-m-d H:i:s', time() + 60*60) }}"
-            localStorage.setItem('waktu', waktu_sekarang)
+            localStorage.setItem(`waktu-${user}-${paket_slug}`, waktu_sekarang)
             compSiswaWaktu.setAttribute('data-time', waktu_sekarang)
          }
 

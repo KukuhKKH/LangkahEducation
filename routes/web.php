@@ -152,4 +152,16 @@ Route::group(['prefix' => 'dev'], function() {
         $paket = TryoutPaket::find(1);
         return view('tryout.index', compact('soal', 'paket'));
     });
+    Route::get('loop', function() {
+        $salah = 5;
+        $hasil[1] = 100;
+        $hasil[3] = 100;
+        $hasil[4] = -$salah;
+        empty($hasil[4]) ? $hasil[4] = 100 : $hasil[4] += 1000;
+        // $hasil[4] += 10;
+
+        foreach ($hasil as $key => $value) {
+            echo $value;echo "<br>";
+        }
+    });
 });
