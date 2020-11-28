@@ -229,6 +229,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Halaman :</h6>
                 <a class="collapse-item" href="#">Landing Page</a>
+                <a class="collapse-item" href="#">Testimonial</a>
                 <a class="collapse-item" href="#">Blog</a>
             </div>
         </div>
