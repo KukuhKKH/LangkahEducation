@@ -55,7 +55,7 @@
 
     @endhasanyrole
 
-    @hasanyrole('mentor|sekolah|siswa')
+    @hasanyrole('sekolah|siswa')
 
     {{-- Try Out Siswa --}}
 
@@ -73,8 +73,8 @@
         </a>
     </li>
 
-    <li class="nav-item">
-        <a class="nav-link" href="#">
+    <li class="nav-item {{ (request()->segment(2) == 'mentorig') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('mentorig.siswa') }}">
             <i class="fas fa-fw fa-microphone"></i>
             <span>Virtual Mentoring</span>
         </a>
@@ -87,15 +87,23 @@
         </a>
     </li>
 
-    <hr class="sidebar-divider">
     @endhasanyrole
+    @hasanyrole('mentor')
+    <li class="nav-item {{ (request()->segment(2) == 'mentorig') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('mentorig.mentor') }}">
+            <i class="fas fa-fw fa-microphone"></i>
+            <span>Virtual Mentoring</span>
+        </a>
+    </li>
+    @endhasanyrole
+    <hr class="sidebar-divider">
 
     <div class="sidebar-heading">
         Umum
     </div>
 
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('pemberitahuan.index') }}">
             <i class="fas fa-bell fa-fw"></i>
             <span>Pemberitahuan</span>
             @hasanyrole('siswa|sekolah')
@@ -226,9 +234,15 @@
         </div>
     </li>
     <li class="nav-item {{ request()->segment(2) == 'rekening' ? 'active' : '' }}">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('rekening.index') }}">
             <i class="fas fa-fw fa-credit-card"></i>
             <span>Rekening Pembayaran</span>
+        </a>
+    </li>
+    <li class="nav-item {{ request()->segment(2) == 'gambar' ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('gambar.index') }}">
+            <i class="fas fa-fw fa-image"></i>
+            <span>Gambar Soal</span>
         </a>
     </li>
     @endhasanyrole

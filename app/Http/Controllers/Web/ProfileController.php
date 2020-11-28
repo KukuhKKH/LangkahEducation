@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Pembayaran;
 use App\Models\Sekolah;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -33,6 +34,7 @@ class ProfileController extends Controller
             $user->siswa()->update([
                 'batch' => 1
             ]);
+            Pembayaran::where('user_id', auth()->user()->id)->delete();
             $sekolah->siswa()->attach($user->siswa->id);
             DB::commit();
             return redirect()->back()->with(['success' => 'Berhasil memakai kode referal']);

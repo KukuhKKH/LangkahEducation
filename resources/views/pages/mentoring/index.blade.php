@@ -10,62 +10,50 @@
                 <div class="row">
                     <div class="col-10 d-flex flex-row align-items-center">
                         <img src="{{asset('assets/img/undraw_profile.svg')}}" alt="profil-mentor" style="height:40px">
-                        <h6 class="ml-3 font-weight-bold text-dark">Nama Mentor</h6>
+                        <h6 class="ml-3 font-weight-bold text-dark">{{ $user->siswa->mentor->first()->user->name }}</h6>
                     </div>
                     <div class="col-2 text-right">
-                        <button class="btn btn-light"><i class="fa fa-sync"></i></button>
+                        <button onclick="window.location.reload()" class="btn btn-light"><i class="fa fa-sync"></i></button>
                     </div>
                 </div>
             </div>
             <div class="card-body" id="mentoring">
-                <div class="chat other-chat">
-                    <div class="font-weight-bold mb-1">Nama Mentor</div>
-                    <p>Lorem ipsum dolor sit amet.</p>
-                    <div class="send-time">
-                        5:16
+
+                @forelse ($chat as $value)
+                @if ($value->pengirim == 'siswa')
+                    <div class="chat your-chat">
+                        <div class="font-weight-bold mb-1">Kamu</div>
+                        <p>{{ $value->pesan }}</p>
+                        <div class="send-time">
+                            {{ Carbon\Carbon::parse($value->created_at)->format('d F Y H:i:s') }}
+                        </div>
                     </div>
-                </div>
-                <div class="chat your-chat">
-                    <div class="font-weight-bold mb-1">Kamu</div>
-                    <p>Lorem ipsum dolor sit amet, vis erat denique in, dicunt prodesset te vix.</p>
-                    <div class="send-time">
-                        5:16
+                @else
+                    <div class="chat other-chat">
+                        <div class="font-weight-bold mb-1">{{ $user->siswa->mentor->first()->user->name }}</div>
+                        <p>{{ $value->pesan }}</p>
+                        <div class="send-time">
+                            {{ Carbon\Carbon::parse($value->created_at)->format('d F Y H:i:s') }}
+                        </div>
                     </div>
-                </div>
-                <div class="chat other-chat">
-                    <div class="font-weight-bold mb-1">Nama Mentor</div>
-                    <p>Lorem ipsum dolor sit amet.</p>
-                    <div class="send-time">
-                        5:16
+                @endif
+                    
+                @empty
+                    <div class="text-center">
+                        <p>Chat Kosong</p>
                     </div>
-                </div>
-                <div class="chat your-chat">
-                    <div class="font-weight-bold mb-1">Kamu</div>
-                    <p>Lorem ipsum dolor sit amet, vis erat denique in, dicunt prodesset te vix.</p>
-                    <div class="send-time">
-                        5:16
-                    </div>
-                </div>
-                <div class="chat other-chat">
-                    <div class="font-weight-bold mb-1">Nama Mentor</div>
-                    <p>Lorem ipsum dolor sit amet.</p>
-                    <div class="send-time">
-                        5:16
-                    </div>
-                </div>
-                <div class="chat your-chat">
-                    <div class="font-weight-bold mb-1">Kamu</div>
-                    <p>Lorem ipsum dolor sit amet, vis erat denique in, dicunt prodesset te vix.</p>
-                    <div class="send-time">
-                        5:16
-                    </div>
-                </div>
+                @endforelse
+
             </div>
             <div class="card-footer">
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <input type="text" class="form-control mr-2" placeholder="Tulis Pesan">
-                    <button class="btn btn-langkah">Kirim</button>
-                </div>
+                <form action="{{ route('kirim_pesan', ['siswa_id' => $user->siswa->id, 'mentor_id' => $user->siswa->mentor->first()->id]) }}" method="post">
+                    @csrf
+                    <input type="hidden" name="pengirim" value="siswa">
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                       <input type="text" name="pesan" class="form-control mr-2" placeholder="Tulis Pesan">
+                       <button type="submit" class="btn btn-langkah">Kirim</button>
+                    </div>
+                 </form>
             </div>
         </div>
     </div>

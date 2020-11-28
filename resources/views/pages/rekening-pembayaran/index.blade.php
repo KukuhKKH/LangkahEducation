@@ -41,11 +41,32 @@
                     </tr>
                     </tfoot>
                     <tbody>
-                        <tr>
-                            <td colspan="5" class="text-center">
-                                Tidak ada data
-                            </td>
-                        </tr>
+                        @forelse ($bank as $value)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $value->nama }}</td>
+                                <td>{{ $value->nomer_rekening }}</td>
+                                <td>{{ $value->alias }}</td>
+                                <td>
+                                    <form action="{{ route('rekening.destroy', $value->id) }}" method="POST" id="form-{{ $value->id }}">
+                                        @csrf
+                                        @method("DELETE")
+                                        <a href="{{ route('rekening.edit', $value->id) }}" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit">
+                                           <i class="fas fa-edit"></i>
+                                        </a>
+                                        <button type="button" data-id="{{ $value->id }}" class="btn btn-danger hapus" data-toggle="tooltip" data-placement="top" title="Hapus">
+                                           <i class="fas fa-trash"></i>
+                                        </button>
+                                     </form>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5" class="text-center">
+                                    Tidak ada data
+                                </td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
@@ -61,31 +82,31 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="#" method="post" enctype="multipart/form-data">
+                <form action="{{ route('rekening.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="name">Bank/Instansi Asal</label>
-                            <input name="name" type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="namaBank" placeholder="Nama Bank/Instansi" value="{{ old('name') }}" required>
-                            @error('name')
+                            <label for="nama">Bank/Instansi Asal</label>
+                            <input name="nama" type="text" class="form-control form-control-user @error('nama') is-invalid @enderror" id="namaBank" placeholder="Nama Bank/Instansi" value="{{ old('nama') }}" required>
+                            @error('nama')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="name">Nomor Rekening</label>
-                            <input name="name" type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="nomorRekening" placeholder="Nomor Rekening" value="{{ old('name') }}" required>
-                            @error('name')
+                            <label for="nomer_rekening">Nomor Rekening</label>
+                            <input name="nomer_rekening" type="text" class="form-control form-control-user @error('nomer_rekening') is-invalid @enderror" id="nomorRekening" placeholder="Nomor Rekening" value="{{ old('nomer_rekening') }}" required>
+                            @error('nomer_rekening')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="name">Nama Pemilik (a/n)</label>
-                            <input name="name" type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="nomorRekening" placeholder="Nama Pemilik (a/n)" value="{{ old('name') }}" required>
-                            @error('name')
+                            <label for="alias">Nama Pemilik (a/n)</label>
+                            <input name="alias" type="text" class="form-control form-control-user @error('alias') is-invalid @enderror" id="nomorRekening" placeholder="Nama Pemilik (a/n)" value="{{ old('alias') }}" required>
+                            @error('alias')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -96,7 +117,7 @@
 
                             <div class="input-group">
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="inputGroupFile02">
+                                    <input type="file" name="file" class="custom-file-input" id="inputGroupFile02">
                                     <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
                                 </div>
                             </div>
@@ -110,4 +131,26 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+<script>
+   $(".hapus").on('click', function() {
+      Swal.fire({
+         title: 'Yakin?',
+         text: "Ingin menghapus gambar ini!",
+         icon: 'warning',
+         showCancelButton: true,
+         confirmButtonColor: '#3085d6',
+         cancelButtonColor: '#d33',
+         cancelButtonText: 'Tidak',
+         confirmButtonText: 'Ya!'
+      }).then((result) => {
+         if (result.isConfirmed) {
+            let id = $(this).data('id')
+            $(`#form-${id}`).submit()
+         }
+      })
+   })
+</script>
 @endsection

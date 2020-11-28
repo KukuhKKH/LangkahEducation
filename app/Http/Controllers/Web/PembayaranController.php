@@ -52,11 +52,10 @@ class PembayaranController extends Controller
     {
         try {
             if($status == 'sudah-bayar') {
-                $status = 1;
+                $pembayaran = Pembayaran::where('status', 1)->orWhere('status', 2)->paginate(10);
             } else if($status == 'belum-bayar'){
-                $status = 0;
+                $pembayaran = Pembayaran::where('status', 0)->paginate(10);
             }
-            $pembayaran = Pembayaran::where('status', $status)->paginate(10);
             $data = $request->all();
             return view('pages.pembayaran.show', compact('pembayaran', 'data'));
         } catch(\Exception $e) {

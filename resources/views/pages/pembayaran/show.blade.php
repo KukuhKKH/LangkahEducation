@@ -39,7 +39,11 @@
                            <td>{{ $value->gelombang->gelombang }}</td>
                            <td>
                               @if (count($value->pembayaran_bukti) > 0)
+                                 @if ($value->status == 1)
                                  <span class="badge badge-success p-2">Sudah Upload Bukti Pembayaran</span>
+                                 @elseif($value->status == 2)
+                                 <span class="badge badge-success p-2">Pembayaran Telah Diverifikasi</span>
+                                 @endif
                               @else
                                  <span class="badge badge-danger p-2">Balum Upload Bukti Pembayaran</span>
                               @endif
@@ -54,12 +58,14 @@
                                  @endif
                               @endif
                               <?php $disable = $value->status == 0 ? true : false ?>
-                              <a class="btn btn-success terima {{ ($disable) ? 'disabled' : '' }}" data-id="{{ $value->id }}" data-toggle="tooltip" data-placement="top" title="Verifikasi Pembayaran" {{ ($disable) ? 'disabled' : '' }}>
-                                 <i class="fas fa-check"></i>
-                              </a>
-                              <a class="btn btn-danger tolak {{ ($disable) ? 'disabled' : '' }}" data-id="{{ $value->id }}" data-toggle="tooltip" data-placement="top" title="Tolak Pembayaran" {{ ($disable) ? 'disabled' : '' }}>
-                                 <i class="fas fa-times"></i>
-                              </a>
+                              @if ($value->status == 1)
+                                 <a class="btn btn-success terima {{ ($disable) ? 'disabled' : '' }}" data-id="{{ $value->id }}" data-toggle="tooltip" data-placement="top" title="Verifikasi Pembayaran" {{ ($disable) ? 'disabled' : '' }}>
+                                    <i class="fas fa-check"></i>
+                                 </a>
+                                 <a class="btn btn-danger tolak {{ ($disable) ? 'disabled' : '' }}" data-id="{{ $value->id }}" data-toggle="tooltip" data-placement="top" title="Tolak Pembayaran" {{ ($disable) ? 'disabled' : '' }}>
+                                    <i class="fas fa-times"></i>
+                                 </a>
+                              @endif
                            </td>
                         </tr>
                     @empty

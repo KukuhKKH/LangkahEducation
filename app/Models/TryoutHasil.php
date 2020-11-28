@@ -14,10 +14,14 @@ class TryoutHasil extends Model
     }
 
     public function paket() {
-        return $this->belongsTo('App\Models\TryoutKategori', 'tryout_paket_id');
+        return $this->belongsTo('App\Models\TryoutPaket', 'tryout_paket_id');
     }
 
     public function tryout_hasil_jawaban() {
         return $this->hasMany('App\Models\TryoutHasilJawaban');
+    }
+
+    public function tryout_hasil_detail() {
+        return $this->hasMany('App\Models\TryoutHasilDetail');
     }
 }

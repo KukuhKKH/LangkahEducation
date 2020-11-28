@@ -70,10 +70,10 @@
                                 $q->where('user_id', auth()->user()->id);
                             })->get();
                     $today = date('m/d/Y');
-                @endphp 
+                @endphp
                 @if ($today > $value->tgl_awal && $today < $value->tgl_akhir)
                     @if (count($cek) > 0)
-                    <a class="btn btn-light btn-block" href="#">Hasil Analisis</a>
+                    <a class="btn btn-light btn-block" href="{{ route('tryout.hasil', $value->slug) }}">Hasil Analisis</a>
                     @else
                     <a href="{{ route('tryout.mulai', $value->slug) }}" class="btn btn-langkah btn-block mt-4">
                         Kerjakan

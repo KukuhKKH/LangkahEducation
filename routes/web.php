@@ -64,6 +64,9 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                 Route::resource('pembayaran', 'PembayaranController')->except(['create']);
                 // Route::get('pembayaran/{status}', 'PembayaranController@index')->name('pembayaran.index');
                 Route::get('pembayaran-siswa/status/{id}/{status}', 'PembayaranController@set_status');
+                Route::resource('gambar', 'GambarController')->except(['create', 'show']);
+                Route::resource('rekening', 'BankController')->except(['create', 'show']);
+
                 // Integrasi Gelombang Tryout
                 Route::get('pendaftaran/tryout/{id}', 'PendaftaranController@integrasi_tryout')->name('pendaftaran.tryout');
                 Route::post('pendaftaran/tryout/{id}', 'PendaftaranController@integrasi_tryout_store')->name('pendaftaran.tryout.store');
@@ -111,8 +114,20 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
             Route::group(['middleware' => 'role:siswa', 'namespace' => 'Siswa'], function () {
                 Route::get('siswa/tryout', 'TryoutController@index')->name('siswa.tryout.index');
                 Route::get('siswa/tryout/{paket}', 'TryoutController@paket')->name('siswa.tryout.paket');
+                Route::get('siswa/hasil/tryout/{id}', 'TryoutController@hasil')->name('tryout.hasil');
             });
+
+            // Bebas
+            Route::get('pemberitahuan', 'PemberitahuanController@index')->name('pemberitahuan.index');
+
+            Route::get('mentoring','MentoringController@index')->name('mentorig.mentor');
+            Route::get('mentoringvirtual/{siswa_id}','MentoringController@mentoring')->name('mentorig.mentoring');
+            Route::get('mentoring/virtual','MentoringController@siswa')->name('mentorig.siswa');
+            Route::get('hasiltryout/siswa/{id}', 'MentoringController@hasil_tryout');
+            Route::post('mentoring/kirim/{siswa_id}/{mentor_id}', 'MentoringController@kirim_pesan')->name('kirim_pesan');
+            Route::get('hasiltryout/siswa/{id}/{slug}/detail', 'MentoringController@hasil_tryout_detail')->name('hasil_tryout.detail');
         });
+        // End Prefix Dashboard
 
         Route::group(['middleware' => 'role:siswa'], function () {
             Route::group(['prefix' => 'dashboard'], function() {
@@ -135,7 +150,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // URL COBA COBA
 use App\Models\TryoutSoal;
-use App\Models\TryoutKategori;
 use App\Models\TryoutPaket;
 Route::group(['prefix' => 'dev'], function() {
     Route::get('email', function() {
@@ -163,5 +177,11 @@ Route::group(['prefix' => 'dev'], function() {
         foreach ($hasil as $key => $value) {
             echo $value;echo "<br>";
         }
+    });
+    Route::get('send', function() {
+        return view('pages.mentoring.index');
+    });
+    Route::get('hasil', function() {
+        return view('pages.halaman.landing-page.index');
     });
 });

@@ -29,7 +29,7 @@
                <li class="nav-item dropdown no-arrow">
                   <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                      aria-haspopup="true" aria-expanded="false">
-                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">Ammar Muhammad</span>
+                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ auth()->user()->name }}</span>
                      <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                   </a>
                   <!-- Dropdown - User Information -->
@@ -63,7 +63,7 @@
                            <?php $i = 1; ?>
                            <?php $k = 0; ?>
                            @foreach ($soal as $value)
-                              <div id="question{{ $k }}" class="{{ $k == 0 ? 'show' : '' }}" data-kategori="{{ $value->kategori_soal->nama }}">
+                              <div id="question{{ $k }}" class="{{ $k == 0 ? 'show' : '' }} soal" data-kategori="{{ $value->kategori_soal->nama }}" data-kode="{{ $value->kategori_soal->kode }}">
                                  <h1>Kategori {{ $value->kategori_soal->nama }}</h1>
                                  <h3 id="pertanyaan" class="h4 mt-3 mb-2 text-gray-800 font-weight-bold">
                                     {{-- {{ $i }}.  --}}
@@ -159,22 +159,42 @@
 @endsection
 
 @section('js')
+<script src="{{ asset('assets/vendor/moment.js') }}"></script>
    <script>
       const total_soal = {{ count($soal) }}
       const paket_slug = `{{ $paket->slug }}`
       const user = `{{ auth()->user()->name }}`
+      const WAKTU = {!! json_encode($waktu_array) !!}
+      const KODE = {!! json_encode($kode_array) !!}
+      let compSiswaWaktu = document.querySelector('.sisawaktu')
+      let t = $('.sisawaktu');
+      let total_kategori = WAKTU.length
+      
+      let indexwaktu
+      // Indek waktu per kategori
+      let local_indexwaktu = localStorage.getItem(`waktu-index-${user}-${paket_slug}`)
+      let storage_lokasi = localStorage.getItem(`location-index-${user}-${paket_slug}`)
+      setTimeout(() => {
+         if(storage_lokasi != null) {
+            goToIndex(localStorage.getItem(`location-index-${user}-${paket_slug}`))
+         }
+      }, 500);
+      if(local_indexwaktu != null) {
+         indexwaktu = local_indexwaktu
+      } else {
+         localStorage.setItem(`waktu-index-${user}-${paket_slug}`, 0)
+         indexwaktu = 0
+      }
+      // Datetime waktu sekarang
+      let waktu_sekarang = moment().add(WAKTU[indexwaktu], 'minutes').format('YYYY-MM-D H:mm:ss')
       $(document).ready(function() {
          let waktu = localStorage.getItem(`waktu-${user}-${paket_slug}`)
-         let compSiswaWaktu = document.querySelector('.sisawaktu')
          if(waktu != null) {
             compSiswaWaktu.setAttribute('data-time', waktu)
          } else {
-            const waktu_sekarang = "{{ date('Y-m-d H:i:s', time() + 60*60) }}"
             localStorage.setItem(`waktu-${user}-${paket_slug}`, waktu_sekarang)
             compSiswaWaktu.setAttribute('data-time', waktu_sekarang)
          }
-
-         let t = $('.sisawaktu');
          if (t.length) {
             sisawaktu(t.data('time'))
          }
@@ -182,17 +202,43 @@
 
       function waktuHabis() {
          // selesai();
-         swal.fire({
-            icon: 'error',
-            text: 'Waktu Ujian telah habis',
-            type: 'warning'
-         }).then(function (val) {
-            if(val) {
-               // window.location.reload()
-               localStorage.clear()
-               $('#form-data').submit()
+         if(indexwaktu == total_kategori-1) {
+            swal.fire({
+               icon: 'error',
+               text: 'Waktu Ujian telah habis',
+               icon: 'warning'
+            }).then(function (val) {
+               if(val) {
+                  // window.location.reload()
+                  // localStorage.clear()
+                  localStorage.removeItem(`waktu-${user}-${paket_slug}`)
+                  localStorage.removeItem(`waktu-index-${user}-${paket_slug}`)
+                  localStorage.removeItem(`location-index-${user}-${paket_slug}`)
+                  $('#form-data').submit()
+               }
+            })
+         } else {
+            indexwaktu++
+            let indexsekarang = indexwaktu
+            // Index waktu
+            localStorage.setItem(`waktu-index-${user}-${paket_slug}`, indexsekarang)
+            waktu_sekarang = moment().add(WAKTU[indexwaktu], 'minutes').format('YYYY-MM-D H:mm:ss')
+            //Waktu sekarang (datetime)
+            localStorage.setItem(`waktu-${user}-${paket_slug}`, waktu_sekarang)
+            compSiswaWaktu.setAttribute('data-time', waktu_sekarang)
+            let soal_com = document.querySelectorAll('.soal')
+            for (let i = 0; i < soal_com.length; i++) {
+               if(soal_com[i].getAttribute('data-kode') == KODE[indexwaktu]) {
+                  let waktu_componen = $('.sisawaktu')[0].getAttribute('data-time')
+                  sisawaktu(waktu_componen)
+                  goToIndex(i)
+                  // lokasi nomor tryout
+                  localStorage.setItem(`location-index-${user}-${paket_slug}`, i)
+                  // window.location.reload()
+                  break
+               }
             }
-         })
+         }
       }
 
       $('#btn-kumpulkan').on('click', function() {
@@ -207,6 +253,9 @@
             confirmButtonText: 'Ya!'
          }).then((result) => {
             if (result.isConfirmed) {
+               localStorage.removeItem(`waktu-${user}-${paket_slug}`)
+               localStorage.removeItem(`waktu-index-${user}-${paket_slug}`)
+               localStorage.removeItem(`location-index-${user}-${paket_slug}`)
                $('#form-data').submit()
             }
          })

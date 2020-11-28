@@ -73,6 +73,17 @@ $("#btn-lanjut").on('click', function () {
         }).then((result) => {
             if (result.isConfirmed) {
                 indexQuest++;
+                indexwaktu++;
+                // variabel di file
+                let indexsekarang_js = indexwaktu
+                localStorage.setItem(`waktu-index-${user}-${paket_slug}`, indexsekarang_js)
+                waktu_sekarang = moment().add(WAKTU[indexwaktu], 'minutes').format('YYYY-MM-D H:mm:ss')
+
+                localStorage.setItem(`waktu-${user}-${paket_slug}`, waktu_sekarang)
+                compSiswaWaktu.setAttribute('data-time', waktu_sekarang)
+                // Var Lokal
+                let waktu_componen_js = $('.sisawaktu')[0].getAttribute('data-time')
+                sisawaktu(waktu_componen_js)
                 goToIndex(indexQuest);
             }
          })

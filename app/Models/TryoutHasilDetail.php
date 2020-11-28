@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class TryoutHasilDetail extends Model
 {
     protected $table = 'tryout_hasil_detail';
-    protected $fillable = ['tryout_paket_id', 'tryout_kategori_soal_id', 'tryout_hasil_id', 'user_id', 'nilai'];
+    protected $fillable = ['tryout_paket_id', 'tryout_kategori_soal_id', 'tryout_hasil_id', 'user_id', 'nilai', 'benar', 'salah', 'kosong'];
 
     public function paket() {
         return $this->belongsTo('App\Models\TryoutPaket', 'tryout_paket_id');
