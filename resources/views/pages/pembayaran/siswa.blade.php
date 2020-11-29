@@ -22,7 +22,7 @@
                         <th>Gelombang</th>
                         <th>Total bayar</th>
                         <th>Tanggal Daftar</th>
-                        <td>status</td>
+                        <th>status</th>
                         <th>Aksi</th>
                     </tr>
                     </thead>
@@ -32,7 +32,7 @@
                         <th>Gelombang</th>
                         <th>Total bayar</th>
                         <th>Tanggal Daftar</th>
-                        <td>status</td>
+                        <th>status</th>
                         <th>Aksi</th>
                     </tr>
                     </tfoot>
@@ -70,7 +70,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="text-center">
+                            <td colspan="6" class="text-center">
                                 Tidak ada data
                             </td>
                         </tr>

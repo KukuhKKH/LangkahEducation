@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Gelombang;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,13 +22,7 @@ Route::group(['prefix' => 'filemanager'], function() {
 });
 
 
-$gelombang = Gelombang::latest()->first();
-$today = date('m/d/Y');
-if($today > $gelombang->tgl_awal && $today <$gelombang->tgl_akhir) {
-    Auth::routes();
-} else {
-    Auth::routes(['register' => false]);
-}
+Auth::routes();
 
 Route::get('verify/{token}', 'HomeController@verifyUserRegistration')->name('user.verify');
 
@@ -136,11 +129,19 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                 Route::post('pembayaran-siswa/{pembayaran_id}', 'PembayaranController@siswa_bayar')->name('pembayaran.siswa.bayar');
                 Route::get('pembayaran-siswa/{pembayaran_id}', 'PembayaranController@siswa_edit')->name('pembayaran.siswa.edit');
                 Route::put('pembayaran-siswa/{pembayaran_id}', 'PembayaranController@siswa_update')->name('pembayaran.siswa.update');
+
+                Route::get('daftar/gelombang', 'PembayaranController@daftar_gelombang')->name('gelombang.siswa');
+                Route::get('daftar-gelombang/{id}', 'PembayaranController@daftar_gelombang_store');
             });
             
             Route::group(['namespace' => 'Siswa'], function () {
-                Route::get('tryout/{slug}', 'TryoutController@tryout_mulai')->name('tryout.mulai');
-                Route::post('tryout/{paket}', 'TryoutController@tryout_store')->name('tryout.soal.store');
+                // Tryout lama
+                // Route::get('tryout/{slug}', 'TryoutController@tryout_mulai')->name('tryout.mulai');
+                // Route::post('tryout/{paket}', 'TryoutController@tryout_store')->name('tryout.soal.store');
+                
+                // Tryout baru
+                Route::get('tryout/{token}/{slug}', 'TryoutController@tryout_baru')->name('tryout.mulai');
+                Route::post('tryout/{paket}', 'TryoutController@tryout_store_baru')->name('tryout.soal.store');
             });
         });
     });

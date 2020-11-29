@@ -71,7 +71,8 @@
     
     @yield('js')
     <!-- <script src="js/quiz.js"></script> -->
-    <script src="{{asset('assets-tryout/js/tryout.js')}}"></script>
+    {{-- <script src="{{asset('assets-tryout/js/tryout.js')}}"></script> --}}
+    <script src="{{asset('assets-tryout/js/tryout_new.js')}}"></script>
 
     <script>
         var x
@@ -98,7 +99,7 @@
                 } else {
                     return
                 }
-            }, 1000);
+            }, 100);
             y = setTimeout(function() {
                 waktuHabis();
             }, (time.getTime() - n.getTime()));

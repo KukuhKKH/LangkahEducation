@@ -36,7 +36,7 @@ class PassingGradeImport implements ToModel, WithStartRow
             throw new \Exception($errMessage);
         }
 
-        if(empty($row[0])){
+        if(empty($row[1])){
             $errMessage = 'Mohon pastikan kolom Passwing Grade tidak kosong.';
             throw new \Exception($errMessage);
         }

@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\Sekolah\SekolahCreateRequest;
 use App\Http\Requests\Sekolah\SekolahUpdateRequest;
+use App\Imports\NisnSiswaKeSekolahImport;
 use App\Models\TryoutPaket;
 
 class SekolahController extends Controller
@@ -64,6 +65,10 @@ class SekolahController extends Controller
                 'kode_referal' => $kode_referal
             ]);
             $user->assignRole('sekolah');
+            if($request->hasFile('nisn')) {
+                $file = $request->file('nisn');
+                Excel::import(new NisnSiswaKeSekolahImport($user->sekolah->id), $file);
+            }
             DB::commit();
             return redirect()->back()->with(['success' => 'Berhasil tambah sekolah']);
         } catch(\Exception $e) {

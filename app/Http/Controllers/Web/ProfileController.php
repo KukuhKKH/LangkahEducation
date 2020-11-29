@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Http\Controllers\Controller;
-use App\Models\Pembayaran;
-use App\Models\Sekolah;
 use App\Models\User;
+use App\Models\Sekolah;
+use App\Models\Pembayaran;
+use App\Models\NisnSekolah;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
@@ -31,13 +32,17 @@ class ProfileController extends Controller
             DB::beginTransaction();
             $user = User::find($id);
             $sekolah = Sekolah::where('kode_referal', $request->kode_referal)->first();
-            $user->siswa()->update([
-                'batch' => 1
-            ]);
-            Pembayaran::where('user_id', auth()->user()->id)->delete();
-            $sekolah->siswa()->attach($user->siswa->id);
-            DB::commit();
-            return redirect()->back()->with(['success' => 'Berhasil memakai kode referal']);
+            $cek = NisnSekolah::where('nisn', $user->siswa->nisn)->get();
+            if(count($cek) > 0) {
+                $user->siswa()->update([
+                    'batch' => 1
+                ]);
+                Pembayaran::where('user_id', auth()->user()->id)->delete();
+                $sekolah->siswa()->attach($user->siswa->id);
+                DB::commit();
+                return redirect()->back()->with(['success' => 'Berhasil memakai kode referal']);
+            }
+            return redirect()->back()->with(['error' => 'Nisn anda tidak tergabung pada sekolah ini']);
         } catch (\Exception $e) {
             DB::rollback();
             return redirect()->back()->with(['error' => $e->getMessage()])->withInput();

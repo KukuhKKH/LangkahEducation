@@ -75,7 +75,7 @@
                     @if (count($cek) > 0)
                     <a class="btn btn-light btn-block" href="{{ route('tryout.hasil', $value->slug) }}">Hasil Analisis</a>
                     @else
-                    <a href="{{ route('tryout.mulai', $value->slug) }}" class="btn btn-langkah btn-block mt-4">
+                    <a href="{{ route('tryout.mulai', ['slug' => $value->slug, 'token' => $user_token]) }}" class="btn btn-langkah btn-block mt-4">
                         Kerjakan
                     </a>
                     @endif
@@ -91,9 +91,14 @@
     <div class="col-xl-12 text-center p-5">
         <img class="img-fluid" src="{{asset('assets/img/empty-illustration.svg')}}" alt="">
         <h3 class="mt-3">Wah Kamu Belum mengikuti Try Out Apapun</h3>
-        <a class="btn btn-langkah mt-3" href="#">Daftar Try Out</a>
+        <a class="btn btn-langkah mt-3" href="{{ route('gelombang.siswa') }}">Daftar Try Out</a>
     </div>
     @endforelse
+    {{-- @else
+    <div class="text-center">
+        <h1>Daftar Gelombang Dulu Boss</h1>
+     </div>
+    @endif --}}
 </div>
 
 <!-- Modal -->

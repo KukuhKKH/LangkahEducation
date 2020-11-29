@@ -25,4 +25,8 @@ class Siswa extends Model
     public function pembayaran() {
         return $this->hasMany('App\Models\Pembayaran');
     }
+
+    public function gelombang() {
+        return $this->belongsToMany("App\Models\Gelombang", "siswa_has_gelombang");
+    }
 }

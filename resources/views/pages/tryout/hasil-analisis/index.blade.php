@@ -167,14 +167,16 @@
                 <h6 class="m-0 font-weight-bold text-dark">Komentar Mentor</h6>
             </div>
             <div class="card-body">
-                <img class="my-3" src="{{asset('assets/img/undraw_profile.svg')}}" alt="profil-mentor"
-                style="height:100px">
-                <div class="form-group">
-                    <textarea class="form-control mt-4" id="komentarMentor" rows="5" disabled>Bagus Pertahankan</textarea>
-                </div>
-                @hasanyrole('mentor')
-                <button class="btn btn-langkah btn-block" type="submit">Kirim Komentar</button>
-                @endhasanyrole
+                <form action="">
+                    <img class="my-3" src="{{asset('assets/img/undraw_profile.svg')}}" alt="profil-mentor"
+                    style="height:100px">
+                    <div class="form-group">
+                        <textarea class="form-control mt-4" id="komentarMentor" rows="5" disabled>Bagus Pertahankan</textarea>
+                    </div>
+                    @hasanyrole('mentor')
+                    <button class="btn btn-langkah btn-block" type="submit">Kirim Komentar</button>
+                    @endhasanyrole
+                </form>
             </div>
         </div>
     </div>

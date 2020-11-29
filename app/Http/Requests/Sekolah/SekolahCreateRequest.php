@@ -29,6 +29,7 @@ class SekolahCreateRequest extends FormRequest
             'foto' => 'nullable',
             'alamat' => 'required',
             'kode_referal' => 'nullable',
+            'nisn'  => 'nullable|mimes:xls,xlsx',
         ];
     }
 }

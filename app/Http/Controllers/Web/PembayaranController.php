@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Gelombang;
 use App\Models\Pembayaran;
 use App\Models\PembayaranBukti;
 use Illuminate\Http\Request;
@@ -102,6 +103,36 @@ class PembayaranController extends Controller
             $pembayaran = Auth::user()->pembayaran()->latest()->paginate(10);
             $data = $request->all();
             return view('pages.pembayaran.siswa', compact('pembayaran', 'data'));
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function daftar_gelombang() {
+        try {
+            $user = auth()->user();
+            $today = date('m/d/Y');
+            $gelombang = Gelombang::where('tgl_awal', '<', $today)->where('tgl_akhir', '>', $today)->whereDoesntHave('siswa', function($query) use($user) {
+                $query->where('siswa_id', $user->siswa->id);
+            })->get();
+            return view('pages.pendaftaran.gelombang_siswa', compact('gelombang'));
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function daftar_gelombang_store($id) {
+        try {
+            $user = auth()->user();
+            $gelombang = Gelombang::find($id);
+            $gelombang->siswa()->sync($user->siswa->id);
+            Pembayaran::create([
+                'user_id' => $user->id,
+                'gelombang_id' => $gelombang->id,
+                'kode_transfer' => rand(100, 999),
+                'status' => 0
+            ]);
+            return redirect()->back()->with(['success' => "Berhasil mendaftar gelombang"]);
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }

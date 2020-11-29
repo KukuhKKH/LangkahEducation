@@ -28,4 +28,8 @@ class Gelombang extends Model
     public function tryout() {
         return $this->belongsToMany("App\Models\TryoutPaket", "gelombang_tryout", 'gelombang_id', 'tryout_paket_id');
     }
+
+    public function siswa() {
+        return $this->belongsToMany("App\Models\Siswa", "siswa_has_gelombang");
+    }
 }

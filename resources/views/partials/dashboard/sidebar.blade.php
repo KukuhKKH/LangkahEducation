@@ -112,12 +112,19 @@
         </a>
     </li>
     
-    @hasanyrole('siswa|sekolah')
+    @hasanyrole('siswa')
+
+    <li class="nav-item {{ request()->is('dashboard/daftar/gelombang') ? 'active' : "" }}">
+        <a class="nav-link" href="{{ route('gelombang.siswa') }}">
+            <i class="fas fa-fw fa-money-bill"></i>
+            <span>Daftar Gelombang</span>
+        </a>
+    </li>
 
     <li class="nav-item {{ request()->is('dashboard/pembayaran-siswa') ? 'active' : "" }}">
         <a class="nav-link" href="{{ route('pembayaran.siswa') }}">
             <i class="fas fa-fw fa-money-bill"></i>
-            <span>Pembayaran</span> <span class="badge badge-success">0</span>
+            <span>Pembayaran</span> <span class="badge badge-success">{{ $total_pembayaran }}</span>
         </a>
     </li>
     @endhasanyrole
@@ -129,13 +136,13 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePembayaran"
             aria-expanded="{{ $aktif_bayar }}" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-money-bill"></i>
-            <span>Pembayaran</span>
+            <span>Pembayaran</span> <span class="badge badge-success">{{ ($pembayaran_notif->total_belum + $pembayaran_notif->total_sudah) }}</span>
         </a>
         <div id="collapsePembayaran" class="{{ ($aktif_bayar) ? 'show collapse' : 'collapse' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Pembayaran :</h6>
-                <a class="collapse-item" href="{{ route('pembayaran.show', 'belum-bayar') }}">Belum Bayar</a>
-                <a class="collapse-item" href="{{ route('pembayaran.show', 'sudah-bayar') }}">Sudah Bayar</a>
+                <a class="collapse-item" href="{{ route('pembayaran.show', 'belum-bayar') }}">Belum Bayar <span class="badge badge-danger">{{ $pembayaran_notif->total_belum }}</span></a>
+                <a class="collapse-item" href="{{ route('pembayaran.show', 'sudah-bayar') }}">Sudah Bayar <span class="badge badge-success">{{ $pembayaran_notif->total_sudah }}</span></a>
             </div>
         </div>
     </li>

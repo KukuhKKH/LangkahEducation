@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use App\Http\Controllers\HelperController;
+use App\Models\Pembayaran;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,5 +28,16 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+        view()->composer('layouts.dashboard-app', function($view) {
+            $user = auth()->user();
+            $role = $user->getRoleNames()->first();
+            if($role == 'siswa') {
+                $total_pembayaran = Pembayaran::where('user_id', $user->id)->where('status', 0)->count();
+                $view->with('total_pembayaran', $total_pembayaran);
+            } elseif($role == 'superadmin' || $role == 'admin') {
+                $pembayaran_notif = Pembayaran::selectRaw("COALESCE(count(CASE WHEN status = 0 THEN id END), 0) as total_belum, COALESCE(count(CASE WHEN status = 1 THEN id END), 0) as total_sudah")->first();
+                $view->with('pembayaran_notif', $pembayaran_notif);
+            }
+        });
     }
 }

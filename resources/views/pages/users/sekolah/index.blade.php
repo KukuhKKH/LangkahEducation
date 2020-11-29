@@ -3,11 +3,12 @@
 
 @section('content')
     <div class="row">
-        <div class="col-10">
+        <div class="col-8">
             <h1 class="h3 mb-4 text-gray-800">Sekolah</h1>
         </div>
-        <div class="col-2 text-right">
+        <div class="col-4 text-right">
             <a href="{{ asset('template/TemplateSekolah.xlsx') }}" download="" class="btn btn-success"><i class="fas fa-fw fa-file-excel"></i> Template Excel</a>
+            <a href="{{ asset('template/TemplateNISNSiswa.xlsx') }}" download="" class="btn btn-success"><i class="fas fa-fw fa-file-excel"></i> Template Excel NISN Siswa</a>
         </div>
     </div>
     <div class="card shadow mb-4">
@@ -79,9 +80,9 @@
                                         <a href="{{ route('sekolah.edit', $value->id) }}" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a href="{{ route('sekolah.show', $value->id) }}" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Integrasi siswa ke sekolah ini">
+                                        {{-- <a href="{{ route('sekolah.show', $value->id) }}" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Integrasi siswa ke sekolah ini">
                                             <i class="fa fa-user-friends"></i>
-                                        </a>
+                                        </a> --}}
                                         <a href="{{ route('sekolah.tryout', $value->id) }}" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Integrasi tryout ke sekolah ini">
                                             <i class="fas fa-fw fa-desktop"></i>
                                         </a>
@@ -164,10 +165,20 @@
                             <input name="password" class="form-control form-control-user" disabled value="123456">
                             <small>Password Default</small>
                         </div>
-                        <div class="form-group">
-                            <label for="">Logo Sekolah <small>Opsional</small></label>
-                            <input type="file" class="form-control" name="foto">
-                         </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">DAFTAR NISN Siswa <small>Opsional</small></label>
+                                    <input type="file" class="form-control" name="nisn">
+                                 </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Logo Sekolah <small>Opsional</small></label>
+                                    <input type="file" class="form-control" name="foto">
+                                 </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Simpan</button>

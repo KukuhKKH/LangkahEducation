@@ -6,9 +6,6 @@ use App\Models\Siswa;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Mail\VerifikasiEmail;
-use App\Models\Gelombang;
-use App\Models\Pembayaran;
-use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -90,13 +87,6 @@ class RegisterController extends Controller
             'nomor_hp' => $data['nomor_hp'],
             'asal_sekolah' => $data['asal_sekolah'],
             'tanggal_lahir' => $new_tgl,
-        ]);
-        $gelombang = Gelombang::latest()->first();
-        Pembayaran::create([
-            'user_id' => $user->id,
-            'gelombang_id' => $gelombang->id,
-            'kode_transfer' => rand(100, 999),
-            'status' => 0
         ]);
         Mail::to($user->email)->send(new VerifikasiEmail($user));
         return $user;
