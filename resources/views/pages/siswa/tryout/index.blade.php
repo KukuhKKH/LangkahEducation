@@ -27,7 +27,7 @@
          @endforelse
       @else
          <div class="text-center">
-            <h1>Bayar Dulu Boss</h1>
+            <h1>Silahkan Melakukan Pembayaran Terlebih Dahulu</h1>
          </div>
       @endif
    </div> --}}
@@ -96,7 +96,7 @@
     @endforelse
     {{-- @else
     <div class="text-center">
-        <h1>Daftar Gelombang Dulu Boss</h1>
+        <h1>Silahkan Daftar Try Out terlebih dahulu</h1>
      </div>
     @endif --}}
 </div>
