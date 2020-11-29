@@ -18,7 +18,7 @@
                         <th>No</th>
                         <th>Nama Siswa</th>
                         <th>Gelombang</th>
-                        <td>status</td>
+                        <td>Status</td>
                         <th width="25%">Aksi</th>
                     </tr>
                     </thead>

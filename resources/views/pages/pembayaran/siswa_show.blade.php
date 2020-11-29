@@ -23,16 +23,6 @@
                      <button class="btn btn-primary">Kirim</button>
                  </form>
               </div>
-              <div class="col-md-6">
-                 <div class="card shadow">
-                    <div class="card-header py-3">
-                        <h4>List Bank</h4>
-                    </div>
-                    <div class="card-body">
-                       <p>Iki isi e bank</p>
-                    </div>
-                 </div>
-              </div>
            </div>
         </div>
     </div>
