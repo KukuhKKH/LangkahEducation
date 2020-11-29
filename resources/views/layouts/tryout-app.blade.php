@@ -11,7 +11,8 @@
 
     <link rel="stylesheet" href="{{ asset('assets/vendor/toastr/toastr.min.css') }}">
     <!-- Custom styles for this template-->
-    <link href="{{asset('assets-tryout/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/css/langkahedu.css')}}" rel="stylesheet">
 
     <style>
         html,
