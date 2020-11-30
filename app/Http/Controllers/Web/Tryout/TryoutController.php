@@ -88,8 +88,9 @@ class TryoutController extends Controller
             $q->where('slug', $slug);
         })->latest()->paginate(10);
         $paket = TryoutPaket::where('slug', $slug)->first();
+        $paket_soal = TryoutKategoriSoal::all();
         $data = $request->all();
-        return view('pages.tryout.soal.show', compact('tryout', 'paket', 'data'));
+        return view('pages.tryout.soal.show', compact('tryout', 'paket', 'data', 'paket_soal'));
     }
 
     /**
@@ -188,8 +189,7 @@ class TryoutController extends Controller
             $file = $request->file('file');
             try {
                 $paket_id = $request->paket_id;
-                $kategori_id = $request->kategori_id;
-                Excel::import(new SoalImportBatch($kategori_id, $paket_id), $file);
+                Excel::import(new SoalImportBatch($paket_id), $file);
                 return redirect()->back()->with(['success' => 'Import Soal berhasil']);
             } catch (\Exception $e) {
                 $message = $e->getMessage();

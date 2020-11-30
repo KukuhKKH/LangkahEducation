@@ -10,12 +10,9 @@ use Maatwebsite\Excel\Events\BeforeImport;
 
 class SoalImportBatch implements ToModel, WithStartRow
 {
-
-    public $kategori_id;
     public $paket_id;
 
-    public function __construct($kategori_id, $paket_id) {
-        $this->kategori_id = $kategori_id;
+    public function __construct($paket_id) {
         $this->paket_id = $paket_id;
     }
     
@@ -36,51 +33,56 @@ class SoalImportBatch implements ToModel, WithStartRow
     */
     public function model(array $row) {
         if(empty($row[0])){
+            $errMessage = 'Mohon pastikan kolom ID Kategori tidak kosong.';
+            throw new \Exception($errMessage);
+        }
+
+        if(empty($row[1])){
             $errMessage = 'Mohon pastikan kolom Soal tidak kosong.';
             throw new \Exception($errMessage);
         }
         
-        if(empty($row[1])){
+        if(empty($row[2])){
             $errMessage = 'Mohon pastikan kolom Pembahasan tidak kosong.';
             throw new \Exception($errMessage);
         }
 
-        if(empty($row[2])){
+        if(empty($row[3])){
             $errMessage = 'Mohon pastikan kolom Jawaban A tidak kosong.';
             throw new \Exception($errMessage);
         }
 
-        if(empty($row[3])){
+        if(empty($row[4])){
             $errMessage = 'Mohon pastikan kolom Jawaban B tidak kosong.';
             throw new \Exception($errMessage);
         }
 
-        if(empty($row[4])){
+        if(empty($row[5])){
             $errMessage = 'Mohon pastikan kolom Jawaban C tidak kosong.';
             throw new \Exception($errMessage);
         }
 
-        if(empty($row[5])){
+        if(empty($row[6])){
             $errMessage = 'Mohon pastikan kolom Jawaban D tidak kosong.';
             throw new \Exception($errMessage);
         }
 
-        if(empty($row[6])){
+        if(empty($row[7])){
             $errMessage = 'Mohon pastikan kolom Jawaban E tidak kosong.';
             throw new \Exception($errMessage);
         }
 
-        if(empty($row[7])){
+        if(empty($row[8])){
             $errMessage = 'Mohon pastikan kolom Option yang benar tidak kosong.';
             throw new \Exception($errMessage);
         }
 
-        if(empty($row[8])){
+        if(empty($row[9])){
             $errMessage = 'Mohon pastikan kolom Nilai Benar tidak kosong.';
             throw new \Exception($errMessage);
         }
 
-        if(empty($row[9])){
+        if(empty($row[10])){
             $errMessage = 'Mohon pastikan kolom Nilai Salah tidak kosong.';
             throw new \Exception($errMessage);
         }
@@ -88,36 +90,36 @@ class SoalImportBatch implements ToModel, WithStartRow
         $soal = TryoutSoal::updateOrCreate([
             'user_id' => Auth::user()->id,
             'tryout_paket_id' => $this->paket_id,
-            'kategori_id' => $this->kategori_id,
-            'soal' => $row[0],
-            'pembahasan' => $row[1],
-            'benar' => $row[8],
-            'salah' => $row[9],
+            'tryout_kategori_soal_id' => $row[0],
+            'soal' => $row[1],
+            'pembahasan' => $row[2],
+            'benar' => $row[9],
+            'salah' => $row[10],
         ]);
 
         $soal->jawaban()->updateOrCreate([
             'jawaban' => $row[2],
-            'benar' => (strtoupper(trim($row[7])) == "A") ? 1 : 0
-        ]);
-
-        $soal->jawaban()->updateOrCreate([
-            'jawaban' => $row[3],
-            'benar' => (strtoupper(trim($row[7])) == "B") ? 1 : 0
+            'benar' => (strtoupper(trim($row[8])) == "A") ? 1 : 0
         ]);
 
         $soal->jawaban()->updateOrCreate([
             'jawaban' => $row[4],
-            'benar' => (strtoupper(trim($row[7])) == "C") ? 1 : 0
+            'benar' => (strtoupper(trim($row[8])) == "B") ? 1 : 0
         ]);
 
         $soal->jawaban()->updateOrCreate([
             'jawaban' => $row[5],
-            'benar' => (strtoupper(trim($row[7])) == "D") ? 1 : 0
+            'benar' => (strtoupper(trim($row[8])) == "C") ? 1 : 0
         ]);
 
         $soal->jawaban()->updateOrCreate([
             'jawaban' => $row[6],
-            'benar' => (strtoupper(trim($row[7])) == "E") ? 1 : 0
+            'benar' => (strtoupper(trim($row[8])) == "D") ? 1 : 0
+        ]);
+
+        $soal->jawaban()->updateOrCreate([
+            'jawaban' => $row[7],
+            'benar' => (strtoupper(trim($row[8])) == "E") ? 1 : 0
         ]);
     }
 

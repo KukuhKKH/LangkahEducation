@@ -66,8 +66,8 @@
                     </tr>
                 </table>
                 @php
-                    $cek = $value->wherehas('hasil', function($q) {
-                                $q->where('user_id', auth()->user()->id);
+                    $cek = $value->wherehas('hasil', function($q) use($value) {
+                                $q->where('user_id', auth()->user()->id)->where('tryout_paket_id', $value->id);
                             })->get();
                     $today = date('m/d/Y');
                 @endphp
@@ -90,8 +90,12 @@
     @empty
     <div class="col-xl-12 text-center p-5">
         <img class="img-fluid" src="{{asset('assets/img/empty-illustration.svg')}}" alt="">
-        <h3 class="mt-3">Wah Kamu Belum mengikuti Try Out Apapun</h3>
-        <a class="btn btn-langkah mt-3" href="{{ route('gelombang.siswa') }}">Daftar Try Out</a>
+        @if (auth()->user()->siswa->batch == 1)
+            <h3 class="mt-3">Belum ada paket tryout dari sekolah</h3>
+        @else
+            <h3 class="mt-3">Wah Kamu Belum mengikuti Try Out Apapun</h3>
+            <a class="btn btn-langkah mt-3" href="{{ route('gelombang.siswa') }}">Daftar Try Out</a>
+        @endif
     </div>
     @endforelse
     {{-- @else

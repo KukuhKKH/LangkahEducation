@@ -36,8 +36,11 @@ class MentoringController extends Controller
     public function siswa() {
         $user = auth()->user();
         $chat = Mentoring::where('siswa_id', $user->siswa->id)->get();
-        // dd($chat);
-        return view('pages.mentoring.index', compact('user', 'chat'));
+        if(count($user->siswa->mentor)> 0) {
+            return view('pages.mentoring.index', compact('user', 'chat'));
+        } else {
+            return redirect()->back()->with(['error' => 'Anda belum memiliki mentor']);
+        }
     }
 
     public function kirim_pesan(Request $request, $siswa_id, $mentor_id) {

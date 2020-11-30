@@ -49,7 +49,7 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $value->nama }}</td>
                             <td>{{ $value->kode }}</td>
-                            <td>{{ $value->waktu }}</td>
+                            <td>{{ $value->waktu }} Menit</td>
                             <td>
                                 <form action="{{ route('kategori-soal.destroy', $value->id) }}" method="POST" id="form-{{ $value->id }}">
                                     @csrf

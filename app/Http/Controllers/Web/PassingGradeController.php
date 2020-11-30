@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\PassingGrade\PassingGradeStore;
 use App\Imports\PassingGradeImport;
+use App\Models\KelompokPassingGrade;
 
 class PassingGradeController extends Controller
 {
@@ -57,10 +58,11 @@ class PassingGradeController extends Controller
     public function show(Request $request, $id)
     {
         try {
+            $kelompok = KelompokPassingGrade::all();
             $passing_grade = PassingGrade::where('universitas_id', $id)->latest()->paginate(10);
             $universitas = Universitas::find($id);
             $data = $request->all();
-            return view('pages.passing-grade.show', compact('passing_grade', 'universitas', 'data'));
+            return view('pages.passing-grade.show', compact('passing_grade','kelompok', 'universitas', 'data'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }

@@ -26,7 +26,8 @@ class PassingGradeStore extends FormRequest
         return [
             'prodi' => 'required',
             'passing_grade' => 'required|numeric',
-            'universitas_id' => 'required'
+            'universitas_id' => 'required',
+            'kelompok_id' => 'required|numeric',
         ];
     }
 }

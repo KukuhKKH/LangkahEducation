@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Imports\UniversitasImport;
 use App\Http\Controllers\Controller;
 use App\Imports\UniversitasImportBatch;
+use App\Models\KelompokPassingGrade;
 use Maatwebsite\Excel\Facades\Excel;
 
 class UniversitasController extends Controller
@@ -18,9 +19,10 @@ class UniversitasController extends Controller
      */
     public function index(Request $request)
     {
+        $kelompok = KelompokPassingGrade::all();
         $universitas = Universitas::with('passing_grade')->latest()->paginate(10);
         $data = $request->all();
-        return view('pages.passing-grade.index', compact('universitas', 'data'));
+        return view('pages.passing-grade.index', compact('universitas', 'kelompok', 'data'));
     }
 
     /**

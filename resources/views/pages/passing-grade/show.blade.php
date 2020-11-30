@@ -52,6 +52,7 @@
                     <tr>
                         <th>No</th>
                         <th>Nama Universitas</th>
+                        <th>Kategori</th>
                         <th>Prodi</th>
                         <th>Passing Grade</th>
                         <th width="25%">Aksi</th>
@@ -61,6 +62,7 @@
                     <tr>
                         <th>No</th>
                         <th>Nama Universitas</th>
+                        <th>Kategori</th>
                         <th>Prodi</th>
                         <th>Passing Grade</th>
                         <th width="25%">Aksi</th>
@@ -71,6 +73,7 @@
                         <tr>
                            <td>{{ $loop->iteration }}</td>
                            <td>{{ $value->universitas->nama }}</td>
+                           <td>{{ Str::upper($value->kelompok->nama) }}</td>
                            <td>{{ $value->prodi }}</td>
                            <td>{{ $value->passing_grade }} %</td>
                            <td>
@@ -115,7 +118,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="">Nama Prodi</label>
-                            <input type="text" class="form-control @error('prodi') is-invalid @enderror" name="prodi" placeholder="Masukkan Universitas">
+                            <input type="text" class="form-control @error('prodi') is-invalid @enderror" name="prodi" placeholder="Masukkan Nama Prodi">
                             @error('prodi')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -124,13 +127,27 @@
                         </div>
                         <div class="form-group">
                            <label for="">Passing Grade</label>
-                           <input type="number" class="form-control @error('passing_grade') is-invalid @enderror" name="passing_grade" placeholder="Masukkan Universitas">
+                           <input type="number" class="form-control @error('passing_grade') is-invalid @enderror" name="passing_grade" placeholder="Masukkan Passing grade">
                            @error('passing_grade')
                                <span class="invalid-feedback" role="alert">
                                    <strong>{{ $message }}</strong>
                                </span>
                            @enderror
                        </div>
+                       <div class="form-group">
+                        <label for="">Kelompok Prodi</label>
+                        <select name="kelompok_id" class="form-control @error('kelompok_id') is-invalid @enderror">
+                           <option value="" selected disabled>-- Pilih --</option>
+                           @foreach ($kelompok as $value)
+                              <option value="{{ $value->id }}">{{$value->nama}}</option>
+                           @endforeach
+                        </select>
+                        @error('kelompok_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>

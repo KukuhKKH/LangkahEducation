@@ -172,37 +172,46 @@ class TryoutController extends Controller
             // dd($request->session());
             // $request->session()->forget('kategori_id');
             // $request->session()->forget('index_kategori');
-            $index = 0;
-            if($request->session()->has('index_kategori')) {
-                $index = $request->session()->get('index_kategori');
+            $cek_token = Crypt::decrypt($token);
+            // dd(auth()->user()->api_token == $cek_token);
+            if(auth()->user()->api_token == $cek_token) {
+                $index = 0;
+                if($request->session()->has('index_kategori')) {
+                    $index = $request->session()->get('index_kategori');
+                } else {
+                    $request->session()->put('index_kategori', $index);
+                }
+                $paket = TryoutPaket::findSlug($slug);
+                if(!$request->session()->has('kategori_id')) {
+                    $kateogri_id = $paket->soal()
+                                        ->distinct()
+                                        ->select('tryout_kategori_soal_id')
+                                        ->get()->pluck('tryout_kategori_soal_id')
+                                        ->toArray();
+                    $request->session()->put('kategori_id', $kateogri_id);
+                } else {
+                    $kateogri_id = $request->session()->get('kategori_id');
+                }
+                $cek = $paket->whereHas('hasil', function($q) {
+                    $q->where('user_id', auth()->user()->id);
+                })->get();
+                // if(count($cek) > 0) {
+                //     return redirect()->back()->with(['error' => 'Anda sudah mengerjakan tryout ini']);
+                // } else {
+                    $soal = TryoutSoal::where('tryout_paket_id', $paket->id)
+                                        ->inRandomOrder()
+                                        ->where('tryout_kategori_soal_id', $kateogri_id[$index])
+                                        ->get();
+                    $waktu = TryoutKategoriSoal::where('id', $kateogri_id[$index])->first()->waktu;
+                    return view('tryout.new', compact('soal', 'paket', 'waktu'));
+                // }
             } else {
-                $request->session()->put('index_kategori', $index);
+                return redirect()->route('siswa.tryout.index')->with(['error' => 'Ini bukan link anda']);
             }
-            $paket = TryoutPaket::findSlug($slug);
-            if(!$request->session()->has('kategori_id')) {
-                $kateogri_id = $paket->soal()
-                                    ->distinct()
-                                    ->select('tryout_kategori_soal_id')
-                                    ->get()->pluck('tryout_kategori_soal_id')
-                                    ->toArray();
-                $request->session()->put('kategori_id', $kateogri_id);
-            } else {
-                $kateogri_id = $request->session()->get('kategori_id');
-            }
-            $cek = $paket->whereHas('hasil', function($q) {
-                $q->where('user_id', auth()->user()->id);
-            })->get();
-            // if(count($cek) > 0) {
-            //     return redirect()->back()->with(['error' => 'Anda sudah mengerjakan tryout ini']);
-            // } else {
-                $soal = TryoutSoal::where('tryout_paket_id', $paket->id)
-                                    ->inRandomOrder()
-                                    ->where('tryout_kategori_soal_id', $kateogri_id[$index])
-                                    ->get();
-                $waktu = TryoutKategoriSoal::where('id', $kateogri_id[$index])->first()->waktu;
-                return view('tryout.new', compact('soal', 'paket', 'waktu'));
-            // }
         } catch(\Exception $e) {
+            if($e->getMessage() == 'The payload is invalid.') {
+                return redirect()->route('siswa.tryout.index')->with(['error' => 'Ini bukan link anda']);
+            }
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
     }
@@ -279,7 +288,8 @@ class TryoutController extends Controller
             $index_sekarang = $index_kategori + 1;
             $request->session()->put('index_kategori', $index_sekarang);
         }
-        return redirect()->route('tryout.mulai', $paket_slug)->withInput();
+        $user_token = Crypt::encrypt(Auth::user()->api_token);
+        return redirect()->route('tryout.mulai', ['slug' => $paket_slug, 'token' => $user_token])->withInput();
     }
 
     // End Tryout Baru

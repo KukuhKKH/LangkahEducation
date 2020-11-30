@@ -40,6 +40,11 @@ class UniversitasImportBatch implements ToModel, WithStartRow
             throw new \Exception($errMessage);
         }
 
+        if(empty($row[3])){
+            $errMessage = 'Mohon pastikan kolom ID Kelompok tidak kosong.';
+            throw new \Exception($errMessage);
+        }
+
         $universitas = Universitas::updateOrCreate([
             'nama' => trim($row[0]),
         ], [
@@ -51,6 +56,7 @@ class UniversitasImportBatch implements ToModel, WithStartRow
         ],[
             'prodi' => trim($row[1]),
             'passing_grade' => $row[2],
+            'kelompok_id' => $row[3],
         ]);
     }
 

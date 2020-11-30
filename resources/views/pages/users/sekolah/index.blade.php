@@ -83,6 +83,9 @@
                                         {{-- <a href="{{ route('sekolah.show', $value->id) }}" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Integrasi siswa ke sekolah ini">
                                             <i class="fa fa-user-friends"></i>
                                         </a> --}}
+                                        <a href="{{ route('nisn.show', $value->id) }}" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="List NISN">
+                                            <i class="fas fa-fw fa-user-friends"></i>
+                                        </a>
                                         <a href="{{ route('sekolah.tryout', $value->id) }}" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Integrasi tryout ke sekolah ini">
                                             <i class="fas fa-fw fa-desktop"></i>
                                         </a>

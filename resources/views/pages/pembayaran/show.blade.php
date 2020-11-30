@@ -36,7 +36,7 @@
                         <tr>
                            <td>{{ $loop->iteration }}</td>
                            <td>{{ $value->user->name }}</td>
-                           <td>{{ $value->gelombang->gelombang }}</td>
+                           <td>{{ $value->gelombang->nama }}</td>
                            <td>
                               @if (count($value->pembayaran_bukti) > 0)
                                  @if ($value->status == 1)

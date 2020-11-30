@@ -48,7 +48,7 @@ class BankController extends Controller
                 'alias' => $request->alias,
                 'logo' => $request->file
             ]);
-            return redirect()->back()->with(['success' => 'Berhasil tambah gambar']);
+            return redirect()->back()->with(['success' => 'Berhasil tambah rekening']);
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
@@ -94,6 +94,15 @@ class BankController extends Controller
             return \redirect()->back()->with(['success' => "Berhasil hapus rekening bank"]);
         } catch(\Exception $e) {
             return \redirect()->back()->with(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function show_bank($id) {
+        try {
+            $bank = Bank::find($id);
+            return response()->json(['error' => false, 'data' => $bank], 200);
+        } catch(\Exception $e) {
+            return response()->json(['error' => true, 'message' => $e->getMessage(), 500]);
         }
     }
 }

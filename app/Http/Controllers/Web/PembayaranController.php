@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bank;
 use App\Models\Gelombang;
 use App\Models\Pembayaran;
 use App\Models\PembayaranBukti;
@@ -126,13 +127,23 @@ class PembayaranController extends Controller
             $user = auth()->user();
             $gelombang = Gelombang::find($id);
             $gelombang->siswa()->sync($user->siswa->id);
-            Pembayaran::create([
+            $pembayaran = Pembayaran::create([
                 'user_id' => $user->id,
                 'gelombang_id' => $gelombang->id,
                 'kode_transfer' => rand(100, 999),
                 'status' => 0
             ]);
-            return redirect()->back()->with(['success' => "Berhasil mendaftar gelombang"]);
+            return redirect()->route('pembayaran-siswa.detail', $pembayaran->id)->with(['success' => "Berhasil mendaftar gelombang"]);
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function detail_pembayaran($id) {
+        try {
+            $pembayaran = Pembayaran::find($id);
+            $rekening = Bank::all();
+            return view('pages.pembayaran.pembayaran', compact('pembayaran', 'rekening'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }

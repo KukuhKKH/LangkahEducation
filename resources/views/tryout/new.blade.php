@@ -174,7 +174,7 @@
       if(waktu != null) {
          compSiswaWaktu.setAttribute('data-time', waktu)
       } else {
-         const waktu_sekarang = moment().add('{{ $waktu }}', 'seconds').format('YYYY-MM-D H:mm:ss')
+         const waktu_sekarang = moment().add('{{ $waktu }}', 'minutes').format('YYYY-MM-D H:mm:ss')
          localStorage.setItem(`waktu-${user}-${paket_slug}`, waktu_sekarang)
          compSiswaWaktu.setAttribute('data-time', waktu_sekarang)
       }
@@ -212,6 +212,7 @@
          confirmButtonText: 'Ya!'
       }).then((result) => {
          if (result.isConfirmed) {
+            localStorage.removeItem(`waktu-${user}-${paket_slug}`)
             $('#form-data').submit()
          }
       })

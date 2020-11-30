@@ -3,10 +3,10 @@
 
 @section('content')
     <h1 class="h3 mb-2 text-gray-800">Soal Try out - {{ $paket->nama }}</h1>
-    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the</p>
 
     <div class="mb-3">
-        <a href="{{ asset('template/TemplateUniversitas.xlsx') }}" download="" class="btn btn-success"><i class="fas fa-fw fa-file-excel"></i> Template Soal</a>
+        <a href="{{ asset('template/TemplateSoalBatch.xlsx') }}" download="" class="btn btn-success"><i class="fas fa-fw fa-file-excel"></i> Template Soal</a>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalData">Daftar ID Kategori</button>
     </div>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -35,7 +35,6 @@
             <div class="d-flex justify-content-between mb-1">
             <h6 class="m-0 font-weight-bold text-primary">Soal Try out - {{ $paket->nama }}</h6>
                 <div class="btn-group btn-group-md mb-3">
-                    <a href="{{ route('paket.index') }}" class="btn btn-warning text-dark">Kembali</a>
                     <a href="{{ route('soal.create', $paket->slug) }}" class="btn btn-outline-primary btn-sm"><i class="fa fa-plus"></i> Tambah Soal</a>
                 </div>
             </div>
@@ -92,7 +91,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="text-center">
+                            <td colspan="8" class="text-center">
                                 Tidak ada data
                             </td>
                         </tr>
@@ -103,6 +102,52 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modalData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Daftar Kategori Soal</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nama</th>
+                                    <th>Kode</th>
+                                    <th>Waktu</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($paket_soal as $value)
+                                    <tr>
+                                        <td>{{ $value->id }}</td>
+                                        <td>{{ $value->nama }}</td>
+                                        <td>{{ $value->kode }}</td>
+                                        <td>{{ $value->waktu }} Menit</td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="4" class="text-center">
+                                            Tidak ada data
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+        </div>
 @endsection
 
 @section('js')

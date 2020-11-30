@@ -8,9 +8,6 @@
         <div class="card-header py-3">
             <div class="d-flex justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">List Pembayaran</h6>
-                <div class="btn-group btn-group-md">
-                   <a class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> List Bank</a>
-                </div>
              </div>
         </div>
         <div class="card-body">

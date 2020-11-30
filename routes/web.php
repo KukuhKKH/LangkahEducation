@@ -72,6 +72,7 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                     Route::resource('superadmin', 'SuperadminController')->except(['create', 'show']);
                     Route::resource('siswa', 'SiswaController')->except(['create', 'show']);
                     Route::resource('author', 'AuthorController')->except(['create', 'show']);
+                    Route::resource('daftar/sekolah/nisn', 'SekolahNisnController');
     
                     // Integrasi Data
                     Route::post('sekolah/integrasi/{id}', 'SekolahController@integrasi')->name('sekolah.integrasi');
@@ -119,6 +120,8 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
             Route::get('hasiltryout/siswa/{id}', 'MentoringController@hasil_tryout');
             Route::post('mentoring/kirim/{siswa_id}/{mentor_id}', 'MentoringController@kirim_pesan')->name('kirim_pesan');
             Route::get('hasiltryout/siswa/{id}/{slug}/detail', 'MentoringController@hasil_tryout_detail')->name('hasil_tryout.detail');
+
+            Route::get('bank/{id}', 'BankController@show_bank');
         });
         // End Prefix Dashboard
 
@@ -129,6 +132,7 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                 Route::post('pembayaran-siswa/{pembayaran_id}', 'PembayaranController@siswa_bayar')->name('pembayaran.siswa.bayar');
                 Route::get('pembayaran-siswa/{pembayaran_id}', 'PembayaranController@siswa_edit')->name('pembayaran.siswa.edit');
                 Route::put('pembayaran-siswa/{pembayaran_id}', 'PembayaranController@siswa_update')->name('pembayaran.siswa.update');
+                Route::get('pembayaran/{pembayaran_id}/detail', 'PembayaranController@detail_pembayaran')->name('pembayaran-siswa.detail');
 
                 Route::get('daftar/gelombang', 'PembayaranController@daftar_gelombang')->name('gelombang.siswa');
                 Route::get('daftar-gelombang/{id}', 'PembayaranController@daftar_gelombang_store');
@@ -183,6 +187,6 @@ Route::group(['prefix' => 'dev'], function() {
         return view('pages.mentoring.index');
     });
     Route::get('hasil', function() {
-        return view('pages.halaman.landing-page.index');
+        return view('pages.pembayaran.pembayaran');
     });
 });
