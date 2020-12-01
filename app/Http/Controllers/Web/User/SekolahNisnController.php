@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Web\User;
 
-use App\Http\Controllers\Controller;
-use App\Models\NisnSekolah;
 use App\Models\Sekolah;
+use App\Models\NisnSekolah;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\NisnSiswaKeSekolahImport;
 
 class SekolahNisnController extends Controller
 {
@@ -124,6 +126,23 @@ class SekolahNisnController extends Controller
             return redirect()->back()->with(['success' => 'Berhasil hapus nisn']);
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function import(Request $request) {
+        $this->validate($request, [
+            'file' => 'required'
+        ]);
+        if($request->hasFile('file')) {
+            try {
+                $file = $request->file('file');
+                Excel::import(new NisnSiswaKeSekolahImport($request->sekolah_id), $file);
+                return \redirect()->back()->with(['success' => 'Import sekolah berhasil']);
+            } catch (\Exception $e) {
+                $message = $e->getMessage();
+                if (!$message == "Start row (2) is beyond highest row (1)") throw $e;
+                return \redirect()->back()->with(['error' => $message])->withInput();
+            }
         }
     }
 }

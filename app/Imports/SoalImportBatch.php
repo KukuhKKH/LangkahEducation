@@ -98,7 +98,7 @@ class SoalImportBatch implements ToModel, WithStartRow
         ]);
 
         $soal->jawaban()->updateOrCreate([
-            'jawaban' => $row[2],
+            'jawaban' => $row[3],
             'benar' => (strtoupper(trim($row[8])) == "A") ? 1 : 0
         ]);
 

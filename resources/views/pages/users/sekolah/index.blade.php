@@ -16,7 +16,7 @@
             @hasanyrole('admin|superadmin')
                 <div class="row">
                     <div class="col-8">
-                        <form action="" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('sekolah.import') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                             <div class="form-group">
                                 <div class="input-group">
@@ -24,7 +24,7 @@
                                         Import Data Excel 
                                     </div>
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="inputGroupFile02">
+                                        <input type="file" name="file" class="custom-file-input" id="inputGroupFile02">
                                         <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
                                     </div>
                                     <div class="input-group-append">

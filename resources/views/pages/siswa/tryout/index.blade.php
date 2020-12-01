@@ -27,7 +27,7 @@
          @endforelse
       @else
          <div class="text-center">
-            <h1>Bayar Dulu Boss</h1>
+            <h1>Silahkan Melakukan Pembayaran Terlebih Dahulu</h1>
          </div>
       @endif
    </div> --}}
@@ -36,57 +36,75 @@
 
 <div class="row">
     @forelse ($paket as $value)
-    <div class="col-md-3 col-xs-6">
-        <div class="card" style="width: 18rem;">
-            @if ($value->image)
-            <img class="card-img-top" src="{{ $value->image }}" alt="Try Out">
-            @else
-            <img class="card-img-top" src="{{asset('assets/img/email-verification.png')}}" alt="Try Out">
-            @endif
-            <div class="card-body">
-                <h5 class="card-text">{{ $value->nama }}</h5>
-                <table>
-                    <tr>
-                        <td>
-                            Tanggal
-                        </td>
-                        <td>:</td>
-                        <td>
-                            {{ Carbon\Carbon::parse($value->tgl_awal)->format('d F Y') }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Jam
-                        </td>
-                        <td>:</td>
-                        <td>
-                            00:00 WIB
-                        </td>
-                    </tr>
-                </table>
-                @php
-                    $cek = $value->wherehas('hasil', function($q) use($value) {
-                                $q->where('user_id', auth()->user()->id)->where('tryout_paket_id', $value->id);
-                            })->get();
-                    $today = date('m/d/Y');
-                @endphp
-                @if ($today > $value->tgl_awal && $today < $value->tgl_akhir)
-                    @if (count($cek) > 0)
-                    <a class="btn btn-light btn-block" href="{{ route('tryout.hasil', $value->slug) }}">Hasil Analisis</a>
-                    @else
-                    <a href="{{ route('tryout.mulai', ['slug' => $value->slug, 'token' => $user_token]) }}" class="btn btn-langkah btn-block mt-4">
-                        Kerjakan
-                    </a>
-                    @endif
-                @elseif($today < $value->tgl_awal)
-                <a href="#" class="btn btn-primary disabled" disabled>Belum Waktunya</a>
+    @if ($value->status == 1)
+        <div class="col-md-3 col-xs-6">
+            <div class="card" style="width: 18rem;">
+                @if ($value->image)
+                <img class="card-img-top" src="{{ $value->image }}" alt="Try Out">
                 @else
-                <a href="#" class="btn btn-primary disabled" disabled>Tryout Telah Selesai</a>
+                <img class="card-img-top" src="{{asset('assets/img/email-verification.png')}}" alt="Try Out">
                 @endif
+                <div class="card-body">
+                    <h5 class="card-text">{{ $value->nama }}</h5>
+                    <table>
+                        <tr>
+                            <td>
+                                Tanggal Mulai
+                            </td>
+                            <td>:</td>
+                            <td>
+                                {{ Carbon\Carbon::parse($value->tgl_awal)->format('d F Y') }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Tanggal Akhir
+                            </td>
+                            <td>:</td>
+                            <td>
+                                {{ Carbon\Carbon::parse($value->tgl_akhir)->format('d F Y') }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Jam
+                            </td>
+                            <td>:</td>
+                            <td>
+                                00:00 WIB
+                            </td>
+                        </tr>
+                    </table>
+                    @php
+                        $cek = $value->wherehas('hasil', function($q) use($value) {
+                                    $q->where('user_id', auth()->user()->id)->where('tryout_paket_id', $value->id);
+                                })->get();
+                        $today = date('m/d/Y');
+                    @endphp
+                    @if ($today > $value->tgl_awal && $today < $value->tgl_akhir)
+                        @if (count($cek) > 0)
+                        @php
+                            $prodi = App\Models\TempProdi::where('paket_id', $value->id)->get();
+                        @endphp
+                            @if (count($prodi) > 0)
+                            <a class="btn btn-light btn-block" href="{{ route('tryout.hasil', ['slug' => $value->slug, 'prodi-1' => $prodi[0]->passing_grade_id, 'prodi-2' => $prodi[1]->passing_grade_id]) }}">Hasil Analisis</a>    
+                            @else
+                            <a class="btn btn-light btn-block" href="{{ route('tryout.hasil', ['slug' => $value->slug]) }}">Hasil Analisis</a>
+                            @endif
+                        @else
+                            <a href="{{ route('tryout.siswa.detail', ['slug' => $value->slug, 'token' => $user_token]) }}" class="btn btn-langkah btn-block mt-4">
+                                Kerjakan
+                            </a>
+                        @endif
+                    @elseif($today < $value->tgl_awal)
+                    <a href="#" class="btn btn-primary disabled" disabled>Belum Waktunya</a>
+                    @else
+                    <a href="#" class="btn btn-primary disabled" disabled>Tryout Telah Selesai</a>
+                    @endif
+                </div>
             </div>
         </div>
-    </div>
+    @endif
     @empty
     <div class="col-xl-12 text-center p-5">
         <img class="img-fluid" src="{{asset('assets/img/empty-illustration.svg')}}" alt="">
@@ -100,7 +118,7 @@
     @endforelse
     {{-- @else
     <div class="text-center">
-        <h1>Daftar Gelombang Dulu Boss</h1>
+        <h1>Silahkan Daftar Try Out terlebih dahulu</h1>
      </div>
     @endif --}}
 </div>

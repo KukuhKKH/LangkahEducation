@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Gelombang;
 use App\Models\Pembayaran;
+use App\Models\TempProdi;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 
@@ -161,6 +162,23 @@ class TryoutController extends Controller
     }
     // End Tryout Lama
 
+    public function tryout_baru_detail(Request $request, $token, $slug) {
+        try {
+            $paket = TryoutPaket::findSlug($slug);
+            $detail = DB::table('tryout_soal')
+                            ->selectRaw('tryout_kategori_soal.nama as nama, count(tryout_soal.id) as total, tryout_kategori_soal.waktu as waktu')
+                            ->join('tryout_kategori_soal', 'tryout_soal.tryout_kategori_soal_id', '=', 'tryout_kategori_soal.id', 'LEFT')
+                            ->where('tryout_paket_id', $paket->id)
+                            ->groupBy('tryout_soal.tryout_kategori_soal_id')
+                            ->get();
+            $user_token = $token;
+            $prodi = PassingGrade::all();
+            return view('tryout.detail',compact('detail', 'paket', 'user_token', 'prodi'));
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
+    }
+
     /**
      * Show Tryout baru
      *
@@ -175,13 +193,29 @@ class TryoutController extends Controller
             $cek_token = Crypt::decrypt($token);
             // dd(auth()->user()->api_token == $cek_token);
             if(auth()->user()->api_token == $cek_token) {
+                $paket = TryoutPaket::findSlug($slug);
+                if($request->get('prodi-1')) {
+                    TempProdi::updateOrCreate([
+                        'paket_id' => $paket->id,
+                        'passing_grade_id' => $request->get('prodi-1'),
+                    ], [
+                        'paket_id' => $paket->id,
+                        'passing_grade_id' => $request->get('prodi-1'),
+                    ]);
+                    TempProdi::updateOrCreate([
+                        'paket_id' => $paket->id,
+                        'passing_grade_id' => $request->get('prodi-2'),
+                    ], [
+                        'paket_id' => $paket->id,
+                        'passing_grade_id' => $request->get('prodi-2'),
+                    ]);
+                }
                 $index = 0;
                 if($request->session()->has('index_kategori')) {
                     $index = $request->session()->get('index_kategori');
                 } else {
                     $request->session()->put('index_kategori', $index);
                 }
-                $paket = TryoutPaket::findSlug($slug);
                 if(!$request->session()->has('kategori_id')) {
                     $kateogri_id = $paket->soal()
                                         ->distinct()
@@ -210,9 +244,9 @@ class TryoutController extends Controller
             }
         } catch(\Exception $e) {
             if($e->getMessage() == 'The payload is invalid.') {
-                return redirect()->route('siswa.tryout.index')->with(['error' => 'Ini bukan link anda']);
+                return redirect()->route('siswa.tryout.index')->with(['error' => 'Ini bukan link anda'])->withInput();
             }
-            return redirect()->back()->with(['error' => $e->getMessage()]);
+            return redirect()->back()->with(['error' => $e->getMessage()])->withInput();
         }
     }
 

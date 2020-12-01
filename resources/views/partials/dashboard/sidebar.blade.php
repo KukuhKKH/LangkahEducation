@@ -42,7 +42,7 @@
     <li class="nav-item {{ request()->segment(2) == 'pendaftaran' ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('pendaftaran.index') }}">
             <i class="fas fa-fw fa-user"></i>
-            <span>Peserta Batch</span>
+            <span>Pendaftaran Batch</span>
         </a>
     </li>
     
@@ -87,6 +87,13 @@
         </a>
     </li>
 
+    <li class="nav-item {{ request()->is('dashboard/daftar/gelombang') ? 'active' : "" }}">
+        <a class="nav-link" href="{{ route('gelombang.siswa') }}">
+            <i class="fas fa-fw fa-newspaper"></i>
+            <span>Daftar Try Out</span>
+        </a>
+    </li>
+
     @endhasanyrole
     @hasanyrole('mentor')
     <li class="nav-item {{ (request()->segment(2) == 'mentorig') ? 'active' : '' }}">
@@ -113,13 +120,6 @@
     </li>
     
     @hasanyrole('siswa')
-
-    <li class="nav-item {{ request()->is('dashboard/daftar/gelombang') ? 'active' : "" }}">
-        <a class="nav-link" href="{{ route('gelombang.siswa') }}">
-            <i class="fas fa-fw fa-money-bill"></i>
-            <span>Daftar Gelombang</span>
-        </a>
-    </li>
 
     <li class="nav-item {{ request()->is('dashboard/pembayaran-siswa') ? 'active' : "" }}">
         <a class="nav-link" href="{{ route('pembayaran.siswa') }}">

@@ -15,15 +15,16 @@
    <div class="card-header py-3">
       <div class="row">
          <div class="col-8">
-             <form action="" method="POST" enctype="multipart/form-data">
+             <form action="{{ route('sekolah.nisn.import') }}" method="POST" enctype="multipart/form-data">
              @csrf
+             <input type="hidden" name="sekolah_id" value="{{ $sekolah->id }}">
                  <div class="form-group">
                      <div class="input-group">
                          <div class="mr-2 d-flex align-items-center">
                              Import Data Excel 
                          </div>
                          <div class="custom-file">
-                             <input type="file" class="custom-file-input" id="inputGroupFile02">
+                             <input type="file" name="file" class="custom-file-input" id="inputGroupFile02">
                              <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
                          </div>
                          <div class="input-group-append">

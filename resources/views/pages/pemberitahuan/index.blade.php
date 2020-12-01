@@ -29,15 +29,6 @@
                         <th>Aksi</th>
                     </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <th>No</th>
-                        <th>Tanggal</th>
-                        <th>Tujuan</th>
-                        <th>Isi</th>
-                        <th>Aksi</th>
-                    </tr>
-                </tfoot>
                 <tbody>
                     <tr>
                         <td colspan="5" class="text-center">

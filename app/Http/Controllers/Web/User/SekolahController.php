@@ -184,7 +184,6 @@ class SekolahController extends Controller
             try {
                 Excel::import(new SekolahImport(), $file);
                 return \redirect()->back()->with(['success' => 'Import sekolah berhasil']);
-                return redirect(route('sekolah.index'));
             } catch (\Exception $e) {
                 $message = $e->getMessage();
                 if (!$message == "Start row (2) is beyond highest row (1)") throw $e;

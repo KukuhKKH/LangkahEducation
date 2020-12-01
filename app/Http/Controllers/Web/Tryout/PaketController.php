@@ -40,7 +40,9 @@ class PaketController extends Controller
                 'user_id' => auth()->user()->id,
                 // 'tgl_akhir' => date('Y-m-d H:i:s', time() + 24*7*60*60) // 7 Hari
                 'tgl_awal' => $tgl_awal,
-                'tgl_akhir' => $tgl_akhir
+                'tgl_akhir' => $tgl_akhir,
+                'image' => '',
+                'deskripsi' => '',
             ]);
             TryoutPaket::create($request->all());
             return redirect()->back()->with(['success' => 'Berhasil tambah paket tryout']);

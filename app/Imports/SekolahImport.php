@@ -8,7 +8,7 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Events\BeforeImport;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 
-class SekolahImport implements ToCollection, WithStartRow
+class SekolahImport implements ToModel, WithStartRow
 {
     public static function beforeImport(BeforeImport $event) {
         $worksheet = $event->reader->getActiveSheet();
@@ -27,7 +27,7 @@ class SekolahImport implements ToCollection, WithStartRow
     */
     public function model(array $row) {
         if(empty($row[0])){
-            $errMessage = 'Mohon pastikan kolom Nama Mentor tidak kosong.';
+            $errMessage = 'Mohon pastikan kolom Nama Sekolah tidak kosong.';
             throw new \Exception($errMessage);
         }
         if(empty($row[1])){
@@ -35,7 +35,7 @@ class SekolahImport implements ToCollection, WithStartRow
             throw new \Exception($errMessage);
         }
         if(empty($row[2])){
-            $errMessage = 'Mohon pastikan kolom Pendidikan Terakhir tidak kosong.';
+            $errMessage = 'Mohon pastikan kolom Alamat tidak kosong.';
             throw new \Exception($errMessage);
         }
         $user = User::create([

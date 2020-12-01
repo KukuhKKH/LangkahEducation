@@ -30,7 +30,7 @@ class ProfileController extends Controller
     public function kode_referal(Request $request, $id) {
         try {
             DB::beginTransaction();
-            $user = User::find($id);
+            $user = auth()->user();
             $sekolah = Sekolah::where('kode_referal', $request->kode_referal)->first();
             $cek = NisnSekolah::where('nisn', $user->siswa->nisn)->get();
             if(count($cek) > 0) {

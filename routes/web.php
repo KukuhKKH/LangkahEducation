@@ -91,6 +91,7 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                 Route::post('mentor/import', 'User\MentorController@import')->name('mentor.import');
                 route::post('universitas/import', 'UniversitasController@import')->name('universitas.import');
                 route::post('passing-grade/import', 'PassingGradeController@import')->name('passing-grade.import');
+                Route::post('sekolah/nisn/import', 'User\SekolahNisnController@import')->name('sekolah.nisn.import');
 
                 // Tryout Route
                 Route::group(['namespace' => 'Tryout', 'prefix' => 'tryout'], function () {
@@ -108,7 +109,7 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
             Route::group(['middleware' => 'role:siswa', 'namespace' => 'Siswa'], function () {
                 Route::get('siswa/tryout', 'TryoutController@index')->name('siswa.tryout.index');
                 Route::get('siswa/tryout/{paket}', 'TryoutController@paket')->name('siswa.tryout.paket');
-                Route::get('siswa/hasil/tryout/{id}', 'TryoutController@hasil')->name('tryout.hasil');
+                Route::get('siswa/hasil/tryout/{slug}', 'TryoutController@hasil')->name('tryout.hasil');
             });
 
             // Bebas
@@ -144,6 +145,7 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                 // Route::post('tryout/{paket}', 'TryoutController@tryout_store')->name('tryout.soal.store');
                 
                 // Tryout baru
+                Route::get('tryout/{token}/{slug}/detail', 'TryoutController@tryout_baru_detail')->name('tryout.siswa.detail');
                 Route::get('tryout/{token}/{slug}', 'TryoutController@tryout_baru')->name('tryout.mulai');
                 Route::post('tryout/{paket}', 'TryoutController@tryout_store_baru')->name('tryout.soal.store');
             });
@@ -156,6 +158,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 // URL COBA COBA
 use App\Models\TryoutSoal;
 use App\Models\TryoutPaket;
+use Illuminate\Http\Request;
+
 Route::group(['prefix' => 'dev'], function() {
     Route::get('email', function() {
         $user = new stdClass;
@@ -183,10 +187,14 @@ Route::group(['prefix' => 'dev'], function() {
             echo $value;echo "<br>";
         }
     });
-    Route::get('send', function() {
-        return view('pages.mentoring.index');
+    Route::get('coba', function(Request $request) {
+        if($request->get('jajal')) {
+            return 'awdawd';
+        } else {
+            return 12344;
+        }
     });
-    Route::get('hasil', function() {
-        return view('pages.pembayaran.pembayaran');
+    Route::get('detail', function() {
+        return view('pages.dev.detail');
     });
 });

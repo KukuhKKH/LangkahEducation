@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class TryoutPaket extends Model
 {
     protected $table = "tryout_paket";
-    protected $fillable = ['user_id', 'nama', 'slug', 'tgl_awal', 'tgl_akhir', 'status'];
+    protected $fillable = ['user_id', 'nama', 'slug','deskripsi', 'image', 'tgl_awal', 'tgl_akhir', 'status'];
 
     public static function boot() {
         parent::boot();
