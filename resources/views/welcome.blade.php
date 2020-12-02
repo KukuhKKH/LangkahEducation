@@ -1,112 +1,249 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
+@section('content')
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex align-items-center">
 
-        <title>Langkah Education</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
-        <link href="{{asset('assets/css/sb-admin-2.min.css')}}" rel="stylesheet">
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/dashboard') }}">Dashboard</a>
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 order-1 order-lg-2 hero-img">
+                <img src="{{asset('assets-landingpage/img/hero-img.png')}}" class="img-fluid" alt="">
+            </div>
+            <div class="col-lg-6 pt-2 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
+                <h1>BUILD BETTER FUTURE</h1>
+                <h2>-ONE STEP FOR THOUSAND FUTURES-</h2>
+                <div class="mt-5">
+                    <a href="#" class="btn-langkah">Register</a>
+                    <a href="#" class="btn-outline-langkah">Login</a>
                 </div>
-            @endif
-
-            <div class="content">
-                @if (session('error'))
-                    <div class="alert alert-danger">
-                        {!! session('error') !!}
-                    </div>
-                @endif
-                @if (session('success'))
-                    <div class="alert alert-danger">
-                        {!! session('success') !!}
-                    </div>
-                @endif
-                <div class="title m-b-md">
-                    {{-- Laravel --}}
-                    COMING SOON
-                </div>
-
-                {{-- <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div> --}}
             </div>
         </div>
-    </body>
-</html>
+    </div>
+
+</section><!-- End Hero -->
+
+<main id="main">
+
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="row content align-items-center">
+                <div class="col-lg-6 order-2 order-lg-1 hero-img">
+                    <img src="{{asset('assets-landingpage/img/about-img.png')}}" class="img-fluid" alt="">
+                </div>
+                <div class="col-lg-6 pt-2 pt-lg-0 order-1 order-lg-2">
+                    <p>
+                        Langkah Education merupakan Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem
+                        odit quis
+                        numquam mollitia minus nisi modi est ea esse eveniet?
+                    </p>
+                    <ul>
+                        <li><i class="fa fa-check"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequa</li>
+                        <li><i class="fa fa-check"></i> Duis aute irure dolor in reprehenderit in voluptate velit</li>
+                        <li><i class="fa fa-check"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+                            aute irure
+                            dolor in reprehenderit in</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </section><!-- End About Section -->
+
+    <!-- ======= Why Us Section ======= -->
+    <section id="products" class="products">
+        <div class="container">
+            <div class="section-title">
+                <h2>Services</h2>
+                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
+                    consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
+                    fugiat sit
+                    in iste officiis commodi quidem hic quas.</p>
+            </div>
+            <div class="row">
+
+                <div class="col-lg-4">
+                    <div class="box">
+                        <span>01</span>
+                        <h4>Lorem Ipsum</h4>
+                        <p>Ulamco laboris nisi ut aliquip ex ea commodo consequat. Et consectetur ducimus vero placeat
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 mt-4 mt-lg-0">
+                    <div class="box">
+                        <span>02</span>
+                        <h4>Repellat Nihil</h4>
+                        <p>Dolorem est fugiat occaecati voluptate velit esse. Dicta veritatis dolor quod et vel dire
+                            leno para
+                            dest</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 mt-4 mt-lg-0">
+                    <div class="box">
+                        <span>03</span>
+                        <h4> Ad ad velit qui</h4>
+                        <p>Molestiae officiis omnis illo asperiores. Aut doloribus vitae sunt debitis quo vel nam quis
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section><!-- End Why Us Section -->
+
+    <section id="blog" class="blog bg-dark section-light">
+        <div class="container py-4">
+            <div class="section-title">
+                <h2>Blog</h2>
+                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
+                    consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
+                    fugiat sit
+                    in iste officiis commodi quidem hic quas.</p>
+                <a href="" class="btn-outline-langkah mt-5">Kunjungi Blog Kami </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======= Testimonials Section ======= -->
+    <section id="testimoni" class="testimonials">
+        <div class="container">
+
+            <div class="section-title">
+                <h2>Testimonials</h2>
+                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
+                    consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
+                    fugiat sit
+                    in iste officiis commodi quidem hic quas.</p>
+            </div>
+
+            <div class="owl-carousel testimonials-carousel">
+
+                <div class="testimonial-item">
+                    <p>
+                        <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                        Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus.
+                        Accusantium
+                        quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
+                        <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                    </p>
+                    <img src="{{asset('assets-landingpage/img/testimonials/testimonials-1.jpg')}}" class="testimonial-img" alt="">
+                    <h3>Saul Goodman</h3>
+                    <h4>Guru <span>- MAN 2 MALANG</span></h4>
+                </div>
+
+                <div class="testimonial-item">
+                    <p>
+                        <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                        Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram
+                        malis
+                        quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
+                        <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                    </p>
+                    <img src="{{asset('assets-landingpage/img/testimonials/testimonials-2.jpg')}}" class="testimonial-img" alt="">
+                    <h3>Sara Wilsson</h3>
+                    <h4>Siswa <span>- SMAN 1 MALANG</span></h4>
+                </div>
+
+                <div class="testimonial-item">
+                    <p>
+                        <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                        Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis
+                        minim tempor
+                        labore quem eram duis noster aute amet eram fore quis sint minim.
+                        <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                    </p>
+                    <img src="{{asset('assets-landingpage/img/testimonials/testimonials-3.jpg')}}" class="testimonial-img" alt="">
+                    <h3>Jena Karlis</h3>
+                    <h4>Siswa <span>- SMAN 1 SURABAYA</span></h4>
+                </div>
+
+                <div class="testimonial-item">
+                    <p>
+                        <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                        Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim
+                        velit minim
+                        dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
+                        <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                    </p>
+                    <img src="{{asset('assets-landingpage/img/testimonials/testimonials-4.jpg')}}" class="testimonial-img" alt="">
+                    <h3>Matt Brandon</h3>
+                    <h4>Siswa <span>- SMAN 1 PALANGKARAYA</span></h4>
+                </div>
+
+                <div class="testimonial-item">
+                    <p>
+                        <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                        Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim
+                        culpa
+                        labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
+                        <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                    </p>
+                    <img src="{{asset('assets-landingpage/img/testimonials/testimonials-5.jpg')}}" class="testimonial-img" alt="">
+                    <h3>John Larson</h3>
+                    <h4>Siswa <span>- SMAN 2 MAKASAR</span></h4>
+                </div>
+
+            </div>
+
+        </div>
+    </section><!-- End Testimonials Section -->
+    <!-- ======= Pricing Section ======= -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+
+            <div class="section-title">
+                <h2>Pricing</h2>
+                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
+                    consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
+                    fugiat sit
+                    in iste officiis commodi quidem hic quas.</p>
+            </div>
+
+            <div class="row justify-content-center">
+
+                <div class="col-lg-4 box">
+                    <h3>Individu</h3>
+                    <h4>Rp.100.000<span>per month</span></h4>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Quam adipiscing vitae proin</li>
+                        <li><i class="fas fa-check"></i> Nec feugiat nisl pretium</li>
+                        <li><i class="fas fa-check"></i> Nulla at volutpat diam uteera</li>
+                        <li><i class="fas fa-check"></i> Pharetra massa massa ultricies</li>
+                        <li><i class="fas fa-check"></i> Massa ultricies mi quis hendrerit</li>
+                    </ul>
+                    <a href="#" class="btn-buy">Get Started</a>
+                </div>
+
+                <div class="col-lg-4 box featured">
+                    <h3>Sekolah</h3>
+                    <h4>Rp.150.000<span>per month</span></h4>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Quam adipiscing vitae proin</li>
+                        <li><i class="fas fa-check"></i> Nec feugiat nisl pretium</li>
+                        <li><i class="fas fa-check"></i> Nulla at volutpat diam uteera</li>
+                        <li><i class="fas fa-check"></i> Pharetra massa massa ultricies</li>
+                        <li><i class="fas fa-check"></i> Massa ultricies mi quis hendrerit</li>
+                    </ul>
+                    <a href="" class="btn-buy">Hubungi Admin</a>
+                </div>
+
+            </div>
+
+        </div>
+    </section><!-- End Pricing Section -->
+</main><!-- End #main -->
+@endsection
+
+@section('js')
+  <!-- Vendor JS Files -->
+  <script src="{{asset('assets-landingpage/vendor/jquery/jquery.min.js')}}"></script>
+  <script src="{{asset('assets-landingpage/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{asset('assets-landingpage/vendor/jquery.easing/jquery.easing.min.js')}}"></script>
+  <script src="{{asset('assets-landingpage/vendor/owl.carousel/owl.carousel.min.js')}}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{{asset('assets-landingpage/js/main.js')}}"></script>
+@endsection
