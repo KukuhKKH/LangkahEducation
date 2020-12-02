@@ -33,7 +33,6 @@
 </head>
 
 <body>
-@include('partials.landingpage.header')
 @yield('content')
 
 @include('partials.landingpage.footer')
