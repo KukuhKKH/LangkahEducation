@@ -128,6 +128,16 @@
         </a>
     </li>
     @endhasanyrole
+
+    @hasanyrole('author')
+        <li class="nav-item">
+            <a class="nav-link" href="">
+                <i class="fas fa-fw fa-newspaper"></i>
+                <span>Blog</span>
+            </a>
+        </li>
+    @endhasanyrole
+
     @hasanyrole('superadmin|admin')
     @php
     $aktif_bayar = (request()->is('dashboard/pembayaran/belum-bayar')|request()->is('dashboard/pembayaran/sudah-bayar')) ? true : false
