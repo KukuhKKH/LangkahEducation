@@ -112,5 +112,8 @@
     <script src="{{ asset('assets/vendor/chart.js/Chart.min.js') }}"></script>
 
     <!-- Page level custom scripts -->
-    <script src="{{ asset('assets/js/chart-pengunjung-harian.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/chart-pengunjung-harian.js') }}"></script> --}}
+    <script>
+        
+    </script>
 @endsection

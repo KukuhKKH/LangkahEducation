@@ -7,10 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class TempProdi extends Model
 {
     protected $table = 'temp_prodi_tryout';
-    protected $fillable = ['paket_id', 'passing_grade_id'];
+    protected $fillable = ['paket_id', 'user_id', 'passing_grade_id'];
 
     public function paket() {
         return $this->belongsTo('App\Models\TryoutPaket', 'paket_id');
+    }
+
+    public function user() {
+        return $this->belongsTo('App\Models\User', 'user_id');
     }
 
     public function passing_grade() {

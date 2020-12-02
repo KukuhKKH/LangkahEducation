@@ -32,4 +32,8 @@ class TryoutPaket extends Model
     public function user() {
         return $this->belongsTo('App\Models\User');
     }
+
+    public function temp() {
+        return $this->hasMany('App\Models\TempProdi', 'paket_id');
+    }
 }

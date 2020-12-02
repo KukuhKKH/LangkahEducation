@@ -27,18 +27,39 @@
             <tfoot>
                <tr>
                   <th>No</th>
-                  <th>Nama / Username</th>
+                  <th>Nama</th>
                   <th>Email</th>
                   <th>Status</th>
                   <th>Aksi</th>
                </tr>
             </tfoot>
             <tbody>
+               @forelse ($author as $value)
+               <tr>
+                  <td>{{ $loop->iteration }}</td>
+                  <td>{{ $value->user->name }}</td>
+                  <td>{{ $value->user->email }}</td>
+                  <td>{!! ($value->user->is_active == 1) ? '<div class="badge badge-success">Aktif</div>' : '<div class="badge badge-danger">Tidak Aktif</div>'  !!}</div>
+                  <td>
+                     <form action="{{ route('author.destroy', $value->id) }}" method="POST" id="form-{{ $value->id }}">
+                           @csrf
+                           @method("DELETE")
+                           <a href="{{ route('author.edit', $value->id) }}" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit">
+                              <i class="fas fa-edit"></i>
+                           </a>
+                           <button type="button" data-id="{{ $value->id }}" class="btn btn-danger hapus" data-toggle="tooltip" data-placement="top" title="Hapus">
+                              <i class="fas fa-trash"></i>
+                           </button>
+                     </form>
+                  </td>
+               </tr>
+               @empty
                <tr>
                   <td colspan="5" class="text-center">
                      Tidak ada data
                   </td>
                </tr>
+               @endforelse
             </tbody>
          </table>
       </div>

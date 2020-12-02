@@ -127,4 +127,13 @@ class PaketController extends Controller
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
     }
+
+    public function show_soal($id) {
+        try {
+            $paket = TryoutPaket::with('soal')->find($id);
+            return view('pages.tryout.paket.show_soal', compact('paket'));
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
+    }
 }

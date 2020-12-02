@@ -62,7 +62,12 @@ class BankController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $bank = Bank::find($id);
+            return view('pages.rekening-pembayaran.edit', compact('bank'));
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -74,7 +79,30 @@ class BankController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'nama' => 'required',
+            'nomer_rekening' => 'required',
+            'alias' => 'required',
+            'file' => 'nullable'
+        ]);
+        try {
+            $bank = Bank::find($id);
+            if($request->hasFile('file')) {
+                $foto_name = time().'.'.$request->file->extension();  
+                $request->file->move(public_path('upload/bank/'), $foto_name);
+                $request->file = $foto_name;
+            }
+            $bank->update([
+                'nama' => $request->nama,
+                'nomer_rekening' => $request->nomer_rekening,
+                'alias' => $request->alias,
+                'logo' => $request->file ?? $bank->logo
+            ]);
+            $bank->save();
+            return redirect()->route('rekening.index')->with(['success' => 'Berhasil edit rekening']);
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
     }
 
     /**

@@ -52,11 +52,18 @@
                                 <form action="{{ route('pendaftaran.destroy', $value->id) }}" method="POST" id="form-{{ $value->id }}">
                                     @csrf
                                     @method('DELETE')
-                                    <a href="{{ route('pendaftaran.edit', $value->id) }}" class="btn btn-success">Edit</a>
+                                    <a href="{{ route('pendaftaran.edit', $value->id) }}" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit Gelombang">
+                                        <i class="fas fa-fw fa-edit"></i>
+                                    </a>
+                                    <a href="{{ route('pendaftaran.list', $value->id) }}" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="List siswa yang tergabung">
+                                        <i class="fas fa-fw fa-users"></i>
+                                    </a>
                                     <a href="{{ route('pendaftaran.tryout', $value->id) }}" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Integrasi tryout ke gelombang ini">
                                     <i class="fas fa-fw fa-desktop"></i>
                                     </a>
-                                    <button type="button" class="btn btn-danger hapus" data-id="{{ $value->id }}">Hapus</button>
+                                    <button type="button" class="btn btn-danger hapus" data-id="{{ $value->id }}" data-toggle="tooltip" data-placement="top" title="Hapus Gelombang">
+                                        <i class="fas fa-fw fa-trash"></i>
+                                    </button>
                                 </form>
                             </td>
                         </tr>

@@ -59,6 +59,7 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                 Route::get('pembayaran-siswa/status/{id}/{status}', 'PembayaranController@set_status');
                 Route::resource('gambar', 'GambarController')->except(['create', 'show']);
                 Route::resource('rekening', 'BankController')->except(['create', 'show']);
+                Route::get('pendaftaran/list/siswa/{id}', 'PendaftaranController@list_siswa')->name('pendaftaran.list');
 
                 // Integrasi Gelombang Tryout
                 Route::get('pendaftaran/tryout/{id}', 'PendaftaranController@integrasi_tryout')->name('pendaftaran.tryout');
@@ -99,6 +100,7 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                     Route::resource('soal', 'TryoutController')->except(['create']);
                     Route::get('soal/create/{slug}', 'TryoutController@create')->name('soal.create');
                     Route::resource('paket', 'PaketController')->except(['create']);
+                    Route::get('tryout/paket/{id}/detail', 'PaketController@show_soal')->name('paket.soal.detail');
 
                     // Import
                     Route::post('soal/import/batch', 'TryoutController@import_batch')->name('soal.import_batch');
@@ -121,6 +123,7 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
             Route::get('hasiltryout/siswa/{id}', 'MentoringController@hasil_tryout');
             Route::post('mentoring/kirim/{siswa_id}/{mentor_id}', 'MentoringController@kirim_pesan')->name('kirim_pesan');
             Route::get('hasiltryout/siswa/{id}/{slug}/detail', 'MentoringController@hasil_tryout_detail')->name('hasil_tryout.detail');
+            Route::post('mentoring/komentar/{hasil_id}', 'MentoringController@komentar_store')->name('mentoring.komentar');
 
             Route::get('bank/{id}', 'BankController@show_bank');
         });
@@ -156,10 +159,6 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
 Route::get('/home', 'HomeController@index')->name('home');
 
 // URL COBA COBA
-use App\Models\TryoutSoal;
-use App\Models\TryoutPaket;
-use Illuminate\Http\Request;
-
 Route::group(['prefix' => 'dev'], function() {
     Route::get('email', function() {
         $user = new stdClass;
@@ -167,34 +166,7 @@ Route::group(['prefix' => 'dev'], function() {
         $user->activate_token = "awdawdawd";
         return view('emails.register', compact('user'));
     });
-    Route::get('tryout', function() {
-        $soal = TryoutSoal::where('tryout_paket_id', 1)
-                        ->inRandomOrder()
-                        ->limit(10)
-                        ->get();
-        $paket = TryoutPaket::find(1);
-        return view('tryout.index', compact('soal', 'paket'));
-    });
-    Route::get('loop', function() {
-        $salah = 5;
-        $hasil[1] = 100;
-        $hasil[3] = 100;
-        $hasil[4] = -$salah;
-        empty($hasil[4]) ? $hasil[4] = 100 : $hasil[4] += 1000;
-        // $hasil[4] += 10;
-
-        foreach ($hasil as $key => $value) {
-            echo $value;echo "<br>";
-        }
-    });
-    Route::get('coba', function(Request $request) {
-        if($request->get('jajal')) {
-            return 'awdawd';
-        } else {
-            return 12344;
-        }
-    });
-    Route::get('detail', function() {
-        return view('pages.dev.detail');
+    Route::get('pembahasan', function() {
+        return view('pages.dev.pembahasan');
     });
 });

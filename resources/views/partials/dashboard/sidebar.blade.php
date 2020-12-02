@@ -66,26 +66,26 @@
         </a>
     </li>
 
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a class="nav-link" href="#">
             <i class="fas fa-fw fa-percent"></i>
             <span>Passing Grade</span>
         </a>
-    </li>
+    </li> --}}
 
-    <li class="nav-item {{ (request()->segment(2) == 'mentorig') ? 'active' : '' }}">
+    <li class="nav-item {{ (request()->is('dashboard/mentoring/virtual')) ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('mentorig.siswa') }}">
             <i class="fas fa-fw fa-microphone"></i>
             <span>Virtual Mentoring</span>
         </a>
     </li>
 
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a class="nav-link" href="#">
             <i class="fas fa-fw fa-chart-bar"></i>
             <span>Statistik</span>
         </a>
-    </li>
+    </li> --}}
 
     <li class="nav-item {{ request()->is('dashboard/daftar/gelombang') ? 'active' : "" }}">
         <a class="nav-link" href="{{ route('gelombang.siswa') }}">
@@ -105,11 +105,13 @@
     @endhasanyrole
     <hr class="sidebar-divider">
 
+    @hasanyrole('siswa|admin|superadmin')
+
     <div class="sidebar-heading">
         Umum
     </div>
 
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a class="nav-link" href="{{ route('pemberitahuan.index') }}">
             <i class="fas fa-bell fa-fw"></i>
             <span>Pemberitahuan</span>
@@ -117,8 +119,8 @@
             <span class="badge badge-success">0</span>
             @endhasanyrole
         </a>
-    </li>
-    
+    </li> --}}
+    @endhasanyrole
     @hasanyrole('siswa')
 
     <li class="nav-item {{ request()->is('dashboard/pembayaran-siswa') ? 'active' : "" }}">
@@ -177,8 +179,8 @@
         </a>
     </li>
 
-    <li class="nav-item ">
-        <a class="nav-link" href="#">
+    <li class="nav-item {{ (request()->is('dashboard/author')) ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('author.index') }}">
             <i class="fas fa-fw fa-chalkboard-teacher"></i>
             <span>Author</span>
         </a>

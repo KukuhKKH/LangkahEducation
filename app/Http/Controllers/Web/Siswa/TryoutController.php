@@ -13,6 +13,7 @@ use App\Models\TryoutKategoriSoal;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Gelombang;
+use App\Models\Komentar;
 use App\Models\Pembayaran;
 use App\Models\TempProdi;
 use Illuminate\Support\Facades\Auth;
@@ -197,16 +198,20 @@ class TryoutController extends Controller
                 if($request->get('prodi-1')) {
                     TempProdi::updateOrCreate([
                         'paket_id' => $paket->id,
+                        'user_id' => auth()->user()->id,
                         'passing_grade_id' => $request->get('prodi-1'),
                     ], [
                         'paket_id' => $paket->id,
+                        'user_id' => auth()->user()->id,
                         'passing_grade_id' => $request->get('prodi-1'),
                     ]);
                     TempProdi::updateOrCreate([
                         'paket_id' => $paket->id,
+                        'user_id' => auth()->user()->id,
                         'passing_grade_id' => $request->get('prodi-2'),
                     ], [
                         'paket_id' => $paket->id,
+                        'user_id' => auth()->user()->id,
                         'passing_grade_id' => $request->get('prodi-2'),
                     ]);
                 }
@@ -361,6 +366,7 @@ class TryoutController extends Controller
         } else {
             $pg1 = $pg2 = $nilai_user = 0;
         }
-        return view('pages.tryout.hasil-analisis.index', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket'));
+        $komentar = Komentar::where('tryout_hasil_id', $tryout->id)->first();
+        return view('pages.tryout.hasil-analisis.index', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket', 'komentar'));
     }
 }

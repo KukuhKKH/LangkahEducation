@@ -1,71 +1,68 @@
 @extends('layouts.dashboard-app')
-@section('title', 'Daftar Siswa')
+@section('title', 'List Siswa')
 
 @section('content')
-<h1 class="h3 mb-2 text-gray-800">Daftar Siswa</h1>
+    <h1 class="h3 mb-2 text-gray-800">List Siswa</h1>
 
-<div class="card shadow mb-4">
-   <div class="card-header py-3">
-      <div class="d-flex justify-content-between mb-1">
-         <h6 class="m-0 font-weight-bold text-primary">Daftar Siswa</h6>
-         <div class="text-center" id="loading" style="display: none">
-            <div class="spinner-border text-primary spinner-border-lg" role="status">
-               <span class="sr-only">Loading...</span>
-           </div>
-         </div>
-      </div>
-   </div>
-   <div class="card-body">
-      <div class="table-responsive">
-         <table class="table table-bordered" width="100%" cellspacing="0">
-            <thead>
-               <tr>
-                  <th>No</th>
-                  <th>Nama Siswa</th>
-                  <th>Asal Sekolah</th>
-                  <th>NISN</th>
-                  <th width="10%">Aksi</th>
-               </tr>
-            </thead>
-            <tfoot>
-               <tr>
-                  <th>No</th>
-                  <th>Nama Siswa</th>
-                  <th>Asal Sekolah</th>
-                  <th>NISN</th>
-                  <th width="10%">Aksi</th>
-               </tr>
-            </tfoot>
-            <tbody>
-               @forelse($mentor->siswa as $value)
-               <tr>
-                  <td>{{ $loop->iteration }}</td>
-                  <td>{{ $value->user->name }}</td>
-                  <td>{{ $value->asal_sekolah }}</td>
-                  <td>{{ $value->nisn }}</td>
-                  <td>
-                     <a href="{{ route('mentorig.mentoring', $value->id) }}" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Virtual Mentoring">
-                        <i class="fas fa-fw fa-microphone"></i>
-                     </a>
-                     <a href="javascript:void(0)" onclick="detailTryout({{ $value->user->id }})" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Analisis hasil tryout">
-                        <i class="fas fa-fw fa-desktop"></i>
-                     </a>
-                  </td>
-               </tr>
-               @empty
-               <tr>
-                  <td colspan="5" class="text-center">
-                     Tidak ada data
-                  </td>
-               </tr>
-               @endforelse
-            </tbody>
-         </table>
-      </div>
-   </div>
-</div>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <div class="d-flex justify-content-between mb-1">
+            <h6 class="m-0 font-weight-bold text-primary">List Siswa</h6>
+            </div>
+            <div class="text-center" id="loading" style="display: none">
+               <div class="spinner-border text-primary spinner-border-lg" role="status">
+                  <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>NISN</th>
+                        <th>Nama Siswa</th>
+                        <th>Asal Sekolah</th>
+                        <th width="25%">Aksi</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>No</th>
+                        <th>NISN</th>
+                        <th>Nama Siswa</th>
+                        <th>Asal Sekolah</th>
+                        <th width="25%">Aksi</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    @forelse($gelombang->siswa as $value)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $value->nisn }}</td>
+                            <td>{{ $value->user->name }}</td>
+                            <td>{{ $value->asal_sekolah }}</td>
+                            <td>
+                              <a href="javascript:void(0)" onclick="detailTryout({{ $value->user->id }})" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Analisis hasil tryout">
+                                 <i class="fas fa-fw fa-desktop"></i>
+                              </a>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="text-center">
+                                Tidak ada siswa
+                            </td>
+                        </tr>
+                    @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
-<div class="modal fade" id="modalData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="modalData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
    aria-hidden="true">
    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
@@ -97,7 +94,6 @@
       </div>
    </div>
 </div>
-
 @endsection
 
 @section('js')

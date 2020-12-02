@@ -76,7 +76,13 @@ class PassingGradeController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $kelompok = KelompokPassingGrade::all();
+            $passing_grade = PassingGrade::find($id);
+            return view('pages.passing-grade.edit_passing_grade', compact('passing_grade', 'kelompok'));
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -88,7 +94,17 @@ class PassingGradeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $PassingGrade = PassingGrade::find($id);
+            $PassingGrade->update([
+                'kelompok_id' => $request->kelompok_id,
+                'prodi' => $request->prodi,
+                'passing_grade' => $request->passing_grade,
+            ]);
+            return redirect()->route('passing-grade.show', $PassingGrade->universitas_id)->with(['success' => "Berhasil update passing grade"]);
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
     }
 
     /**
