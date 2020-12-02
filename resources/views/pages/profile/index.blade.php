@@ -16,7 +16,7 @@
       <div class="row">
          <div class="col-md-4">
             @if ($user->foto)
-            <img src="{{ asset("upload/users/$user->foto") }}" alt="foto-{{ $user->name }}">
+            <img class="img-fluid w-25" src="{{ asset("upload/users/$user->foto") }}" alt="foto-{{ $user->name }}">
             @else
             <img src="{{ asset("assets/img/undraw_profile.svg") }}" alt="foto-{{ $user->name }}">
             @endif
