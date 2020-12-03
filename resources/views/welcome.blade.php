@@ -1,175 +1,231 @@
 @extends('layouts.app')
 @section('content')
-<!-- ======= Header ======= -->
-<header id="header" class="fixed-top ">
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center justify-content-between">
 
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <a href="index.html" class="logo"><img id="navLogo" src="assets/img/logo-secondary.svg" alt=""
-                class="img-fluid"></a>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <a href="index.html" class="logo"><img id="navLogo" src="assets/img/logo-secondary.svg" alt=""
+          class="img-fluid"></a>
 
-        <nav class="nav-menu d-none d-lg-block">
-            <ul>
-                <li><a href="#">Beranda</a></li>
-                <li><a href="#">UTBK</a></li>
-                <li><a href="#">SBMPTN</a></li>
-                <li><a href="#">SAINTEK</a></li>
-                <li><a href="#">SOSHUM</a></li>
-            </ul>
-        </nav><!-- .nav-menu -->
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+          <li><a href="#about">Tentang Kami</a></li>
+          <li><a href="#products">Produk</a></li>
+          <li><a href="#blog">Blog</a></li>
+          <li><a href="#testimoni">Testimonial</a></li>
+          <li><a href="#pricing">Biaya</a></li>
+          <li><a href="#contact">Kontak</a></li>
+        </ul>
+      </nav><!-- .nav-menu -->
 
     </div>
-</header><!-- End Header -->
+  </header><!-- End Header -->
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex align-items-center">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 order-1 order-lg-2 hero-img">
+                @if ($data->foto_hero)
+                    <img src="{{asset("landing-page/foto/$data->foto_hero")}}" class="img-fluid" alt="" width="955" height="1024">
+                @else
+                    <img src="{{asset('assets-landingpage/img/hero-img.png')}}" class="img-fluid" alt="">
+                @endif
+            </div>
+            <div class="col-lg-6 pt-2 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
+                <h1>{{ $data->headline }}</h1>
+                <h2>{{ $data->headline }}</h2>
+                <div class="mt-5">
+                    @auth
+                        <a href="{{ route('dashboard') }}" class="btn-langkah">Dashboard</a>
+                    @else
+                        <a href="{{ route('register') }}" class="btn-langkah">Register</a>
+                        <a href="{{ route('login') }}" class="btn-outline-langkah">Login</a>
+                    @endauth
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section><!-- End Hero -->
+
 <main id="main">
-    <section id="blog" class="blog">
+
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
         <div class="container">
-            <div class="row">
-                <div class="col-xl-8">
-                    <div class="card shadow mb-4">
-                        <div class="card-body">
-                            <a href="">
-                                <h4 class="font-weight-bold mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                    Quibusdam, velit.</h4>
-                            </a>
-                            <div class="d-flex justify-content-start align-items-center mb-4">
-                                <i class="fa fa-sm fa-user"></i>
-                                <a href=""><small class="mx-2">Ammar Muhammads</small></a>
-
-                                <i class="fa fa-sm fa-clock"></i>
-                                <small class="mx-2">11 Nov 2020, 16:00</small>
-                            </div>
-
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, nisi quae cumque blanditiis
-                                reprehenderit autem magnam soluta omnis fugit consectetur asperiores quo illum quasi,
-                                obcaecati eveniet unde vitae, inventore ab. Neque impedit iure hic quos vel. Veritatis
-                                temporibus quae quaerat animi sequi qui expedita possimus, eveniet aliquam tempora! Odio
-                                quidem temporibus doloremque distinctio facilis enim corporis totam maiores, cum ullam
-                                vero praesentium nihil qui consequuntur? Nam maiores quaerat maxime, quasi aliquid natus
-                                fugiat voluptatibus nesciunt officia architecto consequuntur eaque reprehenderit,
-                                nostrum ut molestias labore eligendi atque neque obcaecati mollitia assumenda
-                                praesentium eius! Dolores veniam expedita repudiandae labore adipisci nam provident.</p>
-
-                            <a href="#" class="btn-link">Read More</a>
-                        </div>
-                    </div>
-                    <div class="card shadow mb-4">
-                        <div class="card-body">
-                            <a href="">
-                                <h4 class="font-weight-bold mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                    Quibusdam, velit.</h4>
-                            </a>
-                            <div class="d-flex justify-content-start align-items-center mb-4">
-                                <i class="fa fa-sm fa-user"></i>
-                                <a href=""><small class="mx-2">Ammar Muhammads</small></a>
-
-                                <i class="fa fa-sm fa-clock"></i>
-                                <small class="mx-2">11 Nov 2020, 16:00</small>
-                            </div>
-
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, nisi quae cumque blanditiis
-                                reprehenderit autem magnam soluta omnis fugit consectetur asperiores quo illum quasi,
-                                obcaecati eveniet unde vitae, inventore ab. Neque impedit iure hic quos vel. Veritatis
-                                temporibus quae quaerat animi sequi qui expedita possimus, eveniet aliquam tempora! Odio
-                                quidem temporibus doloremque distinctio facilis enim corporis totam maiores, cum ullam
-                                vero praesentium nihil qui consequuntur? Nam maiores quaerat maxime, quasi aliquid natus
-                                fugiat voluptatibus nesciunt officia architecto consequuntur eaque reprehenderit,
-                                nostrum ut molestias labore eligendi atque neque obcaecati mollitia assumenda
-                                praesentium eius! Dolores veniam expedita repudiandae labore adipisci nam provident.</p>
-
-                            <a href="#" class="btn-link">Read More</a>
-                        </div>
-                    </div>
+            <div class="row content align-items-center">
+                <div class="col-lg-6 order-2 order-lg-1 hero-img">
+                    @if ($data->foto_tentang_kami)
+                    <img src="{{asset("landing-page/foto/$data->foto_tentang_kami")}}" class="img-fluid" alt="" width="955" height="1024">
+                @else
+                    <img src="{{asset('assets-landingpage/img/hero-img.png')}}" class="img-fluid" alt="">
+                @endif
                 </div>
-                <div class="col-xl-4">
-                    <div class="sidebar">
-                        <div id="other-post">
-                            <h4 class="sidebar-title">Artikel Lainnya</h4>
-                            <div class="sidebar-item recent-posts">
-                                <div class="post-item clearfix">
-                                    <img src="{{asset('assets-landingpage/img/blog/blog-1.jpg')}}" alt="">
-                                    <h4>Nihil blanditiis at in nihil autem</h4>
-                                    <time datetime="2020-01-01">Jan 1, 2020</time>
-                                </div>
+                <div class="col-lg-6 pt-2 pt-lg-0 order-1 order-lg-2">
+                    {!! $data->tentang_kami !!}
+                    {{-- <p>
+                        Langkah Education merupakan Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem
+                        odit quis
+                        numquam mollitia minus nisi modi est ea esse eveniet?
 
-                                <div class="post-item clearfix">
-                                    <img src="{{asset('assets-landingpage/img/blog/blog-2.jpg')}}" alt="">
-                                    <h4>Quidem autem et impedit</h4>
-                                    <time datetime="2020-01-01">Jan 1, 2020</time>
-                                </div>
+                        Langkah Education merupakan Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem
+                        odit quis
+                        numquam mollitia minus nisi modi est ea esse eveniet?
+                    </p>
+                    <ul>
+                        <li><i class="fa fa-check"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequa</li>
+                        <li><i class="fa fa-check"></i> Duis aute irure dolor in reprehenderit in voluptate velit</li>
+                        <li><i class="fa fa-check"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+                            aute irure
+                            dolor in reprehenderit in</li>
+                    </ul> --}}
+                </div>
+            </div>
 
-                                <div class="post-item clearfix">
-                                    <img src="{{asset('assets-landingpage/img/blog/blog-3.jpg')}}" alt="">
-                                    <h4>Id quia et et ut maxime similique occaecati
-                                        ut</h4>
-                                    <time datetime="2020-01-01">Jan 1, 2020</time>
-                                </div>
-                                <hr>
-                            </div>
-                        </div>
-                        <div id="similar-post">
-                            <h4 class="sidebar-title">Artikel Terkait</h4>
-                            <div class="sidebar-item recent-posts">
-                                <div class="post-item clearfix">
-                                    <img src="{{asset('assets-landingpage/img/blog/blog-1.jpg')}}" alt="">
-                                    <h4>Nihil blanditiis at in nihil autem</h4>
-                                    <time datetime="2020-01-01">Jan 1, 2020</time>
-                                </div>
+        </div>
+    </section><!-- End About Section -->
 
-                                <div class="post-item clearfix">
-                                    <img src="{{asset('assets-landingpage/img/blog/blog-2.jpg')}}" alt="">
-                                    <h4>Quidem autem et impedit</h4>
-                                    <time datetime="2020-01-01">Jan 1, 2020</time>
-                                </div>
-
-                                <div class="post-item clearfix">
-                                    <img src="{{asset('assets-landingpage/img/blog/blog-3.jpg')}}" alt="">
-                                    <h4>Id quia et et ut maxime similique occaecati
-                                        ut</h4>
-                                    <time datetime="2020-01-01">Jan 1, 2020</time>
-                                </div>
-                                <hr>
-
-                            </div>
+    <!-- ======= Why Us Section ======= -->
+    <section id="products" class="products">
+        <div class="container">
+            <div class="section-title">
+                <h2>Produk</h2>
+                {!! $data->headline_produk !!}
+                {{-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
+                    consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
+                    fugiat sit
+                    in iste officiis commodi quidem hic quas.</p> --}}
+            </div>
+            <div class="row justify-content-center">
+                @forelse ($gelombang as $value)
+                    <div class="col-lg-6">
+                        <div class="box">
+                            <span class="price">{{ Carbon\Carbon::parse($value->tgl_awal)->format('d F Y') }} -
+                                {{ Carbon\Carbon::parse($value->tgl_akhir)->format('d F Y') }}</span>
+                            <h4>Dibuka <span>{{ $value->nama }}</span></h4>
+                            <h6>Biaya Pendaftaran <span>Rp. {{ number_format($value->harga) }}</span></h6>
+                            <a href="javascript:void(0)" data-id="{{ $value->id }}" class="btn-buy daftar">Daftar Sekarang</a>
                         </div>
                     </div>
-                </div>
+                @empty
+                    <h3>Belum ada gelombang</h3>
+                @endforelse
+            </div>
+        </div>
+    </section><!-- End Why Us Section -->
+
+    <section id="blog" class="blog bg-dark section-light">
+        <div class="container py-4">
+            <div class="section-title">
+                <h2>Blog</h2>
+                {!! $data->headline_blog !!}
+                {{-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
+                    consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
+                    fugiat sit
+                    in iste officiis commodi quidem hic quas.</p> --}}
+                <a href="" class="btn-outline-langkah mt-5">Kunjungi Blog Kami </a>
             </div>
         </div>
     </section>
 
+    <!-- ======= Testimonials Section ======= -->
+    <section id="testimoni" class="testimonials">
+        <div class="container">
+
+            <div class="section-title">
+                <h2>Testimonial</h2>
+                {!! $data->headline_testimoni !!}
+                {{-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
+                    consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
+                    fugiat sit
+                    in iste officiis commodi quidem hic quas.</p> --}}
+            </div>
+
+            <div class="owl-carousel testimonials-carousel">
+
+                @forelse ($testimoni as $value)
+                <div class="testimonial-item">
+                    <p>
+                        <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                        {{ $value->testimoni }}
+                        <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                    </p>
+                    <img src="{{asset('assets-landingpage/img/testimonials/testimonials-2.jpg')}}" class="testimonial-img" alt="">
+                    <h3>{{ $value->nama }}</h3>
+                    <h4>{{ $value->role }}</h4>
+                </div>
+                @empty
+                    
+                @endforelse
+
+            </div>
+
+        </div>
+    </section><!-- End Testimonials Section -->
+    <!-- ======= Pricing Section ======= -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+
+            <div class="section-title">
+                <h2>Biaya</h2>
+                {!! $data->headline_biaya !!}
+                {{-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
+                    consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
+                    fugiat sit
+                    in iste officiis commodi quidem hic quas.</p> --}}
+            </div>
+
+            <div class="row justify-content-center">
+
+                <div class="col-lg-4 box">
+                    <h3>Individu</h3>
+                    {!! $data->biaya_individu !!}
+                    <a href="{{ route('gelombang.siswa') }}" class="btn-buy">Get Started</a>
+                </div>
+
+                <div class="col-lg-4 box featured">
+                    <h3>Sekolah</h3>
+                    {!! $data->biaya_sekolah !!}
+                    <a href="" class="btn-buy">Hubungi Admin</a>
+                </div>
+
+            </div>
+
+        </div>
+    </section><!-- End Pricing Section -->
 </main><!-- End #main -->
 @endsection
 
-@section('css')
-<!-- <link rel="stylesheet" href="{{asset('assets-landingpage/css/comment.css')}}"> -->
-<style>
-
-    #blog a h4{
-        color : #343a40 !important
-    }
-
-    #blog a:hover h4{
-        color :  #ECB811 !important
-    }
-
-    #header {
-        background: #ECB811;
-    }
-
-    .btn-link{
-        color: #aaaaaa  !important;
-    }
-
-</style>
-@endsection
-
 @section('js')
-<!-- Vendor JS Files -->
-<script src="{{asset('assets-landingpage/vendor/jquery/jquery.min.js')}}"></script>
-<script src="{{asset('assets-landingpage/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<script src="{{asset('assets-landingpage/vendor/jquery.easing/jquery.easing.min.js')}}"></script>
-<script src="{{asset('assets-landingpage/vendor/owl.carousel/owl.carousel.min.js')}}"></script>
+  <!-- Vendor JS Files -->
+  <script src="{{asset('assets-landingpage/vendor/jquery/jquery.min.js')}}"></script>
+  <script src="{{asset('assets-landingpage/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{asset('assets-landingpage/vendor/jquery.easing/jquery.easing.min.js')}}"></script>
+  <script src="{{asset('assets-landingpage/vendor/owl.carousel/owl.carousel.min.js')}}"></script>
 
-<!-- Template Main JS File -->
-<script src="{{asset('assets-landingpage/js/main.js')}}"></script>
+  <!-- Template Main JS File -->
+  <script src="{{asset('assets-landingpage/js/main.js')}}"></script>
+  <script src="{{ asset('assets/vendor/sweet-alert/sweetalert.min.js') }}"></script>
+  <script>
+        const URL = `{{ url('dashboard/daftar-gelombang') }}`
+        $(".daftar").on('click', function () {
+            Swal.fire({
+                title: 'Daftar Sekarang',
+                text: "Apakah Kamu mau mendaftar sekarang?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Tidak',
+                confirmButtonText: 'Ya!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let id = $(this).data('id')
+                    window.location.replace(`${URL}/${id}`)
+                }
+            })
+        })
+  </script>
 @endsection
