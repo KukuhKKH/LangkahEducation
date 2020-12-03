@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'Web\PageController@index')->name('landing-page');
 
 Route::group(['prefix' => 'filemanager'], function() {
     \UniSharp\LaravelFilemanager\Lfm::routes();
@@ -37,6 +35,9 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
             Route::get('profil/{user}/edit', 'ProfileController@edit')->name('profile.edit');
             Route::put('profil/{user}', 'ProfileController@update')->name('profile.update');
             Route::post('profil/kode_referal/{user}', 'ProfileController@kode_referal')->name('profil.kode_referal');
+
+            Route::get('landing-page', 'PageController@landing_page')->name('landing_page.index');
+            Route::post('landing-page/{id}', 'PageController@update')->name('landing_page.update');
 
             Route::group(['middleware' => ['role:superadmin']], function () {
                 // Manajemen Role & Permission
@@ -60,6 +61,8 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                 Route::resource('gambar', 'GambarController')->except(['create', 'show']);
                 Route::resource('rekening', 'BankController')->except(['create', 'show']);
                 Route::get('pendaftaran/list/siswa/{id}', 'PendaftaranController@list_siswa')->name('pendaftaran.list');
+                Route::resource('testimoni', 'TestimoniController');
+                Route::get('testimoni/status/{id}/{status}', 'TestimoniController@set_status')->name('testimoni.status');
 
                 // Integrasi Gelombang Tryout
                 Route::get('pendaftaran/tryout/{id}', 'PendaftaranController@integrasi_tryout')->name('pendaftaran.tryout');
@@ -166,7 +169,7 @@ Route::group(['prefix' => 'dev'], function() {
         $user->activate_token = "awdawdawd";
         return view('emails.register', compact('user'));
     });
-    Route::get('pembahasan', function() {
-        return view('pages.dev.pembahasan');
+    Route::get('blog', function() {
+        return view('pages.halaman.landing-page.index');
     });
 });

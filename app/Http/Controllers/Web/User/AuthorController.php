@@ -7,8 +7,6 @@ use App\Models\Author;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\Admin\AdminCreateRequest;
-use App\Http\Requests\Admin\AdminUpdateRequest;
 
 class AuthorController extends Controller
 {
@@ -30,8 +28,11 @@ class AuthorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AdminCreateRequest $request)
+    public function store(Request $request)
     {
+        $this->validate($request, [
+            'deskripsi' => 'nullable'
+        ]);
         try {
             $request->merge([
                 'is_active' => 1,
@@ -44,7 +45,8 @@ class AuthorController extends Controller
             }
             $author = User::create($request->all());
             Author::create([
-                'user_id' => $author->id
+                'user_id' => $author->id,
+                'deskripsi' => $request->deskripsi
             ]);
             $author->assignRole('author');
             return redirect()->back()->with(['success' => 'Berhasil tambah author']);
@@ -76,8 +78,11 @@ class AuthorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(AdminUpdateRequest $request, $id)
+    public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'deskripsi' => 'nullable'
+        ]);
         try {
             $user = User::find($id);
             if($request->password_old) {

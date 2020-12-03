@@ -20,9 +20,74 @@ class ProfileController extends Controller
 
     public function edit($id) {
         try {
-            $user = User::with('siswa')->find($id);
+            $user = User::find($id);
             return view('pages.profile.edit', compact('user'));
         } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()])->withInput();
+        }
+    }
+
+    public function update(Request $request, $id) {
+        try {
+            DB::beginTransaction();
+            $user = User::find($id);
+            $role = $user->getRoleNames()->first();
+            if($request->password_old) {
+                if(!Hash::check($request->password_old, $user->password)) {
+                    return redirect()->back()->with(['error' => 'Password lama tidak cocok']);
+                }
+            }
+            if($request->hasFile('foto')) {
+                if(file_exists(public_path('upload/users/'.$user->foto))){
+                    unlink(public_path('upload/users/'.$user->foto));
+                }
+                $foto_name = time().'.'.$request->foto->extension();  
+                $request->foto->move(public_path('upload/users/'), $foto_name);
+                $foto = $foto_name;
+            }
+            if($request->password_old) {
+                $user->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => $request->password,
+                    'foto' => $foto ?? $user->foto,
+                ]);
+            } else {
+                $user->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'foto' => $foto ?? $user->foto,
+                ]);
+            }
+            if($role == 'siswa') {
+                $tgl = explode('/',$request->tanggal_lahir);
+                $tgl_lahir = "$tgl[1]/$tgl[0]/$tgl[2]";
+                $user->siswa()->update([
+                    'nisn' => $request->nisn,
+                    'asal_sekolah' => $request->asal_sekolah,
+                    'tanggal_lahir' => $tgl_lahir,
+                    'nomor_hp' => $request->nomor_hp,
+                ]);
+            }else if($role == 'sekolah') {
+                $user->sekolah()->update([
+                    'nama' => $request->name,
+                    'alamat' => $request->alamat,
+                    'logo' => $foto ?? $user->foto,
+                    'kode_referal' => $request->kode_referal
+                ]);
+            } else if($role == 'author') {
+                $user->author()->update([
+                    'deskripsi' => $request->deskripsi
+                ]);
+            } else if($role == 'mentor') {
+                $user->mentor()->update([
+                    'pendidikan_terakhir' => $request->pendidikan_terakhir
+                ]);
+            }
+            DB::commit();
+            return redirect()->route('profile.index')->with(['success' => "Berhasil update profile"]);
+        } catch(\Exception $e) {
+            DB::rollback();
             return redirect()->back()->with(['error' => $e->getMessage()])->withInput();
         }
     }

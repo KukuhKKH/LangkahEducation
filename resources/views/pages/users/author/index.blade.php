@@ -81,21 +81,45 @@
             <div class="modal-body">
                <div class="form-group">
                   <label for="">Nama / Username</label>
-                  <input type="text" class="form-control" name="name" placeholder="Masukkan Nama / Username">
+                  <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Masukkan Nama / Username" required>
+                  @error('name')
+                     <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                     </span>
+                  @enderror
                </div>
                <div class="form-group">
                   <label for="">Email</label>
-                  <input type="email" class="form-control" name="email" placeholder="Masukkan Email">
+                  <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Masukkan Email" required>
+                  @error('email')
+                     <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                     </span>
+                  @enderror
+               </div>
+               <div class="form-group">
+                  <label for="">Deskripsi</label>
+                  <textarea name="deskripsi" id="deskripsi @error('deskripsi') is-invalid @enderror" class="form-control" placeholder="Masukkan deskripsi"></textarea>
+                  @error('deskripsi')
+                     <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                     </span>
+                  @enderror
                </div>
                <div class="form-group row">
                   <div class="col-6">
                      <label for="">Password</label>
-                     <input type="password" class="form-control" placeholder="Password" name="password" id="password">
+                     <input type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" name="password" id="password" required>
+                     @error('password')
+                     <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                     </span>
+                  @enderror
                   </div>
                   <div class="col-6">
                      <label for="">Konfirmasi Password</label>
                      <input type="password" class="form-control" placeholder="Konfirmasi Password"
-                        name="password_confirmation" id="password_confirmation">
+                        name="password_confirmation" id="password_confirmation" required>
                   </div>
                </div>
                <div class="form-group">

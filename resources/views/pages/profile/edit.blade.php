@@ -40,6 +40,7 @@
                </div>
             </div>
             {{-- Data Tabel Siswa --}}
+            @role('siswa')
             <div class="col-6">
                <div class="form-group">
                   <label for="">NISN</label>
@@ -65,7 +66,7 @@
             <div class="col-6">
                <div class="form-group">
                   <label for="">Tanggal Lahir</label>
-                  <input type="text" name="tanggal_lahir" class="form-control datepicker @error('tanggal_lahir') is-invalid @enderror" value="{{ $user->siswa->tanggal_lahir }}" placeholder="Tanggal Lahir">
+                  <input type="text" name="tanggal_lahir" class="form-control datepicker @error('tanggal_lahir') is-invalid @enderror" value="{{ date('d/m/Y', strtotime($user->siswa->tanggal_lahir)) }}" placeholder="Tanggal Lahir">
                   @error('nisn')
                   <span class="invalid-feedback" role="alert">
                      <strong>{{ $message }}</strong>
@@ -84,6 +85,57 @@
                   @enderror
                </div>
             </div>
+            @endrole
+            @role('sekolah')
+            <div class="col-6">
+               <div class="form-group">
+                  <label for="">Alamat</label>
+                  <input type="text" name="alamat" class="form-control @error('alamat') is-invalid @enderror" value="{{ $user->sekolah->alamat }}" placeholder="Alamat Sekolah">
+                  @error('alamat')
+                  <span class="invalid-feedback" role="alert">
+                     <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
+               </div>
+            </div>
+            <div class="col-6">
+               <div class="form-group">
+                  <label for="">Kode Referal</label>
+                  <input type="text" name="kode_referal" class="form-control @error('kode_referal') is-invalid @enderror" value="{{ $user->sekolah->kode_referal }}" placeholder="Kode Referal Sekolah">
+                  @error('kode_referal')
+                  <span class="invalid-feedback" role="alert">
+                     <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
+               </div>
+            </div>
+            @endrole
+            @role('mentor')
+            <div class="col-6">
+               <div class="form-group">
+                  <label for="">Pendidikan Terakhir</label>
+                  <input type="text" name="pendidikan_terakhir" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" value="{{ $user->mentor->pendidikan_terakhir }}" placeholder="Pendidikan Terakhir">
+                  @error('pendidikan_terakhir')
+                  <span class="invalid-feedback" role="alert">
+                     <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
+               </div>
+            </div>
+            @endrole
+            @role('author')
+            <div class="col-6">
+               <div class="form-group">
+                  <label for="">Deskripsi</label>
+                  <textarea name="deskripsi" id="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror">{{ $user->author->deskripsi }}</textarea>
+                  @error('deskripsi')
+                  <span class="invalid-feedback" role="alert">
+                     <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
+               </div>
+            </div>
+            @endrole
             {{-- End Data Tabel Siswa --}}
             <div class="col-12">
                <div class="form-group">

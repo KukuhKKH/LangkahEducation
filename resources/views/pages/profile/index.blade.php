@@ -7,9 +7,9 @@
    <div class="card-header py-3">
       <div class="d-flex justify-content-between">
          <h6 class="m-0 font-weight-bold text-primary">{{ $user->name }}</h6>
-         {{-- <div class="float-right">
+         <div class="float-right">
             <a href="{{ route('profile.edit', $user->id) }}" class="btn btn-primary">Edit Profile</a>
-         </div> --}}
+         </div>
       </div>
    </div>
    <div class="card-body">
