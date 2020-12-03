@@ -27,25 +27,18 @@
                 <div class="col-xl-8">
                     <div class="card shadow mb-2">
                         <div class="card-body">
-                            <h4 class="font-weight-bold mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                Quibusdam, velit.</h4>
+                            <h4 class="font-weight-bold mb-4">{{$artikel->judul}}</h4>
                             <div class="d-flex justify-content-start align-items-center mb-4">
                                 <i class="fa fa-sm fa-user"></i>
-                                <a href=""><small class="mx-2">Ammar Muhammads</small></a>
+                                <a href=""><small class="mx-2">{{ $artikel->user->name }}</small></a>
 
                                 <i class="fa fa-sm fa-clock"></i>
-                                <small class="mx-2">11 Nov 2020, 16:00</small>
+                                <small class="mx-2">{{ Carbon\Carbon::parse($artikel->created_at)->format('d F Y, H:i') }}</small>
                             </div>
-
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, nisi quae cumque blanditiis
-                                reprehenderit autem magnam soluta omnis fugit consectetur asperiores quo illum quasi,
-                                obcaecati eveniet unde vitae, inventore ab. Neque impedit iure hic quos vel. Veritatis
-                                temporibus quae quaerat animi sequi qui expedita possimus, eveniet aliquam tempora! Odio
-                                quidem temporibus doloremque distinctio facilis enim corporis totam maiores, cum ullam
-                                vero praesentium nihil qui consequuntur? Nam maiores quaerat maxime, quasi aliquid natus
-                                fugiat voluptatibus nesciunt officia architecto consequuntur eaque reprehenderit,
-                                nostrum ut molestias labore eligendi atque neque obcaecati mollitia assumenda
-                                praesentium eius! Dolores veniam expedita repudiandae labore adipisci nam provident.</p>
+                            @php
+                                $string = preg_replace("/&#?[a-z0-9]+;/i", " ", $artikel->isi);
+                            @endphp
+                            {!! $string !!}
 
                             <hr>
 
@@ -109,6 +102,7 @@
                     </div>
                 </div>
                 <div class="col-xl-4">
+<<<<<<< HEAD
                     <div class="card shadow">
                         <div class="sidebar">
                             <div id="other-post">
@@ -159,6 +153,39 @@
                                     <hr>
 
                                 </div>
+=======
+                    <div class="sidebar">
+                        <div id="other-post">
+                            <h4 class="sidebar-title">Artikel Lainnya</h4>
+                            <div class="sidebar-item recent-posts">
+                                @forelse ($lainnya as $value)
+                                    <div class="post-item clearfix">
+                                        <img src="{{asset('assets-landingpage/img/blog/blog-1.jpg')}}" alt="">
+                                        <h4>{{ $value->judul }}</h4>
+                                        <time datetime="2020-01-01">{{ Carbon\Carbon::parse($value->created_at)->format('F d, Y') }}</time>
+                                    </div>
+                                @empty
+                                    <h3>Belum ada artikel</h3>
+                                @endforelse
+
+                                <hr>
+                            </div>
+                        </div>
+                        <div id="similar-post">
+                            <h4 class="sidebar-title">Artikel Terkait</h4>
+                            <div class="sidebar-item recent-posts">
+                                @forelse ($terkait as $value)
+                                    <div class="post-item clearfix">
+                                        <img src="{{asset('assets-landingpage/img/blog/blog-1.jpg')}}" alt="">
+                                        <h4>{{ $value->judul }}</h4>
+                                        <time datetime="2020-01-01">{{ Carbon\Carbon::parse($value->created_at)->format('F d, Y') }}</time>
+                                    </div>
+                                @empty
+                                    <h3>Belum ada artikel</h3>
+                                @endforelse
+                                <hr>
+
+>>>>>>> b09db411ee13d0f333f8346222f3b2a74f003a72
                             </div>
                         </div>
                     </div>

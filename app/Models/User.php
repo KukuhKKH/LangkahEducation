@@ -85,4 +85,8 @@ class User extends Authenticatable
     public function pembayaran() {
         return $this->hasMany('App\Models\Pembayaran');
     }
+
+    public function blog() {
+        return $this->hasMany('App\Models\Blog');
+    }
 }

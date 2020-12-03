@@ -8,13 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Blog extends Model
 {
     protected $table = 'blog';
-    protected $fillable = ['user_id', 'judul', 'isi', 'foto', 'slug', 'tags'];
+    protected $fillable = ['user_id', 'slug', 'judul', 'isi', 'foto', 'slug', 'tags','status', 'kategori'];
 
     public static function boot() {
         parent::boot();
         static::saving(function ($model) {
             $model->slug = Str::slug($model->judul);
         });
+    }
+
+    public function scopeFindSlug($query, $slug) {
+        return $query->where('slug', $slug)->firstOrFail();
     }
 
     public function user() {

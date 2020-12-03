@@ -249,7 +249,8 @@
                 <h6 class="collapse-header">Halaman :</h6>
                 <a class="collapse-item" href="{{ route('landing_page.index') }}">Landing Page</a>
                 <a class="collapse-item" href="{{ route('testimoni.index') }}">Testimonial</a>
-                <a class="collapse-item" href="#">Blog</a>
+                <a class="collapse-item" href="{{ route('blog.index') }}">Blog</a>
+                {{-- <a class="collapse-item" href="{{ route('blog.index') }}">KategoriBlog</a> --}}
             </div>
         </div>
     </li>
