@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\LandingPage;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -129,6 +130,10 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
             Route::post('mentoring/komentar/{hasil_id}', 'MentoringController@komentar_store')->name('mentoring.komentar');
 
             Route::get('bank/{id}', 'BankController@show_bank');
+
+            Route::group(['namespace' => 'Blog'], function () {
+                Route::resource('blog', 'BlogController');
+            });
         });
         // End Prefix Dashboard
 
@@ -156,6 +161,11 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                 Route::post('tryout/{paket}', 'TryoutController@tryout_store_baru')->name('tryout.soal.store');
             });
         });
+
+        Route::group(['prefix' => 'blog', 'namespace' => 'Blog'], function () {
+            Route::get('/', 'PageController@index')->name('page.blog.index');
+            Route::get('/{slug}', 'PageController@detail')->name('page.blog.detail');
+        });
     });
 });
 
@@ -170,6 +180,10 @@ Route::group(['prefix' => 'dev'], function() {
         return view('emails.register', compact('user'));
     });
     Route::get('blog', function() {
-        return view('pages.halaman.landing-page.index');
+        return view('pages.halaman.blog.create');
+    });
+    Route::get('detail', function() {
+        $data = LandingPage::find(1);
+        return view('pages.blog.detail',compact('data'));
     });
 });

@@ -34,8 +34,8 @@ class PaketController extends Controller
         try {
             $raw_tgl_awal = \explode('/', $request->tgl_awal);
             $raw_tgl_akhir = \explode('/', $request->tgl_akhir);
-            $tgl_awal = "$raw_tgl_awal[1]/$raw_tgl_awal[0]/$raw_tgl_awal[2]";
-            $tgl_akhir = "$raw_tgl_akhir[1]/$raw_tgl_akhir[0]/$raw_tgl_akhir[2]";
+            $tgl_awal = "$raw_tgl_awal[2]-$raw_tgl_awal[1]-$raw_tgl_awal[0] $request->jam_awal";
+            $tgl_akhir = "$raw_tgl_akhir[2]-$raw_tgl_akhir[1]-$raw_tgl_akhir[0] $request->jam_akhir";
             $request->merge([
                 'user_id' => auth()->user()->id,
                 // 'tgl_akhir' => date('Y-m-d H:i:s', time() + 24*7*60*60) // 7 Hari

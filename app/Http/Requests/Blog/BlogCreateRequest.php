@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Tryout\Paket;
+namespace App\Http\Requests\Blog;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PaketStore extends FormRequest
+class BlogCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +24,10 @@ class PaketStore extends FormRequest
     public function rules()
     {
         return [
-            'nama' => 'required',
+            'judul' => 'required',
+            'isi' => 'required',
+            'foto' => 'nullable',
             'status' => 'required',
-            'tgl_awal' => 'required',
-            'jam_awal' => 'required',
-            'tgl_akhir' => 'required',
-            'jam_akhir' => 'required',
         ];
     }
 }

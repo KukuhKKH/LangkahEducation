@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use App\Http\Controllers\HelperController;
+use App\Models\LandingPage;
 use App\Models\Pembayaran;
 
 class AppServiceProvider extends ServiceProvider
@@ -37,6 +38,12 @@ class AppServiceProvider extends ServiceProvider
             } elseif($role == 'superadmin' || $role == 'admin') {
                 $pembayaran_notif = Pembayaran::selectRaw("COALESCE(count(CASE WHEN status = 0 THEN id END), 0) as total_belum, COALESCE(count(CASE WHEN status = 1 THEN id END), 0) as total_sudah")->first();
                 $view->with('pembayaran_notif', $pembayaran_notif);
+            }
+        });
+        view()->composer('layouts.app', function($view) {
+            if(request()->segment(1) == 'blog') {
+                $data = LandingPage::find(1);
+                $view->with('data', $data);
             }
         });
     }

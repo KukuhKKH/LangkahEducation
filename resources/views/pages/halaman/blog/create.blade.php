@@ -9,44 +9,77 @@
 </div>
 <div class="card shadow mb-4">
     <div class="card-body">
-        <form action="">
+        <form action="{{ route('blog.store') }}" method="post" enctype="multipart/form-data">
+            @csrf
             <div class="row">
                 <div class="col-lg-10">
-                    <div class="form-group">
-                        <input name="nama" type="text"
-                            class="form-control form-control-user @error('nama') is-invalid @enderror" id="namaBank"
-                            placeholder="Masukkan Judul Artikel" value="{{ old('nama') }}" required>
-                        @error('nama')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                            <label for="">Judul Artikel</label>
+                        </div>
+                        <div class="col-md-10">
+                            <input name="judul" type="text"
+                            class="form-control form-control-user @error('judul') is-invalid @enderror" id="judul"
+                            placeholder="Masukkan Judul Artikel" value="{{ old('judul') }}" required>
+                            @error('judul')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                            <label for="">Gambar Utama Artikel</label>
+                        </div>
+                        <div class="col-md-10">
+                            <input name="foto" type="file"
+                            class="form-control form-control-user @error('foto') is-invalid @enderror" id="foto" required>
+                            @error('foto')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-8">
-                            <div class="form-group">
-                                <select name="kategori" class="form-control @error('kategori') is-invalid @enderror">
-                                    <option value="" selected disabled>-- Pilih Kategori--</option>
-                                    <option value="kategori">Kategori A</option>
-                                </select>
-                                @error('kategori')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
+                        <div class="col-lg-12">
+                            <div class="form-group row">
+                                <div class="col-md-2">
+                                    <label for="">Kategori</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <select name="kategori" class="form-control @error('kategori') is-invalid @enderror">
+                                        <option value="" selected disabled>-- Pilih Kategori--</option>
+                                        <option value="UTBK">UTBK</option>
+                                        <option value="SBMPTN">SBMPTN</option>
+                                        <option value="SAINTEK">SAINTEK</option>
+                                        <option value="SOSHUM">SOSHUM</option>
+                                    </select>
+                                    @error('kategori')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <select name="status" class="form-control @error('status') is-invalid @enderror">
-                                    <option value="publikasikan">Publikasikan</option>
-                                    <option value="simpanDraf">Simpan ke Draf</option>
-                                </select>
-                                @error('status')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
+                        <div class="col-lg-12">
+                            <div class="form-group row">
+                                <div class="col-md-2">
+                                    <label for="">Status</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <select name="status" class="form-control @error('status') is-invalid @enderror">
+                                        <option value="1">Publikasikan</option>
+                                        <option value="0">Simpan ke Draf</option>
+                                    </select>
+                                    @error('status')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -61,10 +94,10 @@
             <div class="row">
                 <div class="col-12 mt-4">
                     <div class="form-group">
-                        <textarea type="text" class="form-control @error('create-article') is-invalid @enderror"
-                            id="create-article" name="create-article"
-                            placeholder="Pembahaasan">{{ old('create-article') }}</textarea>
-                        @error('create-article')
+                        <textarea type="text" class="form-control @error('isi') is-invalid @enderror"
+                            id="isi" name="isi"
+                            placeholder="Pembahaasan">{{ old('isi') }}</textarea>
+                        @error('isi')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -92,7 +125,7 @@
         filebrowserBrowseUrl: '/filemanager?type=Files',
         filebrowserUploadUrl: '/filemanager/upload?type=Files&_token='
     }
-    CKEDITOR.replace('create-article', option)
+    CKEDITOR.replace('isi', option)
     CKEDITOR.config.height = 500;
 
 </script>

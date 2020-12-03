@@ -49,29 +49,20 @@
                     <table>
                         <tr>
                             <td>
-                                Tanggal Mulai
+                                Waktu Mulai
                             </td>
                             <td>:</td>
                             <td>
-                                {{ Carbon\Carbon::parse($value->tgl_awal)->format('d F Y') }}
+                                {{ Carbon\Carbon::parse($value->tgl_awal)->format('H:i d F Y') }}
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                Tanggal Akhir
+                                Waktu Akhir
                             </td>
                             <td>:</td>
                             <td>
-                                {{ Carbon\Carbon::parse($value->tgl_akhir)->format('d F Y') }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Jam
-                            </td>
-                            <td>:</td>
-                            <td>
-                                00:00 WIB
+                                {{ Carbon\Carbon::parse($value->tgl_akhir)->format('H:i d F Y') }}
                             </td>
                         </tr>
                     </table>
