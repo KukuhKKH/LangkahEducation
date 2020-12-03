@@ -250,7 +250,7 @@
                 <a class="collapse-item" href="{{ route('landing_page.index') }}">Landing Page</a>
                 <a class="collapse-item" href="{{ route('testimoni.index') }}">Testimonial</a>
                 <a class="collapse-item" href="{{ route('blog.index') }}">Blog</a>
-                {{-- <a class="collapse-item" href="{{ route('blog.index') }}">KategoriBlog</a> --}}
+                {{-- <a class="collapse-item" href="{{ route('blog.index') }}">Kategori Blog</a> --}}
             </div>
         </div>
     </li>
