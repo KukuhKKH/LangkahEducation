@@ -3,7 +3,6 @@
 
 @section('content')
    <h1 class="h3 mb-2 text-gray-800">Tambah Soal Try out - {{ $paket->nama }}</h1>
-   <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the</p>
 
    <div class="card shadow mb-4">
       <div class="card-header py-3">

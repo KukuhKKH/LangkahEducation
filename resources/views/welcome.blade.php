@@ -15,7 +15,7 @@
           <li><a href="#blog">Blog</a></li>
           <li><a href="#testimoni">Testimonial</a></li>
           <li><a href="#pricing">Biaya</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#contact">Kontak</a></li>
         </ul>
       </nav><!-- .nav-menu -->
 
@@ -92,11 +92,18 @@
         <div class="container">
             <div class="section-title">
                 <h2>Produk</h2>
+<<<<<<< HEAD
+                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
+                    consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
+                    fugiat sit
+                    in iste officiis commodi quidem hic quas.</p>
+=======
                 {!! $data->headline_produk !!}
                 {{-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
                     consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
                     fugiat sit
                     in iste officiis commodi quidem hic quas.</p> --}}
+>>>>>>> 9868e7f2a8f7a5b0bcc4836d2c664b5829492f95
             </div>
             <div class="row justify-content-center">
                 <div class="col-lg-6">
@@ -131,8 +138,12 @@
 
             <div class="section-title">
                 <h2>Testimonial</h2>
+<<<<<<< HEAD
+                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
+=======
                 {!! $data->headline_testimoni !!}
                 {{-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
+>>>>>>> 9868e7f2a8f7a5b0bcc4836d2c664b5829492f95
                     consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
                     fugiat sit
                     in iste officiis commodi quidem hic quas.</p> --}}
@@ -165,8 +176,12 @@
 
             <div class="section-title">
                 <h2>Biaya</h2>
+<<<<<<< HEAD
+                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
+=======
                 {!! $data->headline_biaya !!}
                 {{-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
+>>>>>>> 9868e7f2a8f7a5b0bcc4836d2c664b5829492f95
                     consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
                     fugiat sit
                     in iste officiis commodi quidem hic quas.</p> --}}
