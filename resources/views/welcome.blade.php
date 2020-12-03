@@ -38,7 +38,7 @@
                 <h2>{{ $data->headline }}</h2>
                 <div class="mt-5">
                     @auth
-                        <a href="{{ route('dashboard') }}" class="btn-langkah">Dashboard</a>
+                        <a href="{{ route('dashboard') }}" class="btn-outline-langkah">Buka Dashboard</a>
                     @else
                         <a href="{{ route('register') }}" class="btn-langkah">Register</a>
                         <a href="{{ route('login') }}" class="btn-outline-langkah">Login</a>
