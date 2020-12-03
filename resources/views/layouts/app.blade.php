@@ -28,6 +28,7 @@
     <link href="{{asset('assets-landingpage/vendor/owl.carousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
 
     <link href="{{asset('assets-landingpage/css/landing.css')}}" rel="stylesheet">
+    <title>Langkah Education</title>
     @yield('css')
 
 </head>

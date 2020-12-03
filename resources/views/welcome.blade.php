@@ -92,28 +92,26 @@
         <div class="container">
             <div class="section-title">
                 <h2>Produk</h2>
-<<<<<<< HEAD
-                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
-                    consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
-                    fugiat sit
-                    in iste officiis commodi quidem hic quas.</p>
-=======
                 {!! $data->headline_produk !!}
                 {{-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
                     consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
                     fugiat sit
                     in iste officiis commodi quidem hic quas.</p> --}}
->>>>>>> 9868e7f2a8f7a5b0bcc4836d2c664b5829492f95
             </div>
             <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <div class="box">
-                        <span class="price">14 - 15 November 2020</span>
-                        <h4>Dibuka <span>Try Out Batch 1</span></h4>
-                        <h6>Biaya Pendaftaran <span>Rp. 100.000</span></h6>
-                        <a href="#" class="btn-buy">Daftar Sekarang</a>
+                @forelse ($gelombang as $value)
+                    <div class="col-lg-6">
+                        <div class="box">
+                            <span class="price">{{ Carbon\Carbon::parse($value->tgl_awal)->format('d F Y') }} -
+                                {{ Carbon\Carbon::parse($value->tgl_akhir)->format('d F Y') }}</span>
+                            <h4>Dibuka <span>{{ $value->nama }}</span></h4>
+                            <h6>Biaya Pendaftaran <span>Rp. {{ number_format($value->harga) }}</span></h6>
+                            <a href="javascript:void(0)" data-id="{{ $value->id }}" class="btn-buy daftar">Daftar Sekarang</a>
+                        </div>
                     </div>
-                </div>
+                @empty
+                    <h3>Belum ada gelombang</h3>
+                @endforelse
             </div>
         </div>
     </section><!-- End Why Us Section -->
@@ -138,12 +136,8 @@
 
             <div class="section-title">
                 <h2>Testimonial</h2>
-<<<<<<< HEAD
-                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
-=======
                 {!! $data->headline_testimoni !!}
                 {{-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
->>>>>>> 9868e7f2a8f7a5b0bcc4836d2c664b5829492f95
                     consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
                     fugiat sit
                     in iste officiis commodi quidem hic quas.</p> --}}
@@ -176,12 +170,8 @@
 
             <div class="section-title">
                 <h2>Biaya</h2>
-<<<<<<< HEAD
-                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
-=======
                 {!! $data->headline_biaya !!}
                 {{-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
->>>>>>> 9868e7f2a8f7a5b0bcc4836d2c664b5829492f95
                     consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
                     fugiat sit
                     in iste officiis commodi quidem hic quas.</p> --}}
@@ -200,7 +190,7 @@
                         <li><i class="fas fa-check"></i> Pharetra massa massa ultricies</li>
                         <li><i class="fas fa-check"></i> Massa ultricies mi quis hendrerit</li>
                     </ul> --}}
-                    <a href="#" class="btn-buy">Get Started</a>
+                    <a href="{{ route('gelombang.siswa') }}" class="btn-buy">Get Started</a>
                 </div>
 
                 <div class="col-lg-4 box featured">
@@ -233,4 +223,25 @@
 
   <!-- Template Main JS File -->
   <script src="{{asset('assets-landingpage/js/main.js')}}"></script>
+  <script src="{{ asset('assets/vendor/sweet-alert/sweetalert.min.js') }}"></script>
+  <script>
+        const URL = `{{ url('dashboard/daftar-gelombang') }}`
+        $(".daftar").on('click', function () {
+            Swal.fire({
+                title: 'Daftar Sekarang',
+                text: "Apakah Kamu mau mendaftar sekarang?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Tidak',
+                confirmButtonText: 'Ya!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let id = $(this).data('id')
+                    window.location.replace(`${URL}/${id}`)
+                }
+            })
+        })
+  </script>
 @endsection

@@ -16,9 +16,8 @@ class PageController extends Controller
         $data = LandingPage::find(1);
         $testimoni = Testimoni::where('status', 1)->get();
         $today = date('m/d/Y');
-        $gelombang = Gelombang::whereDate('tgl_awal', '>', $today)->whereDate('tgl_akhir', '<', $today)->get();
-        dd($gelombang);
-        return view('welcome', compact('data', 'testimoni'));
+        $gelombang = Gelombang::where('tgl_awal', '<', $today)->where('tgl_akhir', '>', $today)->get();
+        return view('welcome', compact('data', 'testimoni','gelombang'));
     }
 
     public function landing_page() {
