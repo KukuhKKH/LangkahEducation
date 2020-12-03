@@ -48,22 +48,20 @@
     <section id="about" class="about">
         <div class="container">
             <div class="row content align-items-center">
-                <div class="col-lg-6 order-2 order-lg-1 hero-img">
-                    <img src="{{asset('assets-landingpage/img/about-img.png')}}" class="img-fluid" alt="">
+                <div class="col-lg-6 order-2 order-lg-1 text-center">
+                    <img src="{{asset('assets-landingpage/img/about-img.png')}}" class="img-fluid w-75" alt="">
                 </div>
                 <div class="col-lg-6 pt-2 pt-lg-0 order-1 order-lg-2">
+                    <h3 class="h3 font-weight-bold">Siapa Kita?</h3>
                     <p>
                         Langkah Education merupakan Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem
                         odit quis
                         numquam mollitia minus nisi modi est ea esse eveniet?
+
+                        Langkah Education merupakan Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem
+                        odit quis
+                        numquam mollitia minus nisi modi est ea esse eveniet?
                     </p>
-                    <ul>
-                        <li><i class="fa fa-check"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequa</li>
-                        <li><i class="fa fa-check"></i> Duis aute irure dolor in reprehenderit in voluptate velit</li>
-                        <li><i class="fa fa-check"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-                            aute irure
-                            dolor in reprehenderit in</li>
-                    </ul>
                 </div>
             </div>
 
@@ -74,44 +72,18 @@
     <section id="products" class="products">
         <div class="container">
             <div class="section-title">
-                <h2>Services</h2>
-                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
-                    consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
-                    fugiat sit
-                    in iste officiis commodi quidem hic quas.</p>
+                <h2>Produk</h2>
             </div>
-            <div class="row">
-
-                <div class="col-lg-4">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
                     <div class="box">
-                        <span>01</span>
-                        <h4>Lorem Ipsum</h4>
-                        <p>Ulamco laboris nisi ut aliquip ex ea commodo consequat. Et consectetur ducimus vero placeat
-                        </p>
+                        <span class="price">14 - 15 November 2020</span>
+                        <h4>Dibuka <span>Try Out Batch 1</span></h4>
+                        <h6>Biaya Pendaftaran <span>Rp. 100.000</span></h6>
+                        <a href="#" class="btn-buy">Daftar Sekarang</a>
                     </div>
                 </div>
-
-                <div class="col-lg-4 mt-4 mt-lg-0">
-                    <div class="box">
-                        <span>02</span>
-                        <h4>Repellat Nihil</h4>
-                        <p>Dolorem est fugiat occaecati voluptate velit esse. Dicta veritatis dolor quod et vel dire
-                            leno para
-                            dest</p>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 mt-4 mt-lg-0">
-                    <div class="box">
-                        <span>03</span>
-                        <h4> Ad ad velit qui</h4>
-                        <p>Molestiae officiis omnis illo asperiores. Aut doloribus vitae sunt debitis quo vel nam quis
-                        </p>
-                    </div>
-                </div>
-
             </div>
-
         </div>
     </section><!-- End Why Us Section -->
 
