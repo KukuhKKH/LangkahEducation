@@ -15,7 +15,7 @@
           <li><a href="#blog">Blog</a></li>
           <li><a href="#testimoni">Testimonial</a></li>
           <li><a href="#pricing">Biaya</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#contact">Kontak</a></li>
         </ul>
       </nav><!-- .nav-menu -->
 
@@ -73,6 +73,10 @@
         <div class="container">
             <div class="section-title">
                 <h2>Produk</h2>
+                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
+                    consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
+                    fugiat sit
+                    in iste officiis commodi quidem hic quas.</p>
             </div>
             <div class="row justify-content-center">
                 <div class="col-lg-6">
@@ -105,7 +109,7 @@
         <div class="container">
 
             <div class="section-title">
-                <h2>Testimonials</h2>
+                <h2>Testimonial</h2>
                 <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
                     consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
                     fugiat sit
@@ -188,7 +192,7 @@
         <div class="container">
 
             <div class="section-title">
-                <h2>Pricing</h2>
+                <h2>Biaya</h2>
                 <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
                     consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
                     fugiat sit
