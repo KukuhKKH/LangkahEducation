@@ -182,28 +182,12 @@
                 <div class="col-lg-4 box">
                     <h3>Individu</h3>
                     {!! $data->biaya_individu !!}
-                    {{-- <h4>Rp.100.000<span>per month</span></h4>
-                    <ul>
-                        <li><i class="fas fa-check"></i> Quam adipiscing vitae proin</li>
-                        <li><i class="fas fa-check"></i> Nec feugiat nisl pretium</li>
-                        <li><i class="fas fa-check"></i> Nulla at volutpat diam uteera</li>
-                        <li><i class="fas fa-check"></i> Pharetra massa massa ultricies</li>
-                        <li><i class="fas fa-check"></i> Massa ultricies mi quis hendrerit</li>
-                    </ul> --}}
                     <a href="{{ route('gelombang.siswa') }}" class="btn-buy">Get Started</a>
                 </div>
 
                 <div class="col-lg-4 box featured">
                     <h3>Sekolah</h3>
                     {!! $data->biaya_sekolah !!}
-                    {{-- <h4>Rp.150.000<span>per month</span></h4>
-                    <ul>
-                        <li><i class="fas fa-check"></i> Quam adipiscing vitae proin</li>
-                        <li><i class="fas fa-check"></i> Nec feugiat nisl pretium</li>
-                        <li><i class="fas fa-check"></i> Nulla at volutpat diam uteera</li>
-                        <li><i class="fas fa-check"></i> Pharetra massa massa ultricies</li>
-                        <li><i class="fas fa-check"></i> Massa ultricies mi quis hendrerit</li>
-                    </ul> --}}
                     <a href="" class="btn-buy">Hubungi Admin</a>
                 </div>
 
