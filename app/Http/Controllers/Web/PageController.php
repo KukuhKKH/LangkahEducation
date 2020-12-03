@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateDataLandingPage;
+use App\Models\Gelombang;
 use App\Models\LandingPage;
+use App\Models\Testimoni;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -12,7 +14,11 @@ class PageController extends Controller
 
     public function index() {
         $data = LandingPage::find(1);
-        return view('welcome', compact('data'));
+        $testimoni = Testimoni::where('status', 1)->get();
+        $today = date('m/d/Y');
+        $gelombang = Gelombang::whereDate('tgl_awal', '>', $today)->whereDate('tgl_akhir', '<', $today)->get();
+        dd($gelombang);
+        return view('welcome', compact('data', 'testimoni'));
     }
 
     public function landing_page() {
