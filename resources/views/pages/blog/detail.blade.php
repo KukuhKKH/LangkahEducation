@@ -117,6 +117,15 @@
         background: #ECB811;
     }
 
+    #blog a {
+        color: #aaaaaa;
+        text-decoration: underline;
+    }
+
+    #blog a:hover, #blog a:hover small{
+        color: #ECB811 !important;
+    }
+
 </style>
 @endsection
 
