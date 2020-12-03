@@ -56,9 +56,9 @@
     <section id="about" class="about">
         <div class="container">
             <div class="row content align-items-center">
-                <div class="col-lg-6 order-2 order-lg-1 hero-img">
+                <div class="col-lg-6 order-2 order-lg-1 hero-img text-center">
                     @if ($data->foto_tentang_kami)
-                    <img src="{{asset("landing-page/foto/$data->foto_tentang_kami")}}" class="img-fluid" alt="" width="955" height="1024">
+                    <img src="{{asset("landing-page/foto/$data->foto_tentang_kami")}}" class="img-fluid w-75" alt="" width="955" height="1024">
                 @else
                     <img src="{{asset('assets-landingpage/img/hero-img.png')}}" class="img-fluid" alt="">
                 @endif
