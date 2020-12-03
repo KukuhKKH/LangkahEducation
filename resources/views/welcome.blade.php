@@ -102,7 +102,7 @@
             </div>
             <div class="row justify-content-center">
                 @forelse ($gelombang as $value)
-                <div class="col-lg-6">
+                <div class="col-lg-6 mb-4">
                     <div class="box">
                         <span class="price">{{ Carbon\Carbon::parse($value->tgl_awal)->format('d F Y') }} -
                             {{ Carbon\Carbon::parse($value->tgl_akhir)->format('d F Y') }}</span>
@@ -187,7 +187,7 @@
                     <div id="box-pricing">
                         <h3>Individu</h3>
                         {!! $data->biaya_individu !!}
-                        <a href="{{ route('gelombang.siswa') }}" class="btn-buy mt-3">Daftar Sekarang</a>
+                        <a href="{{ route('gelombang.siswa') }}" class="btn-buy mt-3">Lihat Try Out</a>
                     </div>
                 </div>
 
