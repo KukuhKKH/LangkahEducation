@@ -1,26 +1,26 @@
 @extends('layouts.app')
 @section('content')
-  <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top ">
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center justify-content-between">
 
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <a href="index.html" class="logo"><img id="navLogo" src="assets/img/logo-secondary.svg" alt=""
-          class="img-fluid"></a>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <a href="index.html" class="logo"><img id="navLogo" src="assets/img/logo-secondary.svg" alt=""
+                class="img-fluid"></a>
 
-      <nav class="nav-menu d-none d-lg-block">
-        <ul>
-          <li><a href="#about">Tentang Kami</a></li>
-          <li><a href="#products">Produk</a></li>
-          <li><a href="#blog">Blog</a></li>
-          <li><a href="#testimoni">Testimonial</a></li>
-          <li><a href="#pricing">Biaya</a></li>
-          <li><a href="#contact">Kontak</a></li>
-        </ul>
-      </nav><!-- .nav-menu -->
+        <nav class="nav-menu d-none d-lg-block">
+            <ul>
+                <li><a href="#about">Tentang Kami</a></li>
+                <li><a href="#products">Produk</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#testimoni">Testimonial</a></li>
+                <li><a href="#pricing">Biaya</a></li>
+                <li><a href="#contact">Kontak</a></li>
+            </ul>
+        </nav><!-- .nav-menu -->
 
     </div>
-  </header><!-- End Header -->
+</header><!-- End Header -->
 <!-- ======= Hero Section ======= -->
 <section id="hero" class="d-flex align-items-center">
 
@@ -28,20 +28,21 @@
         <div class="row">
             <div class="col-lg-6 order-1 order-lg-2 hero-img">
                 @if ($data->foto_hero)
-                    <img src="{{asset("landing-page/foto/$data->foto_hero")}}" class="img-fluid" alt="" width="955" height="1024">
+                <img src="{{asset("landing-page/foto/$data->foto_hero")}}" class="img-fluid" alt="" width="955"
+                    height="1024">
                 @else
-                    <img src="{{asset('assets-landingpage/img/hero-img.png')}}" class="img-fluid" alt="">
+                <img src="{{asset('assets-landingpage/img/hero-img.png')}}" class="img-fluid" alt="">
                 @endif
             </div>
             <div class="col-lg-6 pt-2 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
                 <h1>{{ $data->headline }}</h1>
-                <h2>{{ $data->headline }}</h2>
+                <h2>{{ $data->tagline}}</h2>
                 <div class="mt-5">
                     @auth
-                        <a href="{{ route('dashboard') }}" class="btn-outline-langkah">Buka Dashboard</a>
+                    <a href="{{ route('dashboard') }}" class="btn-outline-langkah">Buka Dashboard</a>
                     @else
-                        <a href="{{ route('register') }}" class="btn-langkah">Register</a>
-                        <a href="{{ route('login') }}" class="btn-outline-langkah">Login</a>
+                    <a href="{{ route('register') }}" class="btn-langkah">Register</a>
+                    <a href="{{ route('login') }}" class="btn-outline-langkah">Login</a>
                     @endauth
                 </div>
             </div>
@@ -58,10 +59,11 @@
             <div class="row content align-items-center">
                 <div class="col-lg-6 order-2 order-lg-1 hero-img text-center">
                     @if ($data->foto_tentang_kami)
-                    <img src="{{asset("landing-page/foto/$data->foto_tentang_kami")}}" class="img-fluid w-75" alt="" width="955" height="1024">
-                @else
+                    <img src="{{asset("landing-page/foto/$data->foto_tentang_kami")}}" class="img-fluid w-75" alt=""
+                        width="955" height="1024">
+                    @else
                     <img src="{{asset('assets-landingpage/img/hero-img.png')}}" class="img-fluid" alt="">
-                @endif
+                    @endif
                 </div>
                 <div class="col-lg-6 pt-2 pt-lg-0 order-1 order-lg-2">
                     {!! $data->tentang_kami !!}
@@ -100,17 +102,18 @@
             </div>
             <div class="row justify-content-center">
                 @forelse ($gelombang as $value)
-                    <div class="col-lg-6">
-                        <div class="box">
-                            <span class="price">{{ Carbon\Carbon::parse($value->tgl_awal)->format('d F Y') }} -
-                                {{ Carbon\Carbon::parse($value->tgl_akhir)->format('d F Y') }}</span>
-                            <h4>Dibuka <span>{{ $value->nama }}</span></h4>
-                            <h6>Biaya Pendaftaran <span>Rp. {{ number_format($value->harga) }}</span></h6>
-                            <a href="javascript:void(0)" data-id="{{ $value->id }}" class="btn-buy daftar">Daftar Sekarang</a>
-                        </div>
+                <div class="col-lg-6">
+                    <div class="box">
+                        <span class="price">{{ Carbon\Carbon::parse($value->tgl_awal)->format('d F Y') }} -
+                            {{ Carbon\Carbon::parse($value->tgl_akhir)->format('d F Y') }}</span>
+                        <h4>Dibuka <span>{{ $value->nama }}</span></h4>
+                        <h6>Biaya Pendaftaran <span>Rp. {{ number_format($value->harga) }}</span></h6>
+                        <a href="javascript:void(0)" data-id="{{ $value->id }}" class="btn-buy daftar">Daftar
+                            Sekarang</a>
                     </div>
+                </div>
                 @empty
-                    <h3>Belum ada gelombang</h3>
+                <h3>Belum ada gelombang</h3>
                 @endforelse
             </div>
         </div>
@@ -152,12 +155,13 @@
                         {{ $value->testimoni }}
                         <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                     </p>
-                    <img src="{{asset('assets-landingpage/img/testimonials/testimonials-2.jpg')}}" class="testimonial-img" alt="">
+                    <img src="{{asset('assets-landingpage/img/testimonials/testimonials-2.jpg')}}"
+                        class="testimonial-img" alt="">
                     <h3>{{ $value->nama }}</h3>
                     <h4>{{ $value->role }}</h4>
                 </div>
                 @empty
-                    
+
                 @endforelse
 
             </div>
@@ -179,16 +183,20 @@
 
             <div class="row justify-content-center">
 
-                <div class="col-lg-4 box">
-                    <h3>Individu</h3>
-                    {!! $data->biaya_individu !!}
-                    <a href="{{ route('gelombang.siswa') }}" class="btn-buy">Get Started</a>
+                <div class="col-lg-4 box d-flex align-items-center justify-content-center">
+                    <div id="box-pricing">
+                        <h3>Individu</h3>
+                        {!! $data->biaya_individu !!}
+                        <a href="{{ route('gelombang.siswa') }}" class="btn-buy mt-3">Daftar Sekarang</a>
+                    </div>
                 </div>
 
-                <div class="col-lg-4 box featured">
-                    <h3>Sekolah</h3>
-                    {!! $data->biaya_sekolah !!}
-                    <a href="" class="btn-buy">Hubungi Admin</a>
+                <div class="col-lg-4 box featured d-flex align-items-center justify-content-center">
+                    <div id="box-pricing" class="mb-3">
+                        <h3>Sekolah</h3>
+                        {!! $data->biaya_sekolah !!}
+                        <a href="" class="btn-buy mt-3">Hubungi Admin</a>
+                    </div>
                 </div>
 
             </div>
@@ -199,33 +207,34 @@
 @endsection
 
 @section('js')
-  <!-- Vendor JS Files -->
-  <script src="{{asset('assets-landingpage/vendor/jquery/jquery.min.js')}}"></script>
-  <script src="{{asset('assets-landingpage/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-  <script src="{{asset('assets-landingpage/vendor/jquery.easing/jquery.easing.min.js')}}"></script>
-  <script src="{{asset('assets-landingpage/vendor/owl.carousel/owl.carousel.min.js')}}"></script>
+<!-- Vendor JS Files -->
+<script src="{{asset('assets-landingpage/vendor/jquery/jquery.min.js')}}"></script>
+<script src="{{asset('assets-landingpage/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('assets-landingpage/vendor/jquery.easing/jquery.easing.min.js')}}"></script>
+<script src="{{asset('assets-landingpage/vendor/owl.carousel/owl.carousel.min.js')}}"></script>
 
-  <!-- Template Main JS File -->
-  <script src="{{asset('assets-landingpage/js/main.js')}}"></script>
-  <script src="{{ asset('assets/vendor/sweet-alert/sweetalert.min.js') }}"></script>
-  <script>
-        const URL = `{{ url('dashboard/daftar-gelombang') }}`
-        $(".daftar").on('click', function () {
-            Swal.fire({
-                title: 'Daftar Sekarang',
-                text: "Apakah Kamu mau mendaftar sekarang?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                cancelButtonText: 'Tidak',
-                confirmButtonText: 'Ya!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    let id = $(this).data('id')
-                    window.location.replace(`${URL}/${id}`)
-                }
-            })
+<!-- Template Main JS File -->
+<script src="{{asset('assets-landingpage/js/main.js')}}"></script>
+<script src="{{ asset('assets/vendor/sweet-alert/sweetalert.min.js') }}"></script>
+<script>
+    const URL = `{{ url('dashboard/daftar-gelombang') }}`
+    $(".daftar").on('click', function () {
+        Swal.fire({
+            title: 'Daftar Sekarang',
+            text: "Apakah Kamu mau mendaftar sekarang?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Tidak',
+            confirmButtonText: 'Ya!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let id = $(this).data('id')
+                window.location.replace(`${URL}/${id}`)
+            }
         })
-  </script>
+    })
+
+</script>
 @endsection

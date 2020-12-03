@@ -117,8 +117,8 @@
 
                             <div class="input-group">
                                 <div class="custom-file">
-                                    <input type="file" name="file" class="custom-file-input" id="inputGroupFile02">
-                                    <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+                                    <input type="file" name="file" class="custom-file-input" id="inputFile" accept="image/*">
+                                    <label class="custom-file-label" id="labelFile" for="inputFile">Choose file</label>
                                 </div>
                             </div>
                         </div>
@@ -152,5 +152,10 @@
          }
       })
    })
+
+   $('#inputFile').on('change', function (e) {
+        var fileName = e.target.files[0].name;
+        $(this).next('#labelFile').html(fileName);
+    })
 </script>
 @endsection
