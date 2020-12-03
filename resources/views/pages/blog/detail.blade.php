@@ -47,58 +47,118 @@
                                 nostrum ut molestias labore eligendi atque neque obcaecati mollitia assumenda
                                 praesentium eius! Dolores veniam expedita repudiandae labore adipisci nam provident.</p>
 
+                            <hr>
+
+                            <div id="add-comment">
+                                <form action="">
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <img src="{{asset('assets/img/undraw_profile.svg') }}" class="avatar-lg"
+                                                alt="Avatar">
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <textarea name="add-komentar" id="add-komentar"
+                                                    class="form-control @error('add-komentar') is-invalid @enderror"
+                                                    placeholder="Masukkan Komentar" rows="4"></textarea>
+                                                @error('add-komentar')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-12 text-right">
+                                            <button class="btn btn-primary">
+                                                <i class="fas fa-paper-plane"></i> Kirim Komentar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <label class="mt-3">Komentar :</label>
+
+                            <div id="comment-list" class="bg-light p-4">
+                                <div class="row my-2" id="komentar">
+                                    <div class="col-auto">
+                                        <img src="{{asset('assets/img/undraw_profile.svg') }}" class="avatar "
+                                            alt="Avatar">
+                                    </div>
+                                    <div class="col">
+                                        <h6 class="font-weight-bold">Kukuh</h6>
+                                        <p>Kenapa ya kak ak jomblo terus?
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil, cum.
+                                        </p>
+                                        <hr>
+                                    </div>
+                                </div>
+                                <div class="row my-2" id="komentar">
+                                    <div class="col-auto">
+                                        <img src="{{asset('assets/img/undraw_profile.svg') }}" class="avatar "
+                                            alt="Avatar">
+                                    </div>
+                                    <div class="col">
+                                        <h6 class="font-weight-bold">Sopo Yo</h6>
+                                        <p>Makanya Cari Jodoh. Sini aku promosiin di T#kopedia
+                                        </p>
+                                        <hr>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-xl-4">
-                    <div class="sidebar">
-                        <div id="other-post">
-                            <h4 class="sidebar-title">Artikel Lainnya</h4>
-                            <div class="sidebar-item recent-posts">
-                                <div class="post-item clearfix">
-                                    <img src="{{asset('assets-landingpage/img/blog/blog-1.jpg')}}" alt="">
-                                    <h4>Nihil blanditiis at in nihil autem</h4>
-                                    <time datetime="2020-01-01">Jan 1, 2020</time>
-                                </div>
+                    <div class="card shadow">
+                        <div class="sidebar">
+                            <div id="other-post">
+                                <h4 class="sidebar-title">Artikel Lainnya</h4>
+                                <div class="sidebar-item recent-posts">
+                                    <div class="post-item clearfix">
+                                        <img src="{{asset('assets-landingpage/img/blog/blog-1.jpg')}}" alt="">
+                                        <h4>Nihil blanditiis at in nihil autem</h4>
+                                        <time datetime="2020-01-01">Jan 1, 2020</time>
+                                    </div>
 
-                                <div class="post-item clearfix">
-                                    <img src="{{asset('assets-landingpage/img/blog/blog-2.jpg')}}" alt="">
-                                    <h4>Quidem autem et impedit</h4>
-                                    <time datetime="2020-01-01">Jan 1, 2020</time>
-                                </div>
+                                    <div class="post-item clearfix">
+                                        <img src="{{asset('assets-landingpage/img/blog/blog-2.jpg')}}" alt="">
+                                        <h4>Quidem autem et impedit</h4>
+                                        <time datetime="2020-01-01">Jan 1, 2020</time>
+                                    </div>
 
-                                <div class="post-item clearfix">
-                                    <img src="{{asset('assets-landingpage/img/blog/blog-3.jpg')}}" alt="">
-                                    <h4>Id quia et et ut maxime similique occaecati
-                                        ut</h4>
-                                    <time datetime="2020-01-01">Jan 1, 2020</time>
+                                    <div class="post-item clearfix">
+                                        <img src="{{asset('assets-landingpage/img/blog/blog-3.jpg')}}" alt="">
+                                        <h4>Id quia et et ut maxime similique occaecati
+                                            ut</h4>
+                                        <time datetime="2020-01-01">Jan 1, 2020</time>
+                                    </div>
+                                    <hr>
                                 </div>
-                                <hr>
                             </div>
-                        </div>
-                        <div id="similar-post">
-                            <h4 class="sidebar-title">Artikel Terkait</h4>
-                            <div class="sidebar-item recent-posts">
-                                <div class="post-item clearfix">
-                                    <img src="{{asset('assets-landingpage/img/blog/blog-1.jpg')}}" alt="">
-                                    <h4>Nihil blanditiis at in nihil autem</h4>
-                                    <time datetime="2020-01-01">Jan 1, 2020</time>
-                                </div>
+                            <div id="similar-post">
+                                <h4 class="sidebar-title">Artikel Terkait</h4>
+                                <div class="sidebar-item recent-posts">
+                                    <div class="post-item clearfix">
+                                        <img src="{{asset('assets-landingpage/img/blog/blog-1.jpg')}}" alt="">
+                                        <h4>Nihil blanditiis at in nihil autem</h4>
+                                        <time datetime="2020-01-01">Jan 1, 2020</time>
+                                    </div>
 
-                                <div class="post-item clearfix">
-                                    <img src="{{asset('assets-landingpage/img/blog/blog-2.jpg')}}" alt="">
-                                    <h4>Quidem autem et impedit</h4>
-                                    <time datetime="2020-01-01">Jan 1, 2020</time>
-                                </div>
+                                    <div class="post-item clearfix">
+                                        <img src="{{asset('assets-landingpage/img/blog/blog-2.jpg')}}" alt="">
+                                        <h4>Quidem autem et impedit</h4>
+                                        <time datetime="2020-01-01">Jan 1, 2020</time>
+                                    </div>
 
-                                <div class="post-item clearfix">
-                                    <img src="{{asset('assets-landingpage/img/blog/blog-3.jpg')}}" alt="">
-                                    <h4>Id quia et et ut maxime similique occaecati
-                                        ut</h4>
-                                    <time datetime="2020-01-01">Jan 1, 2020</time>
-                                </div>
-                                <hr>
+                                    <div class="post-item clearfix">
+                                        <img src="{{asset('assets-landingpage/img/blog/blog-3.jpg')}}" alt="">
+                                        <h4>Id quia et et ut maxime similique occaecati
+                                            ut</h4>
+                                        <time datetime="2020-01-01">Jan 1, 2020</time>
+                                    </div>
+                                    <hr>
 
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -122,8 +182,13 @@
         text-decoration: underline;
     }
 
-    #blog a:hover, #blog a:hover small{
+    #blog a:hover,
+    #blog a:hover small {
         color: #ECB811 !important;
+    }
+
+    #blog .btn-primary i {
+        color: #fff !important;
     }
 
 </style>

@@ -81,6 +81,7 @@
                     </div>
                 </div>
                 <div class="col-xl-4">
+                    <div class="card shadow">
                     <div class="sidebar">
                         <div id="other-post">
                             <h4 class="sidebar-title">Artikel Lainnya</h4>
@@ -131,6 +132,7 @@
 
                             </div>
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>

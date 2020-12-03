@@ -19,6 +19,24 @@ a:hover {
   object-fit: cover;
 }
 
+.text-grey{
+  color: #b1b1b1;
+}
+
+.avatar{
+  height: 8vh;
+  width: 8vh;
+  object-fit: cover;
+  border-radius: 100px;
+}
+
+.avatar-lg{
+  height: 10vh;
+  width: 10vh;
+  object-fit: cover;
+  border-radius: 100px;
+}
+
 h1,
 h2,
 h3,
@@ -1077,8 +1095,6 @@ section {
 
 .blog .sidebar {
   padding: 30px;
-  margin: 0 0 20px 20px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 .blog .sidebar .sidebar-title {
