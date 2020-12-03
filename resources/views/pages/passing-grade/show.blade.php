@@ -80,7 +80,7 @@
                               <form action="{{ route('passing-grade.destroy', $value->id) }}" method="POST" id="form-{{ $value->id }}">
                                  @csrf
                                  @method('DELETE')
-                                 <a href="#" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit">
+                                 <a href="{{ route('passing-grade.edit', $value->id) }}" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit">
                                     <i class="fas fa-edit"></i>
                                  </a>
                                  <button type="button" class="btn btn-danger hapus" data-id="{{ $value->id }}" data-toggle="tooltip" data-placement="top" title="Hapus">

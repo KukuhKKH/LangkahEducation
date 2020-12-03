@@ -39,36 +39,36 @@
                 </tfoot>
                 <tbody>
                     @forelse($paket as $value)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $value->nama }}</td>
-                        <td>
-                            @if ($value->status)
-                            <span class="badge badge-success p-2">Aktif</span>
-                            @else
-                            <span class="badge badge-danger p-2">Tidak Aktif</span>
-                            @endif
-                        </td>
-                        <td>{{ count($value->soal) }}</td>
-                        <td>
-                            <form action="{{ route('paket.destroy', $value->id) }}" method="POST"
-                                id="form-{{ $value->id }}">
-                                @csrf
-                                @method('DELETE')
-                                <a href="{{ route('paket.edit', $value->id) }}" class="btn btn-success"
-                                    data-toggle="tooltip" data-placement="top" title="Edit">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <a href="{{ route('soal.show', $value->slug) }}" class="btn btn-warning text-dark">
-                                    <i class="fas fa-plus"></i> Soal Tryout
-                                </a>
-                                <button type="button" class="btn btn-danger hapus" data-id="{{ $value->id }}"
-                                    data-toggle="tooltip" data-placement="top" title="Hapus">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $value->nama }}</td>
+                            <td>
+                                @if ($value->status)
+                                    <span class="badge badge-success p-2">Aktif</span>
+                                @else
+                                    <span class="badge badge-danger p-2">Tidak Aktif</span>
+                                @endif
+                            </td>
+                            <td>{{ count($value->soal) }}</td>
+                            <td>
+                                <form action="{{ route('paket.destroy', $value->id) }}" method="POST" id="form-{{ $value->id }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <a href="{{ route('paket.edit', $value->id) }}" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="{{ route('paket.soal.detail', $value->id) }}" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Lihat Semua Soal">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="{{ route('soal.show', $value->slug) }}" class="btn btn-warning text-dark" data-toggle="tooltip" data-placement="top" title="Tambah Soal">
+                                        <i class="fas fa-plus"></i>
+                                    </a>
+                                    <button type="button" class="btn btn-danger hapus" data-id="{{ $value->id }}" data-toggle="tooltip" data-placement="top" title="Hapus">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
                     @empty
                     <tr>
                         <td colspan="4" class="text-center">

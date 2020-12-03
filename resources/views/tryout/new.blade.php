@@ -217,5 +217,14 @@
          }
       })
    })
+   history.pushState(null, null, document.URL);
+   window.addEventListener('popstate', function () {
+      swal.fire({
+         title: 'WOYYY?',
+         text: "anda tidak bisa kembali ke kategori sebelumnya!",
+         icon: 'warning',
+      })
+      history.pushState(null, null, document.URL);
+   })
 </script>
 @endsection

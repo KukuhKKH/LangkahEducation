@@ -95,10 +95,10 @@
                                 id="form-{{ $value->id }}">
                                 @csrf
                                 @method('DELETE')
-                                <a href="#" class="btn btn-success" data-toggle="tooltip" data-placement="top"
+                                {{-- <a href="#" class="btn btn-success" data-toggle="tooltip" data-placement="top"
                                     title="Edit">
                                     <i class="fas fa-edit"></i>
-                                </a>
+                                </a> --}}
                                 <a href="{{ route('passing-grade.show', $value->id) }}" class="btn btn-primary">Tambah
                                     Prodi</a>
                                 <button type="button" class="btn btn-danger hapus" data-id="{{ $value->id }}"
@@ -153,48 +153,49 @@
             </form>
         </div>
     </div>
+</div>
 
-    <div class="modal fade" id="modalKelompok" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-          <div class="modal-content modal-lg">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Tambah Role</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                  </button>
-              </div>
-               <div class="modal-body">
-                  <div class="table-responsive">
-                     <table class="table table-bordered" width="100%" cellspacing="0">
-                         <thead>
-                         <tr>
-                             <th>ID</th>
-                             <th>Nama Kelompok</th>
-                         </tr>
-                         </thead>
-                         <tfoot>
-                         <tr>
-                             <th>ID</th>
-                             <th>Nama Kelompok</th>
-                         </tr>
-                         </tfoot>
-                         <tbody>
-                         @foreach($kelompok as $value)
-                             <tr>
-                                <td>{{ $value->id }}</td>
-                                <td>{{ Str::upper($value->nama) }}</td>
-                             </tr>
-                         @endforeach
-                         </tbody>
-                     </table>
-                 </div>
-               </div>
-               <div class="modal-footer">
-                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-               </div>
-          </div>
-      </div>
-  </div>
+<div class="modal fade" id="modalKelompok" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Role</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nama Kelompok</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nama Kelompok</th>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        @foreach($kelompok as $value)
+                            <tr>
+                            <td>{{ $value->id }}</td>
+                            <td>{{ Str::upper($value->nama) }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 

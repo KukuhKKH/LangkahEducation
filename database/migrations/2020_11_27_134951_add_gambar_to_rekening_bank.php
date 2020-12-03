@@ -14,7 +14,7 @@ class AddGambarToRekeningBank extends Migration
     public function up()
     {
         Schema::table('rekening_bank', function (Blueprint $table) {
-            $table->string('logo')->after('alias');
+            $table->string('logo')->after('alias')->nullable();
         });
     }
 

@@ -10,12 +10,13 @@ use App\Models\TryoutPaket;
 use App\Models\PassingGrade;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Komentar;
 use Illuminate\Support\Facades\Auth;
 
 class MentoringController extends Controller
 {
     public function __construct() {
-        $this->middleware('role:mentor', ['only' => ['index', 'mentoring', 'hasil_tryout_detail']]);
+        $this->middleware('role:mentor|superadmin|admin', ['only' => ['index', 'mentoring', 'hasil_tryout_detail', 'komentar_store']]);
         $this->middleware('role:siswa', ['only' => ['siswa']]);
     }
 
@@ -60,7 +61,7 @@ class MentoringController extends Controller
 
     public function hasil_tryout($id) {
         try {
-            $hasil = TryoutHasil::with(['paket', 'user.siswa'])->where('user_id', $id)->get();
+            $hasil = TryoutHasil::with(['paket.temp', 'user.siswa'])->where('user_id', $id)->get();
             return response()->json(['error' => false, 'data' => $hasil], 200);
         } catch(\Exception $e) {
             return response()->json(['error' => true, 'message' => $e->getMessage()], 500);
@@ -108,9 +109,29 @@ class MentoringController extends Controller
             } else {
                 $pg1 = $pg2 = $nilai_user = 0;
             }
-            return view('pages.tryout.hasil-analisis.index', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket'));
+            $komentar = '';
+            if(auth()->user()->getRoleNames()->first() == 'mentor') {
+                $komentar = Komentar::where('mentor_id', auth()->user()->mentor()->first()->id)->where('tryout_hasil_id', $id)->first();
+            }
+            return view('pages.mentoring.analisis_mentor', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket' ,'komentar'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function komentar_store(Request $request, $hasil_id) {
+        $this->validate($request, [
+            'komentar' => 'required|max:191'
+        ]);
+        try {
+            Komentar::create([
+                'mentor_id' => auth()->user()->mentor()->first()->id,
+                'tryout_hasil_id' => $hasil_id,
+                'komentar' => $request->komentar
+            ]);
+            return redirect()->back()->with(['success' => "Berhasil mengirim komentar"]);
+        } catch(\Exception $e) {
+            return redirect()->back(['error' => $e->getMessage()]);
         }
     }
 }

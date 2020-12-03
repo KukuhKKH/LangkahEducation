@@ -8,6 +8,11 @@
    <div class="card-header py-3">
       <div class="d-flex justify-content-between mb-1">
          <h6 class="m-0 font-weight-bold text-primary">Daftar Siswa</h6>
+         <div class="text-center" id="loading" style="display: none">
+            <div class="spinner-border text-primary spinner-border-lg" role="status">
+               <span class="sr-only">Loading...</span>
+           </div>
+         </div>
       </div>
    </div>
    <div class="card-body">
@@ -42,9 +47,9 @@
                      <a href="{{ route('mentorig.mentoring', $value->id) }}" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Virtual Mentoring">
                         <i class="fas fa-fw fa-microphone"></i>
                      </a>
-                     <a href="javascript:void(0)" onclick="detailTryout({{ $value->id }})" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Analisis hasil tryout">
+                     <a href="javascript:void(0)" onclick="detailTryout({{ $value->user->id }})" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Analisis hasil tryout">
                         <i class="fas fa-fw fa-desktop"></i>
-                    </a>
+                     </a>
                   </td>
                </tr>
                @empty
@@ -100,10 +105,12 @@
    <script>
       const URL = `{{ url('dashboard/hasiltryout/siswa') }}`
       async function detailTryout(id) {
+         $('#loading').show()
          await new Promise((resolve, reject) => {
             fetch(`${URL}/${id}`)
             .then(response => response.json())
             .then((res) => {
+               $('#loading').hide()
                let data = res.data
                if(data.length > 0) {
                   let html = ``
@@ -114,7 +121,7 @@
                               <td>${element.paket.nama}</td>
                               <td>${element.nilai_awal}</td>
                               <td>${tgl}</td>
-                              <td><a href="${URL}/${element.id}/${element.paket.slug}/detail"><i class="fas fa-eye"></i></a></td>
+                              <td><a href="${URL}/${element.id}/${element.paket.slug}/detail?prodi-1=${element.paket.temp[0].passing_grade_id}&prodi-2=${element.paket.temp[1].passing_grade_id}"><i class="fas fa-eye"></i></a></td>
                            </tr>`
                   })
                   $('#body_table').html(html)

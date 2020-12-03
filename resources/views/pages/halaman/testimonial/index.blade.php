@@ -36,48 +36,58 @@
                         </tr>
                     </tfoot>
                     <tbody>
+                        @forelse ($testimoni as $value)
                         <tr>
+                            <td>{{ $loop->iteration }}</td>
                             <td>
-                                1
-                            </td>
-                            <td>
+                                @if ($value->foto)
+                                <img src="{{asset("upload/testimoni/$value->foto")}}" alt="profil-mentor"
+                                    style="height:40px">
+                                @else
                                 <img src="{{asset('assets/img/undraw_profile.svg')}}" alt="profil-mentor"
                                     style="height:40px">
+                                @endif
                             </td>
+                            <td>{{ $value->nama }}</td>
+                            <td>{{ $value->role }}</td>
+                            <td>{{ $value->testimoni }}</td>
                             <td>
-                                Muhammad Fatih
-                            </td>
-                            <td>
-                                Siswa
-                            </td>
-                            <td>
-                                Saya sangat terbantu dengan adanya platform Langkah Education
-                            </td>
-                            <td>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                        Tampil
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item text-danger" href="#">Sembunyikan</a>
+                                <form action="{{ route('testimoni.destroy', $value->id) }}" method="POST" id="form-{{ $value->id }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    @if ($value->status)
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-success dropdown-toggle"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Tampil
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item text-danger" href="{{ route('testimoni.status', ['id' => $value->id, 'status' => 0]) }}">Sembunyikan</a>
+                                        </div>
                                     </div>
-                                </div>
-                                {{-- <div class="btn-group">
-                                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                        Sembunyi
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item text-success" href="#">Tampilkan</a>
+                                    @else
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-danger dropdown-toggle"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Sembunyi
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item text-success" href="{{ route('testimoni.status', ['id' => $value->id, 'status' => 1]) }}">Tampilkan</a>
+                                        </div>
                                     </div>
-                                </div> --}}
-                                <button type="button" data-id="#" class="btn btn-danger hapus" data-toggle="tooltip"
-                                    data-placement="top" title="Hapus">
-                                    <i class="fas fa-trash"></i>
-                                </button>
+                                    @endif
+                                    <button type="button" data-id="{{ $value->id }}" class="btn btn-danger hapus"
+                                        data-toggle="tooltip" data-placement="top" title="Hapus"> <i
+                                            class="fas fa-trash"></i>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
+                        @empty
+                        <tr>
+                            <td colspan="6" class="text-center">Tidak ada data</td>
+                        </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
@@ -95,26 +105,26 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="#" method="post">
+            <form action="{{ route('testimoni.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="name">Nama Lengkap</label>
-                        <input name="name" type="text"
-                            class="form-control form-control-user @error('name') is-invalid @enderror"
-                            id="exampleFirstName" placeholder="Nama Lengkap" value="{{ old('name') }}">
-                        @error('name')
+                        <input name="nama" type="text"
+                            class="form-control form-control-user @error('nama') is-invalid @enderror"
+                            id="exampleFirstName" placeholder="Nama Lengkap" value="{{ old('nama') }}">
+                        @error('nama')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="status">Status</label>
-                        <input name="status" type="text"
-                            class="form-control form-control-user @error('status') is-invalid @enderror"
-                            placeholder="Masukkan Status" value="{{ old('status') }}">
-                        @error('status')
+                        <label for="status">Role</label>
+                        <input name="role" type="text"
+                            class="form-control form-control-user @error('role') is-invalid @enderror"
+                            id="exampleFirstName" placeholder="Masukkan Role" value="{{ old('role') }}">
+                        @error('role')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -122,10 +132,33 @@
                     </div>
                     <div class="form-group">
                         <label for="testimonial">Testimonial</label>
-                        <textarea name="testimonial" type="text"
-                            class="form-control form-control-user @error('testimonial') is-invalid @enderror"
-                            placeholder="Masukkan Status" value="{{ old('testimonial') }}" rows="3"></textarea>
-                        @error('testimonial')
+                        <textarea name="testimoni" type="text"
+                            class="form-control form-control-user @error('testimoni') is-invalid @enderror"
+                            placeholder="Masukkan Status" value="{{ old('testimoni') }}" rows="3"></textarea>
+                        @error('testimoni')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select name="status" class="form-control" autocomplete="off">
+                            <option value="" selected disabled>-- Pilih --</option>
+                            <option value="1">Tampil</option>
+                            <option value="0">Tidak Tampil</option>
+                        </select>
+                        @error('status')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="testimonial">Foto</label>
+                        <input name="foto" type="file"
+                            class="form-control form-control-user @error('foto') is-invalid @enderror">
+                        @error('foto')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -140,4 +173,26 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('js')
+<script>
+    $(".hapus").on('click', function() {
+      Swal.fire({
+         title: 'Yakin?',
+         text: "Ingin menghapus testimoni ini!",
+         icon: 'warning',
+         showCancelButton: true,
+         confirmButtonColor: '#3085d6',
+         cancelButtonColor: '#d33',
+         cancelButtonText: 'Tidak',
+         confirmButtonText: 'Ya!'
+      }).then((result) => {
+         if (result.isConfirmed) {
+            let id = $(this).data('id')
+            $(`#form-${id}`).submit()
+         }
+      })
+   })
+</script>
 @endsection

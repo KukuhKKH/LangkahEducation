@@ -46,8 +46,8 @@
             @role('mentor')
                @if (count($user->mentor->siswa) > 0)
                   <ol>
-                     @forelse ($uesr->mentor->siswa as $value)
-                        <li>{{ $value->nama }}</li>
+                     @forelse ($user->mentor->siswa as $value)
+                        <li>{{ $value->user->name }}</li>
                      @empty
                         <li>Tidak mempunyai siswa</li>
                      @endforelse

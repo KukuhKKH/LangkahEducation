@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Web\User;
 
+use App\Models\User;
 use App\Models\Author;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\AdminCreateRequest;
-use App\Http\Requests\Admin\AdminUpdateRequest;
+use Illuminate\Support\Facades\Hash;
 
 class AuthorController extends Controller
 {
@@ -28,8 +28,11 @@ class AuthorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AdminCreateRequest $request)
+    public function store(Request $request)
     {
+        $this->validate($request, [
+            'deskripsi' => 'nullable'
+        ]);
         try {
             $request->merge([
                 'is_active' => 1,
@@ -41,6 +44,10 @@ class AuthorController extends Controller
                 $request->foto = $foto_name;
             }
             $author = User::create($request->all());
+            Author::create([
+                'user_id' => $author->id,
+                'deskripsi' => $request->deskripsi
+            ]);
             $author->assignRole('author');
             return redirect()->back()->with(['success' => 'Berhasil tambah author']);
         } catch(\Exception $e) {
@@ -71,10 +78,13 @@ class AuthorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(AdminUpdateRequest $request, $id)
+    public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'deskripsi' => 'nullable'
+        ]);
         try {
-            $user = User::find($request->user_id);
+            $user = User::find($id);
             if($request->password_old) {
                 if(!Hash::check($request->password_old, $user->password)) {
                     return redirect()->back()->with(['error' => 'Password lama tidak cocok']);
@@ -89,13 +99,22 @@ class AuthorController extends Controller
                 $request->foto->move(public_path('upload/users/'), $foto_name);
                 $foto = $foto_name;
             }
-            $user->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => $request->password,
-                'foto' => $foto,
-                'is_active' => $request->is_active,
-            ]);
+            if($request->password_old) {
+                $user->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => $request->password,
+                    'foto' => $foto,
+                    'is_active' => $request->is_active,
+                ]);
+            } else {
+                $user->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'foto' => $foto,
+                    'is_active' => $request->is_active,
+                ]);
+            }
             $user->save();
             return redirect()->route('author.index')->with(['success' => 'Berhasil ubah author']);
         } catch(\Exception $e) {

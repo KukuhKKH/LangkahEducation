@@ -171,7 +171,7 @@
                     <img class="my-3" src="{{asset('assets/img/undraw_profile.svg')}}" alt="profil-mentor"
                     style="height:100px">
                     <div class="form-group">
-                        <textarea class="form-control mt-4" id="komentarMentor" rows="5" disabled>Bagus Pertahankan</textarea>
+                        <textarea class="form-control mt-4" id="komentarMentor" rows="5" disabled>{{ $komentar->komentar ?? 'Belum ada Komentar' }}</textarea>
                     </div>
                     @hasanyrole('mentor')
                     <button class="btn btn-langkah btn-block" type="submit">Kirim Komentar</button>

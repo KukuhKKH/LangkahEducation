@@ -140,4 +140,13 @@ class PendaftaranController extends Controller
             return redirect()->back()->with(['error' => $e->getMessage()])->withInput();
         }
     }
+
+    public function list_siswa($id) {
+        try {
+            $gelombang = Gelombang::with('siswa')->find($id);
+            return view('pages.pendaftaran.list_siswa', compact('gelombang'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()])->withInput();
+        }
+    }
 }
