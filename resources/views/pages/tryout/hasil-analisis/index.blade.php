@@ -244,7 +244,7 @@
     // Grafik Persaingan
     let ctx2 = document.getElementById("myPersaingan");
     let data_saingan = {
-        labels: {!! json_encode($nama_saingan) !!},
+        labels: {!! json_encode($nilai_saingan)!!},
             datasets: [{
             label: "Nilai",
             backgroundColor: "#4e73df",
