@@ -5,7 +5,7 @@
 <h1 class="h3 mb-4 text-gray-800">Pengaturan - Landing Page</h1>
 
 <div class="row">
-    <div class="col-xl-12">
+    <div class="col-12">
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-dark">Pengaturan - Landing Page</h6>
@@ -171,6 +171,16 @@
                         @enderror
                     </div>
                     <div class="form-group">
+                        <label for="">Email</label>
+                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
+                            placeholder="Masukkan email" value="{{ $data->email ?? old('email') }}">
+                        @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
                         <label for="">Alamat</label>
                         <input type="text" name="alamat" class="form-control @error('alamat') is-invalid @enderror"
                             placeholder="Masukkan Alamat" value="{{ $data->alamat ?? old('alamat') }}">
@@ -326,6 +336,16 @@
         </div>
     </div>
 </div>
+
+@endsection
+@section('js')
+<script>
+    $('input[type="file"]').change(function (e) {
+        var fileName = e.target.files[0].name;
+        $('.custom-file-label').html(fileName);
+    });
+
+</script>
 @endsection
 
 @section('js')

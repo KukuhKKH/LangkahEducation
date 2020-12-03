@@ -64,6 +64,7 @@ class PageController extends Controller
                 'biaya_sekolah' => $request->biaya_sekolah,
                 'deskripsi' => $request->deskripsi,
                 'alamat' => $request->alamat,
+                'email' => $request->email,
                 'noHP' => $request->noHP,
                 'akunIG' => $request->akunIG,
                 'urlIG' => $request->urlIG,

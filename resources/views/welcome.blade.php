@@ -69,6 +69,10 @@
                         Langkah Education merupakan Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem
                         odit quis
                         numquam mollitia minus nisi modi est ea esse eveniet?
+
+                        Langkah Education merupakan Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem
+                        odit quis
+                        numquam mollitia minus nisi modi est ea esse eveniet?
                     </p>
                     <ul>
                         <li><i class="fa fa-check"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequa</li>
@@ -94,38 +98,16 @@
                     fugiat sit
                     in iste officiis commodi quidem hic quas.</p> --}}
             </div>
-            <div class="row">
-
-                <div class="col-lg-4">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
                     <div class="box">
-                        <span>01</span>
-                        <h4>Lorem Ipsum</h4>
-                        <p>Ulamco laboris nisi ut aliquip ex ea commodo consequat. Et consectetur ducimus vero placeat
-                        </p>
+                        <span class="price">14 - 15 November 2020</span>
+                        <h4>Dibuka <span>Try Out Batch 1</span></h4>
+                        <h6>Biaya Pendaftaran <span>Rp. 100.000</span></h6>
+                        <a href="#" class="btn-buy">Daftar Sekarang</a>
                     </div>
                 </div>
-
-                <div class="col-lg-4 mt-4 mt-lg-0">
-                    <div class="box">
-                        <span>02</span>
-                        <h4>Repellat Nihil</h4>
-                        <p>Dolorem est fugiat occaecati voluptate velit esse. Dicta veritatis dolor quod et vel dire
-                            leno para
-                            dest</p>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 mt-4 mt-lg-0">
-                    <div class="box">
-                        <span>03</span>
-                        <h4> Ad ad velit qui</h4>
-                        <p>Molestiae officiis omnis illo asperiores. Aut doloribus vitae sunt debitis quo vel nam quis
-                        </p>
-                    </div>
-                </div>
-
             </div>
-
         </div>
     </section><!-- End Why Us Section -->
 

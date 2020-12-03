@@ -619,19 +619,27 @@ section {
     transition: all ease-in-out 0.3s;
 }
 
-.products .box span {
+.products .box .price {
     display: block;
-    font-size: 28px;
-    font-weight: 700;
-    color: #4e4e4e;
+    font-size: 18px;
+    font-weight: 600;
+    color: #aaaaaa;
 }
 
 .products .box h4 {
     font-size: 24px;
-    font-weight: 600;
+    font-weight: 700;
     padding: 0;
     margin: 20px 0;
     color: #434175;
+}
+
+.products .box h6 {
+  font-size: 18px;
+  font-weight: 600;
+  padding: 0;
+  margin: 20px 0;
+  color: #444444;
 }
 
 .products .box p {
@@ -649,8 +657,28 @@ section {
 
 .products .box:hover span,
 .products .box:hover h4,
-.products .box:hover p {
+.products .box:hover p,
+.products .box:hover h6 {
     color: #fff;
+}
+
+.products .box:hover .btn-buy{
+  background: #fff !important;
+  color: #ECB811 !important;
+}
+
+.products .btn-buy {
+  background: #ECB811;
+  display: inline-block;
+  padding: 10px 35px;
+  border-radius: 50px;
+  color: #fff;
+  transition: none;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: "Raleway", sans-serif;
+  transition: 0.3s;
+  border: none;
 }
 
 
@@ -1195,8 +1223,8 @@ section {
 }
 
 #blog a{
-  color: #afa29e !important;
-  text-decoration: underline;
+  color: #fff !important;
+  /* text-decoration: underline; */
 }
 
 #blog i, .blog small{

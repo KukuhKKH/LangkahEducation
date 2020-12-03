@@ -36,6 +36,7 @@ class UpdateDataLandingPage extends FormRequest
             'biaya_individu' => 'required',
             'biaya_sekolah' => 'required',
             'deskripsi' => 'required',
+            'email' => 'required',
             'alamat' => 'required',
             'noHP' => 'required',
             'akunIG' => 'required',
