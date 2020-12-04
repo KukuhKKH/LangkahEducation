@@ -27,6 +27,10 @@
                     <div class="col-xl-8">
                         @forelse ($artikel as $value)
                             <div class="card shadow mb-4">
+                                <div class="card-img-top">
+                                    <img src="{{asset('assets-landingpage/img/blog/blog-1.jpg')}}" class="img-cover"
+                                        height="200vh">
+                                </div>
                                 <div class="card-body">
                                     <a href="{{ route('page.blog.detail', $value->slug) }}">
                                         <h4 class="font-weight-bold mb-4">{{ $value->judul }}</h4>

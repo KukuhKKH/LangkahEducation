@@ -1258,6 +1258,14 @@ section {
 #blog i, .blog small{
   color: #afa29e !important;
   }
+
+#blog #category a{
+  color: #343a40 !important;
+}
+
+#blog #category a:hover{
+  color:#ECB811 !important;
+}
 /*--------------------------------------------------------------
 # Testimonials
 --------------------------------------------------------------*/

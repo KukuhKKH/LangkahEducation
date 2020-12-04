@@ -8,6 +8,10 @@
             <div class="row">
                 <div class="col-xl-8">
                     <div class="card shadow mb-2">
+                        <div class="card-img-top">
+                            <img src="{{asset('assets-landingpage/img/blog/blog-1.jpg')}}" class="img-cover"
+                                height="300vh">
+                        </div>
                         <div class="card-body">
                             <h4 class="font-weight-bold mb-4">{{$artikel->judul}}</h4>
                             <div class="d-flex justify-content-start align-items-center mb-4">
