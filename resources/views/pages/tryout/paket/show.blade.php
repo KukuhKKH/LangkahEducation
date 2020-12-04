@@ -79,24 +79,27 @@
                                 <form action="{{ route('paket.destroy', $value->id) }}" method="POST" id="form-{{ $value->id }}">
                                     @csrf
                                     @method('DELETE')
-                                    <a href="{{ route('paket.edit', $value->id) }}" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit">
+                                    <a href="{{ route('paket.edit', $value->id) }}" class="btn btn-success my-1" data-toggle="tooltip" data-placement="top" title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    <a href="{{ route('soal.show', $value->slug) }}" class="btn btn-warning text-dark">
+                                    <a href="{{ route('soal.show', $value->slug) }}" class="btn btn-warning my-1 text-dark">
                                         <i class="fas fa-plus"></i> Soal Tryout
                                     </a>
-                                    <button type="button" class="btn btn-danger hapus" data-id="{{ $value->id }}" data-toggle="tooltip" data-placement="top" title="Hapus">
+                                    <button type="button" class="btn btn-danger my-1 hapus" data-id="{{ $value->id }}" data-toggle="tooltip" data-placement="top" title="Hapus">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
                             </td>
                         </tr>
                     @empty
-                        <tr>
-                            <td colspan="4" class="text-center">
-                                Tidak ada data
-                            </td>
-                        </tr>
+                    <tr>
+                        <td colspan="5" class="text-center">
+                            <div class="text-center mb-3 p-5 bg-light">
+                                <img class="mb-3" height="50px" src="{{asset('assets/img/null-icon.svg')}}" alt="">
+                                <h6>Tidak Ada Paket Soal</h6>
+                            </div>
+                        </td>
+                    </tr>
                     @endforelse
                     </tbody>
                 </table>

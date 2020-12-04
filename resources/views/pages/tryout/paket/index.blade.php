@@ -2,17 +2,16 @@
 @section('title', "Paket Try out")
 
 @section('content')
-<h1 class="h3 mb-2 text-gray-800">Paket Try out</h1>
-<p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information
-    about DataTables, please visit the</p>
+<h1 class="h3 mb-4 text-gray-800">Paket Try out</h1>
+
 
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <div class="d-flex justify-content-between mb-1">
-            <h6 class="m-0 font-weight-bold text-primary">Paket Try out</h6>
-            <div class="btn-group btn-group-md mb-3">
-                <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal"
-                    data-target="#modalData"><i class="fa fa-plus"></i> Tambah Paket</button>
+    <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+            <h6 class="font-weight-bold text-primary">Paket Try out</h6>
+            <div class="btn-group btn-group-md">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalData"><i
+                        class="fa fa-plus"></i> Tambah Paket</button>
             </div>
         </div>
     </div>
@@ -25,7 +24,7 @@
                         <th>Nama Paket</th>
                         <th>Status</th>
                         <th>Total Soal Tryout</th>
-                        <th width="20%">Aksi</th>
+                        <th width="30%">Aksi</th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -34,45 +33,53 @@
                         <th>Nama Paket</th>
                         <th>Status</th>
                         <th>Total Soal Tryout</th>
-                        <th width="20%">Aksi</th>
+                        <th width="30%">Aksi</th>
                     </tr>
                 </tfoot>
                 <tbody>
                     @forelse($paket as $value)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $value->nama }}</td>
-                            <td>
-                                @if ($value->status)
-                                    <span class="badge badge-success p-2">Aktif</span>
-                                @else
-                                    <span class="badge badge-danger p-2">Tidak Aktif</span>
-                                @endif
-                            </td>
-                            <td>{{ count($value->soal) }}</td>
-                            <td>
-                                <form action="{{ route('paket.destroy', $value->id) }}" method="POST" id="form-{{ $value->id }}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <a href="{{ route('paket.edit', $value->id) }}" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <a href="{{ route('paket.soal.detail', $value->id) }}" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Lihat Semua Soal">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                    <a href="{{ route('soal.show', $value->slug) }}" class="btn btn-warning text-dark" data-toggle="tooltip" data-placement="top" title="Tambah Soal">
-                                        <i class="fas fa-plus"></i>
-                                    </a>
-                                    <button type="button" class="btn btn-danger hapus" data-id="{{ $value->id }}" data-toggle="tooltip" data-placement="top" title="Hapus">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $value->nama }}</td>
+                        <td>
+                            @if ($value->status)
+                            <span class="badge badge-success p-2">Aktif</span>
+                            @else
+                            <span class="badge badge-danger p-2">Tidak Aktif</span>
+                            @endif
+                        </td>
+                        <td>{{ count($value->soal) }}</td>
+                        <td>
+                            <form action="{{ route('paket.destroy', $value->id) }}" method="POST"
+                                id="form-{{ $value->id }}">
+                                @csrf
+                                @method('DELETE')
+                                <a href="{{ route('paket.edit', $value->id) }}" class="btn btn-success my-1"
+                                    data-toggle="tooltip" data-placement="top" title="Edit">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="{{ route('paket.soal.detail', $value->id) }}" class="btn btn-primary my-1"
+                                    data-toggle="tooltip" data-placement="top" title="Lihat Semua Soal">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="{{ route('soal.show', $value->slug) }}" class="btn btn-warning text-dark my-1"
+                                    data-toggle="tooltip" data-placement="top" title="Tambah Soal">
+                                    <i class="fas fa-plus"></i>
+                                </a>
+                                <button type="button" class="btn btn-danger my-1 hapus" data-id="{{ $value->id }}"
+                                    data-toggle="tooltip" data-placement="top" title="Hapus">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
                     @empty
                     <tr>
-                        <td colspan="4" class="text-center">
-                            Tidak ada data
+                        <td colspan="5" class="text-center">
+                            <div class="text-center mb-3 p-5 bg-light">
+                                <img class="mb-3" height="50px" src="{{asset('assets/img/null-icon.svg')}}" alt="">
+                                <h6>Tidak Ada Paket Soal</h6>
+                            </div>
                         </td>
                     </tr>
                     @endforelse
@@ -162,21 +169,21 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="">Status</label>
-                            <select name="status" class="form-control @error('status') is-invalid @enderror">
-                                <option value="1">Aktif</option>
-                                <option value="0">Tidak Aktif</option>
-                            </select>
-                            @error('status')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
+                            <div class="form-group">
+                                <label for="">Status</label>
+                                <select name="status" class="form-control @error('status') is-invalid @enderror">
+                                    <option value="1">Aktif</option>
+                                    <option value="0">Tidak Aktif</option>
+                                </select>
+                                @error('status')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
                         </div>
                     </div>
-                    </div>
-                    
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>

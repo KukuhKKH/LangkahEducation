@@ -38,12 +38,18 @@
                <?php $k++; ?>
             </div>
             @empty
-               <div class="text-center mb-3">
-                  <h2>Belum ada soal</h2>
+               <div class="col-12">
+                  <div class="text-center mb-3 p-5 bg-light">
+                  <img class="mb-3" height="50px" src="{{asset('assets/img/null-icon.svg')}}" alt="">
+                     <h6>Belum ada soal</h6>
+                  </div>
                </div>
             @endforelse
          </div>
-         <a href="{{ route('paket.index') }}" class="btn btn-primary">Kembali</a>
+         <div class="text-right">
+         <a href="{{ route('paket.index') }}" class="btn btn-dark">Kembali</a>
+
+         </div>
       </div>
    </div>
 @endsection
