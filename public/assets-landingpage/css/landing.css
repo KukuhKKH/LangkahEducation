@@ -261,7 +261,11 @@ h6 {
 }
 
 .mobile-nav-toggle i {
-    color: #434175;
+    color: #fff;
+}
+
+.mobilenav-scrolled i {
+  color: #ECB811 !important;
 }
 
 .mobile-nav {

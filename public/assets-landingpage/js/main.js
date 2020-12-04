@@ -25,7 +25,7 @@
 
         if ($('body').hasClass('mobile-nav-active')) {
           $('body').removeClass('mobile-nav-active');
-          $('.mobile-nav-toggle i').toggleClass('icofont-navigation-menu icofont-close');
+          $('.mobile-nav-toggle i').toggleClass('fa fa-bars fa fa-times');
           $('.mobile-nav-overly').fadeOut();
         }
         return false;
@@ -51,13 +51,13 @@
     var $mobile_nav = $('.nav-menu').clone().prop({
       class: 'mobile-nav d-lg-none'
     });
-    $('body').append($mobile_nav);
-    $('body').prepend('<button type="button" class="mobile-nav-toggle d-lg-none"><i class="icofont-navigation-menu"></i></button>');
+    $('body').append($mobile_nav); 
+    $('body').prepend('<button type="button" id="mobileNav" class="mobile-nav-toggle d-lg-none"><i class="fa fa-bars"></i></button>');
     $('body').append('<div class="mobile-nav-overly"></div>');
 
     $(document).on('click', '.mobile-nav-toggle', function(e) {
       $('body').toggleClass('mobile-nav-active');
-      $('.mobile-nav-toggle i').toggleClass('icofont-navigation-menu icofont-close');
+      $('.mobile-nav-toggle i').toggleClass('fa fa-bars fa fa-times');
       $('.mobile-nav-overly').toggle();
     });
 
@@ -72,7 +72,7 @@
       if (!container.is(e.target) && container.has(e.target).length === 0) {
         if ($('body').hasClass('mobile-nav-active')) {
           $('body').removeClass('mobile-nav-active');
-          $('.mobile-nav-toggle i').toggleClass('icofont-navigation-menu icofont-close');
+          $('.mobile-nav-toggle i').toggleClass('fa fa-bars fa fa-times');
           $('.mobile-nav-overly').fadeOut();
         }
       }
@@ -126,14 +126,19 @@
     if ($(this).scrollTop() > 100) {
       $('#header').addClass('header-scrolled');
       $("#navLogo").attr("src","assets/img/logo-primary.svg");
+      $('#mobileNav').addClass('mobilenav-scrolled');
+
     } else {
       $('#header').removeClass('header-scrolled');
       $("#navLogo").attr("src","assets/img/logo-secondary.svg");
+      $('#mobileNav').removeClass('mobilenav-scrolled');
+
     }
   });
 
   if ($(window).scrollTop() > 100) {
     $('#header').addClass('header-scrolled');
+    $('#mobileNav').addClass('mobilenav-scrolled');
   }
 
   // Back to top button
