@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/datepicker/css/bootstrap-datepicker3.min.css') }}">
 
     <!-- Custom styles for this template-->
-    <link href="{{asset('assets/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/css/dashboard.min.css')}}" rel="stylesheet">
     <link href="{{asset('assets/css/langkahedu.css')}}" rel="stylesheet">
 
     @yield('css')
@@ -35,7 +35,7 @@
     <script src="{{asset('assets/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="{{asset('assets/js/sb-admin-2.min.js')}}"></script>
+    <script src="{{asset('assets/js/dashboard.min.js')}}"></script>
     <script src="{{ asset('assets/vendor/datepicker/js/bootstrap-datepicker.min.js') }}"></script>
     @yield('js')
 

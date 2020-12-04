@@ -2,7 +2,7 @@
 <ul class="navbar-nav bg-white sidebar sidebar-light accordion" id="accordionSidebar">
 
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
-        <img src="{{ asset('assets/img/logo-primary.svg') }}" class="img-fluid" alt="" srcset="">
+        <img id="logoDashboard" src="{{ asset('assets/img/logo-primary.svg') }}" class="img-fluid p-2" alt="" srcset="">
     </a>
 
     <hr class="sidebar-divider my-0 mb-3">
@@ -281,12 +281,6 @@
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0 bg-warning" id="sidebarToggle"></button>
-    </div>
-
-    <!-- Sidebar Message -->
-    <div class="sidebar-card">
-        <img class="sidebar-card-illustration mb-2" src="{{ asset('assets/img/undraw_rocket.svg') }}" alt="">
-        <p class="text-center mb-2"><strong>Langkah Education</strong> Lorem ipsum dolor sit amet consectetur adipisicing.</p>
     </div>
     
 </ul>
