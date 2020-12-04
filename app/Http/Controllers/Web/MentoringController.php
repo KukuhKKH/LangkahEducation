@@ -11,13 +11,14 @@ use App\Models\PassingGrade;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Komentar;
+use App\Models\TryoutSoal;
 use Illuminate\Support\Facades\Auth;
 
 class MentoringController extends Controller
 {
     public function __construct() {
         $this->middleware('role:mentor|superadmin|admin', ['only' => ['index', 'mentoring', 'hasil_tryout_detail', 'komentar_store']]);
-        $this->middleware('role:siswa', ['only' => ['siswa']]);
+        $this->middleware('role:siswa', ['only' => ['siswa', 'pembahasan']]);
     }
 
     // Mentoring mentor
@@ -41,6 +42,16 @@ class MentoringController extends Controller
             return view('pages.mentoring.index', compact('user', 'chat'));
         } else {
             return redirect()->back()->with(['error' => 'Anda belum memiliki mentor']);
+        }
+    }
+
+    public function pembahasan($paket_id, $kategori_id) {
+        try {
+            $paket = TryoutSoal::with(['jawaban', 'paket'])->where('tryout_paket_id', $paket_id)->where('tryout_kategori_soal_id', $kategori_id)->get();
+            return view('pages.mentoring.pembahasan', compact('paket'));
+        }  catch(\Exception $e) {
+            dd($e);
+            return redirect()->back()->with(['error' => $e->getMessage()]);
         }
     }
 

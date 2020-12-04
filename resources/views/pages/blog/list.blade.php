@@ -15,7 +15,7 @@
                                 </a>
                                 <div class="d-flex justify-content-start align-items-center mb-4">
                                     <i class="fa fa-sm fa-user"></i>
-                                    <a href="{{ route('page.blog.author', $value->user->author()->first()->kode) }}"><small class="mx-2">{{ $value->user->name }}</small></a>
+                                    <a href="{{ route('page.blog.author', $value->user->api_token) }}"><small class="mx-2">{{ $value->user->name }}</small></a>
 
                                     <i class="fa fa-sm fa-clock"></i>
                                     <small class="mx-2">{{ Carbon\Carbon::parse($value->created_at)->format('F d, Y') }}</small>
@@ -24,7 +24,7 @@
                                 @php
                                     $string = preg_replace("/&#?[a-z0-9]+;/i", " ", $value->isi);
                                 @endphp
-                                {!! $string !!}
+                                <p>{{ (strlen(strip_tags($string)) > 200) ? substr(strip_tags($string), 0, 200) . '...' : strip_tags($string) }}</p>
 
                                 <a href="{{ route('page.blog.detail', $value->slug) }}" class="btn-link">Read More</a>
                             </div>
@@ -33,6 +33,7 @@
                         <h4>Tidak ada artikel</h4>
                     @endforelse
                     
+                    {{ $artikel->links() }}
                 </div>
                 <div class="col-xl-4">
                     <div class="card shadow">

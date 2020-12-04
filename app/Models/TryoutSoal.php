@@ -32,4 +32,8 @@ class TryoutSoal extends Model
     public function hasil_detail() {
         return $this->hasMany('App\Models\TryoutHasilDetail');
     }
+
+    // public function hasil() {
+    //     return $this->hasMany('App\Models\TryoutHasilJawaban');
+    // }
 }

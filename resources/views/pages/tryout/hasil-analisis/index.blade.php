@@ -133,7 +133,7 @@
                                 <td>{{ $value->salah }}</td>
                                 <td>{{ $value->kosong }}</td>
                                 <td>{{ $value->nilai }}</td>
-                                <td><a href="#" class="btn btn-primary">Lihat</a></td>
+                                <td><a href="{{ route('mentoring.pembahasan',['paket_id' => $value->tryout_paket_id, 'kategori_id' =>  $value->tryout_kategori_soal_id]) }}" class="btn btn-primary">Lihat</a></td>
                             </tr>
                         @empty
                             <tr>

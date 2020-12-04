@@ -128,6 +128,7 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
             Route::post('mentoring/kirim/{siswa_id}/{mentor_id}', 'MentoringController@kirim_pesan')->name('kirim_pesan');
             Route::get('hasiltryout/siswa/{id}/{slug}/detail', 'MentoringController@hasil_tryout_detail')->name('hasil_tryout.detail');
             Route::post('mentoring/komentar/{hasil_id}', 'MentoringController@komentar_store')->name('mentoring.komentar');
+            Route::get('mentoring/pembahasan/{paket_id}/{kategori_id}', 'MentoringController@pembahasan')->name('mentoring.pembahasan');
 
             Route::get('bank/{id}', 'BankController@show_bank');
 
@@ -168,6 +169,8 @@ Route::group(['prefix' => 'blog', 'namespace' => 'Web\Blog'], function () {
     Route::get('/', 'PageController@index')->name('page.blog.index');
     Route::get('/{slug}', 'PageController@detail')->name('page.blog.detail');
     Route::get('/author/{kode}', 'PageController@detail_author')->name('page.blog.author');
+    Route::get('/kategori/{kategori}', 'PageController@kategori')->name('page.blog.kategori');
+    Route::post('blog/komentar/{blog_id}', 'PageController@komentar')->name('page.blog.komentar.store');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -181,7 +184,7 @@ Route::group(['prefix' => 'dev'], function() {
         return view('emails.register', compact('user'));
     });
     Route::get('blog', function() {
-        return view('pages.halaman.blog.create');
+        return view('pages.blog.author-profile');
     });
     Route::get('detail', function() {
         return view('pages.blog.list');

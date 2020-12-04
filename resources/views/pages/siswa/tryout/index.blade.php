@@ -70,7 +70,7 @@
                         $cek = $value->wherehas('hasil', function($q) use($value) {
                                     $q->where('user_id', auth()->user()->id)->where('tryout_paket_id', $value->id);
                                 })->get();
-                        $today = date('m/d/Y');
+                        $today = date('Y-m-d H:i');
                     @endphp
                     @if ($today > $value->tgl_awal && $today < $value->tgl_akhir)
                         @if (count($cek) > 0)

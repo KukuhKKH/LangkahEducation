@@ -17,7 +17,11 @@ class BlogController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $artikel = $user->blog;
+        if($user->getRoleNames()->first() == 'superadmin' || $user->getRoleNames()->first() == 'admin') {
+            $artikel = Blog::latest()->paginate(10);
+        } else {
+            $artikel = $user->blog()->latest()->paginate(10);
+        }
         return view('pages.halaman.blog.index', compact('artikel'));
     }
 

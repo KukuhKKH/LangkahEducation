@@ -12,7 +12,7 @@
                             <h4 class="font-weight-bold mb-4">{{$artikel->judul}}</h4>
                             <div class="d-flex justify-content-start align-items-center mb-4">
                                 <i class="fa fa-sm fa-user"></i>
-                                <a href="{{ route('page.blog.author', $artikel->user->author()->first()->kode) }}"><small class="mx-2">{{ $artikel->user->name }}</small></a>
+                                <a href="{{ route('page.blog.author', $artikel->user->api_token) }}"><small class="mx-2">{{ $artikel->user->name }}</small></a>
 
                                 <i class="fa fa-sm fa-clock"></i>
                                 <small class="mx-2">{{ Carbon\Carbon::parse($artikel->created_at)->format('d F Y, H:i') }}</small>
@@ -27,19 +27,25 @@
                             <div id="add-comment">
                                 @guest
                                 <h4>Login jika ingin membuat komentar</h4>
+                                <a href="{{ route('login') }}" class="btn btn-primary btn-sm text-white">Login</a>
                                 @else    
-                                <form action="">
+                                <form action="{{ route('page.blog.komentar.store', $artikel->id) }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
                                     <div class="row">
                                         <div class="col-auto">
-                                            <img src="{{asset('assets/img/undraw_profile.svg') }}" class="avatar-lg"
-                                                alt="Avatar">
+                                            @if (auth()->user()->foto)
+                                            <?php $foto = auth()->user()->foto ?>
+                                            <img src="{{asset("upload/>user/$foto") }}" class="avatar " alt="Avatar">    
+                                            @else
+                                            <img src="{{asset('assets/img/undraw_profile.svg') }}" class="avatar " alt="Avatar">    
+                                            @endif
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <textarea name="add-komentar" id="add-komentar"
-                                                    class="form-control @error('add-komentar') is-invalid @enderror"
+                                                <textarea name="komentar" id="add-komentar"
+                                                    class="form-control @error('komentar') is-invalid @enderror"
                                                     placeholder="Masukkan Komentar" rows="4"></textarea>
-                                                @error('add-komentar')
+                                                @error('komentar')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -47,7 +53,7 @@
                                             </div>
                                         </div>
                                         <div class="col-xl-12 text-right">
-                                            <button class="btn btn-primary">
+                                            <button type="submit" class="btn btn-primary">
                                                 <i class="fas fa-paper-plane"></i> Kirim Komentar
                                             </button>
                                         </div>
@@ -58,31 +64,24 @@
                             <label class="mt-3">Komentar :</label>
 
                             <div id="comment-list" class="bg-light p-4">
-                                <div class="row my-2" id="komentar">
-                                    <div class="col-auto">
-                                        <img src="{{asset('assets/img/undraw_profile.svg') }}" class="avatar "
-                                            alt="Avatar">
+                                @forelse ($komentar as $value)
+                                    <div class="row my-2" id="komentar">
+                                        <div class="col-auto">
+                                            @if ($value->user->foto)
+                                            <img src="{{asset("upload/>user/$value->foto") }}" class="avatar " alt="Avatar">    
+                                            @else
+                                            <img src="{{asset('assets/img/undraw_profile.svg') }}" class="avatar " alt="Avatar">    
+                                            @endif
+                                        </div>
+                                        <div class="col">
+                                            <h6 class="font-weight-bold">{{ $value->user->name }}</h6>
+                                            <p>{{ $value->komentar }}</p>
+                                            <hr>
+                                        </div>
                                     </div>
-                                    <div class="col">
-                                        <h6 class="font-weight-bold">Kukuh</h6>
-                                        <p>Kenapa ya kak ak jomblo terus?
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil, cum.
-                                        </p>
-                                        <hr>
-                                    </div>
-                                </div>
-                                <div class="row my-2" id="komentar">
-                                    <div class="col-auto">
-                                        <img src="{{asset('assets/img/undraw_profile.svg') }}" class="avatar "
-                                            alt="Avatar">
-                                    </div>
-                                    <div class="col">
-                                        <h6 class="font-weight-bold">Sopo Yo</h6>
-                                        <p>Makanya Cari Jodoh. Sini aku promosiin di T#kopedia
-                                        </p>
-                                        <hr>
-                                    </div>
-                                </div>
+                                @empty
+                                <h6 class="font-weight-bold">Belum ada komentar</h6>
+                                @endforelse
                             </div>
                         </div>
                     </div>
@@ -94,8 +93,10 @@
                             <div class="sidebar-item recent-posts">
                                 @forelse ($lainnya as $value)
                                     <div class="post-item clearfix">
-                                        <img src="{{asset('assets-landingpage/img/blog/blog-1.jpg')}}" alt="">
-                                        <h4>{{ $value->judul }}</h4>
+                                        <img src="{{asset("upload/blog/$value->foto")}}" alt="">
+                                        <h4>
+                                            <a href="{{ route('page.blog.detail', $value->slug) }}">{{ $value->judul }}</a>
+                                        </h4>
                                         <time datetime="2020-01-01">{{ Carbon\Carbon::parse($value->created_at)->format('F d, Y') }}</time>
                                     </div>
                                 @empty
@@ -110,8 +111,8 @@
                             <div class="sidebar-item recent-posts">
                                 @forelse ($terkait as $value)
                                     <div class="post-item clearfix">
-                                        <img src="{{asset('assets-landingpage/img/blog/blog-1.jpg')}}" alt="">
-                                        <h4>{{ $value->judul }}</h4>
+                                        <img src="{{asset("upload/blog/$value->foto")}}" alt="">
+                                        <h4><a href="{{ route('page.blog.detail', $value->slug) }}">{{ $value->judul }}</a></h4>
                                         <time datetime="2020-01-01">{{ Carbon\Carbon::parse($value->created_at)->format('F d, Y') }}</time>
                                     </div>
                                 @empty

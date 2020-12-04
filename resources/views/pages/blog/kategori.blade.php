@@ -6,25 +6,7 @@
         <section id="blog" class="blog">
             <div class="container">
                 <div class="row">
-                    <div class="col-xl-8">
-                        <div class="card shadow mb-4 text-center p-4">
-                            <div class="card-body text-align-center">
-                                @if ($user->foto)
-                                <?php $foto = $user->foto ?>
-                                <img src="{{asset("upload/>user/$foto") }}" class="avatar " alt="Avatar">    
-                                @else
-                                <img src="{{asset('assets/img/undraw_profile.svg') }}" class="avatar " alt="Avatar">    
-                                @endif
-                                <h4 class="font-weight-bold mt-3">{{ $user->name }}</h4>
-                                {{-- <h6 class="text-grey">Mahasiswa Ideal</h6>
-                                <div class="bg-light mt-3 p-5">
-                                    <p class="font-italic">"Cobalah melihat pada sisi yang tak terlihat. Jika tetep ga kelihatan coba deh nyalain lampu"
-                                    </p>
-                                </div> --}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-8">
+                    <div class="col-xl-12">
                         @forelse ($artikel as $value)
                             <div class="card shadow mb-4">
                                 <div class="card-body">
@@ -50,6 +32,7 @@
                         @empty
                             <h4>Tidak ada artikel</h4>
                         @endforelse
+                        {{ $artikel->links() }}
                     </div>
                 </div>
             </div>

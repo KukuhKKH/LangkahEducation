@@ -124,7 +124,7 @@
             </div>
             @endrole
             @role('author')
-            <div class="col-6">
+            {{-- <div class="col-6">
                <div class="form-group">
                   <label for="">Deskripsi</label>
                   <textarea name="deskripsi" id="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror">{{ $user->author->deskripsi }}</textarea>
@@ -134,7 +134,7 @@
                   </span>
                   @enderror
                </div>
-            </div>
+            </div> --}}
             @endrole
             {{-- End Data Tabel Siswa --}}
             <div class="col-12">

@@ -8,10 +8,10 @@
        <nav class="nav-menu d-none d-lg-block">
            <ul>
                <li><a href="{{ route('page.blog.index') }}">Beranda</a></li>
-               <li><a href="#">UTBK</a></li>
-               <li><a href="#">SBMPTN</a></li>
-               <li><a href="#">SAINTEK</a></li>
-               <li><a href="#">SOSHUM</a></li>
+               <li><a href="{{ route('page.blog.kategori', 'UNBK') }}">UTBK</a></li>
+               <li><a href="{{ route('page.blog.kategori', 'SBMPTN') }}">SBMPTN</a></li>
+               <li><a href="{{ route('page.blog.kategori', 'SAINTEK') }}">SAINTEK</a></li>
+               <li><a href="{{ route('page.blog.kategori', 'SOSHUM') }}">SOSHUM</a></li>
            </ul>
        </nav><!-- .nav-menu -->
 

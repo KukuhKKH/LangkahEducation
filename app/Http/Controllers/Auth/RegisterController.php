@@ -32,7 +32,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -88,7 +88,7 @@ class RegisterController extends Controller
             'asal_sekolah' => $data['asal_sekolah'],
             'tanggal_lahir' => $new_tgl,
         ]);
-        Mail::to($user->email)->send(new VerifikasiEmail($user));
+        // Mail::to($user->email)->send(new VerifikasiEmail($user));
         return $user;
     }
 }

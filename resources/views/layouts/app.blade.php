@@ -38,6 +38,23 @@
 
 @include('partials.landingpage.footer')
 @yield('js')
+<script>
+    @if (session('success'))
+    swal.fire({
+        'Berhasil!',
+        `{!! session('success') !!}`,
+        'success'
+    })
+    @endif
+
+    @if (session('error'))
+    Swal.fire({
+        icon: 'error',
+        title: `{!! session('error') !!}`,
+        text: 'Something went wrong!'
+    })
+    @endif
+</script>
 </body>
 
 </html>

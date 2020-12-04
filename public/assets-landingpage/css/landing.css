@@ -1247,6 +1247,10 @@ section {
   /* text-decoration: underline; */
 }
 
+#blog a.page-link {
+  color: #007bff !important;
+}
+
 #blog a:hover{
   color: #343a40 !important;
 }

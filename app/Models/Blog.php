@@ -28,4 +28,8 @@ class Blog extends Model
     public function kategori() {
         return $this->belongsToMany("App\Models\Kategori", "blog_kategori");
     }
+
+    public function komentar() {
+        return $this->hasMany('App\Models\KomentarBlog');
+    }
 }

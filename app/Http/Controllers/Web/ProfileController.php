@@ -76,9 +76,9 @@ class ProfileController extends Controller
                     'kode_referal' => $request->kode_referal
                 ]);
             } else if($role == 'author') {
-                $user->author()->update([
-                    'deskripsi' => $request->deskripsi
-                ]);
+                // $user->author()->update([
+                //     'deskripsi' => $request->deskripsi
+                // ]);
             } else if($role == 'mentor') {
                 $user->mentor()->update([
                     'pendidikan_terakhir' => $request->pendidikan_terakhir

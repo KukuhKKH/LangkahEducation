@@ -77,7 +77,9 @@ class PaketController extends Controller
     {
         try {
             $paket = TryoutPaket::find($id);
-            return view('pages.tryout.paket.edit', compact('paket'));
+            $tgl_awal = \explode(' ', $paket->tgl_awal);
+            $tgl_akhir = \explode(' ', $paket->tgl_akhir);
+            return view('pages.tryout.paket.edit', compact('paket', 'tgl_awal', 'tgl_akhir'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
@@ -96,8 +98,8 @@ class PaketController extends Controller
             $paket = TryoutPaket::find($id);
             $raw_tgl_awal = \explode('/', $request->tgl_awal);
             $raw_tgl_akhir = \explode('/', $request->tgl_akhir);
-            $tgl_awal = "$raw_tgl_awal[1]/$raw_tgl_awal[0]/$raw_tgl_awal[2]";
-            $tgl_akhir = "$raw_tgl_akhir[1]/$raw_tgl_akhir[0]/$raw_tgl_akhir[2]";
+            $tgl_awal = "$raw_tgl_awal[2]-$raw_tgl_awal[1]-$raw_tgl_awal[0] $request->jam_awal";
+            $tgl_akhir = "$raw_tgl_akhir[2]-$raw_tgl_akhir[1]-$raw_tgl_akhir[0] $request->jam_akhir";
             $paket->update([
                 'nama' => $request->nama,
                 'status' => $request->status,
