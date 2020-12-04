@@ -1,25 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <!-- ======= Header ======= -->
-<header id="header" class="fixed-top ">
-    <div class="container d-flex align-items-center justify-content-between">
-
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <a href="index.html" class="logo"><img id="navLogo" src="assets/img/logo-secondary.svg" alt=""
-                class="img-fluid"></a>
-
-        <nav class="nav-menu d-none d-lg-block">
-            <ul>
-                <li><a href="#">Beranda</a></li>
-                <li><a href="#">UTBK</a></li>
-                <li><a href="#">SBMPTN</a></li>
-                <li><a href="#">SAINTEK</a></li>
-                <li><a href="#">SOSHUM</a></li>
-            </ul>
-        </nav><!-- .nav-menu -->
-
-    </div>
-</header><!-- End Header -->
+@include('partials.landingpage.header-blog')
 <main id="main">
     <section id="blog" class="blog">
         <div class="container">
@@ -30,7 +12,7 @@
                             <h4 class="font-weight-bold mb-4">{{$artikel->judul}}</h4>
                             <div class="d-flex justify-content-start align-items-center mb-4">
                                 <i class="fa fa-sm fa-user"></i>
-                                <a href=""><small class="mx-2">{{ $artikel->user->name }}</small></a>
+                                <a href="{{ route('page.blog.author', $artikel->user->author()->first()->kode) }}"><small class="mx-2">{{ $artikel->user->name }}</small></a>
 
                                 <i class="fa fa-sm fa-clock"></i>
                                 <small class="mx-2">{{ Carbon\Carbon::parse($artikel->created_at)->format('d F Y, H:i') }}</small>
@@ -43,6 +25,9 @@
                             <hr>
 
                             <div id="add-comment">
+                                @guest
+                                <h4>Login jika ingin membuat komentar</h4>
+                                @else    
                                 <form action="">
                                     <div class="row">
                                         <div class="col-auto">
@@ -68,6 +53,7 @@
                                         </div>
                                     </div>
                                 </form>
+                                @endguest
                             </div>
                             <label class="mt-3">Komentar :</label>
 
@@ -102,58 +88,6 @@
                     </div>
                 </div>
                 <div class="col-xl-4">
-<<<<<<< HEAD
-                    <div class="card shadow">
-                        <div class="sidebar">
-                            <div id="other-post">
-                                <h4 class="sidebar-title">Artikel Lainnya</h4>
-                                <div class="sidebar-item recent-posts">
-                                    <div class="post-item clearfix">
-                                        <img src="{{asset('assets-landingpage/img/blog/blog-1.jpg')}}" alt="">
-                                        <h4>Nihil blanditiis at in nihil autem</h4>
-                                        <time datetime="2020-01-01">Jan 1, 2020</time>
-                                    </div>
-
-                                    <div class="post-item clearfix">
-                                        <img src="{{asset('assets-landingpage/img/blog/blog-2.jpg')}}" alt="">
-                                        <h4>Quidem autem et impedit</h4>
-                                        <time datetime="2020-01-01">Jan 1, 2020</time>
-                                    </div>
-
-                                    <div class="post-item clearfix">
-                                        <img src="{{asset('assets-landingpage/img/blog/blog-3.jpg')}}" alt="">
-                                        <h4>Id quia et et ut maxime similique occaecati
-                                            ut</h4>
-                                        <time datetime="2020-01-01">Jan 1, 2020</time>
-                                    </div>
-                                    <hr>
-                                </div>
-                            </div>
-                            <div id="similar-post">
-                                <h4 class="sidebar-title">Artikel Terkait</h4>
-                                <div class="sidebar-item recent-posts">
-                                    <div class="post-item clearfix">
-                                        <img src="{{asset('assets-landingpage/img/blog/blog-1.jpg')}}" alt="">
-                                        <h4>Nihil blanditiis at in nihil autem</h4>
-                                        <time datetime="2020-01-01">Jan 1, 2020</time>
-                                    </div>
-
-                                    <div class="post-item clearfix">
-                                        <img src="{{asset('assets-landingpage/img/blog/blog-2.jpg')}}" alt="">
-                                        <h4>Quidem autem et impedit</h4>
-                                        <time datetime="2020-01-01">Jan 1, 2020</time>
-                                    </div>
-
-                                    <div class="post-item clearfix">
-                                        <img src="{{asset('assets-landingpage/img/blog/blog-3.jpg')}}" alt="">
-                                        <h4>Id quia et et ut maxime similique occaecati
-                                            ut</h4>
-                                        <time datetime="2020-01-01">Jan 1, 2020</time>
-                                    </div>
-                                    <hr>
-
-                                </div>
-=======
                     <div class="sidebar">
                         <div id="other-post">
                             <h4 class="sidebar-title">Artikel Lainnya</h4>
@@ -185,7 +119,6 @@
                                 @endforelse
                                 <hr>
 
->>>>>>> b09db411ee13d0f333f8346222f3b2a74f003a72
                             </div>
                         </div>
                     </div>

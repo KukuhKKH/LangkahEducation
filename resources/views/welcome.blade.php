@@ -128,7 +128,7 @@
                     consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
                     fugiat sit
                     in iste officiis commodi quidem hic quas.</p> --}}
-                <a href="" class="btn-outline-langkah mt-5">Kunjungi Blog Kami </a>
+                <a href="{{ route('page.blog.index') }}" class="btn-outline-langkah mt-5">Kunjungi Blog Kami </a>
             </div>
         </div>
     </section>

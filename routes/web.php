@@ -161,12 +161,13 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                 Route::post('tryout/{paket}', 'TryoutController@tryout_store_baru')->name('tryout.soal.store');
             });
         });
-
-        Route::group(['prefix' => 'blog', 'namespace' => 'Blog'], function () {
-            Route::get('/', 'PageController@index')->name('page.blog.index');
-            Route::get('/{slug}', 'PageController@detail')->name('page.blog.detail');
-        });
     });
+});
+
+Route::group(['prefix' => 'blog', 'namespace' => 'Web\Blog'], function () {
+    Route::get('/', 'PageController@index')->name('page.blog.index');
+    Route::get('/{slug}', 'PageController@detail')->name('page.blog.detail');
+    Route::get('/author/{kode}', 'PageController@detail_author')->name('page.blog.author');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -183,7 +184,6 @@ Route::group(['prefix' => 'dev'], function() {
         return view('pages.halaman.blog.create');
     });
     Route::get('detail', function() {
-        $data = LandingPage::find(1);
-        return view('pages.blog.detail',compact('data'));
+        return view('pages.blog.list');
     });
 });
