@@ -21,7 +21,7 @@
             </div>
          </div>
          <div class="row">
-            <div class="col-12">
+            <div class="col-xl-12">
                <div class="float-right">
                   <a href="{{ url()->previous() }}" class="btn btn-dark ml-1">Kembali</a>
                   <button type="submit" class="btn btn-success">Simpan</button>

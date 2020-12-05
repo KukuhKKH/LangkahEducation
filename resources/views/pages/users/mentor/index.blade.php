@@ -2,26 +2,24 @@
 @section('title', 'Mentor')
 
 @section('content')
-    <div class="row">
-        <div class="col-10">
+    <div class="row mb-2">
+        <div class="col-xl-10">
             <h1 class="h3 mb-4 text-gray-800">Mentor</h1>
         </div>
-        <div class="col-2 text-right">
+        <div class="col-xl-2 text-right">
             <a href="{{ asset('template/TemplateMentor.xlsx') }}" download="" class="btn btn-success"><i class="fas fa-fw fa-file-excel"></i> Template Excel</a>
         </div>
     </div>
     <div class="card shadow mb-4">
         <div class="card-header">
             @hasanyrole('admin|superadmin')
-                <div class="row">
-                    <div class="col-8">
+                <div class="row align-items-center">
+                    <div class="col-xl-8">
                         <form action="" method="POST" enctype="multipart/form-data">
                         @csrf
                             <div class="form-group">
+                                <label for="">Import Data Excel</label>
                                 <div class="input-group">
-                                    <div class="mr-2 d-flex align-items-center">
-                                        Import Data Excel 
-                                    </div>
                                     <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="inputGroupFile02">
                                     <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
@@ -33,7 +31,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="col-4 text-right">
+                    <div class="col-xl-4 text-right">
                         <div class="btn-group btn-group-md">
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalData"><i class="fas fa-fw fa-plus-circle"></i> Tambah Mentor</button>
                         </div>
@@ -76,13 +74,13 @@
                                     <form action="{{ route('mentor.destroy', $value->id) }}" method="POST" id="form-{{ $value->id }}">
                                         @csrf
                                         @method("DELETE")
-                                        <a href="{{ route('mentor.edit', $value->id) }}" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit">
+                                        <a href="{{ route('mentor.edit', $value->id) }}" class="btn btn-success my-1" data-toggle="tooltip" data-placement="top" title="Edit">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a href="{{ route('mentor.show', $value->id) }}" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Integrasi siswa ke mentor ini">
+                                        <a href="{{ route('mentor.show', $value->id) }}" class="btn btn-secondary my-1" data-toggle="tooltip" data-placement="top" title="Integrasi siswa ke mentor ini">
                                             <i class="fa fa-user-friends"></i>
                                         </a>
-                                        <button type="button" data-id="{{ $value->id }}" class="btn btn-danger hapus" data-toggle="tooltip" data-placement="top" title="Hapus">
+                                        <button type="button" data-id="{{ $value->id }}" class="btn btn-danger my-1 hapus" data-toggle="tooltip" data-placement="top" title="Hapus">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </form>
@@ -90,8 +88,11 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center">
-                                    Tidak ada data
+                                <td colspan="6">
+                                    <div class="text-center mb-3 p-5 bg-light">
+                                        <img class="mb-3" height="50px" src="{{asset('assets/img/null-icon.svg')}}" alt="">
+                                        <h6>Tidak Ada Data Mentor</h6>
+                                    </div>
                                 </td>
                             </tr>
                         @endforelse
@@ -133,7 +134,7 @@
                             @enderror
                         </div>
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-xl-12">
                                 <div class="form-group">
                                     <label for="pendidikan_terakhir">Pendidikan Terakhir</label>
                                     <input name="pendidikan_terakhir" type="text" class="form-control form-control-user @error('pendidikan_terakhir') is-invalid @enderror" placeholder="Pendidikan Terakhir" value="{{ old('pendidikan_terakhir') }}">
