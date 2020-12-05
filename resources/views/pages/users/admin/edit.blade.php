@@ -16,7 +16,7 @@
          @method("PUT")
          <input type="hidden" name="user_id" value="{{ $admin->id }}">
          <div class="row">
-            <div class="col-6">
+            <div class="col-xl-6">
                <div class="form-group">
                   <label for="">Nama / Username</label>
                   <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ $admin->name }}" placeholder="Nama / username">
@@ -27,7 +27,7 @@
                   @enderror
                </div>
             </div>
-            <div class="col-6">
+            <div class="col-xl-6">
                <div class="form-group">
                   <label for="">Email</label>
                   <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ $admin->email }}" placeholder="Email">
@@ -38,7 +38,7 @@
                   @enderror
                </div>
             </div>
-            <div class="col-12">
+            <div class="col-xl-6">
                <div class="form-group">
                   <label for="">Password Lama <small>Kosongkan jika tidak mengganti password</small></label>
                   <input type="password" name="password_old" class="form-control @error('password_old') is-invalid @enderror" placeholder="Password Lama">
@@ -49,7 +49,7 @@
                   @enderror
                </div>
             </div>
-            <div class="col-6">
+            <div class="col-xl-6">
                <div class="form-group">
                   <label for="">Password Baru <small>Kosongkan jika tidak mengganti password</small></label>
                   <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password Baru">
@@ -60,24 +60,29 @@
                   @enderror
                </div>
             </div>
-            <div class="col-6">
+            <div class="col-xl-6">
                <div class="form-group">
                   <label for="">Ulangi Password baru <small>Kosongkan jika tidak mengganti password</small></label>
                   <input type="password" name="password_confirmation" class="form-control " placeholder="Ulangi Password Baru">
                </div>
             </div>
-            <div class="col-6">
+            <div class="col-xl-6">
                <div class="form-group">
                   <label for="">Foto <small>Maksimal 2 Mb</small></label>
-                  <input type="file" class="form-control @error('foto') is-invalid @enderror" name="foto" accept="image/x-png,image/gif,image/jpeg">
-                  @error('foto')
-                  <span class="invalid-feedback" role="alert">
-                     <strong>{{ $message }}</strong>
-                  </span>
-                  @enderror
+                  <div class="input-group mb-3">
+                     <div class="custom-file">
+                       <input type="file" class="custom-file-input form-control @error('foto') is-invalid @enderror" name="foto" accept="image/x-png,image/gif,image/jpeg" id="inputGroupFile02">
+                       @error('foto')
+                       <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                       </span>
+                       @enderror
+                       <label class="custom-file-label " for="inputGroupFile02">Choose file</label>
+                     </div>
+                   </div>
                </div>
             </div>
-            <div class="col-6">
+            <div class="col-xl-6">
                <div class="form-group">
                   <label for="">Status Aktif</label>
                   <select name="is_active" class="form-control @error('is_active') is-invalid @enderror" autocomplete="off">
@@ -93,15 +98,15 @@
             </div>
          </div>
          <div class="row">
-            <div class="col-6">
+            <div class="col-xl-6">
                @if ($admin->foto)
                   <img src="{{ asset('upload/users/'.$admin->foto) }}" alt="{{ $admin->name }}" class="img-fluid w-100">
                @endif
             </div>
-            <div class="col-6">
+            <div class="col-xl-6">
                <div class="float-right">
-                  <button type="submit" class="btn btn-success">Edit</button>
-                  <a href="{{ url()->previous() }}" class="btn btn-warning text-dark ml-1">Kembali</a>
+                  <a href="{{ url()->previous() }}" class="btn btn-dark ml-1">Kembali</a>
+                  <button type="submit" class="btn btn-success">Simpan</button>
                </div>
             </div>
          </div>
@@ -133,4 +138,10 @@
       e.preventDefault()
    })
    </script>
+   <script type="application/javascript">
+      $('input[type="file"]').change(function(e){
+          var fileName = e.target.files[0].name;
+          $('.custom-file-label').html(fileName);
+      });
+  </script>
 @endsection

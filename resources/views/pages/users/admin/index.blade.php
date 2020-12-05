@@ -5,11 +5,13 @@
 <h1 class="h3 mb-2 text-gray-800">Admin</h1>
 
 <div class="card shadow mb-4">
-   <div class="card-header py-3">
-      <div class="d-flex justify-content-between">
-         <h6 class="m-0 font-weight-bold text-primary">Admin</h6>
-         <div class="btn-group btn-group-md">
-            <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#modalData"><i class="fa fa-plus"></i> Tambah Admin</button>
+   <div class="card-header">
+      <div class="row align-items-center">
+         <div class="col-xl-6">
+            <h6 class="m-0 font-weight-bold text-primary">Admin</h6>
+         </div>
+         <div class="col-xl-6 text-right">
+            <button type="button" class="btn btn-primary my-1" data-toggle="modal" data-target="#modalData"><i class="fa fa-plus"></i> Tambah Admin</button>
          </div>
       </div>
    </div>
@@ -47,10 +49,10 @@
                         <form action="{{ route('admin.destroy', $value->id) }}" method="POST" id="form-{{ $value->id }}">
                            @csrf
                            @method("DELETE")
-                           <a href="{{ route('admin.edit', $value->id) }}" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit">
+                           <a href="{{ route('admin.edit', $value->id) }}" class="btn btn-success my-1" data-toggle="tooltip" data-placement="top" title="Edit">
                               <i class="fas fa-edit"></i>
                            </a>
-                           <button type="button" data-id="{{ $value->id }}" class="btn btn-danger hapus" data-toggle="tooltip" data-placement="top" title="Hapus">
+                           <button type="button" data-id="{{ $value->id }}" class="btn btn-danger my-1 hapus" data-toggle="tooltip" data-placement="top" title="Hapus">
                               <i class="fas fa-trash"></i>
                            </button>
                         </form>
@@ -60,7 +62,10 @@
                @empty
                <tr>
                   <td colspan="5" class="text-center">
-                     Tidak ada data
+                     <div class="text-center mb-3 p-5 bg-light">
+                        <img class="mb-3" height="50px" src="{{asset('assets/img/null-icon.svg')}}" alt="">
+                        <h6>Tidak Ada Data Admin</h6>
+                    </div>
                   </td>
                </tr>
                @endforelse
@@ -93,11 +98,11 @@
                   <input type="email" class="form-control" name="email" placeholder="Masukkan Email">
                </div>
                <div class="form-group row">
-                  <div class="col-6">
+                  <div class="col-xl-6">
                      <label for="">Password</label>
                      <input type="password" class="form-control" placeholder="Password" name="password" id="password">
                   </div>
-                  <div class="col-6">
+                  <div class="col-xl-6">
                      <label for="">Konfirmasi Password</label>
                      <input type="password" class="form-control" placeholder="Konfirmasi Password"
                         name="password_confirmation" id="password_confirmation">
@@ -105,11 +110,16 @@
                </div>
                <div class="form-group">
                   <label for="">Foto <small>Opsional</small></label>
-                  <input type="file" class="form-control" name="foto" accept="image/*">
+                  <div class="input-group mb-3">
+                     <div class="custom-file">
+                       <input type="file" class="custom-file-input" id="inputGroupFile02">
+                       <label class="custom-file-label" for="inputGroupFile02" accept="image/*">Choose file</label>
+                     </div>
+                   </div>
                </div>
             </div>
             <div class="modal-footer">
-               <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+               <button type="button" class="btn btn-light" data-dismiss="modal">Batal</button>
                <button type="submit" class="btn btn-primary">Simpan</button>
             </div>
          </form>
@@ -158,5 +168,11 @@
          }
       })
    })
+</script>
+<script type="application/javascript">
+   $('input[type="file"]').change(function(e){
+       var fileName = e.target.files[0].name;
+       $('.custom-file-label').html(fileName);
+   });
 </script>
 @endsection

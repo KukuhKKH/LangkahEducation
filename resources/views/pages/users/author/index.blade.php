@@ -44,10 +44,10 @@
                      <form action="{{ route('author.destroy', $value->id) }}" method="POST" id="form-{{ $value->id }}">
                            @csrf
                            @method("DELETE")
-                           <a href="{{ route('author.edit', $value->id) }}" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit">
+                           <a href="{{ route('author.edit', $value->id) }}" class="btn btn-success my-1" data-toggle="tooltip" data-placement="top" title="Edit">
                               <i class="fas fa-edit"></i>
                            </a>
-                           <button type="button" data-id="{{ $value->id }}" class="btn btn-danger hapus" data-toggle="tooltip" data-placement="top" title="Hapus">
+                           <button type="button" data-id="{{ $value->id }}" class="btn btn-danger my-1 hapus" data-toggle="tooltip" data-placement="top" title="Hapus">
                               <i class="fas fa-trash"></i>
                            </button>
                      </form>
@@ -55,8 +55,11 @@
                </tr>
                @empty
                <tr>
-                  <td colspan="5" class="text-center">
-                     Tidak ada data
+                  <td colspan="5">
+                     <div class="text-center mb-3 p-5 bg-light">
+                        <img class="mb-3" height="50px" src="{{asset('assets/img/null-icon.svg')}}" alt="">
+                        <h6>Tidak Ada Data Author</h6>
+                    </div>
                   </td>
                </tr>
                @endforelse
@@ -71,7 +74,7 @@
    <div class="modal-dialog" role="document">
       <div class="modal-content">
          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Tambah Admin</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Tambah Author</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true">&times;</span>
             </button>
@@ -97,39 +100,39 @@
                      </span>
                   @enderror
                </div>
-               <div class="form-group">
-                  <label for="">Deskripsi</label>
-                  <textarea name="deskripsi" id="deskripsi @error('deskripsi') is-invalid @enderror" class="form-control" placeholder="Masukkan deskripsi"></textarea>
-                  @error('deskripsi')
-                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                     </span>
-                  @enderror
-               </div>
-               <div class="form-group row">
-                  <div class="col-6">
-                     <label for="">Password</label>
+               <div class="row">
+                  <div class="col-xl-6">
+                     <div class="form-group">
+                        <label for="">Password</label>
                      <input type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" name="password" id="password" required>
                      @error('password')
                      <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                      </span>
                   @enderror
+                     </div>
                   </div>
-                  <div class="col-6">
-                     <label for="">Konfirmasi Password</label>
+                  <div class="col-xl-6">
+                     <div class="form-group">
+                        <label for="">Konfirmasi Password</label>
                      <input type="password" class="form-control" placeholder="Konfirmasi Password"
                         name="password_confirmation" id="password_confirmation" required>
+                     </div>
                   </div>
                </div>
                <div class="form-group">
                   <label for="">Foto <small>Opsional</small></label>
-                  <input type="file" class="form-control" name="foto" accept="image/*">
+                  <div class="input-group mb-3">
+                     <div class="custom-file">
+                       <input type="file" class="custom-file-input" id="inputGroupFile02" name="foto" accept="image/*">
+                       <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+                     </div>
+                   </div>
                </div>
             </div>
             <div class="modal-footer">
-               <button type="submit" class="btn btn-primary">Simpan</button>
                <button type="button" class="btn btn-light" data-dismiss="modal">Batal</button>
+               <button type="submit" class="btn btn-primary">Simpan</button>
             </div>
          </form>
       </div>
@@ -177,5 +180,12 @@
          }
       })
    })
+</script>
+
+<script type="application/javascript">
+   $('input[type="file"]').change(function(e){
+       var fileName = e.target.files[0].name;
+       $('.custom-file-label').html(fileName);
+   });
 </script>
 @endsection
