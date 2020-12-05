@@ -85,7 +85,6 @@
                     in iste officiis commodi quidem hic quas.</p> --}}
             </div>
             <div class="row justify-content-center">
-                @forelse ($gelombang as $value)
                 <div class="col-lg-4 mb-4">
                     <div class="card shadow ">
                         <div class="card-body justify-content-center">
@@ -95,9 +94,6 @@
                         </div>
                     </div>
                 </div>
-                @empty
-                <h3>Belum ada gelombang</h3>
-                @endforelse
             </div>
         </div>
     </section><!-- End Why Us Section -->
