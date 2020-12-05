@@ -9,8 +9,13 @@
                 <div class="col-xl-8">
                     <div class="card shadow mb-2">
                         <div class="card-img-top">
+                            @if ($artikel->foto)
+                            <img src="{{asset("upload/blog/$artikel->foto")}}" class="img-cover"
+                            height="200vh">
+                            @else
                             <img src="{{asset('assets-landingpage/img/blog/blog-1.jpg')}}" class="img-cover"
-                                height="300vh">
+                                height="200vh">
+                            @endif
                         </div>
                         <div class="card-body">
                             <h4 class="font-weight-bold mb-4">{{$artikel->judul}}</h4>

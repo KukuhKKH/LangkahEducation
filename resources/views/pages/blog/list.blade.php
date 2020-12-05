@@ -10,8 +10,13 @@
                     @forelse ($artikel as $value)
                     <div class="card shadow mb-4">
                         <div class="card-img-top">
+                            @if ($value->foto)
+                            <img src="{{asset("upload/blog/$value->foto")}}" class="img-cover"
+                            height="200vh">
+                            @else
                             <img src="{{asset('assets-landingpage/img/blog/blog-1.jpg')}}" class="img-cover"
                                 height="200vh">
+                            @endif
                         </div>
                         <div class="card-body">
                             <a href="{{ route('page.blog.detail', $value->slug) }}">
@@ -47,9 +52,9 @@
                         <div class="sidebar">
                             <div id="category">
                                 <h4 class="sidebar-title">Kategori</h4>
-                                <li><a href="#">SAINTEK</a></li>
-                                <li><a href="#">SOSHUM</a></li>
-                                <li><a href="#">UTBK</a></li>
+                                <li><a href="{{ route('page.blog.kategori', 'SAINTEK') }}">SAINTEK</a></li>
+                                <li><a href="{{ route('page.blog.kategori', 'SOSHUM') }}">SOSHUM</a></li>
+                                <li><a href="{{ route('page.blog.kategori', 'UNBK') }}">UTBK</a></li>
                             </div>
                         </div>
                     </div>
