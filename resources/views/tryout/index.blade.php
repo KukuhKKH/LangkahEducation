@@ -64,7 +64,7 @@
                            <?php $k = 0; ?>
                            @foreach ($soal as $value)
                               <div id="question{{ $k }}" class="{{ $k == 0 ? 'show' : '' }} soal" data-kategori="{{ $value->kategori_soal->nama }}" data-kode="{{ $value->kategori_soal->kode }}">
-                                 <h1>Kategori {{ $value->kategori_soal->nama }}</h1>
+                                 <div class="badge bagde-primary">{{ $value->kategori_soal->nama }}</div>
                                  <h3 id="pertanyaan" class="h4 mt-3 mb-2 text-gray-800 font-weight-bold">
                                     {{-- {{ $i }}.  --}}
                                     {!! $value->soal !!}

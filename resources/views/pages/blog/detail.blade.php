@@ -16,7 +16,7 @@
                             <h4 class="font-weight-bold mb-4">{{$artikel->judul}}</h4>
                             <div class="d-flex justify-content-start align-items-center mb-4">
                                 <i class="fa fa-sm fa-user"></i>
-                                <a href="{{ route('page.blog.author', $artikel->user->api_token) }}"><small class="mx-2">{{ $artikel->user->name }}</small></a>
+                                <a id="author" href="{{ route('page.blog.author', $artikel->user->api_token) }}"><small class="mx-2">{{ $artikel->user->name }}</small></a>
 
                                 <i class="fa fa-sm fa-clock"></i>
                                 <small class="mx-2">{{ Carbon\Carbon::parse($artikel->created_at)->format('d F Y, H:i') }}</small>
@@ -104,7 +104,7 @@
                                         <time datetime="2020-01-01">{{ Carbon\Carbon::parse($value->created_at)->format('F d, Y') }}</time>
                                     </div>
                                 @empty
-                                    <h3>Belum ada artikel</h3>
+                                    <h6>Belum ada artikel</h6>
                                 @endforelse
 
                                 <hr>
@@ -120,7 +120,7 @@
                                         <time datetime="2020-01-01">{{ Carbon\Carbon::parse($value->created_at)->format('F d, Y') }}</time>
                                     </div>
                                 @empty
-                                    <h3>Belum ada artikel</h3>
+                                    <h6>Belum ada artikel</h6>
                                 @endforelse
                                 <hr>
 
@@ -142,9 +142,13 @@
         background: #ECB811;
     }
 
-    #blog a {
+    #blog #author {
         color: #aaaaaa;
         text-decoration: underline;
+    }
+
+    #blog a{
+        color: #444444;
     }
 
     #blog a:hover,
