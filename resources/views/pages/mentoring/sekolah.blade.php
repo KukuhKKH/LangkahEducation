@@ -37,17 +37,13 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    @forelse($mentor->siswa as $value)
+                    @forelse($sekolah->siswa as $value)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $value->user->name }}</td>
                         <td>{{ $value->asal_sekolah }}</td>
                         <td>{{ $value->nisn }}</td>
                         <td>
-                            <a href="{{ route('mentorig.mentoring', $value->id) }}" class="btn btn-success my-1"
-                                data-toggle="tooltip" data-placement="top" title="Virtual Mentoring">
-                                <i class="fas fa-fw fa-comment"></i>
-                            </a>
                             <a href="javascript:void(0)" onclick="detailTryout({{ $value->user->id }})"
                                 class="btn btn-primary my-1" data-toggle="tooltip" data-placement="top"
                                 title="Analisis hasil tryout">
@@ -118,7 +114,6 @@
                 .then((res) => {
                     $('#loading').hide()
                     let data = res.data
-                    console.log(data)
                     if (data.length > 0) {
                         let html = ``
                         data.forEach(element => {

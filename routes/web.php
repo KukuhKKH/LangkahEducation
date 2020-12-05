@@ -48,6 +48,9 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                 Route::post('permission', 'RolePermissionController@store_permission')->name('permission.store');
                 Route::get('permission/attach/{id}', 'RolePermissionController@attach')->name('permission.attach');
                 Route::put('/users/permission/{role}', 'RolePermissionController@setRolePermission')->name('users.setRolePermission');
+                Route::get('permission/{id}', 'RolePermissionController@edit_permission')->name('permission.edit');
+                Route::put('permission/{id}', 'RolePermissionController@update_permission')->name('permission.update');
+                Route::delete('permission/{id}', 'RolePermissionController@destroy_permission')->name('permission.destroy');
             });
 
             Route::group(['middleware' => ['role:admin|superadmin']], function() {
@@ -130,6 +133,7 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
             Route::get('hasiltryout/siswa/{id}/{slug}/detail', 'MentoringController@hasil_tryout_detail')->name('hasil_tryout.detail');
             Route::post('mentoring/komentar/{hasil_id}', 'MentoringController@komentar_store')->name('mentoring.komentar');
             Route::get('mentoring/pembahasan/{paket_id}/{kategori_id}', 'MentoringController@pembahasan')->name('mentoring.pembahasan');
+            Route::get('mentoring/sekolah', 'MentoringController@mentoring_sekolah')->name('mentoring.sekolah');
 
             Route::get('bank/{id}', 'BankController@show_bank');
 

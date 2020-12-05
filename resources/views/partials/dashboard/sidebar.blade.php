@@ -55,7 +55,7 @@
 
     @endhasanyrole
 
-    @hasanyrole('sekolah|siswa')
+    @hasanyrole('siswa')
 
     {{-- Try Out Siswa --}}
 
@@ -100,6 +100,14 @@
         <a class="nav-link" href="{{ route('mentorig.mentor') }}">
             <i class="fas fa-fw fa-microphone"></i>
             <span>Virtual Mentoring</span>
+        </a>
+    </li>
+    @endhasanyrole
+    @hasanyrole('sekolah')
+    <li class="nav-item {{ (request()->segment(2) == 'mentorig') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('mentoring.sekolah') }}">
+            <i class="fas fa-fw fa-user-friends"></i>
+            <span>List Siswa</span>
         </a>
     </li>
     @endhasanyrole

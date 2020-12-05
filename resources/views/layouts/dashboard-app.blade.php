@@ -105,8 +105,8 @@
             let pg1 = {{ $nil_pg1 ?? 0 }}
             let pg2 = {{ $nil_pg2 ?? 0 }}
 
-            var pg1_name = "UIN Malang";
-            var pg2_name = "ITS";
+            var pg1_name = "{{ $pg1->universitas->nama }}";
+            var pg2_name = "{{ $pg2->universitas->nama }}";
             @endif
             const CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute("content")
             var barOptions = {

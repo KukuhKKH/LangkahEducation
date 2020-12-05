@@ -49,7 +49,7 @@
                                 <form action="{{ route('role.destroy', $value->id) }}" method="POST" id="form-{{ $value->id }}">
                                     @csrf
                                     @method('DELETE')
-                                    <a href="#" class="btn btn-success my-1"><i class="fas fa-fw fa-edit"></i></a>
+                                    <a href="{{ route('role.edit', $value->id) }}" class="btn btn-success my-1"><i class="fas fa-fw fa-edit"></i></a>
                                     <a href="{{ route('permission.attach', $value->id) }}" class="btn btn-info my-1"><i class="fas fa-fw fa-eye"></i></a>
                                     <button type="button" class="btn btn-danger hapus my-1" data-id="{{ $value->id }}"><i class="fas fa-fw fa-trash"></i></button>
                                 </form>

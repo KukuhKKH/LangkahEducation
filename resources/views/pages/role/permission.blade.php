@@ -37,8 +37,12 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $value->name }}</td>
                             <td>
-                                <button class="btn btn-success my-1"><i class="fas fa-fw fa-edit"></i></button>
-                                <button class="btn btn-danger my-1"><i class="fas fa-fw fa-trash"></i></button>
+                                <form action="{{ route('permission.destroy', $value->id) }}" method="POST" id="form-{{ $value->id }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <a href="{{ route('permission.edit', $value->id) }}" class="btn btn-success my-1"><i class="fas fa-fw fa-edit"></i></a>
+                                    <button type="button" class="btn btn-danger hapus my-1" data-id="{{ $value->id }}"><i class="fas fa-fw fa-trash"></i></button>
+                                </form>
                             </td>
                         </tr>
                     @empty
@@ -80,4 +84,26 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+<script>
+   $(".hapus").on('click', function() {
+      Swal.fire({
+         title: 'Yakin?',
+         text: "Ingin menghapus permission ini!",
+         icon: 'warning',
+         showCancelButton: true,
+         confirmButtonColor: '#3085d6',
+         cancelButtonColor: '#d33',
+         cancelButtonText: 'Tidak',
+         confirmButtonText: 'Ya!'
+      }).then((result) => {
+         if (result.isConfirmed) {
+            let id = $(this).data('id')
+            $(`#form-${id}`).submit()
+         }
+      })
+   })
+</script>
 @endsection

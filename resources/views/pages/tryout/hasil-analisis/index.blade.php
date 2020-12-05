@@ -44,6 +44,7 @@
                 </table>
 
                 <form action="#" class="mt-4">
+                    <input type="hidden" name="kelompok" value="{{ $kelompok->id }}">
                     <div class="form-group">
                         <label for="prodi-1">Pilihan 1</label>
                         <select name="prodi-1" id="prodi-1" class="form-control" required>
@@ -177,12 +178,12 @@
                 <h6 class="m-0 font-weight-bold text-dark">Komentar Mentor</h6>
             </div>
             <div class="card-body">
-                <form action="">
+                <form action="{{ route('mentoring.komentar', $tryout->id) }}" method="post">
+                    @csrf
                     <img class="my-3" src="{{asset('assets/img/undraw_profile.svg')}}" alt="profil-mentor"
-                        style="height:100px">
+                    style="height:100px">
                     <div class="form-group">
-                        <textarea class="form-control mt-4" id="komentarMentor" rows="5"
-                            disabled>{{ $komentar->komentar ?? 'Belum ada Komentar' }}</textarea>
+                        <textarea class="form-control mt-4" name="komentar" id="komentarMentor" rows="5" placeholder="Tulis Komentarmu">{{ $komentar->komentar ?? '' }}</textarea>
                     </div>
                     @hasanyrole('mentor')
                     <button class="btn btn-langkah btn-block" type="submit">Kirim Komentar</button>
@@ -230,9 +231,7 @@
     // Grafik Riwayat Nilai
     let ctx = document.getElementById("myRiwayatNilai")
     let data_riwayat = {
-        labels: {
-            !!json_encode($nama_paket) !!
-        },
+        labels: {!! json_encode($nama_paket) !!},
         datasets: [{
             label: "Nilai",
             lineTension: 0.3,
@@ -246,9 +245,7 @@
             pointHoverBorderColor: "rgba(51, 51, 51, 1)",
             pointHitRadius: 10,
             pointBorderWidth: 2,
-            data: {
-                !!json_encode($nilai_grafik) !!
-            },
+            data: {!!json_encode($nilai_grafik) !!},
         }],
     }
     new Chart(ctx, {
@@ -260,19 +257,13 @@
     // Grafik Persaingan
     let ctx2 = document.getElementById("myPersaingan");
     let data_saingan = {
-        labels: {
-            !!json_encode($nilai_saingan) !!
-        },
+        labels: {!!json_encode($nilai_saingan) !!},
         datasets: [{
             label: "Nilai",
             backgroundColor: "#4e73df",
             hoverBackgroundColor: "#2e59d9",
             borderColor: "#4e73df",
-            data: {
-                {
-                    json_encode($nilai_saingan)
-                }
-            },
+            data: {!! json_encode($nilai_saingan) !!},
         }],
     }
     new Chart(ctx2, {
