@@ -71,7 +71,7 @@
                 </div>
                 <div class="col-xl-3">
                     <button type="submit" class="btn btn-primary my-1">Cari</button>
-                    <a href="{{ route('siswa.index') }}" class="btn btn-lght text-danger my-1">Hapus Filter</a>
+                    <a href="{{ route('siswa.index') }}" class="btn btn-lght text-danger my-1">Reset Filter</a>
                 </div>
             </div>
         </form>

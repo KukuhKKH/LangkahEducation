@@ -17,7 +17,7 @@
                     <div class="row">
                         @php $no = 1; @endphp
                         @foreach ($tryout as $key => $row)
-                           <div class="pretty p-icon p-smooth col-3 my-2" style="font-size: 16px;">
+                           <div class="pretty p-icon p-smooth col-xl-3 my-2" style="font-size: 16px;">
                               <input type="checkbox" name="tryout[]" value="{{ $row->id }}" {{ in_array($row->nama, $hasTryout) ? 'checked':'' }}/>
                               <div class="state p-primary">
                                  <i class="icon fa fa-check"></i>
@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 
-                <div class="float-right">
+                <div class="float-right"></div>
                     <a href="{{ url()->previous() }}" class="btn btn-dark ml-1">Kembali</a>
                     <button class="btn btn-primary">
                         <i class="fas fa-check mr-1"></i> Set Tryout

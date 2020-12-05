@@ -3,26 +3,24 @@
 
 @section('content')
     <div class="row">
-        <div class="col-8">
+        <div class="col-xl-6">
             <h1 class="h3 mb-4 text-gray-800">Sekolah</h1>
         </div>
-        <div class="col-4 text-right">
-            <a href="{{ asset('template/TemplateSekolah.xlsx') }}" download="" class="btn btn-success"><i class="fas fa-fw fa-file-excel"></i> Template Excel</a>
-            <a href="{{ asset('template/TemplateNISNSiswa.xlsx') }}" download="" class="btn btn-success"><i class="fas fa-fw fa-file-excel"></i> Template Excel NISN Siswa</a>
+        <div class="col-xl-6 text-right">
+            <a href="{{ asset('template/TemplateSekolah.xlsx') }}" download="" class="btn btn-success my-1"><i class="fas fa-fw fa-file-excel"></i> Template Excel</a>
+            <a href="{{ asset('template/TemplateNISNSiswa.xlsx') }}" download="" class="btn btn-success my-1"><i class="fas fa-fw fa-file-excel"></i> Template Excel NISN Siswa</a>
         </div>
     </div>
     <div class="card shadow mb-4">
         <div class="card-header">
             @hasanyrole('admin|superadmin')
-                <div class="row">
-                    <div class="col-8">
+                <div class="row align-items-center">
+                    <div class="col-xl-8">
                         <form action="{{ route('sekolah.import') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                             <div class="form-group">
+                                <label for="">Import Data Excel</label>
                                 <div class="input-group">
-                                    <div class="mr-2 d-flex align-items-center">
-                                        Import Data Excel 
-                                    </div>
                                     <div class="custom-file">
                                         <input type="file" name="file" class="custom-file-input" id="inputGroupFile02">
                                         <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
@@ -34,7 +32,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="col-4 text-right">
+                    <div class="col-xl-4 text-right">
                         <div class="btn-group btn-group-md">
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalData"><i class="fas fa-fw fa-plus-circle"></i> Tambah Sekolah</button>
                         </div>
@@ -140,7 +138,7 @@
                             @enderror
                         </div>
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-xl-6">
                                 <div class="form-group">
                                     <label for="alamat">Alamat Sekolah</label>
                                     <input name="alamat" type="text" class="form-control form-control-user @error('alamat') is-invalid @enderror" placeholder="Alamat Sekolah" value="{{ old('alamat') }}" required>
@@ -151,7 +149,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-xl-6">
                                 <div class="form-group">
                                     <label for="kode_referal">Kode Referal <small style="color: red">Kosongkan untuk generate kode referal</small></label>
                                     <input name="kode_referal" type="text" class="form-control form-control-user @error('kode_referal') is-invalid @enderror" placeholder="Kode Referal Sekolah" value="{{ old('kode_referal') }}">
@@ -212,5 +210,16 @@
                 }
             })
         })
+    </script>
+    <script type="text/javascript">
+
+        $('.custom-file input').change(function (e) {
+            var files = [];
+            for (var i = 0; i < $(this)[0].files.length; i++) {
+                files.push($(this)[0].files[i].name);
+            }
+            $(this).next('.custom-file-label').html(files.join(', '));
+        });
+    
     </script>
 @endsection

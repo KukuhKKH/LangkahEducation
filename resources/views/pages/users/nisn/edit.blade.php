@@ -23,8 +23,8 @@
          <div class="row">
             <div class="col-12">
                <div class="float-right">
-                  <button type="submit" class="btn btn-success">Edit</button>
-                  <a href="{{ url()->previous() }}" class="btn btn-warning text-dark ml-1">Kembali</a>
+                  <a href="{{ url()->previous() }}" class="btn btn-dark ml-1">Kembali</a>
+                  <button type="submit" class="btn btn-success">Simpan</button>
                </div>
             </div>
          </div>

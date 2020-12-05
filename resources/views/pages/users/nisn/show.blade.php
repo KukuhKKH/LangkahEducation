@@ -47,12 +47,12 @@
    <div class="card-body">
       <form action="" method="get">
          <div class="row mb-4">
-             <div class="col-md-6">
-                 <input type="text" class="form-control" name="keyword" placeholder="Masukkan nisn">
+             <div class="col-xl-6">
+                 <input type="text" class="form-control" name="keyword" placeholder="Masukkan NISN">
              </div>
-             <div class="col-md-2">
+             <div class="col-xl-6">
                  <button type="submit" class="btn btn-primary">Cari</button>
-                 <a href="{{ route('nisn.show', $sekolah->id) }}" class="btn btn-danger">Hapus Filter</a>
+                 <a href="{{ route('nisn.show', $sekolah->id) }}" class="btn btn-light text-danger">Reset Filter</a>
              </div>
          </div>
      </form>
