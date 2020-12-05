@@ -1,15 +1,18 @@
 @extends('layouts.dashboard-app')
-@section('title', 'ermission')
+@section('title', 'Permission')
 
 @section('content')
     <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <div class="d-flex justify-content-between mb-1">
-                <h6 class="m-0 font-weight-bold text-primary">Permission</h6>
-                <div class="btn-group btn-group-md mb-3">
-                    <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#modalPermission"><i class="fa fa-plus"></i> Tambah Permission</button>
+        <div class="card-header">
+            <div class="row">
+                <div class="col-xl-6">
+                    <h6 class="m-0 font-weight-bold text-primary">Permission</h6>
+                </div>
+                <div class="col-xl-6 text-right">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalPermission"><i class="fa fa-plus"></i> Tambah Permission</button>
                 </div>
             </div>
+
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -34,8 +37,8 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $value->name }}</td>
                             <td>
-                                <button class="btn btn-success">Edit</button>
-                                <button class="btn btn-danger">Hapus</button>
+                                <button class="btn btn-success my-1"><i class="fas fa-fw fa-edit"></i></button>
+                                <button class="btn btn-danger my-1"><i class="fas fa-fw fa-trash"></i></button>
                             </td>
                         </tr>
                     @empty
@@ -70,7 +73,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Batal</button>
                         <button type="submit" class="btn btn-primary">Generate</button>
                     </div>
                 </form>
