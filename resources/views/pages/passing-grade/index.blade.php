@@ -71,9 +71,9 @@
                                     title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </a> --}}
-                                <a href="{{ route('passing-grade.show', $value->id) }}" class="btn btn-primary">Lihat Prodi
+                                <a href="{{ route('passing-grade.show', $value->id) }}" class="btn btn-primary my-1">Lihat Prodi
                                     </a>
-                                <button type="button" class="btn btn-danger hapus" data-id="{{ $value->id }}"
+                                <button type="button" class="btn btn-danger my-1 hapus" data-id="{{ $value->id }}"
                                     data-toggle="tooltip" data-placement="top" title="Hapus">
                                     <i class="fas fa-trash"></i>
                                 </button>
@@ -82,8 +82,11 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="4" class="text-center">
-                            Tidak ada data
+                        <td colspan="4">
+                            <div class="text-center mb-3 p-5 bg-light">
+                                <img class="mb-3" height="50px" src="{{asset('assets/img/null-icon.svg')}}" alt="">
+                                <h6>Tidak Ada Data Universitas</h6>
+                            </div>
                         </td>
                     </tr>
                     @endforelse

@@ -3,14 +3,17 @@
 
 @section('content')
     <h1 class="h3 mb-2 text-gray-800">Role & Attach Permission</h1>
-    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the</p>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <div class="d-flex justify-content-between mb-1">
-            <h6 class="m-0 font-weight-bold text-primary">Role</h6>
-                <div class="btn-group btn-group-md mb-3">
-                    <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#modalRole"><i class="fa fa-plus"></i> Tambah Role</button>
+            <div class="row">
+                <div class="col-xl-6">
+                    <h6 class="m-0 font-weight-bold text-primary">Role</h6>
+                </div>
+                <div class="col-xl-6 text-right">
+                    <div class="btn-group btn-group-md mb-3">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalRole"><i class="fa fa-plus"></i> Tambah Role</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -46,16 +49,19 @@
                                 <form action="{{ route('role.destroy', $value->id) }}" method="POST" id="form-{{ $value->id }}">
                                     @csrf
                                     @method('DELETE')
-                                    <a href="#" class="btn btn-success">Edit</a>
-                                    <a href="{{ route('permission.attach', $value->id) }}" class="btn btn-warning">Check</a>
-                                    <button type="button" class="btn btn-danger hapus" data-id="{{ $value->id }}">Hapus</button>
+                                    <a href="#" class="btn btn-success my-1"><i class="fas fa-fw fa-edit"></i></a>
+                                    <a href="{{ route('permission.attach', $value->id) }}" class="btn btn-info my-1"><i class="fas fa-fw fa-eye"></i></a>
+                                    <button type="button" class="btn btn-danger hapus my-1" data-id="{{ $value->id }}"><i class="fas fa-fw fa-trash"></i></button>
                                 </form>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="text-center">
-                                Tidak ada data
+                            <td colspan="5">
+                                <div class="text-center mb-3 p-5 bg-light">
+                                    <img class="mb-3" height="50px" src="{{asset('assets/img/null-icon.svg')}}" alt="">
+                                    <h6>Tidak Ada Role</h6>
+                                </div>
                             </td>
                         </tr>
                     @endforelse
@@ -84,7 +90,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Batal</button>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </form>

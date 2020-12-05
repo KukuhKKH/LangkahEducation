@@ -59,10 +59,10 @@
                               @endif
                               <?php $disable = $value->status == 0 ? true : false ?>
                               @if ($value->status == 1)
-                                 <a class="btn btn-success terima {{ ($disable) ? 'disabled' : '' }}" data-id="{{ $value->id }}" data-toggle="tooltip" data-placement="top" title="Verifikasi Pembayaran" {{ ($disable) ? 'disabled' : '' }}>
+                                 <a class="btn btn-success my-1 terima {{ ($disable) ? 'disabled' : '' }}" data-id="{{ $value->id }}" data-toggle="tooltip" data-placement="top" title="Verifikasi Pembayaran" {{ ($disable) ? 'disabled' : '' }}>
                                     <i class="fas fa-check"></i>
                                  </a>
-                                 <a class="btn btn-danger tolak {{ ($disable) ? 'disabled' : '' }}" data-id="{{ $value->id }}" data-toggle="tooltip" data-placement="top" title="Tolak Pembayaran" {{ ($disable) ? 'disabled' : '' }}>
+                                 <a class="btn btn-danger my-1 tolak {{ ($disable) ? 'disabled' : '' }}" data-id="{{ $value->id }}" data-toggle="tooltip" data-placement="top" title="Tolak Pembayaran" {{ ($disable) ? 'disabled' : '' }}>
                                     <i class="fas fa-times"></i>
                                  </a>
                               @endif
@@ -70,8 +70,11 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="text-center">
-                                Tidak ada data
+                            <td colspan="5">
+                              <div class="text-center mb-3 p-5 bg-light">
+                                 <img class="mb-3" height="50px" src="{{asset('assets/img/null-icon.svg')}}" alt="">
+                                 <h6>Tidak Ada Pembayaran</h6>
+                             </div>
                             </td>
                         </tr>
                     @endforelse

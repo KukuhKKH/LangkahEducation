@@ -19,7 +19,7 @@
                         <th>Gelombang</th>
                         <th>Total bayar</th>
                         <th>Tanggal Daftar</th>
-                        <th>status</th>
+                        <th>Status</th>
                         <th>Aksi</th>
                     </tr>
                     </thead>
@@ -29,7 +29,7 @@
                         <th>Gelombang</th>
                         <th>Total bayar</th>
                         <th>Tanggal Daftar</th>
-                        <th>status</th>
+                        <th>Status</th>
                         <th>Aksi</th>
                     </tr>
                     </tfoot>
@@ -54,12 +54,12 @@
                             <td>
                                 @if (count($value->pembayaran_bukti) > 0)
                                     @if ($value->status == 1)
-                                        <a href="{{ route('pembayaran.siswa.edit', $value->id) }}" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit Bukti Pembayaran">
+                                        <a href="{{ route('pembayaran.siswa.edit', $value->id) }}" class="btn btn-success my-1" data-toggle="tooltip" data-placement="top" title="Edit Bukti Pembayaran">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                     @endif
                                 @else
-                                    <a href="{{ route('pembayaran.siswa.show', ['slug' => $value->gelombang->slug, 'pembayaran_id' => $value->id]) }}" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Upload Bukti Pembayaran">
+                                    <a href="{{ route('pembayaran.siswa.show', ['slug' => $value->gelombang->slug, 'pembayaran_id' => $value->id]) }}" class="btn btn-primary my-1" data-toggle="tooltip" data-placement="top" title="Upload Bukti Pembayaran">
                                         <i class="fas fa-upload"></i>
                                     </a>
                                 @endif
@@ -68,7 +68,10 @@
                     @empty
                         <tr>
                             <td colspan="6" class="text-center">
-                                Tidak ada data
+                                <div class="text-center mb-3 p-5 bg-light">
+                                    <img class="mb-3" height="50px" src="{{asset('assets/img/null-icon.svg')}}" alt="">
+                                    <h6>Tidak Ada Pembayaran</h6>
+                                </div>
                             </td>
                         </tr>
                     @endforelse

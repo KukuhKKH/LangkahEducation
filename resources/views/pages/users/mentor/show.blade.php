@@ -31,13 +31,22 @@
             </div>
          </div>
          <div class="float-right">
-            <button type="submit" class="btn btn-success">Integrasi</button>
-            <a href="{{ url()->previous() }}" class="btn btn-warning text-dark ml-1">Kembali</a>
+            <button type="submit" class="btn btn-primary">Integrasi</button>
+            <a href="{{ url()->previous() }}" class="btn btn-dark ml-1">Kembali</a>
          </div>
       </form>
+   </div>
+</div>
+
+<div class="card shadow mb-4">
+   <div class="card-header">
+      <div class="d-flex justify-content-between">
+         <h6 class="m-0 font-weight-bold text-primary">Daftar Siswa yang dimentori oleh : {{ $mentor->user->name }}</h6>
+      </div>
+   </div>
+   <div class="card-body">
       <div class="row">
          <div class="col-12">
-            <p>Daftar Siswa yang dimentori oleh {{ $mentor->user->name }}</p>
             <form id="form-hapus" action="{{ route('mentor.integrasi.hapus', $mentor->id) }}" method="post">
                @csrf
                <ol>

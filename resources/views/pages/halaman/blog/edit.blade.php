@@ -33,13 +33,19 @@
                             <label for="">Gambar Utama Artikel</label>
                         </div>
                         <div class="col-md-10">
-                            <input name="foto" type="file"
-                            class="form-control form-control-user @error('foto') is-invalid @enderror" id="foto" required>
-                            @error('foto')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
+                            <div class="input-group mb-3">
+                                <div class="custom-file">
+                                    <input type="file"
+                                        class="custom-file-input form-control form-control-user @error('foto') is-invalid @enderror"
+                                        id="foto" required>
+                                        @error('foto')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">

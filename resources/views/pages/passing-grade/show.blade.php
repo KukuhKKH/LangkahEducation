@@ -74,10 +74,10 @@
                               <form action="{{ route('passing-grade.destroy', $value->id) }}" method="POST" id="form-{{ $value->id }}">
                                  @csrf
                                  @method('DELETE')
-                                 <a href="{{ route('passing-grade.edit', $value->id) }}" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit">
+                                 <a href="{{ route('passing-grade.edit', $value->id) }}" class="btn btn-success my-1" data-toggle="tooltip" data-placement="top" title="Edit">
                                     <i class="fas fa-edit"></i>
                                  </a>
-                                 <button type="button" class="btn btn-danger hapus" data-id="{{ $value->id }}" data-toggle="tooltip" data-placement="top" title="Hapus">
+                                 <button type="button" class="btn btn-danger my-1 hapus" data-id="{{ $value->id }}" data-toggle="tooltip" data-placement="top" title="Hapus">
                                     <i class="fas fa-trash"></i>
                                  </button>
                               </form>
@@ -85,8 +85,11 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="text-center">
-                                Tidak ada data
+                            <td colspan="5">
+                                <div class="text-center mb-3 p-5 bg-light">
+                                    <img class="mb-3" height="50px" src="{{asset('assets/img/null-icon.svg')}}" alt="">
+                                    <h6>Tidak Ada Data Passing Grade</h6>
+                                </div>
                             </td>
                         </tr>
                     @endforelse
