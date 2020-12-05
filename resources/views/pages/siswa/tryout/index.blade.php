@@ -34,38 +34,30 @@
 
 <h1 class="h3 mb-4 text-gray-800">Try Out</h1>
 
-<div class="row">
+<div class="row mb-4">
     @forelse ($paket as $value)
     @if ($value->status == 1)
-        <div class="col-md-3 col-xs-6">
-            <div class="card" style="width: 18rem;">
+        <div class="col-xl-4">
+            <div class="card mb-2">
                 @if ($value->image)
-                <img class="card-img-top" src="{{ $value->image }}" alt="Try Out">
+                <img class="card-img-top img-cover" src="{{ $value->image }}" alt="Try Out">
                 @else
-                <img class="card-img-top" src="{{asset('assets/img/email-verification.png')}}" alt="Try Out">
+                <img class="card-img-top img-cover" src="{{asset('assets/img/default-tryout.svg')}}" alt="Try Out">
                 @endif
                 <div class="card-body">
                     <h5 class="card-text">{{ $value->nama }}</h5>
-                    <table>
-                        <tr>
-                            <td>
-                                Waktu Mulai
-                            </td>
-                            <td>:</td>
-                            <td>
-                                {{ Carbon\Carbon::parse($value->tgl_awal)->format('H:i d F Y') }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Waktu Akhir
-                            </td>
-                            <td>:</td>
-                            <td>
-                                {{ Carbon\Carbon::parse($value->tgl_akhir)->format('H:i d F Y') }}
-                            </td>
-                        </tr>
-                    </table>
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <strong>Mulai</strong>
+                            <h6>Tanggal : {{ Carbon\Carbon::parse($value->tgl_awal)->format('d F Y') }}</h6>
+                            <h6>Jam : {{ Carbon\Carbon::parse($value->tgl_awal)->format('H:i') }}</h6>
+                        </div>
+                        <div class="col-xl-12">
+                            <strong>Sampai</strong>
+                            <h6>Tanggal : {{ Carbon\Carbon::parse($value->tgl_akhir)->format('d F Y') }}</h6>
+                            <h6>Jam : {{ Carbon\Carbon::parse($value->tgl_akhir)->format('H:i') }}</h6>
+                        </div>
+                    </div>
                     @php
                         $cek = $value->wherehas('hasil', function($q) use($value) {
                                     $q->where('user_id', auth()->user()->id)->where('tryout_paket_id', $value->id);
@@ -88,9 +80,9 @@
                             </a>
                         @endif
                     @elseif($today < $value->tgl_awal)
-                    <a href="#" class="btn btn-primary disabled" disabled>Belum Waktunya</a>
+                    <a href="#" class="btn btn-light text-dark btn-block mt-4 disabled" disabled>Belum Waktunya</a>
                     @else
-                    <a href="#" class="btn btn-primary disabled" disabled>Tryout Telah Selesai</a>
+                    <a href="#" class="btn btn-secondary btn-blok mt-4 disabled" disabled>Tryout Telah Selesai</a>
                     @endif
                 </div>
             </div>
