@@ -117,14 +117,16 @@ class MentoringController extends Controller
                 $nilai_awal = $tryout->nilai_awal;
                 $nilai_max = $tryout->nilai_maksimal;
                 $nilai_user = round($nilai_awal/$nilai_max * 100, 2);
+                $nil_pg1 = ($pg1->passing_grade/100)*$nilai_max;
+                $nil_pg2 = ($pg2->passing_grade/100)*$nilai_max;
             } else {
-                $pg1 = $pg2 = $nilai_user = 0;
+                $pg1 = $pg2 = $nilai_user = $nil_pg1 = $nil_pg2 = 0;
             }
             $komentar = '';
             if(auth()->user()->getRoleNames()->first() == 'mentor') {
                 $komentar = Komentar::where('mentor_id', auth()->user()->mentor()->first()->id)->where('tryout_hasil_id', $id)->first();
             }
-            return view('pages.mentoring.analisis_mentor', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket' ,'komentar'));
+            return view('pages.mentoring.analisis_mentor', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket' ,'komentar', 'nil_pg1', 'nil_pg2'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }

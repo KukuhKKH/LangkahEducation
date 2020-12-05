@@ -338,7 +338,7 @@ class TryoutController extends Controller
         $paket = TryoutPaket::findSlug($slug);
         $tryout = TryoutHasil::with(['user', 'paket', 'tryout_hasil_jawaban', 'tryout_hasil_detail'])->where('user_id', auth()->user()->id)->where('tryout_paket_id', $paket->id)->first();
         $passing_grade = PassingGrade::with('universitas')->latest()->get();
-        $saingan = TryoutHasil::where('tryout_paket_id', $paket->id)->with(['user'])->get();
+        $saingan = TryoutHasil::where('tryout_paket_id', $paket->id)->with(['user'])->orderBy('nilai_awal', 'ASC')->get();
 
         // Data Grafik User
         $nilai_by_user = TryoutHasil::with(['user', 'paket', 'tryout_hasil_jawaban', 'tryout_hasil_detail'])->where('user_id', auth()->user()->id)->get();
@@ -363,10 +363,12 @@ class TryoutController extends Controller
             $nilai_awal = $tryout->nilai_awal;
             $nilai_max = $tryout->nilai_maksimal;
             $nilai_user = round($nilai_awal/$nilai_max * 100, 2);
+            $nil_pg1 = ($pg1->passing_grade/100)*$nilai_max;
+            $nil_pg2 = ($pg2->passing_grade/100)*$nilai_max;
         } else {
-            $pg1 = $pg2 = $nilai_user = 0;
+            $pg1 = $pg2 = $nilai_user = $nil_pg1 = $nil_pg2 = 0;
         }
         $komentar = Komentar::where('tryout_hasil_id', $tryout->id)->first();
-        return view('pages.tryout.hasil-analisis.index', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket', 'komentar'));
+        return view('pages.tryout.hasil-analisis.index', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket', 'komentar', 'nil_pg1', 'nil_pg2'));
     }
 }

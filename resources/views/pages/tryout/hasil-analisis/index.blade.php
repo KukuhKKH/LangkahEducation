@@ -32,7 +32,7 @@
                             {{ Carbon\Carbon::parse($tryout->created_at)->format('H:i') }} WIB
                         </td>
                     </tr>
-                    <tr>
+                    {{-- <tr>
                         <td class="font-weight-bold w-50">
                             Formasi
                         </td>
@@ -40,7 +40,7 @@
                         <td>
                             -
                         </td>
-                    </tr>
+                    </tr> --}}
                 </table>
 
                 <form action="#" class="mt-4">
@@ -203,6 +203,7 @@
 @section('js')
 <!-- Page level plugins -->
 <script src="{{ asset('assets/vendor/chart.js/Chart.min.js') }}"></script>
+<script src="{{ asset('assets/vendor/chart.js/annotation.js') }}"></script>
 <script src="{{ asset('assets/vendor/select2/dist/js/select2.js') }}"></script>
 
 <!-- Page level custom scripts -->
@@ -256,7 +257,7 @@
     new Chart(ctx2, {
         type: 'bar',
         data: data_saingan,
-        options: barOptions
+        options: barOption2
     })
 
 </script>
