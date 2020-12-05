@@ -3,14 +3,13 @@
 
 @section('content')
     <h1 class="h3 mb-2 text-gray-800">Pendaftaran / Gelombang</h1>
-    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the</p>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <div class="d-flex justify-content-between mb-1">
+            <div class="d-flex justify-content-between align-items-center">
             <h6 class="m-0 font-weight-bold text-primary">Pendaftaran / Gelombang</h6>
-                <div class="btn-group btn-group-md mb-3">
-                    <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#modalData"><i class="fa fa-plus"></i> Tambah Gelombang</button>
+                <div class="btn-group btn-group-md">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalData"><i class="fa fa-plus"></i> Tambah Gelombang</button>
                 </div>
             </div>
         </div>
@@ -69,8 +68,11 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="text-center">
-                                Tidak ada data
+                            <td colspan="6">
+                                <div class="text-center mb-3 p-5 bg-light">
+                                    <img class="mb-3" height="50px" src="{{asset('assets/img/null-icon.svg')}}" alt="">
+                                    <h6>Tidak Ada Gelombang/Batch</h6>
+                                </div>
                             </td>
                         </tr>
                     @endforelse

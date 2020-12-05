@@ -13,14 +13,13 @@
 </div>
 <div class="card shadow mb-4">
     <div class="card-header">
-        <div class="row">
-            <div class="col-xl-12 text-right">
+        <div class="d-flex justify-content-between align-items-center">
+            <h6 class="m-0 font-weight-bold text-primary">Kategori Soal</h6>
                 <div class="btn-group btn-group-md">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalData"><i
-                            class="fas fa-fw fa-plus-circle"></i> Tambah Kategori</button>
+                        class="fas fa-fw fa-plus"></i> Tambah Kategori</button>
                 </div>
             </div>
-        </div>
     </div>
     <div class="card-body">
         <div class="table-responsive">
