@@ -32,15 +32,15 @@
                             {{ Carbon\Carbon::parse($tryout->created_at)->format('H:i') }} WIB
                         </td>
                     </tr>
-                    {{-- <tr>
+                    <tr>
                         <td class="font-weight-bold w-50">
-                            Formasi
+                            Kelompok
                         </td>
                         <td>:</td>
                         <td>
                             -
                         </td>
-                    </tr> --}}
+                    </tr>
                 </table>
 
                 <form action="#" class="mt-4">
@@ -49,7 +49,8 @@
                         <select name="prodi-1" id="prodi-1" class="form-control" required>
                             <option value="" selected disabled>== Program Studi Pilihan 1 ==</option>
                             @foreach ($passing_grade as $value)
-                                <option value="{{ $value->id }}">({{ $value->passing_grade }}%) {{ $value->universitas->nama }} - {{ $value->prodi }}</option>
+                            <option value="{{ $value->id }}">({{ $value->passing_grade }}%)
+                                {{ $value->universitas->nama }} - {{ $value->prodi }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -58,12 +59,13 @@
                         <select name="prodi-2" id="prodi-2" class="form-control" required>
                             <option value="" selected disabled>== Program Studi Pilihan 1 ==</option>
                             @foreach ($passing_grade as $value)
-                                <option value="{{ $value->id }}">({{ $value->passing_grade }}%) {{ $value->universitas->nama }} - {{ $value->prodi }}</option>
+                            <option value="{{ $value->id }}">({{ $value->passing_grade }}%)
+                                {{ $value->universitas->nama }} - {{ $value->prodi }}</option>
                             @endforeach
                         </select>
                     </div>
 
-                    <button class="btn btn-langkah btn-block">Cek Hasil</button>
+                    <button class="btn btn-langkah btn-block">uba Pilihan</button>
                 </form>
             </div>
         </div>
@@ -75,37 +77,37 @@
                 <h6 class="m-0 font-weight-bold text-dark">Passing Grade</h6>
             </div>
             <div class="card-body">
-                <h4 class="small font-weight-bold">({{ $pg1->passing_grade }}%) {{ $pg1->universitas->nama }} - {{ $pg1->prodi }} <span
-                        class="float-right">{{ $nilai_user }}%</span></h4>
+                <h4 class="small font-weight-bold">({{ $pg1->passing_grade }}%) {{ $pg1->universitas->nama }} -
+                    {{ $pg1->prodi }} <span class="float-right">{{ $nilai_user }}%</span></h4>
 
                 @php
-                    $prodi1=($nilai_user/$pg1->passing_grade)*100;
+                $prodi1=($nilai_user/$pg1->passing_grade)*100;
                 @endphp
                 <div class="progress">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ $prodi1 }}%" aria-valuenow="20"
-                        aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ $prodi1 }}%"
+                        aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
 
-                @if ($pg1->passing_grade < $nilai_user)
-                    <p class="mb-4 mt-2">Status : <span class="text-success">LULUS</span></p>
-                @else
+                @if ($pg1->passing_grade < $nilai_user) <p class="mb-4 mt-2">Status : <span
+                        class="text-success">LULUS</span></p>
+                    @else
                     <p class="mb-4 mt-2">Status : <span class="text-danger">BELUM LULUS</span></p>
-                @endif
+                    @endif
 
-                <h4 class="small font-weight-bold">({{ $pg2->passing_grade }}%) {{ $pg2->universitas->nama }} - {{ $pg2->prodi }}<span
-                        class="float-right">{{ $nilai_user }}%</span></h4>
-                @php
+                    <h4 class="small font-weight-bold">({{ $pg2->passing_grade }}%) {{ $pg2->universitas->nama }} -
+                        {{ $pg2->prodi }}<span class="float-right">{{ $nilai_user }}%</span></h4>
+                    @php
                     $prodi2=($nilai_user/$pg2->passing_grade)*100;
-                @endphp
-                <div class="progress ">
-                    <div class="progress-bar bg-primary" role="progressbar" style="width: {{ $prodi2 }}%" aria-valuenow="20"
-                        aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                @if ($pg2->passing_grade < $nilai_user)
-                    <p class="mb-4 mt-2">Status : <span class="text-success">LULUS</span></p>
-                @else
-                    <p class="mb-4 mt-2">Status : <span class="text-danger">BELUM LULUS</span></p>
-                @endif
+                    @endphp
+                    <div class="progress ">
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: {{ $prodi2 }}%"
+                            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    @if ($pg2->passing_grade < $nilai_user) <p class="mb-4 mt-2">Status : <span
+                            class="text-success">LULUS</span></p>
+                        @else
+                        <p class="mb-4 mt-2">Status : <span class="text-danger">BELUM LULUS</span></p>
+                        @endif
             </div>
         </div>
     </div>
@@ -134,18 +136,19 @@
                     </thead>
                     <tbody>
                         @forelse ($tryout->tryout_hasil_detail as $value)
-                            <tr>
-                                <td>{{ $value->kategori_soal->nama }}({{ $value->kategori_soal->kode }})</td>
-                                <td>{{ $value->benar }}</td>
-                                <td>{{ $value->salah }}</td>
-                                <td>{{ $value->kosong }}</td>
-                                <td>{{ $value->nilai }}</td>
-                                <td><a href="{{ route('mentoring.pembahasan',['paket_id' => $value->tryout_paket_id, 'kategori_id' =>  $value->tryout_kategori_soal_id]) }}" class="btn btn-primary">Lihat</a></td>
-                            </tr>
+                        <tr>
+                            <td>{{ $value->kategori_soal->nama }}({{ $value->kategori_soal->kode }})</td>
+                            <td>{{ $value->benar }}</td>
+                            <td>{{ $value->salah }}</td>
+                            <td>{{ $value->kosong }}</td>
+                            <td>{{ $value->nilai }}</td>
+                            <td><a href="{{ route('mentoring.pembahasan',['paket_id' => $value->tryout_paket_id, 'kategori_id' =>  $value->tryout_kategori_soal_id]) }}"
+                                    class="btn btn-primary">Lihat</a></td>
+                        </tr>
                         @empty
-                            <tr>
-                                <td colspan="6">Tidak ada data</td>
-                            </tr>
+                        <tr>
+                            <td colspan="6">Tidak ada data</td>
+                        </tr>
                         @endforelse
                     </tbody>
                 </table>
@@ -176,9 +179,10 @@
             <div class="card-body">
                 <form action="">
                     <img class="my-3" src="{{asset('assets/img/undraw_profile.svg')}}" alt="profil-mentor"
-                    style="height:100px">
+                        style="height:100px">
                     <div class="form-group">
-                        <textarea class="form-control mt-4" id="komentarMentor" rows="5" disabled>{{ $komentar->komentar ?? 'Belum ada Komentar' }}</textarea>
+                        <textarea class="form-control mt-4" id="komentarMentor" rows="5"
+                            disabled>{{ $komentar->komentar ?? 'Belum ada Komentar' }}</textarea>
                     </div>
                     @hasanyrole('mentor')
                     <button class="btn btn-langkah btn-block" type="submit">Kirim Komentar</button>
@@ -226,7 +230,9 @@
     // Grafik Riwayat Nilai
     let ctx = document.getElementById("myRiwayatNilai")
     let data_riwayat = {
-        labels: {!! json_encode($nama_paket) !!},
+        labels: {
+            !!json_encode($nama_paket) !!
+        },
         datasets: [{
             label: "Nilai",
             lineTension: 0.3,
@@ -240,7 +246,9 @@
             pointHoverBorderColor: "rgba(51, 51, 51, 1)",
             pointHitRadius: 10,
             pointBorderWidth: 2,
-            data: {!! json_encode($nilai_grafik) !!},
+            data: {
+                !!json_encode($nilai_grafik) !!
+            },
         }],
     }
     new Chart(ctx, {
@@ -252,13 +260,19 @@
     // Grafik Persaingan
     let ctx2 = document.getElementById("myPersaingan");
     let data_saingan = {
-        labels: {!! json_encode($nilai_saingan)!!},
-            datasets: [{
+        labels: {
+            !!json_encode($nilai_saingan) !!
+        },
+        datasets: [{
             label: "Nilai",
             backgroundColor: "#4e73df",
             hoverBackgroundColor: "#2e59d9",
             borderColor: "#4e73df",
-            data: {{ json_encode($nilai_saingan) }},
+            data: {
+                {
+                    json_encode($nilai_saingan)
+                }
+            },
         }],
     }
     new Chart(ctx2, {

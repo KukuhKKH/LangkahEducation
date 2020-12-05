@@ -9,6 +9,7 @@
                 {{-- <h6 class="m-0 font-weight-bold text-dark">Virtual Mentoring</h6> --}}
                 <div class="row">
                     <div class="col-10 d-flex flex-row align-items-center">
+                        <a href="{{ url()->previous() }}" class="btn btn-light ml-1"><i class="fa fa-chevron-left"></i></a>
                         <img src="{{asset('assets/img/undraw_profile.svg')}}" alt="profil-mentor" style="height:40px">
                         <h6 class="ml-3 font-weight-bold text-dark">{{ $siswa->user->name }}</h6>
                     </div>
@@ -39,9 +40,10 @@
                 @endif
                     
                 @empty
-                    <div class="text-center">
-                        <p>Chat Kosong</p>
-                    </div>
+                <div class="text-center mb-3 p-5 bg-light">
+                    <img class="mb-3" height="50px" src="{{asset('assets/img/null-icon.svg')}}" alt="">
+                    <h6>Tidak Ada Chat</h6>
+                </div>
                 @endforelse
 
             </div>

@@ -34,11 +34,11 @@
                     </tr>
                     <tr>
                         <td class="font-weight-bold w-50">
-                            Formasi
+                            Kelompok
                         </td>
                         <td>:</td>
                         <td>
-                            -
+                            SAINTEK/SOSHUM
                         </td>
                     </tr>
                 </table>

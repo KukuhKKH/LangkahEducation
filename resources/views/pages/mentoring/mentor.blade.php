@@ -24,7 +24,7 @@
                         <th>Nama Siswa</th>
                         <th>Asal Sekolah</th>
                         <th>NISN</th>
-                        <th width="10%">Aksi</th>
+                        <th width="25%">Aksi</th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -33,7 +33,7 @@
                         <th>Nama Siswa</th>
                         <th>Asal Sekolah</th>
                         <th>NISN</th>
-                        <th width="10%">Aksi</th>
+                        <th width="25%">Aksi</th>
                     </tr>
                 </tfoot>
                 <tbody>
@@ -44,12 +44,12 @@
                         <td>{{ $value->asal_sekolah }}</td>
                         <td>{{ $value->nisn }}</td>
                         <td>
-                            <a href="{{ route('mentorig.mentoring', $value->id) }}" class="btn btn-success"
+                            <a href="{{ route('mentorig.mentoring', $value->id) }}" class="btn btn-success my-1"
                                 data-toggle="tooltip" data-placement="top" title="Virtual Mentoring">
-                                <i class="fas fa-fw fa-microphone"></i>
+                                <i class="fas fa-fw fa-comment"></i>
                             </a>
                             <a href="javascript:void(0)" onclick="detailTryout({{ $value->user->id }})"
-                                class="btn btn-primary" data-toggle="tooltip" data-placement="top"
+                                class="btn btn-primary my-1" data-toggle="tooltip" data-placement="top"
                                 title="Analisis hasil tryout">
                                 <i class="fas fa-fw fa-desktop"></i>
                             </a>

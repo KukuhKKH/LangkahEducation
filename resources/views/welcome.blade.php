@@ -67,22 +67,6 @@
                 </div>
                 <div class="col-lg-6 pt-2 pt-lg-0 order-1 order-lg-2">
                     {!! $data->tentang_kami !!}
-                    {{-- <p>
-                        Langkah Education merupakan Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem
-                        odit quis
-                        numquam mollitia minus nisi modi est ea esse eveniet?
-
-                        Langkah Education merupakan Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem
-                        odit quis
-                        numquam mollitia minus nisi modi est ea esse eveniet?
-                    </p>
-                    <ul>
-                        <li><i class="fa fa-check"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequa</li>
-                        <li><i class="fa fa-check"></i> Duis aute irure dolor in reprehenderit in voluptate velit</li>
-                        <li><i class="fa fa-check"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-                            aute irure
-                            dolor in reprehenderit in</li>
-                    </ul> --}}
                 </div>
             </div>
 
@@ -102,14 +86,13 @@
             </div>
             <div class="row justify-content-center">
                 @forelse ($gelombang as $value)
-                <div class="col-lg-6 mb-4">
-                    <div class="box">
-                        <span class="price">{{ Carbon\Carbon::parse($value->tgl_awal)->format('d F Y') }} -
-                            {{ Carbon\Carbon::parse($value->tgl_akhir)->format('d F Y') }}</span>
-                        <h4>Dibuka <span>{{ $value->nama }}</span></h4>
-                        <h6>Biaya Pendaftaran <span>Rp. {{ number_format($value->harga) }}</span></h6>
-                        <a href="javascript:void(0)" data-id="{{ $value->id }}" class="btn-buy daftar">Daftar
-                            Sekarang</a>
+                <div class="col-lg-4 mb-4">
+                    <div class="card shadow ">
+                        <div class="card-body justify-content-center">
+                            <img class="img-cover img-circle img-fluid"src="{{asset('assets/img/logo-circle-primary.svg')}}" alt="" width="50px">
+                            <h4 class="mt-4">Try Out</h4>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat eos similique quo autem, delectus labore.</p>
+                        </div>
                     </div>
                 </div>
                 @empty

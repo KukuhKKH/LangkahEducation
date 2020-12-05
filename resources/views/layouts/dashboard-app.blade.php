@@ -101,7 +101,7 @@
         <script src="{{ asset('assets/vendor/sweet-alert/sweetalert.min.js') }}"></script>
 
         <script>
-            @if(request()->is('dashboard/siswa/hasil/tryout/*') || request()->is('dashboard/hasiltryout/siswa/11/sma-1-babadan-b/detail'))
+            @if(request()->is('dashboard/siswa/hasil/tryout/*') || request()->is('dashboard/hasiltryout/siswa/*'))
             let pg1 = {{ $nil_pg1 ?? 0 }}
             let pg2 = {{ $nil_pg2 ?? 0 }}
 
