@@ -79,29 +79,65 @@
                                        @endforeach
                                     </tbody>
                                 </table>
-                                <form action="{{ route('tryout.mulai', ['slug' => $paket->slug, 'token' => $user_token]) }}" class="mt-4" method="get">
-                                    <div class="form-group">
-                                        <label for="prodi-1">Pilihan Prodi 1</label><br>
-                                        <select name="prodi-1" id="prodi-1" class="form-control" required>
-                                            <option value="" selected disabled>== Program Studi Pilihan 1 ==</option>
-                                            @foreach ($prodi as $value)
-                                                <option value="{{ $value->id }}">{{ $value->universitas->nama }} - {{ $value->prodi }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="prodi-2">Pilihan Prodi 2</label><br>
-                                        <select name="prodi-2" id="prodi-2" class="form-control" required>
-                                            <option value="" selected disabled>== Program Studi Pilihan 1 ==</option>
-                                            @foreach ($prodi as $value)
-                                                <option value="{{ $value->id }}">{{ $value->universitas->nama }} - {{ $value->prodi }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <button type="submit" class="btn btn-langkah btn-block mt-4">Kerjakan
-                                        Sekarang</button>
-                                </form>
                             </div>
+                            <form action="{{ route('tryout.mulai', ['slug' => $paket->slug, 'token' => $user_token]) }}" class="mt-4" method="get">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="kelompok">Pilihan Kelompok</label><br>
+                                            <select name="kelompok" id="kelompok" class="form-control" required>
+                                                <option value="" selected disabled>== Kelompok Pilihan ==</option>
+                                                @foreach ($kelompok as $value)
+                                                    <option value="{{ $value->id }}">{{ $value->nama }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="univ-1">Pilihan Universitas 1</label><br>
+                                            <select name="univ-1" id="univ-1" class="form-control" required>
+                                                <option value="" selected disabled>== Universitas Pilihan 1 ==</option>
+                                                @foreach ($universitas as $value)
+                                                    <option value="{{ $value->id }}">{{ $value->nama }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="prodi-1">Pilihan Prodi 1</label><br>
+                                            <select name="prodi-1" id="prodi-1" class="form-control" required disabled>
+                                                <option value="" selected disabled>== Program Studi Pilihan 1 ==</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="univ-2">Pilihan Universitas 2</label><br>
+                                            <select name="univ-2" id="univ-2" class="form-control" required>
+                                                <option value="" selected disabled>== Universitas Pilihan 2 ==</option>
+                                                @foreach ($universitas as $value)
+                                                    <option value="{{ $value->id }}">{{ $value->nama }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="prodi-2">Pilihan Prodi 2</label><br>
+                                            <select name="prodi-2" id="prodi-2" class="form-control" required disabled>
+                                                <option value="" selected disabled>== Program Studi Pilihan 2 ==</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-langkah btn-block mt-4">Kerjakan
+                                    Sekarang</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -160,14 +196,65 @@
 <script src="{{ asset('assets/vendor/select2/dist/js/select2.js') }}"></script>
 
 <!-- Page level custom scripts -->
-{{-- <script src="{{ asset('assets/js/hasil-riwayat-nilai.js') }}"></script>
-<script src="{{ asset('assets/js/hasil-persaingan-nilai.js') }}"></script> --}}
-{{-- <script src="{{ asset('assets/js/hasil-pg-prodi1.js') }}"></script>
+{{-- <script src="{{ asset('assets/js/hasil-riwayat-nilai.js') }}"></script> 
+<script src="{{ asset('assets/js/hasil-persaingan-nilai.js') }}"></script>
+<script src="{{ asset('assets/js/hasil-pg-prodi1.js') }}"></script> 
 <script src="{{ asset('assets/js/hasil-pg-prodi2.js') }}"></script> --}}
 
 <script>
+    const URL_GET = `{{ url('api/v1/get-prodi') }}`
     $("#prodi-1").select2();
     $("#prodi-2").select2();
+
+    let kelompok = $('#kelompok').val()
+    // kelompok-2 univ-2 prodi-2
+    $('#univ-1').on('change', function() {
+        kelompok = $('#kelompok').val()
+        let univ1 = $('#univ-1').val()
+        new Promise((resolve, reject) => {
+            $.ajax({
+                url: `${URL_GET}/${kelompok}/${univ1}`,
+                method: 'GET',
+                dataType: 'JSON'
+            })
+            .done(res => {
+                console.log(res)
+                let data = res.data
+                $('#prodi-1').empty()
+                data.forEach(element => {
+                    $('#prodi-1').append(`<option value="${element.id}">${element.prodi}</option>`)
+                })
+                $('#prodi-1').removeAttr('disabled')
+            })
+            .fail(err => {
+                console.log(err)
+            })
+        })
+    })
+
+    $('#univ-2').on('change', function() {
+        kelompok = $('#kelompok').val()
+        let univ2 = $('#univ-2').val()
+        new Promise((resolve, reject) => {
+            $.ajax({
+                url: `${URL_GET}/${kelompok}/${univ2}`,
+                method: 'GET',
+                dataType: 'JSON'
+            })
+            .done(res => {
+                console.log(res)
+                let data = res.data
+                $('#prodi-2').empty()
+                data.forEach(element => {
+                    $('#prodi-2').append(`<option value="${element.id}">${element.prodi}</option>`)
+                })
+                $('#prodi-2').removeAttr('disabled')
+            })
+            .fail(err => {
+                console.log(err)
+            })
+        })
+    })
 </script>
 @endsection
 

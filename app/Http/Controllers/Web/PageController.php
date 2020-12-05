@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateDataLandingPage;
 use App\Models\Gelombang;
 use App\Models\LandingPage;
+use App\Models\LayananProduk;
 use App\Models\Testimoni;
 use Illuminate\Http\Request;
 
@@ -17,13 +18,13 @@ class PageController extends Controller
         $testimoni = Testimoni::where('status', 1)->get();
         $today = date('m/d/Y');
         $gelombang = Gelombang::where('tgl_awal', '<', $today)->where('tgl_akhir', '>', $today)->get();
-        return view('welcome', compact('data', 'testimoni','gelombang'));
+        $layanan = LayananProduk::all();
+        return view('welcome', compact('data', 'testimoni','gelombang', 'layanan'));
     }
 
     public function landing_page() {
         try {
             $data = LandingPage::findOrFail(1);
-            // dd($data);
             return view('pages.halaman.landing-page.index', compact('data'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);

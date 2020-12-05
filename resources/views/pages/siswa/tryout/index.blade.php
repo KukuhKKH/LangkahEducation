@@ -70,7 +70,7 @@
                             $prodi = App\Models\TempProdi::where('paket_id', $value->id)->get();
                         @endphp
                             @if (count($prodi) > 0)
-                            <a class="btn btn-light btn-block" href="{{ route('tryout.hasil', ['slug' => $value->slug, 'prodi-1' => $prodi[0]->passing_grade_id, 'prodi-2' => $prodi[1]->passing_grade_id]) }}">Hasil Analisis</a>    
+                            <a class="btn btn-light btn-block" href="{{ route('tryout.hasil', ['kelompok' => $prodi[0]->kelompok_passing_grade_id, 'slug' => $value->slug, 'prodi-1' => $prodi[0]->passing_grade_id, 'prodi-2' => $prodi[1]->passing_grade_id]) }}">Hasil Analisis</a>    
                             @else
                             <a class="btn btn-light btn-block" href="{{ route('tryout.hasil', ['slug' => $value->slug]) }}">Hasil Analisis</a>
                             @endif

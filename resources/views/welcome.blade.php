@@ -85,15 +85,23 @@
                     in iste officiis commodi quidem hic quas.</p> --}}
             </div>
             <div class="row justify-content-center">
+                @forelse ($layanan as $value)
                 <div class="col-lg-4 mb-4">
                     <div class="card shadow ">
                         <div class="card-body justify-content-center">
-                            <img class="img-cover img-circle img-fluid"src="{{asset('assets/img/logo-circle-primary.svg')}}" alt="" width="50px">
-                            <h4 class="mt-4">Try Out</h4>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat eos similique quo autem, delectus labore.</p>
+                        @if ($value->foto)
+                        <img class="img-cover img-circle img-fluid"src="{{asset("upload/layanan/$value->foto")}}" alt="" width="50px">
+                        @else
+                        <img class="img-cover img-circle img-fluid"src="{{asset('assets/img/logo-circle-primary.svg')}}" alt="" width="50px">
+                        @endif
+                            <h4 class="mt-4">{{ $value->nama }}</h4>
+                            {!! $value->deskripsi !!}
                         </div>
                     </div>
                 </div>
+                @empty
+                    
+                @endforelse
             </div>
         </div>
     </section><!-- End Why Us Section -->

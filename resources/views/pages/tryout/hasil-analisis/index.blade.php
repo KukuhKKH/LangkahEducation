@@ -38,7 +38,7 @@
                         </td>
                         <td>:</td>
                         <td>
-                            -
+                            {{ Str::upper($kelompok->nama) }}
                         </td>
                     </tr>
                 </table>

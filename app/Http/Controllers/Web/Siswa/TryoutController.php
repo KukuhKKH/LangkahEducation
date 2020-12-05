@@ -13,9 +13,11 @@ use App\Models\TryoutKategoriSoal;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Gelombang;
+use App\Models\KelompokPassingGrade;
 use App\Models\Komentar;
 use App\Models\Pembayaran;
 use App\Models\TempProdi;
+use App\Models\Universitas;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 
@@ -173,8 +175,9 @@ class TryoutController extends Controller
                             ->groupBy('tryout_soal.tryout_kategori_soal_id')
                             ->get();
             $user_token = $token;
-            $prodi = PassingGrade::all();
-            return view('tryout.detail',compact('detail', 'paket', 'user_token', 'prodi'));
+            $kelompok = KelompokPassingGrade::all();
+            $universitas = Universitas::all();
+            return view('tryout.detail',compact('detail', 'paket', 'user_token', 'universitas', 'kelompok'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
@@ -200,19 +203,23 @@ class TryoutController extends Controller
                         'paket_id' => $paket->id,
                         'user_id' => auth()->user()->id,
                         'passing_grade_id' => $request->get('prodi-1'),
+                        'kelompok_passing_grade_id' => $request->get('kelompok'),
                     ], [
                         'paket_id' => $paket->id,
                         'user_id' => auth()->user()->id,
                         'passing_grade_id' => $request->get('prodi-1'),
+                        'kelompok_passing_grade_id' => $request->get('kelompok'),
                     ]);
                     TempProdi::updateOrCreate([
                         'paket_id' => $paket->id,
                         'user_id' => auth()->user()->id,
                         'passing_grade_id' => $request->get('prodi-2'),
+                        'kelompok_passing_grade_id' => $request->get('kelompok'),
                     ], [
                         'paket_id' => $paket->id,
                         'user_id' => auth()->user()->id,
                         'passing_grade_id' => $request->get('prodi-2'),
+                        'kelompok_passing_grade_id' => $request->get('kelompok'),
                     ]);
                 }
                 $index = 0;
@@ -337,7 +344,15 @@ class TryoutController extends Controller
     public function hasil(Request $request, $slug) {
         $paket = TryoutPaket::findSlug($slug);
         $tryout = TryoutHasil::with(['user', 'paket', 'tryout_hasil_jawaban', 'tryout_hasil_detail'])->where('user_id', auth()->user()->id)->where('tryout_paket_id', $paket->id)->first();
-        $passing_grade = PassingGrade::with('universitas')->latest()->get();
+        if($request->get('kelompok')) {
+            $kelompok = KelompokPassingGrade::find($request->get('kelompok'));
+            $passing_grade = PassingGrade::with('universitas')->whereHas('kelompok', function($q) use($kelompok) {
+                $q->where('id', $kelompok->id);
+            })->latest()->get();
+        } else {
+            $kelompok = '';
+            $passing_grade = PassingGrade::with('universitas')->latest()->get();
+        }
         $saingan = TryoutHasil::where('tryout_paket_id', $paket->id)->with(['user'])->orderBy('nilai_awal', 'ASC')->get();
 
         // Data Grafik User
@@ -369,6 +384,6 @@ class TryoutController extends Controller
             $pg1 = $pg2 = $nilai_user = $nil_pg1 = $nil_pg2 = 0;
         }
         $komentar = Komentar::where('tryout_hasil_id', $tryout->id)->first();
-        return view('pages.tryout.hasil-analisis.index', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket', 'komentar', 'nil_pg1', 'nil_pg2'));
+        return view('pages.tryout.hasil-analisis.index', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket', 'komentar', 'nil_pg1', 'nil_pg2', 'kelompok'));
     }
 }
