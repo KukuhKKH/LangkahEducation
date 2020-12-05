@@ -1,55 +1,27 @@
 @extends('layouts.dashboard-app')
-@section('title', 'Passing Grade - Universitas')
+@section('title', 'Daftar Universitas')
 
 @section('content')
-<div class="d-flex justify-content-between mb-4">
-    <h1 class="h3 text-gray-800">Passing Grade - Universitas</h1>
-
-    <div class="mb-2">
-         {{-- <a href="{{ asset('template/TemplateUniversitas.xlsx') }}" download="" class="btn btn-success"><i class="fas fa-fw fa-file-excel"></i> Template Universitas</a> --}}
-         <a href="{{ asset('template/TemplateUniversitasKedua.xlsx') }}" download="" class="btn btn-success"><i class="fas fa-fw fa-file-excel"></i> Template Universitas + Prodi + Passing Grade</a>
-         <button data-toggle="modal" data-target="#modalKelompok" class="btn btn-warning text-dark">Cek ID Kelompok Prodi</button>
+<div class="row mb-4">
+    <div class="col-xl-6">
+        <h1 class="h3 text-gray-800">Daftar Universitas</h1>
+    </div>
+    <div class="col-xl-6 text-right">
+         <a href="{{ asset('template/TemplateUniversitasKedua.xlsx') }}" download="" class="btn btn-success my-1"><i class="fas fa-fw fa-file-excel"></i> Template Passing Grade</a>
+         <button data-toggle="modal" data-target="#modalKelompok" class="btn btn-info my-1"><i class="fa fa-eye"></i> Cek ID Kelompok Prodi</button>
     </div>
 </div>
 
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <!-- <div class="row">
-               <div class="col-md-8">
-                  <form action="{{ route('universitas.import') }}" method="POST" id="form-import" enctype="multipart/form-data">
-                     @csrf
-                     <div class="form-group">
-                        <div class="input-group">
-                           <div class="mr-2 d-flex align-items-center">
-                              Import Universitas
-                           </div>
-                           <div class="custom-file">
-                              <input type="file" name="file" class="custom-file-input" id="inputGroupFile02" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" required>
-                              <label class="custom-file-label" for="inputGroupFile02">Pilih File</label>
-                           </div>
-                           <div class="input-group-append" id="btn-submit">
-                              <button type="submit" class="input-group-text">Upload</button>
-                           </div>
-                        </div>
-                     </div>
-                  </form>
-               </div>
-               <div class="col-md-4 text-right">
-                  <div class="btn-group btn-group-md">
-                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalData"><i class="fas fa-fw fa-plus-circle"></i> Tambah Universitas</button>
-                  </div>
-               </div>
-            </div> -->
+    <div class="card-header">
         <div class="row">
             <div class="col-md-8">
                 <form action="{{ route('universitas.import_batch') }}" method="POST" id="form-import"
                     enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
+                        <label for="">Import Data Excel</label>
                         <div class="input-group">
-                            <div class="mr-2 d-flex align-items-center">
-                                Import Passing Grade
-                            </div>
                             <div class="custom-file">
                                 <input type="file" name="file" class="custom-file-input" id="inputGroupFile02"
                                     accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
@@ -99,8 +71,8 @@
                                     title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </a> --}}
-                                <a href="{{ route('passing-grade.show', $value->id) }}" class="btn btn-primary">Tambah
-                                    Prodi</a>
+                                <a href="{{ route('passing-grade.show', $value->id) }}" class="btn btn-primary">Lihat Prodi
+                                    </a>
                                 <button type="button" class="btn btn-danger hapus" data-id="{{ $value->id }}"
                                     data-toggle="tooltip" data-placement="top" title="Hapus">
                                     <i class="fas fa-trash"></i>
@@ -127,7 +99,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Role</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Universitas</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -159,7 +131,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content modal-lg">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Role</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Kelompok Prodi</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -191,7 +163,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Tutup</button>
             </div>
         </div>
     </div>

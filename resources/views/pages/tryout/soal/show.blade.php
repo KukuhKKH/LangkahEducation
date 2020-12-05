@@ -9,7 +9,7 @@
     <div class="col-xl-6 text-right">
         <a href="{{ asset('template/TemplateSoalBatch.xlsx') }}" download="" class="btn btn-success my-1"><i
                 class="fas fa-fw fa-file-excel"></i> Template Soal</a>
-        <button type="button" class="btn btn-dark my-1" data-toggle="modal" data-target="#modalData"><i
+        <button type="button" class="btn btn-info my-1" data-toggle="modal" data-target="#modalData"><i
                 class="fa fa-eye"></i> Daftar ID Kategori</button>
     </div>
 </div>

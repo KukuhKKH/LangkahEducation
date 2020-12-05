@@ -10,20 +10,17 @@
          <a href="{{ asset('template/TemplatePassingGrade.xlsx') }}" download="" class="btn btn-success"><i class="fas fa-fw fa-file-excel"></i> Template Excel</a>
       </div>
    </div>
-    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the</p>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="row">
-               <div class="col-8">
+               <div class="col-xl-8">
                   <form action="{{ route('passing-grade.import') }}" method="POST" id="form-import" enctype="multipart/form-data">
                      @csrf
                      <input type="hidden" name="universitas_id" value="{{ $universitas->id }}">
                      <div class="form-group">
+                        <label for="">Import Data Excel</label>
                         <div class="input-group">
-                           <div class="mr-2 d-flex align-items-center">
-                              Import Data Excel 
-                           </div>
                            <div class="custom-file">
                               <input type="file" name="file" class="custom-file-input" id="inputGroupFile02" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" required>
                               <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
@@ -35,15 +32,12 @@
                      </div>
                   </form>
                </div>
-               <div class="col-4 text-right">
+               <div class="col-xl-4 text-right">
                   <div class="btn-group btn-group-md">
                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalData"><i class="fas fa-fw fa-plus-circle"></i> Tambah Passing Grade</button>
                   </div>
                </div>
             </div>
-         <div class="d-flex justify-content-between mb-1">
-            <h6 class="m-0 font-weight-bold text-primary">Passing Grade - Universitas {{ $universitas->nama }}</h6>
-         </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">

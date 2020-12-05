@@ -49,9 +49,9 @@
                   <strong>{{ $message }}</strong>
                </span>
          @enderror
-         <div class="mt-3">
+         <div class="mt-3 text-right">
+            <a href="{{ url()->previous() }}" class="btn btn-dark ml-1">Kembali</a>
             <button type="submit" class="btn btn-success">Edit</button>
-            <a href="{{ url()->previous() }}" class="btn btn-warning text-dark ml-1">Kembali</a>
          </div>
       </form>
    </div>

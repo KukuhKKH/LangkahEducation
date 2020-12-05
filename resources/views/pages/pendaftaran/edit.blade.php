@@ -37,17 +37,6 @@
                   @enderror
                </div>
             </div>
-            <div class="col-12">
-               <div class="form-group">
-                  <label for="">Harga</label>
-                  <input type="text" class="form-control @error('harga') is-invalid @enderror" id="harga" name="harga" placeholder="Masukkan Harga Gelombang" value="{{ $pendftaran->harga }}">
-                  @error('harga')
-                      <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
-                      </span>
-                  @enderror
-               </div>
-            </div>
             <div class="col-6">
                <div class="form-group">
                   <label for="tgl_awal">Tanggal Awal</label>
@@ -70,10 +59,21 @@
                   @enderror
                </div>
             </div>
+            <div class="col-6">
+               <div class="form-group">
+                  <label for="">Biaya Pendaftaran</label>
+                  <input type="text" class="form-control @error('harga') is-invalid @enderror" id="harga" name="harga" placeholder="Masukkan Harga Gelombang" value="{{ $pendftaran->harga }}">
+                  @error('harga')
+                      <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                      </span>
+                  @enderror
+               </div>
+            </div>
          </div>
-         <div class="float-right">
-            <button type="submit" class="btn btn-success">Edit</button>
-            <a href="{{ url()->previous() }}" class="btn btn-warning text-dark ml-1">Kembali</a>
+         <div class="text-right">
+            <a href="{{ url()->previous() }}" class="btn btn-dark ml-1">Kembali</a>
+            <button type="submit" class="btn btn-success">Simpan</button>
          </div>
       </form>
    </div>

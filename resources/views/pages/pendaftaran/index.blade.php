@@ -2,14 +2,15 @@
 @section('title', 'Pendaftaran / Gelombang')
 
 @section('content')
-    <h1 class="h3 mb-2 text-gray-800">Pendaftaran / Gelombang</h1>
+    <h1 class="h3 mb-4 text-gray-800">Pendaftaran / Gelombang</h1>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <div class="d-flex justify-content-between align-items-center">
-            <h6 class="m-0 font-weight-bold text-primary">Pendaftaran / Gelombang</h6>
-                <div class="btn-group btn-group-md">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalData"><i class="fa fa-plus"></i> Tambah Gelombang</button>
+            <div class="row">
+                <div class="col-xl-12 text-right">
+                    <div class="btn-group btn-group-md">
+                        <button type="button" class="btn btn-primary my-1" data-toggle="modal" data-target="#modalData"><i class="fa fa-plus"></i> Tambah Gelombang</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -51,16 +52,16 @@
                                 <form action="{{ route('pendaftaran.destroy', $value->id) }}" method="POST" id="form-{{ $value->id }}">
                                     @csrf
                                     @method('DELETE')
-                                    <a href="{{ route('pendaftaran.edit', $value->id) }}" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit Gelombang">
+                                    <a href="{{ route('pendaftaran.edit', $value->id) }}" class="btn btn-success my-1" data-toggle="tooltip" data-placement="top" title="Edit Gelombang">
                                         <i class="fas fa-fw fa-edit"></i>
                                     </a>
-                                    <a href="{{ route('pendaftaran.list', $value->id) }}" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="List siswa yang tergabung">
+                                    <a href="{{ route('pendaftaran.list', $value->id) }}" class="btn btn-warning my-1" data-toggle="tooltip" data-placement="top" title="List siswa yang tergabung">
                                         <i class="fas fa-fw fa-users"></i>
                                     </a>
-                                    <a href="{{ route('pendaftaran.tryout', $value->id) }}" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Integrasi tryout ke gelombang ini">
+                                    <a href="{{ route('pendaftaran.tryout', $value->id) }}" class="btn btn-primary my-1" data-toggle="tooltip" data-placement="top" title="Integrasi tryout ke gelombang ini">
                                     <i class="fas fa-fw fa-desktop"></i>
                                     </a>
-                                    <button type="button" class="btn btn-danger hapus" data-id="{{ $value->id }}" data-toggle="tooltip" data-placement="top" title="Hapus Gelombang">
+                                    <button type="button" class="btn btn-danger my-1 hapus" data-id="{{ $value->id }}" data-toggle="tooltip" data-placement="top" title="Hapus Gelombang">
                                         <i class="fas fa-fw fa-trash"></i>
                                     </button>
                                 </form>
@@ -142,7 +143,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Batal</button>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </form>
