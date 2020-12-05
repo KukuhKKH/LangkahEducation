@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Blog extends Model
 {
     protected $table = 'blog';
-    protected $fillable = ['user_id', 'slug', 'judul', 'isi', 'foto', 'slug', 'tags','status', 'kategori'];
+    protected $fillable = ['user_id', 'slug', 'judul', 'isi', 'foto', 'slug', 'tags','status'];
 
     public static function boot() {
         parent::boot();

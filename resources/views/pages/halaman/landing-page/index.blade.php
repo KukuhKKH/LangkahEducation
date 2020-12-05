@@ -171,52 +171,6 @@
             </div>
             <div class="card shadow mb-4">
                 <div class="card-header">
-                    <h6 class="m-0 font-weight-bold text-dark">Biaya</h6>
-                </div>
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="">Headline Biaya</label>
-                        <textarea name="headline_biaya" id="headline_biaya"
-                            class="form-control @error('headline_biaya') is-invalid @enderror"
-                            placeholder="Masukkan Headline">{{ $data->headline_biaya ?? old('headline_biaya') }}</textarea>
-                        @error('headline_biaya')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="">Biaya Individu</label>
-                                <textarea name="biaya_individu" id="biaya_individu"
-                                    class="form-control @error('biaya_individu') is-invalid @enderror"
-                                    placeholder="Masukkan Headline">{{ $data->biaya_individu ?? old('biaya_individu') }}</textarea>
-                                @error('biaya_individu')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="">Biaya Sekolah</label>
-                                <textarea name="biaya_sekolah" id="biaya_sekolah"
-                                    class="form-control @error('biaya_sekolah') is-invalid @enderror"
-                                    placeholder="Masukkan Headline">{{ $data->biaya_sekolah ?? old('biaya_sekolah') }}</textarea>
-                                @error('biaya_sekolah')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card shadow mb-4">
-                <div class="card-header">
                     <h6 class="m-0 font-weight-bold text-dark">Footer</h6>
                 </div>
                 <div class="card-body">

@@ -6,6 +6,7 @@ use App\Models\Blog;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Author;
+use App\Models\Kategori;
 use App\Models\KomentarBlog;
 use App\Models\User;
 
@@ -18,16 +19,21 @@ class PageController extends Controller
     }
 
     public function index() {
+        $kategori = Kategori::all();
         $artikel = Blog::where('status', 1)->latest()->paginate(10);
-        return view('pages.blog.list', compact('artikel'));
+        return view('pages.blog.list', compact('artikel', 'kategori'));
     }
 
     public function detail($slug) {
         try {
             $artikel = Blog::findSlug($slug);
             $komentar = KomentarBlog::where('blog_id', $artikel->id)->latest()->get();
+            $kategori = $artikel->kategori()->pluck('nama')->toArray();
+            Blog::wherehas('kategori', function($q) use($kategori) {
+                $q->whereIn('nama', $kategori);
+            })->where('id', '!=', $artikel->id)->latest()->limit(5)->get();
             $lainnya = $this->artikel_lainnya($artikel->user_id, $artikel->id);
-            $terkait = $this->artikel_terkait($artikel->kategori, $artikel->id);
+            $terkait = $this->artikel_terkait($kategori, $artikel->id);
             return view('pages.blog.detail', compact('artikel', 'lainnya', 'terkait', 'komentar'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()])->withInput();
@@ -47,7 +53,9 @@ class PageController extends Controller
 
     public function kategori($kategori) {
         try {
-            $artikel = Blog::where('kategori', 'LIKE', "%$kategori%")->latest()->paginate(10);
+            $artikel = Blog::whereHas('kategori', function($q) use($kategori) {
+                $q->where('nama', 'LIKE', "%$kategori%");
+            })->latest()->paginate(10);
             return view('pages.blog.kategori', compact('artikel'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()])->withInput();
@@ -72,6 +80,9 @@ class PageController extends Controller
     }
 
     private function artikel_terkait($kategori, $id = null) {
-        return Blog::where('kategori', $kategori)->where('id', '!=', $id)->latest()->limit(5)->get();
+        return Blog::wherehas('kategori', function($q) use($kategori) {
+            $q->whereIn('nama', $kategori);
+        })->where('id', '!=', $id)->latest()->limit(5)->get();
+        // return Blog::where('kategori', $kategori)->where('id', '!=', $id)->latest()->limit(5)->get();
     }
 }

@@ -238,18 +238,21 @@
         PENGATURAN
     </div>
     @hasanyrole('admin|superadmin')
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseHalaman"
-            aria-expanded="true" aria-controls="collapseTwo">
+    @php
+        $aktif_halaman = (request()->is('dashboard/testimoni')|request()->is('dashboard/landing-page')|request()->is('dashboard/blog')|request()->segment(2)=='permission'|request()->segment(2)=='kategori-blog') ? true : false
+    @endphp
+    <li class="nav-item {{ ($aktif_halaman) ? 'active' : '' }}">
+        <a class="nav-link {{ ($aktif_halaman) ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseHalaman" aria-expanded="{{ $aktif_halaman }}" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-newspaper"></i>
             <span>Halaman</span>
         </a>
-        <div id="collapseHalaman" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseHalaman" class="{{ ($aktif_halaman) ? 'show collapse' : 'collapse' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Halaman :</h6>
-                <a class="collapse-item" href="{{ route('landing_page.index') }}">Landing Page</a>
-                <a class="collapse-item" href="{{ route('testimoni.index') }}">Testimonial</a>
-                <a class="collapse-item" href="{{ route('blog.index') }}">Blog</a>
+                <a class="collapse-item {{ (request()->segment(2) == 'landing-page') ? 'active' : '' }}" href="{{ route('landing_page.index') }}">Landing Page</a>
+                <a class="collapse-item {{ (request()->segment(2) == 'testimoni') ? 'active' : '' }}" href="{{ route('testimoni.index') }}">Testimonial</a>
+                <a class="collapse-item {{ (request()->segment(2) == 'blog') ? 'active' : '' }}" href="{{ route('blog.index') }}">Blog</a>
+                <a class="collapse-item {{ (request()->segment(2) == 'kategori-blog') ? 'active' : '' }}" href="{{ route('kategori-blog.index') }}">Kategori Blog</a>
                 {{-- <a class="collapse-item" href="{{ route('blog.index') }}">Kategori Blog</a> --}}
             </div>
         </div>

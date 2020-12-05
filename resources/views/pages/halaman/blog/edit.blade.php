@@ -11,6 +11,7 @@
     <div class="card-body">
         <form action="{{ route('blog.update', $artikel->id) }}" method="post" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <div class="row">
                 <div class="col-lg-10">
                     <div class="form-group row">
@@ -37,7 +38,7 @@
                                 <div class="custom-file">
                                     <input type="file"
                                         class="custom-file-input form-control form-control-user @error('foto') is-invalid @enderror"
-                                        id="foto" required>
+                                        id="foto" name="foto">
                                         @error('foto')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -55,12 +56,10 @@
                                     <label for="">Kategori</label>
                                 </div>
                                 <div class="col-md-10">
-                                    <select name="kategori" class="form-control @error('kategori') is-invalid @enderror" autocomplete="off">
-                                        <option value="" selected disabled>-- Pilih Kategori--</option>
-                                        <option value="UTBK" {{ $artikel->kategori == "UTBK" ? 'selected' : '' }}>UTBK</option>
-                                        <option value="SBMPTN" {{ $artikel->kategori == "SBMPTN" ? 'selected' : '' }}>SBMPTN</option>
-                                        <option value="SAINTEK" {{ $artikel->kategori == "SAINTEK" ? 'selected' : '' }}>SAINTEK</option>
-                                        <option value="SOSHUM" {{ $artikel->kategori == "SOSHUM" ? 'selected' : '' }}>SOSHUM</option>
+                                    <select name="kategori[]" class="select2 form-control @error('kategori') is-invalid @enderror" id="kategori" multiple="multiple">
+                                        @foreach ($kategori as $value)
+                                            <option value="{{ $value->id }}" {{ in_array($value->id, $kategori_id) ? 'selected' : '' }}>{{ $value->nama }}</option>
+                                        @endforeach
                                     </select>
                                     @error('kategori')
                                     <span class="invalid-feedback" role="alert">
@@ -119,11 +118,12 @@
 
 @section('css')
 {{-- <link rel="stylesheet" href="{{ asset('assets/vendor/ckeditor/contents.css') }}"> --}}
+<link rel="stylesheet" href="{{ asset('assets/vendor/select2/dist/css/select2.min.css') }}">
 @endsection
 
 @section('js')
 <script src="{{ asset('assets/vendor/ckeditor/ckeditor.js') }}"></script>
-{{-- <script src="{{ asset('assets/vendor/ckeditor/styles.js') }}"></script> --}}
+{{-- <script src="{{ asset('assets/vendor/ckeditor/styles.js') }}"></script> --}}<script src="{{ asset('assets/vendor/select2/dist/js/select2.js') }}"></script>
 <script>
     const option = {
         filebrowserImageBrowseUrl: '/filemanager?type=Images',
@@ -133,6 +133,11 @@
     }
     CKEDITOR.replace('isi', option)
     CKEDITOR.config.height = 500;
-
+    $(document).ready(function() {
+        $("#kategori").select2({
+            placeholder: "Pilih Kategori",
+            allowClear: true
+        })
+    })
 </script>
 @endsection

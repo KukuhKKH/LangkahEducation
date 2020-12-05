@@ -14,7 +14,7 @@
                 <li><a href="#products">Produk</a></li>
                 <li><a href="#blog">Blog</a></li>
                 <li><a href="#testimoni">Testimonial</a></li>
-                <li><a href="#pricing">Biaya</a></li>
+                {{-- <li><a href="#pricing">Biaya</a></li> --}}
                 <li><a href="#contact">Kontak</a></li>
             </ul>
         </nav><!-- .nav-menu -->
@@ -155,8 +155,11 @@
                         {{ $value->testimoni }}
                         <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                     </p>
-                    <img src="{{asset('assets-landingpage/img/testimonials/testimonials-2.jpg')}}"
-                        class="testimonial-img" alt="">
+                    @if ($value->foto)
+                    <img src="{{asset("upload/testimoni/$value->foto")}}" class="testimonial-img" alt="">
+                    @else
+                    <img src="{{asset('assets-landingpage/img/testimonials/testimonials-2.jpg')}}" class="testimonial-img" alt="">
+                    @endif
                     <h3>{{ $value->nama }}</h3>
                     <h4>{{ $value->role }}</h4>
                 </div>
@@ -168,41 +171,6 @@
 
         </div>
     </section><!-- End Testimonials Section -->
-    <!-- ======= Pricing Section ======= -->
-    <section id="pricing" class="pricing">
-        <div class="container">
-
-            <div class="section-title">
-                <h2>Biaya</h2>
-                {!! $data->headline_biaya !!}
-                {{-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
-                    consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
-                    fugiat sit
-                    in iste officiis commodi quidem hic quas.</p> --}}
-            </div>
-
-            <div class="row justify-content-center">
-
-                <div class="col-lg-4 box d-flex align-items-center justify-content-center">
-                    <div id="box-pricing">
-                        <h3>Individu</h3>
-                        {!! $data->biaya_individu !!}
-                        <a href="{{ route('gelombang.siswa') }}" class="btn-buy mt-3">Lihat Try Out</a>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 box featured d-flex align-items-center justify-content-center">
-                    <div id="box-pricing" class="mb-3">
-                        <h3>Sekolah</h3>
-                        {!! $data->biaya_sekolah !!}
-                        <a href="" class="btn-buy mt-3">Hubungi Admin</a>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-    </section><!-- End Pricing Section -->
 </main><!-- End #main -->
 @endsection
 

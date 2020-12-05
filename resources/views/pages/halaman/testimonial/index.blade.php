@@ -171,7 +171,7 @@
                         <label for="testimonial">Foto</label>
                         <div class="input-group mb-3">
                             <div class="custom-file">
-                              <input type="file" class="custom-file-input form-control form-control-user @error('foto') is-invalid @enderror" id="inputGroupFile02">
+                              <input type="file" name="file" class="custom-file-input form-control form-control-user @error('foto') is-invalid @enderror" id="inputGroupFile02">
                               @error('foto')
                               <span class="invalid-feedback" role="alert">
                                   <strong>{{ $message }}</strong>

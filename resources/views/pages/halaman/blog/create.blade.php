@@ -37,7 +37,7 @@
                                 <div class="custom-file">
                                     <input type="file"
                                         class="custom-file-input form-control form-control-user @error('foto') is-invalid @enderror"
-                                        id="foto" required>
+                                        id="foto" name="foto">
                                     @error('foto')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -55,13 +55,10 @@
                                     <label for="">Kategori</label>
                                 </div>
                                 <div class="col-md-10">
-                                    <select name="kategori"
-                                        class="form-control @error('kategori') is-invalid @enderror">
-                                        <option value="" selected disabled>-- Pilih Kategori--</option>
-                                        <option value="UTBK">UTBK</option>
-                                        <option value="SBMPTN">SBMPTN</option>
-                                        <option value="SAINTEK">SAINTEK</option>
-                                        <option value="SOSHUM">SOSHUM</option>
+                                    <select name="kategori[]" class="select2 form-control @error('kategori') is-invalid @enderror" id="kategori" multiple="multiple">
+                                        @foreach ($kategori as $value)
+                                            <option value="{{ $value->id }}">{{ $value->nama }}</option>
+                                        @endforeach
                                     </select>
                                     @error('kategori')
                                     <span class="invalid-feedback" role="alert">
@@ -94,7 +91,6 @@
                 <div class="col-lg-2 text-right">
                     <button class="btn btn-primary" type="submit"><i class="fas fa-fw fa-paper-plane"></i>
                         Publikasikan</button>
-
                 </div>
 
             </div>
@@ -119,11 +115,13 @@
 
 @section('css')
 {{-- <link rel="stylesheet" href="{{ asset('assets/vendor/ckeditor/contents.css') }}"> --}}
+<link rel="stylesheet" href="{{ asset('assets/vendor/select2/dist/css/select2.min.css') }}">
 @endsection
 
 @section('js')
 <script src="{{ asset('assets/vendor/ckeditor/ckeditor.js') }}"></script>
 {{-- <script src="{{ asset('assets/vendor/ckeditor/styles.js') }}"></script> --}}
+<script src="{{ asset('assets/vendor/select2/dist/js/select2.js') }}"></script>
 <script>
     const option = {
         filebrowserImageBrowseUrl: '/filemanager?type=Images',
@@ -133,7 +131,12 @@
     }
     CKEDITOR.replace('isi', option)
     CKEDITOR.config.height = 500;
-
+    $(document).ready(function() {
+        $("#kategori").select2({
+            placeholder: "Pilih Kategori",
+            allowClear: true
+        })
+    })
 </script>
 
 <script type="application/javascript">

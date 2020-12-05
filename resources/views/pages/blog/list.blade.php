@@ -52,9 +52,11 @@
                         <div class="sidebar">
                             <div id="category">
                                 <h4 class="sidebar-title">Kategori</h4>
-                                <li><a href="{{ route('page.blog.kategori', 'SAINTEK') }}">SAINTEK</a></li>
-                                <li><a href="{{ route('page.blog.kategori', 'SOSHUM') }}">SOSHUM</a></li>
-                                <li><a href="{{ route('page.blog.kategori', 'UNBK') }}">UTBK</a></li>
+                                @forelse ($kategori as $value)
+                                <li><a href="{{ route('page.blog.kategori', $value->nama) }}">{{ $value->nama }}</a></li>
+                                @empty
+                                    <li>Tidak ada kategori</li>
+                                @endforelse
                             </div>
                         </div>
                     </div>

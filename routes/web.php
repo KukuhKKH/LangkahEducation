@@ -134,6 +134,7 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
 
             Route::group(['namespace' => 'Blog'], function () {
                 Route::resource('blog', 'BlogController');
+                Route::resource('kategori-blog', 'BlogKategoriController');
             });
         });
         // End Prefix Dashboard
@@ -173,7 +174,7 @@ Route::group(['prefix' => 'blog', 'namespace' => 'Web\Blog'], function () {
     Route::post('blog/komentar/{blog_id}', 'PageController@komentar')->name('page.blog.komentar.store');
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@dashboard')->name('home');
 
 // URL COBA COBA
 Route::group(['prefix' => 'dev'], function() {

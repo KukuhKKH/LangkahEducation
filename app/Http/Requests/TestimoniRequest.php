@@ -24,7 +24,7 @@ class TestimoniRequest extends FormRequest
     public function rules()
     {
         return [
-            'foto' => 'nullable',
+            'file' => 'nullable',
             'nama' => 'required',
             'role' => 'required',
             'status' => 'required',

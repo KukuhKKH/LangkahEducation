@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\Blog;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Blog\BlogCreateRequest;
 use App\Models\Blog;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -32,7 +33,8 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return view('pages.halaman.blog.create');
+        $kategori = Kategori::all();
+        return view('pages.halaman.blog.create', compact('kategori'));
     }
 
     /**
@@ -50,13 +52,13 @@ class BlogController extends Controller
                 $request->foto->move(public_path('upload/blog/'), $foto_name);
                 $request->foto = $foto_name;
             }
-            $user->blog()->create([
+            $blog = $user->blog()->create([
                 'judul' => $request->judul,
                 'isi' => $request->isi,
                 'foto' => $request->foto ?? '',
-                'kategori' => $request->kategori,
                 'status' => $request->status,
             ]);
+            $blog->kategori()->sync($request->kategori);
             return redirect()->route('blog.index')->with(['success' => 'Berhasil menambah artikel']);
         } catch(\Exception $e) {
             return redirect()->back()->withInput()->with(['error' => $e->getMessage()]);
@@ -83,8 +85,10 @@ class BlogController extends Controller
     public function edit($id)
     {
         try {
+            $kategori = Kategori::all();
             $artikel = Blog::find($id);
-            return view('pages.halaman.blog.edit', compact('artikel'));
+            $kategori_id = $artikel->kategori()->pluck('kategori_id')->toArray();
+            return view('pages.halaman.blog.edit', compact('artikel', 'kategori', 'kategori_id'));
         } catch(\Exception $e) {
             return redirect()->back()->withInput()->with(['error' => $e->getMessage()]);
         }
@@ -103,7 +107,7 @@ class BlogController extends Controller
             $blog = Blog::find($id);
             if($request->hasFile('foto')) {
                 if(file_exists(public_path('upload/blog/'.$blog->foto))){
-                    unlink(public_path('upload/blog/'.$blog->foto));
+                    if($blog->foto != "") unlink(public_path('upload/blog/'.$blog->foto));
                 }
                 $foto_name = time().'.'.$request->foto->extension();  
                 $request->foto->move(public_path('upload/blog/'), $foto_name);
@@ -112,11 +116,12 @@ class BlogController extends Controller
             $blog->update([
                 'judul' => $request->judul,
                 'isi' => $request->isi,
-                'foto' => $request->foto ?? $blog->foto,
+                'foto' => $foto_name ?? $blog->foto,
                 'kategori' => $request->kategori,
                 'status' => $request->status,
             ]);
-            return redirect()->route('blog.index')->with(['success' => 'Berhasil menambah artikel']);
+            $blog->kategori()->sync($request->kategori);
+            return redirect()->route('blog.index')->with(['success' => 'Berhasil update artikel']);
         } catch(\Exception $e) {
             return redirect()->back()->withInput()->with(['error' => $e->getMessage()]);
         }
@@ -131,10 +136,11 @@ class BlogController extends Controller
     public function destroy($id)
     {
         try {
-            $artikel = Blog::find($id)->delete();
+            $artikel = Blog::find($id);
             if(file_exists(public_path('upload/blog/'.$artikel->foto))){
                 unlink(public_path('upload/blog/'.$artikel->foto));
             }
+            $artikel->delete();
             return redirect()->back()->with(['error' => "Berhasil hapus artikel"]);
         } catch(\Exception $e) {
             return redirect()->back()->withInput()->with(['error' => $e->getMessage()]);

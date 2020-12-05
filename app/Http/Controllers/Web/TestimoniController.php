@@ -39,12 +39,20 @@ class TestimoniController extends Controller
     public function store(TestimoniRequest $request)
     {
         try {
-            if($request->hasFile('foto')) {
-                $foto_name = time().'.'.$request->foto->extension();  
-                $request->foto->move(public_path('upload/testimoni/'), $foto_name);
-                $request->foto = $foto_name;
+            if($request->hasFile('file')) {
+                $foto_name = time().'.'.$request->file->extension();  
+                $request->file->move(public_path('upload/testimoni/'), $foto_name);
+                $request->merge([
+                    'foto' => $foto_name
+                ]);
             }
-            Testimoni::create($request->all());
+            Testimoni::create([
+                'foto' => $foto_name ?? '',
+                'nama' => $request->nama,
+                'role' => $request->role,
+                'status' => $request->status,
+                'testimoni' => $request->testimoni
+            ]);
             return redirect()->back()->with(['success' => 'Berhasil tambah testimoni']);
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()])->withInput();
