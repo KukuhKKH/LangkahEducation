@@ -101,6 +101,10 @@
         <script src="{{ asset('assets/vendor/sweet-alert/sweetalert.min.js') }}"></script>
 
         <script>
+            @if(request()->is('dashboard/siswa/hasil/tryout/*') || request()->is('dashboard/hasiltryout/siswa/11/sma-1-babadan-b/detail'))
+            let pg1 = {{ $nil_pg1 ?? 0 }}
+            let pg2 = {{ $nil_pg2 ?? 0 }}
+            @endif
             const CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute("content")
             var barOptions = {
                 maintainAspectRatio: false,
@@ -122,6 +126,7 @@
                             drawBorder: false
                         },
                         ticks: {
+                            scaleBeginAtZero: true,
                             maxTicksLimit: 7
                         }
                     }],
@@ -143,7 +148,78 @@
                 legend: {
                     display: false
                 },
+                @if(request()->get('prodi-1') != '')
+                annotation: {
+                    annotations: [{
+                        type: 'line',
+                        mode: 'horizontal',
+                        scaleID: 'y-axis-0',
+                        value: pg1,
+                        borderColor: 'blue',
+                        borderWidth: 4,
+                        label: {
+                            enabled: true,
+                            content: 'Passing Grade 1'
+                        }
+                    }, {
+                        type: 'line',
+                        mode: 'horizontal',
+                        scaleID: 'y-axis-0',
+                        value: pg2,
+                        borderColor: 'yellow',
+                        borderWidth: 4,
+                        label: {
+                            enabled: true,
+                            content: 'Passing Grade 2'
+                        }
+                    }]
+                }
+                @endif
             };
+
+            var barOption2 = {
+                maintainAspectRatio: false,
+                layout: {
+                    padding: {
+                        left: 10,
+                        right: 25,
+                        top: 25,
+                        bottom: 0
+                    }
+                },
+                scales: {
+                    xAxes: [{
+                        time: {
+                            unit: 'date'
+                        },
+                        gridLines: {
+                            display: false,
+                            drawBorder: false
+                        },
+                        ticks: {
+                            scaleBeginAtZero: true,
+                            maxTicksLimit: 7
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            scaleBeginAtZero: true,
+                            maxTicksLimit: 5,
+                            padding: 10,
+                        },
+                        gridLines: {
+                            color: "rgb(234, 236, 244)",
+                            zeroLineColor: "rgb(234, 236, 244)",
+                            drawBorder: false,
+                            borderDash: [2],
+                            zeroLineBorderDash: [2]
+                        }
+                    }],
+                },
+                legend: {
+                    display: false
+                }
+            }
         </script>
 
         @yield('js')

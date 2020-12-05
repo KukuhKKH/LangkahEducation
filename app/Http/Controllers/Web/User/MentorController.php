@@ -186,7 +186,7 @@ class MentorController extends Controller
                 ->where('mentor_id', $id)
                 ->whereIn('siswa_id', $request->siswa)
                 ->delete();
-            return redirect()->route('mentor.index')->with(['success' => 'Berhasil hapus integrasi siswa ke mentor']);
+            return redirect()->back()->with(['success' => 'Berhasil hapus integrasi siswa ke mentor']);
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()])->withInput($request->all());
         }

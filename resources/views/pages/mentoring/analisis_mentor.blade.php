@@ -124,7 +124,6 @@
                             <th>Salah</th>
                             <th>Kosong</th>
                             <th>Nilai</th>
-                            <th>Pembahasan</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -135,7 +134,6 @@
                                 <td>{{ $value->salah }}</td>
                                 <td>{{ $value->kosong }}</td>
                                 <td>{{ $value->nilai }}</td>
-                                <td><a href="#" class="btn btn-primary my-1">Lihat</a></td>
                             </tr>
                         @empty
                             <tr>
@@ -211,6 +209,7 @@
 @section('js')
 <!-- Page level plugins -->
 <script src="{{ asset('assets/vendor/chart.js/Chart.min.js') }}"></script>
+<script src="{{ asset('assets/vendor/chart.js/annotation.js') }}"></script>
 <script src="{{ asset('assets/vendor/select2/dist/js/select2.js') }}"></script>
 
 <!-- Page level custom scripts -->
@@ -264,7 +263,7 @@
     new Chart(ctx2, {
         type: 'bar',
         data: data_saingan,
-        options: barOptions
+        options: barOption2
     })
 
 </script>
