@@ -38,8 +38,7 @@ class PageController extends Controller
                 // if(file_exists(public_path('landing-page/foto/'.$data->foto_hero))){
                 //     unlink(public_path('landing-page/foto/'.$data->foto_hero));
                 // }
-                $foto_name_hero = time().'.'.$request->raw_foto_hero->extension();  
-                // dd($foto_name_hero);
+                $foto_name_hero = time().'.'.$request->raw_foto_hero->extension();
                 $request->foto_hero = $foto_name_hero;
                 $request->raw_foto_hero->move(public_path('landing-page/foto/'), $foto_name_hero);
             } else {
@@ -64,9 +63,6 @@ class PageController extends Controller
                 'headline_produk' => $request->headline_produk,
                 'headline_blog' => $request->headline_blog,
                 'headline_testimoni' => $request->headline_testimoni,
-                'headline_biaya' => $request->headline_biaya,
-                'biaya_individu' => $request->biaya_individu,
-                'biaya_sekolah' => $request->biaya_sekolah,
                 'deskripsi' => $request->deskripsi,
                 'alamat' => $request->alamat,
                 'email' => $request->email,

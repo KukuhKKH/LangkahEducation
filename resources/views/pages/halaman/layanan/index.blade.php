@@ -1,10 +1,10 @@
 @extends('layouts.dashboard-app')
-@section('title', 'Kategori Blog')
+@section('title', 'Layanan / Produk')
 
 @section('content')
 <div class="row">
     <div class="col-10">
-        <h1 class="h3 mb-4 text-gray-800">Kategori Blog</h1>
+        <h1 class="h3 mb-4 text-gray-800">Layanan / Produk</h1>
     </div>
 </div>
 <div class="card shadow mb-4">
@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-xl-12 text-right">
                 <div class="btn-group btn-group-md">
-                    <button data-toggle="modal" data-target="#modalTestimoni" type="button" class="btn btn-primary"><i class="fas fa-fw fa-plus-circle"></i> Buat Kategori</button>
+                    <button data-toggle="modal" data-target="#modalTestimoni" type="button" class="btn btn-primary"><i class="fas fa-fw fa-plus-circle"></i> Buat Layanan</button>
                 </div>
             </div>
         </div>
@@ -24,22 +24,20 @@
                     <tr>
                         <th>No</th>
                         <th>Nama</th>
-                        <th>Total Artikel</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($kategori as $value)
+                    @forelse ($layanan as $value)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $value->nama }}</td>
-                        <td>{{ count($value->blog) }}</td>
                         <td>
-                            <form action="{{ route('kategori-blog.destroy', $value->id) }}" method="POST"
+                            <form action="{{ route('layanan.destroy', $value->id) }}" method="POST"
                                 id="form-{{ $value->id }}">
                                 @csrf
                                 @method("DELETE")
-                                <a href="{{ route('kategori-blog.edit', $value->id) }}" class="btn btn-success my-1"
+                                <a href="{{ route('layanan.edit', $value->id) }}" class="btn btn-success my-1"
                                     data-toggle="tooltip" data-placement="top" title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </a>
@@ -52,45 +50,54 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="5">
+                        <td colspan="3">
                             <div class="text-center mb-3 p-5 bg-light">
                                 <img class="mb-3" height="50px" src="{{asset('assets/img/null-icon.svg')}}" alt="">
-                                <h6>Tidak Ada Kategori</h6>
+                                <h6>Tidak Ada Layanan</h6>
                             </div>
                         </td>
                     </tr>
                     @endforelse
                 </tbody>
             </table>
-            {{ $kategori->links() }}
+            {{ $layanan->links() }}
         </div>
     </div>
 </div>
 
 <div class="modal fade" id="modalTestimoni" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Kategori</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Layanan</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('kategori-blog.store') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('layanan.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="name">Nama Kategori</label>
+                        <label for="name">Nama Layanan</label>
                         <input name="nama" type="text"
                             class="form-control form-control-user @error('nama') is-invalid @enderror"
-                            id="exampleFirstName" placeholder="Nama Kategori" value="{{ old('nama') }}">
+                            id="exampleFirstName" placeholder="Nama Layanan" value="{{ old('nama') }}">
                         @error('nama')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
                     </div>
+                    <div class="form-group">
+                     <label for="name">Deskripsi Layanan</label>
+                     <textarea name="deskripsi" class="form-control" id="deskripsi">{{ old('layanan') }}</textarea>
+                     @error('nama')
+                     <span class="invalid-feedback" role="alert">
+                         <strong>{{ $message }}</strong>
+                     </span>
+                     @enderror
+                 </div>
                     <div class="form-group">
                         <label for="testimonial">Foto</label>
                         <div class="input-group mb-3">
@@ -117,11 +124,19 @@
 @endsection
 
 @section('js')
+<script src="{{ asset('assets/vendor/ckeditor/ckeditor.js') }}"></script>
 <script>
+   const option = {
+        filebrowserImageBrowseUrl: '/filemanager?type=Images',
+        filebrowserImageUploadUrl: '/filemanager/upload?type=Images&_token=',
+        filebrowserBrowseUrl: '/filemanager?type=Files',
+        filebrowserUploadUrl: '/filemanager/upload?type=Files&_token='
+    }
+    CKEDITOR.replace('deskripsi', option)
     $(".hapus").on('click', function() {
       Swal.fire({
          title: 'Yakin?',
-         text: "Ingin menghapus kategori ini!",
+         text: "Ingin menghapus layanan ini!",
          icon: 'warning',
          showCancelButton: true,
          confirmButtonColor: '#3085d6',

@@ -72,6 +72,7 @@
                     @endforelse
                 </tbody>
             </table>
+            {{ $artikel->links() }}
         </div>
     </div>
 </div>

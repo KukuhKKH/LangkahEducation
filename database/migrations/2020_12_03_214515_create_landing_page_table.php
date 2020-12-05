@@ -32,11 +32,6 @@ class CreateLandingPageTable extends Migration
 
             // Testimoni
             $table->text('headline_testimoni');
-            
-            // Biaya
-            $table->text('headline_biaya');
-            $table->text('biaya_individu');
-            $table->text('biaya_sekolah');
 
             // Footer
             $table->text('deskripsi');
