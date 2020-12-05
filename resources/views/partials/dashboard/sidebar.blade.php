@@ -250,6 +250,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Halaman :</h6>
                 <a class="collapse-item {{ (request()->segment(2) == 'landing-page') ? 'active' : '' }}" href="{{ route('landing_page.index') }}">Landing Page</a>
+                <a class="collapse-item" href="">Produk/Layanan</a>
                 <a class="collapse-item {{ (request()->segment(2) == 'testimoni') ? 'active' : '' }}" href="{{ route('testimoni.index') }}">Testimonial</a>
                 <a class="collapse-item {{ (request()->segment(2) == 'blog') ? 'active' : '' }}" href="{{ route('blog.index') }}">Blog</a>
                 <a class="collapse-item {{ (request()->segment(2) == 'kategori-blog') ? 'active' : '' }}" href="{{ route('kategori-blog.index') }}">Kategori Blog</a>
