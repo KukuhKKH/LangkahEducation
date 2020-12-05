@@ -64,6 +64,7 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                 Route::get('pendaftaran/list/siswa/{id}', 'PendaftaranController@list_siswa')->name('pendaftaran.list');
                 Route::resource('testimoni', 'TestimoniController');
                 Route::get('testimoni/status/{id}/{status}', 'TestimoniController@set_status')->name('testimoni.status');
+                Route::resource('layanan', 'LayananController');
 
                 // Integrasi Gelombang Tryout
                 Route::get('pendaftaran/tryout/{id}', 'PendaftaranController@integrasi_tryout')->name('pendaftaran.tryout');
