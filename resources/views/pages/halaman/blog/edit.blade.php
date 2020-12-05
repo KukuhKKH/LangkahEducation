@@ -9,7 +9,7 @@
 </div>
 <div class="card shadow mb-4">
     <div class="card-body">
-        <form action="{{ route('blog.store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('blog.update', $artikel->id) }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-lg-10">
