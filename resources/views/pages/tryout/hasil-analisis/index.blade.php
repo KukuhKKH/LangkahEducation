@@ -77,8 +77,12 @@
             <div class="card-body">
                 <h4 class="small font-weight-bold">({{ $pg1->passing_grade }}%) {{ $pg1->universitas->nama }} - {{ $pg1->prodi }} <span
                         class="float-right">{{ $nilai_user }}%</span></h4>
+
+                @php
+                    $prodi1=($nilai_user/$pg1->passing_grade)*100;
+                @endphp
                 <div class="progress">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ $nilai_user }}%" aria-valuenow="20"
+                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ $prodi1 }}%" aria-valuenow="20"
                         aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
 
@@ -90,8 +94,11 @@
 
                 <h4 class="small font-weight-bold">({{ $pg2->passing_grade }}%) {{ $pg2->universitas->nama }} - {{ $pg2->prodi }}<span
                         class="float-right">{{ $nilai_user }}%</span></h4>
+                @php
+                    $prodi2=($nilai_user/$pg2->passing_grade)*100;
+                @endphp
                 <div class="progress ">
-                    <div class="progress-bar bg-primary" role="progressbar" style="width: {{ $nilai_user }}%" aria-valuenow="20"
+                    <div class="progress-bar bg-primary" role="progressbar" style="width: {{ $prodi2 }}%" aria-valuenow="20"
                         aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 @if ($pg2->passing_grade < $nilai_user)

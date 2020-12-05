@@ -135,11 +135,16 @@
                                 <td>{{ $value->salah }}</td>
                                 <td>{{ $value->kosong }}</td>
                                 <td>{{ $value->nilai }}</td>
-                                <td><a href="#" class="btn btn-primary">Lihat</a></td>
+                                <td><a href="#" class="btn btn-primary my-1">Lihat</a></td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6">Tidak ada data</td>
+                                <td colspan="6">
+                                    <div class="text-center mb-3 p-5 bg-light">
+                                        <img class="mb-3" height="50px" src="{{asset('assets/img/null-icon.svg')}}" alt="">
+                                        <h6>Tidak Ada Data</h6>
+                                    </div>
+                                </td>
                             </tr>
                         @endforelse
                     </tbody>
