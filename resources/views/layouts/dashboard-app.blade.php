@@ -104,6 +104,9 @@
             @if(request()->is('dashboard/siswa/hasil/tryout/*') || request()->is('dashboard/hasiltryout/siswa/11/sma-1-babadan-b/detail'))
             let pg1 = {{ $nil_pg1 ?? 0 }}
             let pg2 = {{ $nil_pg2 ?? 0 }}
+
+            var pg1_name = "UIN Malang";
+            var pg2_name = "ITS";
             @endif
             const CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute("content")
             var barOptions = {
@@ -155,22 +158,22 @@
                         mode: 'horizontal',
                         scaleID: 'y-axis-0',
                         value: pg1,
-                        borderColor: 'blue',
-                        borderWidth: 4,
+                        borderColor: '#1cc88a',
+                        borderWidth: 2,
                         label: {
                             enabled: true,
-                            content: 'Passing Grade 1'
+                            content: pg1_name
                         }
                     }, {
                         type: 'line',
                         mode: 'horizontal',
                         scaleID: 'y-axis-0',
                         value: pg2,
-                        borderColor: 'yellow',
-                        borderWidth: 4,
+                        borderColor: '#4e73df',
+                        borderWidth: 2,
                         label: {
                             enabled: true,
-                            content: 'Passing Grade 2'
+                            content: pg2_name
                         }
                     }]
                 }
