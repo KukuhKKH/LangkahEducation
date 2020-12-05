@@ -16,7 +16,7 @@
          @method("PUT")
          <input type="hidden" name="user_id" value="{{ $user->user->id }}">
          <div class="row">
-            <div class="col-6">
+            <div class="col-xl-6">
                <div class="form-group">
                   <label for="">Nama / Username</label>
                   <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ $user->user->name }}" placeholder="Nama / username">
@@ -27,7 +27,7 @@
                   @enderror
                </div>
             </div>
-            <div class="col-6">
+            <div class="col-xl-6">
                <div class="form-group">
                   <label for="">Email</label>
                   <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ $user->user->email }}" placeholder="Email">
@@ -39,7 +39,7 @@
                </div>
             </div>
             {{-- Data Tabel Siswa --}}
-            <div class="col-6">
+            <div class="col-xl-6">
                <div class="form-group">
                   <label for="">NISN</label>
                   <input type="text" name="nisn" class="form-control @error('nisn') is-invalid @enderror" value="{{ $user->nisn }}" placeholder="NISN">
@@ -50,7 +50,7 @@
                   @enderror
                </div>
             </div>
-            <div class="col-6">
+            <div class="col-xl-6">
                <div class="form-group">
                   <label for="">Asal Sekolah</label>
                   <input type="text" name="asal_sekolah" class="form-control @error('asal_sekolah') is-invalid @enderror" value="{{ $user->asal_sekolah }}" placeholder="Asal Sekolah">
@@ -61,7 +61,7 @@
                   @enderror
                </div>
             </div>
-            <div class="col-6">
+            <div class="col-xl-6">
                <div class="form-group">
                   <label for="">Tanggal Lahir</label>
                   <input type="text" name="tanggal_lahir" class="form-control datepicker @error('tanggal_lahir') is-invalid @enderror" value="{{ $user->tanggal_lahir }}" placeholder="Tanggal Lahir">
@@ -72,7 +72,7 @@
                   @enderror
                </div>
             </div>
-            <div class="col-6">
+            <div class="col-xl-6">
                <div class="form-group">
                   <label for="">Nomer HP</label>
                   <input type="number" name="nomor_hp" class="form-control @error('nomor_hp') is-invalid @enderror" value="{{ $user->nomor_hp }}" placeholder="Nomer HP">
@@ -84,7 +84,7 @@
                </div>
             </div>
             {{-- End Data Tabel Siswa --}}
-            <div class="col-12">
+            <div class="col-xl-6">
                <div class="form-group">
                   <label for="">Password Lama <small>Kosongkan jika tidak mengganti password</small></label>
                   <input type="password" name="password_old" class="form-control @error('password_old') is-invalid @enderror" placeholder="Password Lama">
@@ -95,7 +95,7 @@
                   @enderror
                </div>
             </div>
-            <div class="col-6">
+            <div class="col-xl-6">
                <div class="form-group">
                   <label for="">Password Baru <small>Kosongkan jika tidak mengganti password</small></label>
                   <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password Baru">
@@ -106,24 +106,32 @@
                   @enderror
                </div>
             </div>
-            <div class="col-6">
+            <div class="col-xl-6">
                <div class="form-group">
                   <label for="">Ulangi Password baru <small>Kosongkan jika tidak mengganti password</small></label>
                   <input type="password" name="password_confirmation" class="form-control " placeholder="Ulangi Password Baru">
                </div>
             </div>
-            <div class="col-6">
+         </div>
+         <div class="row">
+
+            <div class="col-xl-6">
                <div class="form-group">
                   <label for="">Foto <small>Maksimal 2 Mb</small></label>
-                  <input type="file" class="form-control @error('foto') is-invalid @enderror" name="foto" accept="image/x-png,image/gif,image/jpeg">
-                  @error('foto')
-                  <span class="invalid-feedback" role="alert">
-                     <strong>{{ $message }}</strong>
-                  </span>
-                  @enderror
+                  <div class="input-group mb-3">
+                     <div class="custom-file">
+                       <input type="file" class="form-control custom-file-input @error('foto') is-invalid @enderror" name="foto" accept="image/x-png,image/gif,image/jpeg" id="inputGroupFile02">
+                       <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+                       @error('foto')
+                       <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                       </span>
+                       @enderror
+                     </div>
+                   </div>
                </div>
             </div>
-            <div class="col-6">
+            <div class="col-xl-6">
                <div class="form-group">
                   <label for="">Status Aktif</label>
                   <select name="is_active" class="form-control @error('is_active') is-invalid @enderror" autocomplete="off">
@@ -139,15 +147,15 @@
             </div>
          </div>
          <div class="row">
-            <div class="col-6">
+            <div class="col-xl-6">
                @if ($user->user->foto)
                   <img src="{{ asset('upload/users/'.$user->user->foto) }}" alt="{{ $user->user->name }}" class="img-fluid w-100">
                @endif
             </div>
-            <div class="col-6">
+            <div class="col-xl-6">
                <div class="float-right">
-                  <button type="submit" class="btn btn-success">Edit</button>
-                  <a href="{{ url()->previous() }}" class="btn btn-warning text-dark ml-1">Kembali</a>
+                  <a href="{{ url()->previous() }}" class="btn btn-dark ml-1">Kembali</a>
+                  <button type="submit" class="btn btn-success">Simpan</button>
                </div>
             </div>
          </div>
@@ -182,6 +190,17 @@
       e.preventDefault()
    })
    </script>
+   <script type="text/javascript">
+
+      $('.custom-file input').change(function (e) {
+          var files = [];
+          for (var i = 0; i < $(this)[0].files.length; i++) {
+              files.push($(this)[0].files[i].name);
+          }
+          $(this).next('.custom-file-label').html(files.join(', '));
+      });
+  
+  </script>
 @endsection
 
 @section('css')
