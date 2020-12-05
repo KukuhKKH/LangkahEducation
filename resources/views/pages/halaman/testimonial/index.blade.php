@@ -6,90 +6,103 @@
 <div class="row">
     <div class="col-xl-12">
         <div class="card shadow mb-4">
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-dark">Testimonial</h6>
-                <div class="btn-group btn-group-md">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTestimoni"><i
-                            class="fas fa-fw fa-plus-circle"></i> Tambah Testimoni</button>
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-xl-6">
+                        <h6 class="mb-2 font-weight-bold text-dark">Testimonial</h6>
+                    </div>
+                    <div class="col-xl-6 text-right">
+                        <div class="btn-group btn-group-md">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTestimoni"><i
+                                    class="fas fa-fw fa-plus"></i> Tambah Testimoni</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="card-body">
-                <table class="table table-bordered" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Foto</th>
-                            <th>Nama</th>
-                            <th>Status</th>
-                            <th>Testimoni</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <th>No</th>
-                            <th>Foto</th>
-                            <th>Nama</th>
-                            <th>Status</th>
-                            <th width="30%">Testimoni</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </tfoot>
-                    <tbody>
-                        @forelse ($testimoni as $value)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>
-                                @if ($value->foto)
-                                <img src="{{asset("upload/testimoni/$value->foto")}}" alt="profil-mentor"
-                                    style="height:40px">
-                                @else
-                                <img src="{{asset('assets/img/undraw_profile.svg')}}" alt="profil-mentor"
-                                    style="height:40px">
-                                @endif
-                            </td>
-                            <td>{{ $value->nama }}</td>
-                            <td>{{ $value->role }}</td>
-                            <td>{{ $value->testimoni }}</td>
-                            <td>
-                                <form action="{{ route('testimoni.destroy', $value->id) }}" method="POST" id="form-{{ $value->id }}">
-                                    @csrf
-                                    @method('DELETE')
-                                    @if ($value->status)
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-success dropdown-toggle"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Tampil
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item text-danger" href="{{ route('testimoni.status', ['id' => $value->id, 'status' => 0]) }}">Sembunyikan</a>
-                                        </div>
-                                    </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Foto</th>
+                                <th>Nama</th>
+                                <th>Status</th>
+                                <th>Testimoni</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>No</th>
+                                <th>Foto</th>
+                                <th>Nama</th>
+                                <th>Status</th>
+                                <th width="30%">Testimoni</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @forelse ($testimoni as $value)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>
+                                    @if ($value->foto)
+                                    <img src="{{asset("upload/testimoni/$value->foto")}}" alt="profil-mentor"
+                                        style="height:40px">
                                     @else
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-danger dropdown-toggle"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Sembunyi
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item text-success" href="{{ route('testimoni.status', ['id' => $value->id, 'status' => 1]) }}">Tampilkan</a>
-                                        </div>
-                                    </div>
+                                    <img src="{{asset('assets/img/undraw_profile.svg')}}" alt="profil-mentor"
+                                        style="height:40px">
                                     @endif
-                                    <button type="button" data-id="{{ $value->id }}" class="btn btn-danger hapus"
-                                        data-toggle="tooltip" data-placement="top" title="Hapus"> <i
-                                            class="fas fa-trash"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td colspan="6" class="text-center">Tidak ada data</td>
-                        </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                                </td>
+                                <td>{{ $value->nama }}</td>
+                                <td>{{ $value->role }}</td>
+                                <td>{{ $value->testimoni }}</td>
+                                <td>
+                                    <form action="{{ route('testimoni.destroy', $value->id) }}" method="POST" id="form-{{ $value->id }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        @if ($value->status)
+                                        <div class="btn-group">
+                                            <button type="button" class="my-1 btn btn-success dropdown-toggle"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Tampil
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item text-danger" href="{{ route('testimoni.status', ['id' => $value->id, 'status' => 0]) }}">Sembunyikan</a>
+                                            </div>
+                                        </div>
+                                        @else
+                                        <div class="btn-group">
+                                            <button type="button" class="my-1 btn btn-danger dropdown-toggle"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Sembunyi
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item text-success" href="{{ route('testimoni.status', ['id' => $value->id, 'status' => 1]) }}">Tampilkan</a>
+                                            </div>
+                                        </div>
+                                        @endif
+                                        <button type="button" data-id="{{ $value->id }}" class="my-1 btn btn-danger hapus"
+                                            data-toggle="tooltip" data-placement="top" title="Hapus"> <i
+                                                class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="6">
+                                    <div class="text-center mb-3 p-5 bg-light">
+                                        <img class="mb-3" height="50px" src="{{asset('assets/img/null-icon.svg')}}" alt="">
+                                        <h6>Tidak Ada Testimonial</h6>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -156,13 +169,17 @@
                     </div>
                     <div class="form-group">
                         <label for="testimonial">Foto</label>
-                        <input name="foto" type="file"
-                            class="form-control form-control-user @error('foto') is-invalid @enderror">
-                        @error('foto')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
+                        <div class="input-group mb-3">
+                            <div class="custom-file">
+                              <input type="file" class="custom-file-input form-control form-control-user @error('foto') is-invalid @enderror" id="inputGroupFile02">
+                              @error('foto')
+                              <span class="invalid-feedback" role="alert">
+                                  <strong>{{ $message }}</strong>
+                              </span>
+                              @enderror
+                              <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+                            </div>
+                          </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -194,5 +211,11 @@
          }
       })
    })
+</script>
+<script type="application/javascript">
+    $('input[type="file"]').change(function(e){
+        var fileName = e.target.files[0].name;
+        $('.custom-file-label').html(fileName);
+    });
 </script>
 @endsection

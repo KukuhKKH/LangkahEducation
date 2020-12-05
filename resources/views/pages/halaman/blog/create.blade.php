@@ -19,8 +19,8 @@
                         </div>
                         <div class="col-md-10">
                             <input name="judul" type="text"
-                            class="form-control form-control-user @error('judul') is-invalid @enderror" id="judul"
-                            placeholder="Masukkan Judul Artikel" value="{{ old('judul') }}" required>
+                                class="form-control form-control-user @error('judul') is-invalid @enderror" id="judul"
+                                placeholder="Masukkan Judul Artikel" value="{{ old('judul') }}" required>
                             @error('judul')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -33,13 +33,19 @@
                             <label for="">Gambar Utama Artikel</label>
                         </div>
                         <div class="col-md-10">
-                            <input name="foto" type="file"
-                            class="form-control form-control-user @error('foto') is-invalid @enderror" id="foto" required>
-                            @error('foto')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
+                            <div class="input-group mb-3">
+                                <div class="custom-file">
+                                    <input type="file"
+                                        class="custom-file-input form-control form-control-user @error('foto') is-invalid @enderror"
+                                        id="foto" required>
+                                    @error('foto')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                    <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -49,7 +55,8 @@
                                     <label for="">Kategori</label>
                                 </div>
                                 <div class="col-md-10">
-                                    <select name="kategori" class="form-control @error('kategori') is-invalid @enderror">
+                                    <select name="kategori"
+                                        class="form-control @error('kategori') is-invalid @enderror">
                                         <option value="" selected disabled>-- Pilih Kategori--</option>
                                         <option value="UTBK">UTBK</option>
                                         <option value="SBMPTN">SBMPTN</option>
@@ -94,9 +101,8 @@
             <div class="row">
                 <div class="col-12 mt-4">
                     <div class="form-group">
-                        <textarea type="text" class="form-control @error('isi') is-invalid @enderror"
-                            id="isi" name="isi"
-                            placeholder="Pembahaasan">{{ old('isi') }}</textarea>
+                        <textarea type="text" class="form-control @error('isi') is-invalid @enderror" id="isi"
+                            name="isi" placeholder="Pembahaasan">{{ old('isi') }}</textarea>
                         @error('isi')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -127,6 +133,14 @@
     }
     CKEDITOR.replace('isi', option)
     CKEDITOR.config.height = 500;
+
+</script>
+
+<script type="application/javascript">
+    $('input[type="file"]').change(function (e) {
+        var fileName = e.target.files[0].name;
+        $('.custom-file-label').html(fileName);
+    });
 
 </script>
 @endsection

@@ -1,62 +1,75 @@
 @extends('layouts.dashboard-app')
 
 @section('content')
-<h1 class="h3 mb-2 text-gray-800">Profile</h1>
+<h1 class="h3 mb-2 text-gray-800">Profil</h1>
 
 <div class="card shadow mb-4">
-   <div class="card-header py-3">
-      <div class="d-flex justify-content-between">
-         <h6 class="m-0 font-weight-bold text-primary">{{ $user->name }}</h6>
-         <div class="float-right">
-            <a href="{{ route('profile.edit', $user->id) }}" class="btn btn-primary">Edit Profile</a>
-         </div>
-      </div>
-   </div>
-   <div class="card-body">
-      <div class="row">
-         <div class="col-md-4">
-            @if ($user->foto)
-            <img class="img-fluid w-25" src="{{ asset("upload/users/$user->foto") }}" alt="foto-{{ $user->name }}">
-            @else
-            <img src="{{ asset("assets/img/undraw_profile.svg") }}" alt="foto-{{ $user->name }}">
-            @endif
-         </div>
-         <div class="col-md-8">
-            <h2>{{ $user->name }}</h2>
-            <h4>{{ $user->email }}</h4>
-            {{-- Role Siswa --}}
-            @role('siswa')
-            <p>NISN : {{ $user->siswa->nisn }}</p>
-            @if (count($user->siswa->sekolah) > 0)
-               <p>Nama Sekolah anda{{ $user->siswa->sekolah[0]->nama }}</p>
-            @else
-               <p class="badge badge-warning text-dark p-2">Anda tidak tergabung pada sekolah</p>
-               <form action="{{ route('profil.kode_referal', $user->siswa->id) }}" method="POST">
-                  @csrf
-                  <div class="form-group">
-                     <label for="">Kode Referal Sekolah</label>
-                     <input type="text" class="form-control" placeholder="Kode Referal" name="kode_referal" required>
-                  </div>
-                  <button class="btn btn-success">Simpan</button>
-               </form>
-            @endif
-            @endrole
-            {{-- End Role Siswa --}}
+    <div class="card-header text-right">
+        <a href="{{ route('profile.edit', $user->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-xl-12 text-center">
+                @if ($user->foto)
+                <img class="img-fluid img-circle img-cover" width="100px" src="{{ asset("upload/users/$user->foto") }}"
+                    alt="foto-{{ $user->name }}">
+                @else
+                <img class="img-fluid" width="100px" src="{{ asset("assets/img/undraw_profile.svg") }}"
+                    alt="foto-{{ $user->name }}">
+                @endif
+            </div>
+            <div class="col-md-12">
+                <div class="text-center">
+                    <h3 class="h3 mt-3"><strong>{{ $user->name }}</strong></h3>
+                    <h6 class="h6 font-italic">{{ $user->email }}</h6>
+                </div>
 
-            @role('mentor')
-               @if (count($user->mentor->siswa) > 0)
-                  <ol>
-                     @forelse ($user->mentor->siswa as $value)
-                        <li>{{ $value->user->name }}</li>
-                     @empty
-                        <li>Tidak mempunyai siswa</li>
-                     @endforelse
-                  </ol>
-               @endif
-            @endrole
+                <div class="d-flex justify-content-center">
+                  <div class="row text-center w-50">
+                     <div class="col-xl-12">
+                         {{-- Role Siswa --}}
+                         @role('siswa')
+                         <p class="text-center">NISN : {{ $user->siswa->nisn }}</p>
+                         @if (count($user->siswa->sekolah) > 0)
+                         <p><strong>Asal Sekolah : {{ $user->siswa->sekolah[0]->nama }}</strong></p>
+                         @else
+                         <p class="badge badge-warning text-dark p-2">Anda tidak tergabung pada sekolah</p>
+                         <form action="{{ route('profil.kode_referal', $user->siswa->id) }}" method="POST">
+                             @csrf
+                             <div class="row">
+                                 <div class="col-xl-10">
+                                     <div class="form-group">
+                                         <input type="text" class="form-control"
+                                             placeholder="Masukkan Kode Referal Sekolah" name="kode_referal" required>
+                                     </div>
+                                 </div>
+                                 <div class="col-xl-2">
+                                     <button class="btn btn-primary">Kirim</button>
+                                 </div>
+                             </div>
+                         </form>
+                         @endif
+                         @endrole
+                         {{-- End Role Siswa --}}
+                     </div>
+                 </div>
+                </div>
 
-         </div>
-      </div>
-   </div>
+
+                @role('mentor')
+                @if (count($user->mentor->siswa) > 0)
+                <ol>
+                    @forelse ($user->mentor->siswa as $value)
+                    <li>{{ $value->user->name }}</li>
+                    @empty
+                    <li>Tidak mempunyai siswa</li>
+                    @endforelse
+                </ol>
+                @endif
+                @endrole
+
+            </div>
+        </div>
+    </div>
 </div>
 @endsection

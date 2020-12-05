@@ -1,3 +1,7 @@
+.img-cover{
+  object-fit: cover;
+}
+
 /* Button */
 .btn-langkah {
   color: #fff;
