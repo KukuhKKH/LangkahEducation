@@ -5,7 +5,7 @@
     <div class="container d-flex align-items-center justify-content-between">
 
         <!-- Uncomment below if you prefer to use an image logo -->
-        <a href="index.html" class="logo"><img id="navLogo" src="assets/img/logo-secondary.svg" alt=""
+        <a href="#" class="logo"><img id="navLogo" src="assets/img/logo-secondary.svg" alt=""
                 class="img-fluid"></a>
 
         <nav class="nav-menu d-none d-lg-block">
@@ -79,12 +79,8 @@
             <div class="section-title">
                 <h2>Produk</h2>
                 {!! $data->headline_produk !!}
-                {{-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
-                    consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
-                    fugiat sit
-                    in iste officiis commodi quidem hic quas.</p> --}}
             </div>
-            <div class="row justify-content-center">
+            <div class="row justify-content-center mt-4">
                 @forelse ($layanan as $value)
                 <div class="col-lg-4 mb-4">
                     <div class="card shadow ">
@@ -94,7 +90,7 @@
                         @else
                         <img class="img-cover img-circle img-fluid"src="{{asset('assets/img/logo-circle-primary.svg')}}" alt="" width="50px">
                         @endif
-                            <h4 class="mt-4">{{ $value->nama }}</h4>
+                            <h4 class="mt-4 font-weight-bold">{{ $value->nama }}</h4>
                             {!! $value->deskripsi !!}
                         </div>
                     </div>
@@ -145,7 +141,7 @@
                     @if ($value->foto)
                     <img src="{{asset("upload/testimoni/$value->foto")}}" class="testimonial-img" alt="">
                     @else
-                    <img src="{{asset('assets-landingpage/img/testimonials/testimonials-2.jpg')}}" class="testimonial-img" alt="">
+                    <img src="{{asset('assets-landingpage/img/testimonials/default_avatar.svg')}}" class="testimonial-img" alt="">
                     @endif
                     <h3>{{ $value->nama }}</h3>
                     <h4>{{ $value->role }}</h4>

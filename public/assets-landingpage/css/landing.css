@@ -639,6 +639,13 @@ section {
     padding-top: 0;
 }
 
+.products .card{
+  border: none;
+  padding: 20px;
+}
+
+
+
 .products .box {
     padding: 50px 30px;
     box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
@@ -1322,7 +1329,7 @@ section {
     font-style: italic;
     margin: 0 15px 0 15px;
     padding: 20px 20px 60px 20px;
-    background: #ffeeb4;
+    background: #c4c4c4;
     position: relative;
     border-radius: 6px;
     position: relative;
