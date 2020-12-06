@@ -55,6 +55,8 @@
     })
     @endif
 </script>
+<script src="{{asset('assets-landingpage/js/main.js')}}"></script>
+
 </body>
 
 </html>

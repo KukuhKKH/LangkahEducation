@@ -11,7 +11,7 @@
       <div id="content">
 
          <!-- Topbar -->
-         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow sticky-topbar">
+         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
             <ul class="navbar-nav mr-auto">
                <img class="w-50" src="{{ asset('assets/img/logo-primary.svg') }}" alt="">
@@ -68,8 +68,8 @@
                            <?php $k = 0; ?>
                            @foreach ($soal as $value)
                               <div id="question{{ $k }}" class="{{ $k == 0 ? 'show' : '' }} soal" data-kategori="{{ $value->kategori_soal->nama }}" data-kode="{{ $value->kategori_soal->kode }}">
-                                 <h1>Kategori {{ $value->kategori_soal->nama }}</h1>
-                                 <h3 id="pertanyaan" class="h4 mt-3 mb-2 text-gray-800 font-weight-bold">
+                                 <div class="badge badge-success p-2">{{ $value->kategori_soal->nama }}</div>
+                                 <h3 id="pertanyaan" class="h4 mt-4 mb-2 text-gray-800 font-weight-bold">
                                     {{-- {{ $i }}.  --}}
                                     {!! $value->soal !!}
                                  </h3>

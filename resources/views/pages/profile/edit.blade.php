@@ -8,6 +8,13 @@
         Edit Profil
     </div>
     <div class="card-body">
+        <div class="row">
+            <div class="col-xl-12 text-center mb-3">
+                @if ($user->foto)
+                <img  id="img-profile" class="img-fluid img-cover"  src="{{ asset('upload/users/'.$user->foto) }}" alt="{{ $user->name }}" class="img-fluid w-100">
+                @endif
+            </div>
+        </div>
         <form action="{{ route('profile.update', $user->id) }}" id="form" method="post" enctype="multipart/form-data">
             @csrf
             @method("PUT")
@@ -197,12 +204,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-xl-6">
-        @if ($user->foto)
-        <img src="{{ asset('upload/users/'.$user->foto) }}" alt="{{ $user->name }}" class="img-fluid w-100">
-        @endif
-    </div>
-    <div class="col-xl-6">
+    <div class="col-xl-12">
         <div class="float-right">
             <a href="{{ url()->previous() }}" class="btn btn-dark ml-1">Kembali</a>
             <button type="submit" class="btn btn-success">Simpan</button>
