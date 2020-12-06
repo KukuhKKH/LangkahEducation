@@ -58,6 +58,9 @@ class PembayaranController extends Controller
             } else if($status == 'belum-bayar'){
                 $pembayaran = Pembayaran::where('status', 0)->paginate(10);
             }
+            else if($status == 'ditolak'){
+                $pembayaran = Pembayaran::where('status', 3)->paginate(10);
+            }
             $data = $request->all();
             return view('pages.pembayaran.show', compact('pembayaran', 'data'));
         } catch(\Exception $e) {

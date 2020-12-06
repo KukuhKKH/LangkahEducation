@@ -18,7 +18,7 @@
                         <th>No</th>
                         <th>Nama Siswa</th>
                         <th>Gelombang</th>
-                        <td>Status</td>
+                        <th>Status</th>
                         <th width="25%">Aksi</th>
                     </tr>
                     </thead>
@@ -27,7 +27,7 @@
                         <th>No</th>
                         <th>Nama Siswa</th>
                         <th>Gelombang</th>
-                        <td>status</td>
+                        <th>status</th>
                         <th width="25%">Aksi</th>
                     </tr>
                     </tfoot>
@@ -43,6 +43,8 @@
                                  <span class="badge badge-success p-2">Sudah Upload Bukti Pembayaran</span>
                                  @elseif($value->status == 2)
                                  <span class="badge badge-success p-2">Pembayaran Telah Diverifikasi</span>
+                                 @elseif($value->status == 3)
+                                 <span class="badge badge-danger p-2">Pembayaran Ditolak</span>
                                  @endif
                               @else
                                  <span class="badge badge-danger p-2">Balum Upload Bukti Pembayaran</span>
@@ -51,6 +53,12 @@
                            <td>
                               @if (count($value->pembayaran_bukti) > 0)
                                  @if ($value->status == 1)
+                                    <?php $bukti = $value->pembayaran_bukti->first()->bukti; ?>
+                                    <a href="{{ asset("upload/bukti/$bukti") }}" target="_blank" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Detail Bukti Pembayaran">
+                                       <i class="fas fa-eye"></i>
+                                    </a>
+                                 @endif
+                                 @if ($value->status == 3)
                                     <?php $bukti = $value->pembayaran_bukti->first()->bukti; ?>
                                     <a href="{{ asset("upload/bukti/$bukti") }}" target="_blank" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Detail Bukti Pembayaran">
                                        <i class="fas fa-eye"></i>
@@ -65,6 +73,10 @@
                                  <a class="btn btn-danger my-1 tolak {{ ($disable) ? 'disabled' : '' }}" data-id="{{ $value->id }}" data-toggle="tooltip" data-placement="top" title="Tolak Pembayaran" {{ ($disable) ? 'disabled' : '' }}>
                                     <i class="fas fa-times"></i>
                                  </a>
+                              @elseif($value->status == 3)
+                              <a class="btn btn-success my-1 terima {{ ($disable) ? 'disabled' : '' }}" data-id="{{ $value->id }}" data-toggle="tooltip" data-placement="top" title="Verifikasi Pembayaran" {{ ($disable) ? 'disabled' : '' }}>
+                                 <i class="fas fa-check"></i>
+                              </a>
                               @endif
                            </td>
                         </tr>

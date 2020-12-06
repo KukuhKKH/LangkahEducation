@@ -46,6 +46,8 @@
                                         <span class="badge badge-warning p-2">Berkas telah diupload</span>
                                     @elseif($value->status == 2)
                                         <span class="badge badge-success p-2">Transfer sudah divalidasi</span>
+                                    @elseif($value->status == 3)
+                                        <span class="badge badge-danger p-2">Transfer ditolak</span>
                                     @endif
                                 @else
                                     <span class="badge badge-danger p-2">Balum Upload Bukti Pembayaran</span>
@@ -55,6 +57,11 @@
                                 @if (count($value->pembayaran_bukti) > 0)
                                     @if ($value->status == 1)
                                         <a href="{{ route('pembayaran.siswa.edit', $value->id) }}" class="btn btn-success my-1" data-toggle="tooltip" data-placement="top" title="Edit Bukti Pembayaran">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                    @endif
+                                    @if ($value->status == 3)
+                                        <a href="{{ route('pembayaran.siswa.edit', $value->id) }}" class="btn btn-warning my-1" data-toggle="tooltip" data-placement="top" title="Upload ulang Pembayaran">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                     @endif
