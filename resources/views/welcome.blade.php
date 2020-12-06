@@ -5,7 +5,7 @@
     <div class="container d-flex align-items-center justify-content-between">
 
         <!-- Uncomment below if you prefer to use an image logo -->
-        <a href="index.html" class="logo"><img id="navLogo" src="assets/img/logo-secondary.svg" alt=""
+        <a href="{{ url('/') }}" class="logo"><img id="navLogo" src="assets/img/logo-secondary.svg" alt=""
                 class="img-fluid"></a>
 
         <nav class="nav-menu d-none d-lg-block">
