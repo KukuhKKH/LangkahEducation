@@ -161,9 +161,9 @@
         <div id="collapsePembayaran" class="{{ ($aktif_bayar) ? 'show collapse' : 'collapse' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Pembayaran :</h6>
-                <a class="collapse-item" href="{{ route('pembayaran.show', 'belum-bayar') }}">Belum Bayar <span class="badge badge-danger">{{ $pembayaran_notif->total_belum }}</span></a>
+                <a class="collapse-item" href="{{ route('pembayaran.show', 'belum-bayar') }}">Belum Bayar <span class="badge badge-warning">{{ $pembayaran_notif->total_belum }}</span></a>
                 <a class="collapse-item" href="{{ route('pembayaran.show', 'sudah-bayar') }}">Sudah Bayar <span class="badge badge-success">{{ $pembayaran_notif->total_sudah }}</span></a>
-                <a class="collapse-item" href="{{ route('pembayaran.show', 'ditolak') }}">Ditolak <span class="badge badge-success">{{ $pembayaran_notif->total_tolak }}</span></a>
+                <a class="collapse-item" href="{{ route('pembayaran.show', 'ditolak') }}">Ditolak <span class="badge badge-danger">{{ $pembayaran_notif->total_tolak }}</span></a>
             </div>
         </div>
     </li>

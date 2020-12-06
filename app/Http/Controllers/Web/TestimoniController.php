@@ -60,17 +60,6 @@ class TestimoniController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -78,7 +67,12 @@ class TestimoniController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $testimoni = Testimoni::find($id);
+            return view('pages.halaman.testimonial.edit', compact('testimoni'));
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()])->withInput();
+        }
     }
 
     /**
@@ -88,9 +82,25 @@ class TestimoniController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TestimoniRequest $request, $id)
     {
-        //
+        try {
+            $testimoni = Testimoni::find($id);
+            if($request->hasFile('file')) {
+                $foto_name = time().'.'.$request->file->extension();  
+                $request->file->move(public_path('upload/testimoni/'), $foto_name);
+            }
+            $testimoni->update([
+                'foto' => $foto_name ?? $testimoni->foto,
+                'nama' => $request->nama,
+                'role' => $request->role,
+                'status' => $request->status,
+                'testimoni' => $request->testimoni
+            ]);
+            return redirect()->route('testimoni.index')->with(['success' => 'Berhasil update testimoni']);
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()])->withInput();
+        }
     }
 
     /**
