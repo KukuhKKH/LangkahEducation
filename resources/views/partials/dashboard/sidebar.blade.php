@@ -1,7 +1,7 @@
 <!-- Sidebar -->
 <ul class="navbar-nav bg-white sidebar sidebar-light accordion" id="accordionSidebar">
 
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/') }}">
         <img id="logoDashboard" src="{{ asset('assets/img/logo-primary.svg') }}" class="img-fluid p-2" alt="" srcset="">
     </a>
 
@@ -220,9 +220,9 @@
             <span>Superadmin</span>
         </a>
     </li>
-@php
-    $aktif_role = (request()->is('dashboard/role')|request()->is('dashboard/permission')|request()->is('dashboard/permission/attach')|request()->segment(2)=='permission') ? true : false
-@endphp
+    @php
+        $aktif_role = (request()->is('dashboard/role')|request()->is('dashboard/permission')|request()->is('dashboard/permission/attach')|request()->segment(2)=='permission') ? true : false
+    @endphp
     <li class="nav-item {{ ($aktif_role) ? 'active' : '' }}">
         <a class="nav-link {{ ($aktif_role) ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseRolePermission"
            aria-expanded="{{ $aktif_role }}" aria-controls="collapseTwo">
@@ -248,7 +248,7 @@
     </div>
     @hasanyrole('admin|superadmin')
     @php
-        $aktif_halaman = (request()->is('dashboard/testimoni')|request()->is('dashboard/layanan')|request()->is('dashboard/landing-page')|request()->is('dashboard/blog')|request()->segment(2)=='permission'|request()->segment(2)=='kategori-blog') ? true : false
+        $aktif_halaman = (request()->is('dashboard/testimoni')|request()->is('dashboard/layanan')|request()->is('dashboard/landing-page')|request()->is('dashboard/blog')|request()->segment(2)=='kategori-blog') ? true : false
     @endphp
     <li class="nav-item {{ ($aktif_halaman) ? 'active' : '' }}">
         <a class="nav-link {{ ($aktif_halaman) ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseHalaman" aria-expanded="{{ $aktif_halaman }}" aria-controls="collapseTwo">
