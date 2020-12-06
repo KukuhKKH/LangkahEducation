@@ -83,6 +83,9 @@
                                             </div>
                                         </div>
                                         @endif
+                                        <a href="{{ route('testimoni.edit', $value->id) }}" class="btn btn-warning">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
                                         <button type="button" data-id="{{ $value->id }}" class="my-1 btn btn-danger hapus"
                                             data-toggle="tooltip" data-placement="top" title="Hapus"> <i
                                                 class="fas fa-trash"></i>
@@ -147,7 +150,7 @@
                         <label for="testimonial">Testimonial</label>
                         <textarea name="testimoni" type="text"
                             class="form-control form-control-user @error('testimoni') is-invalid @enderror"
-                            placeholder="Masukkan Status" value="{{ old('testimoni') }}" rows="3"></textarea>
+                            placeholder="Masukkan Status" rows="3">{{ old('testimoni') }}</textarea>
                         @error('testimoni')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -182,6 +185,7 @@
                           </div>
                     </div>
                 </div>
+                
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Simpan</button>
                     <button type="button" class="btn btn-light" data-dismiss="modal">Batal</button>
