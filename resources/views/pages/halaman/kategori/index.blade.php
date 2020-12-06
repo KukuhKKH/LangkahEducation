@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-xl-12 text-right">
                 <div class="btn-group btn-group-md">
-                    <button data-toggle="modal" data-target="#modalTestimoni" type="button" class="btn btn-primary"><i class="fas fa-fw fa-plus-circle"></i> Buat Kategori</button>
+                    <button data-toggle="modal" data-target="#modalTestimoni" type="button" class="btn btn-primary"><i class="fas fa-fw fa-plus"></i> Buat Kategori</button>
                 </div>
             </div>
         </div>

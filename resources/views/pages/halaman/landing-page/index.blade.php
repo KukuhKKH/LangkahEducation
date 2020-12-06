@@ -393,8 +393,8 @@
     })
 
     $('#inputFileAbout').on('change', function (e) {
-        var fileName = e.target.files[0].name;
-        $(this).next('#labelFileAbout').html(fileName);
+        var fileNames = e.target.files[0].name;
+        $(this).next('#labelFileAbout').html(fileNames);
     })
 
 </script>

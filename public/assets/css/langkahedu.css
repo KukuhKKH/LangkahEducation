@@ -2,6 +2,16 @@
   object-fit: cover;
 }
 
+.sidebar .nav-item .collapse .collapse-inner .collapse-item.active, .sidebar .nav-item .collapsing .collapse-inner .collapse-item.active {
+  color: #ECB811;
+}
+
+#img-profile{
+  width: 150px;
+  height: 150px;
+  border-radius: 100px;
+}
+
 /* Button */
 .btn-langkah {
   color: #fff;

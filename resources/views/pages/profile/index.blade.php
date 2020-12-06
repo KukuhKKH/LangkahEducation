@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-xl-12 text-center">
                 @if ($user->foto)
-                <img class="img-fluid img-circle img-cover" width="100px" src="{{ asset("upload/users/$user->foto") }}"
+                <img id="img-profile" class="img-fluid img-cover" src="{{ asset("upload/users/$user->foto") }}"
                     alt="foto-{{ $user->name }}">
                 @else
                 <img class="img-fluid" width="100px" src="{{ asset("assets/img/undraw_profile.svg") }}"
