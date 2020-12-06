@@ -14,7 +14,7 @@
                             <img src="{{asset("upload/blog/$value->foto")}}" class="img-cover"
                             height="200vh">
                             @else
-                            <img src="{{asset('assets-landingpage/img/blog/blog-1.jpg')}}" class="img-cover"
+                            <img src="{{asset('assets-landingpage/img/blog/default-blog.jpg')}}" class="img-cover"
                                 height="200vh">
                             @endif
                         </div>

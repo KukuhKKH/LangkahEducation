@@ -96,7 +96,7 @@
 
     @endhasanyrole
     @hasanyrole('mentor')
-    <li class="nav-item {{ (request()->segment(2) == 'mentorig') ? 'active' : '' }}">
+    <li class="nav-item {{ (request()->segment(2) == 'mentoring') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('mentorig.mentor') }}">
             <i class="fas fa-fw fa-microphone"></i>
             <span>Virtual Mentoring</span>

@@ -58,13 +58,16 @@
 
                 @role('mentor')
                 @if (count($user->mentor->siswa) > 0)
+                <div class="ml-3">
+                    <h6><strong>Daftar Siswa :</strong></h6>
                 <ol>
                     @forelse ($user->mentor->siswa as $value)
                     <li>{{ $value->user->name }}</li>
                     @empty
-                    <li>Tidak mempunyai siswa</li>
+                    <li>Anda belum mempunyai siswa</li>
                     @endforelse
                 </ol>
+                </div>
                 @endif
                 @endrole
 
