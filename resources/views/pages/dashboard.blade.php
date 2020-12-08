@@ -114,6 +114,84 @@
     <!-- Page level custom scripts -->
     {{-- <script src="{{ asset('assets/js/chart-pengunjung-harian.js') }}"></script> --}}
     <script>
+        var ctx = document.getElementById("myAreaChart");
+        var myLineChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: {!!     json_encode($label ?? []) !!},
+            datasets: [{
+            label: "Total Pengunjung",
+            lineTension: 0.3,
+            backgroundColor: "rgba(236, 184, 17, 0.05)",
+            borderColor: "rgba(236, 184, 17, 1)",
+            pointRadius: 3,
+            pointBackgroundColor: "rgba(212, 166, 15, 1)",
+            pointBorderColor: "rgba(212, 166, 15, 1)",
+            pointHoverRadius: 3,
+            pointHoverBackgroundColor: "rgba(51, 51, 51, 1)",
+            pointHoverBorderColor: "rgba(51, 51, 51, 1)",
+            pointHitRadius: 10,
+            pointBorderWidth: 2,
+            data: {!! json_encode($total ?? []) !!},
+            }],
+        },
+        options: {
+            maintainAspectRatio: false,
+            layout: {
+            padding: {
+                left: 10,
+                right: 25,
+                top: 25,
+                bottom: 0
+            }
+            },
+            scales: {
+            xAxes: [{
+                time: {
+                unit: 'date'
+                },
+                gridLines: {
+                display: false,
+                drawBorder: false
+                },
+                ticks: {
+                maxTicksLimit: 7
+                }
+            }],
+            yAxes: [{
+                ticks: {
+                maxTicksLimit: 5,
+                padding: 10,
+                },
+                gridLines: {
+                color: "rgb(234, 236, 244)",
+                zeroLineColor: "rgb(234, 236, 244)",
+                drawBorder: false,
+                borderDash: [2],
+                zeroLineBorderDash: [2]
+                }
+            }],
+            },
+            legend: {
+            display: false
+            },
+            tooltips: {
+            backgroundColor: "rgb(255,255,255)",
+            bodyFontColor: "#858796",
+            titleMarginBottom: 10,
+            titleFontColor: '#6e707e',
+            titleFontSize: 14,
+            borderColor: '#dddfeb',
+            borderWidth: 1,
+            xPadding: 15,
+            yPadding: 15,
+            displayColors: false,
+            intersect: false,
+            mode: 'index',
+            caretPadding: 10,
+            }
+        }
+        });
         // history.pushState(null, null, document.URL);
         // window.addEventListener('popstate', function () {
         //     swal.fire({

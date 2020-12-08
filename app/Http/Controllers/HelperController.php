@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 
 class HelperController extends Controller {
     public static function kunjungan_user() {
@@ -27,6 +28,16 @@ class HelperController extends Controller {
 //            1 'lat' => $dataIP->latitude ?? ""
 //         ]);
         return $data;
+    }
+
+    public function clear_kabeh() {
+        Artisan::call('cache:clear');
+        Artisan::call('optimize');
+        Artisan::call('route:cache');
+        Artisan::call('route:clear');
+        Artisan::call('view:clear');
+        Artisan::call('config:cache');
+        return redirect()->route('dashboard')->with(['success' => 'Berhasil clear Cache Dan kawan kawan']);
     }
 
     private static function getIP() {

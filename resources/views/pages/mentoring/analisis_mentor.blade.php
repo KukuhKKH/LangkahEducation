@@ -180,8 +180,10 @@
             <div class="card-body">
                 <form action="{{ route('mentoring.komentar', $tryout->id) }}" method="post">
                     @csrf
-                    <img class="my-3" src="{{asset('assets/img/undraw_profile.svg')}}" alt="profil-mentor"
-                    style="height:100px">
+                    {{-- <img class="my-3" src="{{asset('assets/img/undraw_profile.svg')}}" alt="profil-mentor"
+                    style="height:100px"> --}}
+                    <img class="img-profile rounded-circle" src="{{ (auth()->user()->foto) ? asset("upload/users/". auth()->user()->foto) : asset('assets/img/default_avatar.svg') }}">
+                    
                     <div class="form-group">
                         <textarea class="form-control mt-4" name="komentar" id="komentarMentor" rows="5" placeholder="Tulis Komentarmu">{{ $komentar->komentar ?? '' }}</textarea>
                     </div>

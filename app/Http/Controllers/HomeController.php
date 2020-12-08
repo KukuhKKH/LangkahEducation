@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Models\StatistikPengunjung;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -41,7 +42,18 @@ class HomeController extends Controller
             $siswa = Siswa::count();
             $belum_bayar = Pembayaran::where('status', 0)->count();
             $pengunjung = StatistikPengunjung::whereDate('created_at', Carbon::today())->count();
-            return view('pages.dashboard', compact('sekolah', 'siswa', 'belum_bayar', 'pengunjung'));
+            // ->whereMonth('created_at', date('m')) ->groupByRaw("MONTH(created_at)")
+            $raw_grafik = StatistikPengunjung::selectRaw("count(id) as total, DAY(created_at) as tanggal")
+            ->whereMonth('created_at', date('m'))->groupByRaw("DAY(created_at)")->get()->toArray();
+            $bulan = date('F');
+            $label = [];
+            $total = [];
+            foreach ($raw_grafik as $key => $value) {
+                $label[] = $value['tanggal']. " $bulan";
+                $total[] = $value['total'];
+            }
+            // dd($label, $total);
+            return view('pages.dashboard', compact('sekolah', 'siswa', 'belum_bayar', 'pengunjung', 'label', 'total'));
         } else {
             return view('pages.dashboard');
         }
