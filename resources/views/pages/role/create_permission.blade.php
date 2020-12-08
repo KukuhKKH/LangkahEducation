@@ -18,8 +18,10 @@
                     <input type="text" class="form-control" name="permission[]" placeholder="Masukkan Permission">
                 </div>
                 @endfor
-                <button class="btn btn-primary">Simpan</button>
-                <a href="{{ url()->previous() }}" class="btn btn-warning">Kembali</a>
+                <div class="text-right">
+                    <a href="{{ url()->previous() }}" class="btn btn-dark">Kembali</a>
+                    <button class="btn btn-primary">Simpan</button>
+                </div>
             </form>
         </div>
     </div>

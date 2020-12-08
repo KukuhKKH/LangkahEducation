@@ -13,7 +13,7 @@
             <div class="col-xl-12 text-right">
                 <div class="btn-group btn-group-md">
                     <a href="{{ route('blog.create') }}" type="button" class="btn btn-primary"><i
-                            class="fas fa-fw fa-plus-circle"></i> Buat Artikel</a>
+                            class="fas fa-fw fa-plus"></i> Buat Artikel</a>
                 </div>
             </div>
         </div>
