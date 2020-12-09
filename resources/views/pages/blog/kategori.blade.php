@@ -15,7 +15,7 @@
                                     </a>
                                     <div class="d-flex justify-content-start align-items-center mb-4">
                                         <i class="fa fa-sm fa-user"></i>
-                                        <a href=""><small class="mx-2">{{ $value->user->name }}</small></a>
+                                        <a href="{{ route('page.blog.author', $value->user->api_token) }}"><small class="mx-2">{{ $value->user->name }}</small></a>
 
                                         <i class="fa fa-sm fa-clock"></i>
                                         <small class="mx-2">{{ Carbon\Carbon::parse($value->created_at)->format('F d, Y') }}</small>

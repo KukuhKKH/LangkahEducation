@@ -28,6 +28,9 @@ class TryoutController extends Controller
         $status_bayar = 0;
         if($user->siswa->batch == 1) {
             $paket = $user->siswa->sekolah->first()->tryout;
+            if(count($user->siswa->gelombang) > 0) {
+                dd($user->siswa->gelombang);
+            }
             $status_bayar = 1;
         } else if($user->siswa->batch == 0) {
             $cek_gelombang = Gelombang::wherehas('siswa', function($query) use($user) {
@@ -47,7 +50,20 @@ class TryoutController extends Controller
                 $id_tryout = DB::table('gelombang_tryout')
                                 ->select('tryout_paket_id')
                                 ->whereIn('gelombang_id', $id_gelombang)->get()->pluck('tryout_paket_id');
-                $paket = TryoutPaket::whereIn('id', $id_tryout)->get();
+                $gelombang_data = Gelombang::whereIn('id', $id_gelombang)->with('tryout')->get();
+                // dd($gelombang_data);
+                $raw_paket = [];
+                foreach ($gelombang_data as $key => $value) {
+                    $raw_paket[] = $value->tryout;
+                }
+                $paket = [];
+                foreach ($raw_paket as $key => $value) {
+                    foreach ($value as $key2 => $value2) {
+                        $paket[] = $value2;
+                    }
+                }
+                // dd($paket, $raw_paket);
+                // $paket = TryoutPaket::whereIn('id', $id_tryout)->get();
                 $status_bayar = 1;
             } else {
                 $paket = [];

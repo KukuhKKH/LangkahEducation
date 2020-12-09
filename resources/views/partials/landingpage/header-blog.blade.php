@@ -9,6 +9,9 @@
             <ul>
                 <li><a href="{{ url('/') }}">Beranda</a></li>
                 <li><a href="{{ route('page.blog.index') }}">Blog</a></li>
+                @foreach ($kategori as $value)
+                <li><a href="{{ route('page.blog.kategori', $value->nama) }}">{{ strtoupper($value->nama) }}</a></li>
+                @endforeach
                 {{-- <li><a href="{{ route('page.blog.kategori', 'UNBK') }}">UTBK</a></li>
                 <li><a href="{{ route('page.blog.kategori', 'SBMPTN') }}">SBMPTN</a></li>
                 <li><a href="{{ route('page.blog.kategori', 'SAINTEK') }}">SAINTEK</a></li>

@@ -11,6 +11,17 @@ use Illuminate\Http\Request;
 class BlogController extends Controller
 {
     /**
+     * Create a new instance.
+     *
+     * @return void
+     */
+    public function __construct() {
+        $this->middleware('permission:create blog', ['only' => ['store']]);
+        $this->middleware('permission:read blog',   ['only' => ['index']]);
+        $this->middleware('permission:update blog', ['only' => ['update']]);
+        $this->middleware('permission:delete blog', ['only' => ['destroy']]);
+    }
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

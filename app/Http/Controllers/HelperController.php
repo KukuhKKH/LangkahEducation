@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use App\Models\StatistikPengunjung;
 use Illuminate\Support\Facades\Artisan;
 
 class HelperController extends Controller {
@@ -17,17 +19,25 @@ class HelperController extends Controller {
         ];
         $location = \Illuminate\Support\Facades\Request::ip();
         if($location) $dataIP = \Stevebauman\Location\Facades\Location::get($location);
-//         $model::created([
-//             'ip' => $ip,
-//             'browser' => $browser,
-//             'os' => $os,
-//             'kota' => $dataIP->cityName ?? "",
-//             'negara' => $dataIP->countryName ?? "",
-//             'provinsi' => $dataIP->regionName ?? "",
-//             'long' => $dataIP->longitude ?? "",
-//            1 'lat' => $dataIP->latitude ?? ""
-//         ]);
+        // $statistik = StatistikPengunjung::where('ip', $ip)->whereDate('created_at', Carbon::today())->first();
+        StatistikPengunjung::updateOrCreate([
+            'ip' => $ip,
+            'created_at' => Carbon::today()
+        ],[
+            'ip' => $ip,
+            'browser' => $browser,
+            'os' => $os,
+            'kota' => $dataIP->cityName ?? "",
+            'negara' => $dataIP->countryName ?? "",
+            'provinsi' => $dataIP->regionName ?? "",
+            'long' => $dataIP->longitude ?? "",
+            'lat' => $dataIP->latitude ?? ""
+        ]);
         return $data;
+    }
+    
+    public function link() {
+        return Artisan::call('storage:link', []);
     }
 
     public function clear_kabeh() {
