@@ -193,15 +193,13 @@ var like = 1;
 $("#btnLike").click(function() {
     if (like == 1) {
         $("#btnLike").removeClass('btn-primary');
-        $("#btnLike").addClass('btn-dark');
-        $("#icoLike").removeClass('fa-thumbs-up');
-        $("#icoLike").addClass('fa-thumbs-down');
+        $("#btnLike").addClass('btn-secondary');
+        $("#btnLike").html('<i id="icoLike"class="fa fa-thumbs-down mr-1"></i>Batal');
         like = 0;
     }else if(like==0){
         $("#btnLike").addClass('btn-primary');
-        $("#btnLike").removeClass('btn-dark');
-        $("#icoLike").addClass('fa-thumbs-up');
-        $("#icoLike").removeClass('fa-thumbs-down');
+        $("#btnLike").removeClass('btn-secondary');
+        $("#btnLike").html('<i id="icoLike"class="fa fa-thumbs-up mr-1"></i>Like');
         like = 1;
     }
 });
