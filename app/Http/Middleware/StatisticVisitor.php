@@ -18,7 +18,7 @@ class StatisticVisitor
     public function handle($request, Closure $next)
     {
         $res = $next($request);
-        if(!$request->cookie('visitor')) {
+        if(empty($_COOKIE['visitor'])) {
             $data = HelperController::kunjungan_user();
             return $res->cookie('visitor', json_encode($data), 1440);
         }

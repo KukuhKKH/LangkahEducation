@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\LandingPage;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -183,16 +182,5 @@ Route::get('/home', 'HomeController@dashboard')->name('home');
 
 // URL COBA COBA
 Route::group(['prefix' => 'dev'], function() {
-    Route::get('email', function() {
-        $user = new stdClass;
-        $user->name = "siapa";
-        $user->activate_token = "awdawdawd";
-        return view('emails.register', compact('user'));
-    });
-    Route::get('blog', function() {
-        return view('pages.blog.author-profile');
-    });
-    Route::get('detail', function() {
-        return view('pages.blog.list');
-    });
+    Route::get('bwang', 'HelperController@clear_kabeh');
 });

@@ -31,6 +31,56 @@
                 </form>
             </div>
         </li>
+        @hasanyrole('mentor|siswa')
+        <li class="nav-item dropdown no-arrow mx-1">
+            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-envelope fa-fw"></i>
+                <!-- Counter - Messages -->
+                <span class="badge badge-danger badge-counter">{{ count($chat_masuk) }}</span>
+            </a>
+            <!-- Dropdown - Messages -->
+            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                aria-labelledby="messagesDropdown">
+                <h6 class="dropdown-header">
+                    Pesan Terbaru
+                </h6>
+                @foreach ($chat_masuk as $value)
+                    @if (auth()->user()->getRolenames()->first() == 'siswa')
+                    <a class="dropdown-item d-flex align-items-center" href="{{ route('mentorig.siswa') }}">
+                        <div class="dropdown-list-image mr-3">
+                            <img class="rounded-circle" src="{{ ($value->mentor->user->foto) ? asset("upload/users/". $value->mentor->user->foto) : asset('assets/img/default_avatar.svg') }}" alt="">
+                            <div class="status-indicator bg-success"></div>
+                        </div>
+                        <div class="font-weight-bold">
+                            <div class="text-truncate">{{ (strlen($value->pesan) > 30) ? substr($value->pesan, 0, 30). "...." : $value->pesan }}</div>
+                            <div class="small text-gray-500">{{ $value->mentor->user->name }}</div>
+                        </div>
+                    </a>
+                    @else
+                    {{-- Buat Mentor --}}
+                    <a class="dropdown-item d-flex align-items-center" href="{{ route('mentorig.mentoring', $value->siswa->id) }}">
+                        <div class="dropdown-list-image mr-3">
+                            <img class="rounded-circle" src="{{ ($value->siswa->user->foto) ? asset("upload/users/". $value->siswa->user->foto) : asset('assets/img/default_avatar.svg') }}" alt="">
+                            <div class="status-indicator bg-success"></div>
+                        </div>
+                        <div class="font-weight-bold">
+                            <div class="text-truncate">{{ (strlen($value->pesan) > 30) ? substr($value->pesan, 0, 30). "...." : $value->pesan }}</div>
+                            <div class="small text-gray-500">{{ $value->siswa->user->name }}</div>
+                        </div>
+                    </a>
+                    @endif
+                @endforeach
+                @hasanyrole('siswa')
+                <a class="dropdown-item text-center small text-gray-500" href="{{ route('mentorig.siswa') }}">Lihat Semua</a>
+                @endhasanyrole
+                @hasanyrole('mentor')
+                <a class="dropdown-item text-center small text-gray-500" href="{{ route('mentorig.mentor') }}">Lihat Semua</a>
+                @endhasanyrole
+                    
+            </div>
+        </li>
+        @endhasanyrole
 
         <div class="topbar-divider d-none d-sm-block"></div>
 

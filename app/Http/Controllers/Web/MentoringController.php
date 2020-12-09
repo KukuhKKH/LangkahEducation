@@ -24,15 +24,26 @@ class MentoringController extends Controller
     }
 
     // Mentoring mentor
-    public function index() {
-        $mentor = Auth::user()->mentor()->first();
-        return view('pages.mentoring.mentor', compact('mentor'));
+    public function index(Request $request) {
+        $data = $request->all();
+        if($request->get('keyword') != '') {
+            $mentor = Auth::user()->mentor()->first()->siswa()->whereHas('user', function($q) use($request) {
+                $nama = $request->get('keyword');
+                $q->where('name', 'LIKE', "%$nama%");
+            })->paginate(10);
+        } else {
+            $mentor = Auth::user()->mentor()->first()->siswa()->paginate(10);
+        }
+        return view('pages.mentoring.mentor', compact('mentor', 'data'));
     }
 
     public function mentoring($id) {
         $user = auth()->user();
         $siswa = Siswa::find($id);
         $chat = Mentoring::where('siswa_id', $id)->where('mentor_id', $user->mentor->id)->get();
+        Mentoring::where('siswa_id', $id)->where('mentor_id', $user->mentor->id)->where('pengirim', 'siswa')->update([
+            'status' => 1
+        ]);
         return view('pages.mentoring.index_mentor', compact('user', 'chat', 'siswa'));
     }
 
@@ -41,6 +52,9 @@ class MentoringController extends Controller
         $user = auth()->user();
         $chat = Mentoring::where('siswa_id', $user->siswa->id)->get();
         if(count($user->siswa->mentor)> 0) {
+            Mentoring::where('siswa_id', $user->siswa->id)->where('pengirim', 'mentor')->update([
+                'status' => 1
+            ]);
             return view('pages.mentoring.index', compact('user', 'chat'));
         } else {
             return redirect()->back()->with(['error' => 'Anda belum memiliki mentor']);

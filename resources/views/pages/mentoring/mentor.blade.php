@@ -16,6 +16,17 @@
         </div>
     </div>
     <div class="card-body">
+        <form action="" method="get">
+            <div class="row mb-4 ">
+                <div class="col-xl-6">
+                    <input type="text" class="form-control my-1" name="keyword" placeholder="Masukkan Nama siswa">
+                </div>
+                <div class="col-xl-3">
+                    <button type="submit" class="btn btn-primary my-1">Cari</button>
+                    <a href="{{ route('mentorig.siswa') }}" class="btn btn-lght text-danger my-1">Reset Filter</a>
+                </div>
+            </div>
+        </form>
         <div class="table-responsive">
             <table class="table table-bordered" width="100%" cellspacing="0">
                 <thead>
@@ -37,7 +48,7 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    @forelse($mentor->siswa as $value)
+                    @forelse($mentor as $value)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $value->user->name }}</td>
@@ -67,6 +78,7 @@
                     @endforelse
                 </tbody>
             </table>
+            {{ $mentor->appends($data)->links() }}
         </div>
     </div>
 </div>

@@ -9,13 +9,14 @@ use App\Models\Author;
 use App\Models\Kategori;
 use App\Models\KomentarBlog;
 use App\Models\User;
+use Illuminate\Support\Facades\View;
 
 class PageController extends Controller
 {
 
     public function __construct() {
-        
         $this->middleware('auth', ['only' => ['komentar']]);
+        View::share('kategori', Kategori::all());
     }
 
     public function index() {

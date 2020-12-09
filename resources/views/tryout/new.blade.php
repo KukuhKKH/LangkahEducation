@@ -67,9 +67,9 @@
                            <?php $i = 1; ?>
                            <?php $k = 0; ?>
                            @foreach ($soal as $value)
-                              <div id="question{{ $k }}" class="{{ $k == 0 ? 'show' : '' }} soal" data-kategori="{{ $value->kategori_soal->nama }}" data-kode="{{ $value->kategori_soal->kode }}">
-                                 <div class="badge badge-success p-2">{{ $value->kategori_soal->nama }}</div>
-                                 <h3 id="pertanyaan" class="h4 mt-4 mb-2 text-gray-800 font-weight-bold">
+                              <div id="question{{ $k }}" class="{{ $k == 0 ? 'show' : '' }} soal" data-jawaban="{{ $value->id }}" data-kategori="{{ $value->kategori_soal->nama }}" data-kode="{{ $value->kategori_soal->kode }}">
+                                 <h1>Kategori {{ $value->kategori_soal->nama }}</h1>
+                                 <h3 id="pertanyaan" class="h4 mt-3 mb-2 text-gray-800 font-weight-bold">
                                     {{-- {{ $i }}.  --}}
                                     {!! $value->soal !!}
                                  </h3>
@@ -104,6 +104,7 @@
                            <button id="btn-kembali" type="button" class="btn btn-dark">Kembali</button>
 
                            <button id="btn-lanjut" type="button" class="btn btn-success">Lanjut</button>
+                           <button id="btn-reset" type="button" class="btn btn-warning">Reset</button>
                         </div>
                         <div class="col-lg-6">
                            <button id="btn-kumpulkan" type="button" class="btn btn-danger" disabled>Kumpulkan</button>
@@ -183,6 +184,15 @@
       if (t.length) {
          sisawaktu(t.data('time'))
       }
+
+      $('#btn-reset').on('click', function() {
+         let soal = $('.show')[0]
+         let jwb = soal.dataset.jawaban
+         let com_option = document.getElementsByName(`jawaban[${jwb}]`)
+         for (let index = 0; index < com_option.length; index++) {
+            com_option[index].checked = false;
+         }
+      })
    })
 
    function waktuHabis() {

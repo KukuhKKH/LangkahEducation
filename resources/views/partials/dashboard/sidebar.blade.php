@@ -139,14 +139,14 @@
     </li>
     @endhasanyrole
 
-    @hasanyrole('author')
+    @can('create blog')
         <li class="nav-item">
             <a class="nav-link" href="{{ route('blog.index') }}">
                 <i class="fas fa-fw fa-newspaper"></i>
                 <span>Blog</span>
             </a>
         </li>
-    @endhasanyrole
+    @endcan
 
     @hasanyrole('superadmin|admin')
     @php

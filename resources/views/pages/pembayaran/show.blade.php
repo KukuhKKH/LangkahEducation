@@ -58,6 +58,15 @@
                                        <i class="fas fa-eye"></i>
                                     </a>
                                  @endif
+                                 @if ($value->status == 2)
+                                    <?php $bukti = $value->pembayaran_bukti->first()->bukti; ?>
+                                    <a href="{{ asset("upload/bukti/$bukti") }}" target="_blank" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Detail Bukti Pembayaran">
+                                       <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a class="btn btn-danger my-1 tolak" data-id="{{ $value->id }}" data-toggle="tooltip" data-placement="top" title="Tolak Pembayaran">
+                                       <i class="fas fa-times"></i>
+                                    </a>
+                                 @endif
                                  @if ($value->status == 3)
                                     <?php $bukti = $value->pembayaran_bukti->first()->bukti; ?>
                                     <a href="{{ asset("upload/bukti/$bukti") }}" target="_blank" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Detail Bukti Pembayaran">

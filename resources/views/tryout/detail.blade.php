@@ -88,7 +88,7 @@
                                             <select name="kelompok" id="kelompok" class="form-control" required>
                                                 <option value="" selected disabled>== Kelompok Pilihan ==</option>
                                                 @foreach ($kelompok as $value)
-                                                    <option value="{{ $value->id }}">{{ $value->nama }}</option>
+                                                    <option value="{{ $value->id }}">{{ strtoupper($value->nama) }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
