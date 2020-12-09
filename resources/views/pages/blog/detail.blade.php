@@ -31,8 +31,18 @@
                             @endphp
                             {!! $string !!}
 
-                            <hr>
+                            <div class="text-right">
+                                <form action="">
+                                    <div class="d-flex justify-content-end align-items-center">
+                                        <small id="textLike" class="mr-2"><span>123</span> Suka</small>
+                                        <button class="btn btn-primary btn-sm"><i class="fa fa-thumbs-up mr-1"></i>Like</button>
+                                        {{-- <button class="btn btn-dark btn-sm"><i class="fa fa-thumbs-down mr-1"></i>Batal</button> --}}
+                                    </div>
+                                </form>
+                            </div>
 
+                            <hr>
+                            
                             <div id="add-comment">
                                 @guest
                                 <h4>Login jika ingin membuat komentar</h4>
@@ -163,6 +173,10 @@
 
     #blog .btn-primary i {
         color: #fff !important;
+    }
+
+    #textLike{
+        color: #000000;
     }
 
 </style>
