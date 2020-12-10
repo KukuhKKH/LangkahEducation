@@ -40,9 +40,9 @@
             </div>
             {{-- Data Tabel Siswa --}}
             <div class="col-xl-6">
-               <div class="form-group">
+               <div class="form-group only-number">
                   <label for="">NISN</label>
-                  <input type="text" name="nisn" class="form-control @error('nisn') is-invalid @enderror" value="{{ $user->nisn }}" placeholder="NISN">
+                  <input type="text" minlength="10" maxlength="11" name="nisn" class="form-control number @error('nisn') is-invalid @enderror" value="{{ $user->nisn }}" placeholder="NISN">
                   @error('nisn')
                   <span class="invalid-feedback" role="alert">
                      <strong>{{ $message }}</strong>
@@ -73,9 +73,9 @@
                </div>
             </div>
             <div class="col-xl-6">
-               <div class="form-group">
+               <div class="form-group oly-number">
                   <label for="">Nomer HP</label>
-                  <input type="number" name="nomor_hp" class="form-control @error('nomor_hp') is-invalid @enderror" value="{{ $user->nomor_hp }}" placeholder="Nomer HP">
+                  <input type="text" minlength="10" maxlength="13" name="nomor_hp" class="form-control number @error('nomor_hp') is-invalid @enderror" value="{{ $user->nomor_hp }}" placeholder="Nomer HP">
                   @error('nomor_hp')
                   <span class="invalid-feedback" role="alert">
                      <strong>{{ $message }}</strong>
