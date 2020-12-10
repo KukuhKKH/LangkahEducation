@@ -129,7 +129,7 @@
                                     <div class="post-item clearfix">
                                         <img src="{{asset("upload/blog/$value->foto")}}" alt="">
                                         <h4><a href="{{ route('page.blog.detail', $value->slug) }}">{{ $value->judul }}</a></h4>
-                                        <time datetime="2020-01-01">{{ Carbon\Carbon::parse($value->created_at)->format('F d, Y') }}</time>
+                                        <time>{{ Carbon\Carbon::parse($value->created_at)->format('F d, Y') }}</time>
                                     </div>
                                 @empty
                                     <h6>Belum ada artikel</h6>

@@ -35,7 +35,7 @@
 <h1 class="h3 mb-4 text-gray-800">Try Out</h1>
 
 <div class="row mb-4">
-    @forelse ($paket as $value)
+@forelse ($paket as $value)
     @if ($value->status == 1)
         <div class="col-xl-4">
             <div class="card mb-2">
@@ -50,12 +50,12 @@
                         <div class="col-xl-12">
                             <strong>Mulai</strong>
                             <h6>Tanggal : {{ Carbon\Carbon::parse($value->tgl_awal)->format('d F Y') }}</h6>
-                            <h6>Jam : {{ Carbon\Carbon::parse($value->tgl_awal)->format('H:i') }}</h6>
+                            <h6>Jam : {{ Carbon\Carbon::parse($value->tgl_awal)->format('H:i') }} WIB</h6>
                         </div>
                         <div class="col-xl-12">
-                            <strong>Sampai</strong>
+                            <strong>Berakhir</strong>
                             <h6>Tanggal : {{ Carbon\Carbon::parse($value->tgl_akhir)->format('d F Y') }}</h6>
-                            <h6>Jam : {{ Carbon\Carbon::parse($value->tgl_akhir)->format('H:i') }}</h6>
+                            <h6>Jam : {{ Carbon\Carbon::parse($value->tgl_akhir)->format('H:i') }} WIB</h6>
                         </div>
                     </div>
                     @php
@@ -98,12 +98,7 @@
             <a class="btn btn-langkah mt-3" href="{{ route('gelombang.siswa') }}">Daftar Try Out</a>
         @endif
     </div>
-    @endforelse
-    {{-- @else
-    <div class="text-center">
-        <h1>Silahkan Daftar Try Out terlebih dahulu</h1>
-     </div>
-    @endif --}}
+@endforelse
 </div>
 
 <!-- Modal -->

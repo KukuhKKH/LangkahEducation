@@ -66,7 +66,7 @@
                         </select>
                     </div>
 
-                    <button class="btn btn-langkah btn-block">uba Pilihan</button>
+                    <button class="btn btn-langkah btn-block">Ubah Pilihan</button>
                 </form>
             </div>
         </div>
