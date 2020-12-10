@@ -10,7 +10,7 @@
         <a href="{{ asset('template/TemplateSiswa.xlsx') }}" download="" class="btn btn-success"><i
                 class="fas fa-fw fa-file-excel"></i> Template Excel</a>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalData"><i
-                    class="fas fa-fw fa-plus-circle"></i> Tambah Siswa</button>
+                    class="fas fa-fw fa-plus"></i> Tambah Siswa</button>
     </div>
 </div>
 <div class="card shadow mb-4">
@@ -22,7 +22,7 @@
                     @csrf
                     @hasanyrole('superadmin|admin')
                     <div class="row">
-                        <div class="col-xl-6">
+                        <div class="col-xl-3">
                             <div class="form-group">
                                 <label for="">Sekolah</label>
                                 <select name="sekolah" id="sekolah-select" class="form-control" required>

@@ -166,6 +166,8 @@
 @section('js')
 <script src="{{ asset('assets/vendor/moment.js') }}"></script>
 <script>
+   window.onbeforeunload = function () {return false;}
+
    const total_soal = {{ count($soal) }}
    const paket_slug = `{{ $paket->slug }}`
    const user = `{{ auth()->user()->name }}`

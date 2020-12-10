@@ -18,7 +18,7 @@ class StatusUser
     {
         if(Auth::user()->is_active == 1) return $next($request);
         Auth::logout();
-        $request->session()->flash('info', 'Akun tidak aktif silahkan hubungi CS atau Sekolah');
+        $request->session()->flash('info', 'Akun tidak aktif silahkan hubungi Admin');
         return redirect()->route('login')->withInput();
     }
 }

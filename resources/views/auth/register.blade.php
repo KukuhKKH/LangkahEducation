@@ -30,9 +30,9 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row only-number">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input name="nisn" type="number" class="form-control form-control-user @error('nisn') is-invalid @enderror" placeholder="NSIN" value="{{ old('nisn') }}">
+                                    <input name="nisn" type="text" minlength="10" maxlength="11" class="form-control number form-control-user @error('nisn') is-invalid @enderror" placeholder="NISN" value="{{ old('nisn') }}">
                                     @error('nisn')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -40,7 +40,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input name="asal_sekolah" type="text" class="form-control form-control-user @error('asal_sekolah') is-invalid @enderror" placeholder="Asal Sekolah" value="{{ old('asal_sekolah') }}">
+                                    <input name="asal_sekolah" type="text" class="form-control form-control-user @error('asal_sekolah') is-invalid @enderror" placeholder="Asal Sekolah/Instansi" value="{{ old('asal_sekolah') }}">
                                     @error('asal_sekolah')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -48,9 +48,9 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row only-number">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input name="nomor_hp" type="number" class="form-control form-control-user @error('nomor_hp') is-invalid @enderror" placeholder="Nomer HP Aktif" value="{{ old('nomor_hp') }}">
+                                    <input name="nomor_hp" type="text" minlength="10" maxlength="13" class="form-control form-control-user number @error('nomor_hp') is-invalid @enderror" placeholder="Nomer HP Aktif" value="{{ old('nomor_hp') }}" >
                                     @error('nomor_hp')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -70,24 +70,22 @@
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <div class="input-group" id="show_hide_password">
                                         <input name="password" type="password" class="form-control form-control-user @error('password') is-invalid @enderror" id="exampleInputPassword" placeholder="Kata Sandi">
-                                    @error('password')
+                                        <div class="input-group-addon d-flex align-items-center">
+                                            <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                                          </div>
+                                        <small class="ml-3 text-secondary">Kata sandi minimal 8 karakter</small>
+
+                                          @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                        <div class="input-group-addon d-flex align-items-center">
-                                            <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
-                                          </div>
                                     </div>
-                                    <small class="ml-3 text-langkah">Kata sandi minimal 8 karakter</small>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="input-group" id="show_hide_password2">
                                         <input name="password_confirmation" type="password" class="form-control form-control-user"
                                            id="exampleRepeatPassword" placeholder="Ulangi Kata Sandi">
-                                        <div class="input-group-addon d-flex align-items-center">
-                                            <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
-                                          </div>
                                     </div>
                                 </div>
                             </div>
@@ -101,6 +99,10 @@
                         </div>
                         <div class="text-center">
                             <a class="small" href="{{ route('login') }}">Sudah punya akun? Masuk!</a>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <a class="small text-langkah" href="{{ url('/') }}">Kembali Ke Beranda</a>
                         </div>
                     </div>
                 </div>
@@ -120,100 +122,16 @@
             event.preventDefault();
             if($('#show_hide_password input').attr("type") == "text"){
                 $('#show_hide_password input').attr('type', 'password');
+                $('#show_hide_password2 input').attr('type', 'password');
                 $('#show_hide_password i').addClass( "fa-eye-slash" );
                 $('#show_hide_password i').removeClass( "fa-eye" );
             }else if($('#show_hide_password input').attr("type") == "password"){
                 $('#show_hide_password input').attr('type', 'text');
+                $('#show_hide_password2 input').attr('type', 'text');
                 $('#show_hide_password i').removeClass( "fa-eye-slash" );
                 $('#show_hide_password i').addClass( "fa-eye" );
             }
         });
-        $("#show_hide_password2 a").on('click', function(event) {
-            event.preventDefault();
-            if($('#show_hide_password2 input').attr("type") == "text"){
-                $('#show_hide_password2 input').attr('type', 'password');
-                $('#show_hide_password2 i').addClass( "fa-eye-slash" );
-                $('#show_hide_password2 i').removeClass( "fa-eye" );
-            }else if($('#show_hide_password2 input').attr("type") == "password"){
-                $('#show_hide_password2 input').attr('type', 'text');
-                $('#show_hide_password2 i').removeClass( "fa-eye-slash" );
-                $('#show_hide_password2 i').addClass( "fa-eye" );
-            }
-        });
     });
-    </script>   
+    </script>
 @endsection
-
-{{--<div class="container">--}}
-{{--    <div class="row justify-content-center">--}}
-{{--        <div class="col-md-8">--}}
-{{--            <div class="card">--}}
-{{--                <div class="card-header">{{ __('Register') }}</div>--}}
-
-{{--                <div class="card-body">--}}
-{{--                    <form method="POST" action="{{ route('register') }}">--}}
-{{--                        @csrf--}}
-
-{{--                        <div class="form-group row">--}}
-{{--                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>--}}
-
-{{--                            <div class="col-md-6">--}}
-{{--                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>--}}
-
-{{--                                @error('name')--}}
-{{--                                <span class="invalid-feedback" role="alert">--}}
-{{--                                        <strong>{{ $message }}</strong>--}}
-{{--                                    </span>--}}
-{{--                                @enderror--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-
-{{--                        <div class="form-group row">--}}
-{{--                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>--}}
-
-{{--                            <div class="col-md-6">--}}
-{{--                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">--}}
-
-{{--                                @error('email')--}}
-{{--                                <span class="invalid-feedback" role="alert">--}}
-{{--                                        <strong>{{ $message }}</strong>--}}
-{{--                                    </span>--}}
-{{--                                @enderror--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-
-{{--                        <div class="form-group row">--}}
-{{--                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>--}}
-
-{{--                            <div class="col-md-6">--}}
-{{--                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">--}}
-
-{{--                                @error('password')--}}
-{{--                                <span class="invalid-feedback" role="alert">--}}
-{{--                                        <strong>{{ $message }}</strong>--}}
-{{--                                    </span>--}}
-{{--                                @enderror--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-
-{{--                        <div class="form-group row">--}}
-{{--                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>--}}
-
-{{--                            <div class="col-md-6">--}}
-{{--                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-
-{{--                        <div class="form-group row mb-0">--}}
-{{--                            <div class="col-md-6 offset-md-4">--}}
-{{--                                <button type="submit" class="btn btn-primary">--}}
-{{--                                    {{ __('Register') }}--}}
-{{--                                </button>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </form>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--</div>--}}

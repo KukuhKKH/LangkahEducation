@@ -116,13 +116,16 @@
 
 .input-group-addon{
   background-color: #ECB811;
-  padding: 1vw;
+  padding: 0vw 1vw;
   border-radius: 0 .35rem .35rem 0;
 }
 
 .input-group-addon a{ 
+  font-size: 10pt;
   color : #fff !important;
 }
+
+
 
 .timepicker{
   z-index: 999;
@@ -161,4 +164,27 @@
   .chat{
     max-width: 80%;
   }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+
+
+.btn-radius{
+  border-radius: 50px;
+  padding: 10px 25px 10px 25px;
+  white-space: nowrap;
+  transition: 0.3s;
+  font-size: 13px !important;
+  display: inline-block;
+  text-transform: uppercase;
+  font-weight: 600;
 }
