@@ -35,10 +35,12 @@
         </div>
     </div>
     @empty
-<div class="text-center">
-    <img class="img-fluid w-25 my-4" src="{{asset('assets/img/empty-illustration.svg')}}" alt="">
-    <h3>Yahh.. Saat ini belum ada dibuka Pendaftaran</h3>
-</div>
+    <div class="col-xl-12">
+        <div class="text-center">
+            <img class="img-fluid w-25 my-4" src="{{asset('assets/img/empty-illustration.svg')}}" alt="">
+            <h3>Yahh.. Saat ini belum ada dibuka Pendaftaran</h3>
+        </div>
+    </div>
 @endforelse
 </div>
 
