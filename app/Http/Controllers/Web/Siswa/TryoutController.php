@@ -26,10 +26,16 @@ class TryoutController extends Controller
     public function index() {
         $user = Auth::user();
         $status_bayar = 0;
+        $kosong = true;
+        $produk_gelombang = [];
         if($user->siswa->batch == 1) {
-            $paket = $user->siswa->sekolah->first()->tryout;
-            if(count($user->siswa->gelombang) > 0) {
-                dd($user->siswa->gelombang);
+            $produk_sekolah = $user->siswa->sekolah->first()->gelombang;
+            $cek_gelombang = Gelombang::wherehas('siswa', function($query) use($user) {
+                $query->where('siswa_id', $user->siswa->id);
+            })->get();
+            // Jika membeli produk sendiri
+            if(count($cek_gelombang) > 0) {
+                $produk_gelombang = $cek_gelombang;
             }
             $status_bayar = 1;
         } else if($user->siswa->batch == 0) {
@@ -70,7 +76,8 @@ class TryoutController extends Controller
             }
         }
         $user_token = Crypt::encrypt($user->api_token);
-        return view('pages.siswa.tryout.index',compact('paket', 'status_bayar', 'user_token'));
+        return view('pages.siswa.tryout.index',compact('produk_sekolah', 'produk_gelombang', 'kosong', 'status_bayar', 'user_token'));
+        // return view('pages.siswa.tryout.index',compact('paket', 'status_bayar', 'user_token'));
     }
 
     /**

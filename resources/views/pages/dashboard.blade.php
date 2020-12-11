@@ -557,7 +557,7 @@
     <script>
         let ctx = document.getElementById("myRiwayatNilai")
         let data_riwayat = {
-            labels: {!! json_encode($nama_paket) !!},
+            labels: {!! json_encode($nama_paket ?? []) !!},
             datasets: [{
                 label: "Nilai",
                 lineTension: 0.3,
@@ -571,7 +571,7 @@
                 pointHoverBorderColor: "rgba(51, 51, 51, 1)",
                 pointHitRadius: 10,
                 pointBorderWidth: 2,
-                data: {!!json_encode($nilai_grafik) !!},
+                data: {!! json_encode($nilai_grafik ?? []) !!},
             }],
         }
         new Chart(ctx, {

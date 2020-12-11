@@ -116,7 +116,7 @@ class PembayaranController extends Controller
         try {
             $user = auth()->user();
             $today = date('m/d/Y');
-            $gelombang = Gelombang::where('tgl_awal', '<', $today)->where('tgl_akhir', '>', $today)->whereDoesntHave('siswa', function($query) use($user) {
+            $gelombang = Gelombang::where('jenis', 1)->where('tgl_awal', '<', $today)->where('tgl_akhir', '>', $today)->whereDoesntHave('siswa', function($query) use($user) {
                 $query->where('siswa_id', $user->siswa->id);
             })->get();
             return view('pages.pendaftaran.gelombang_siswa', compact('gelombang'));

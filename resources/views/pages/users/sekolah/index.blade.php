@@ -92,8 +92,8 @@
                                     data-toggle="tooltip" data-placement="top" title="List NISN">
                                     <i class="fas fa-fw fa-user-friends"></i>
                                 </a>
-                                <a href="{{ route('sekolah.tryout', $value->id) }}" class="btn btn-primary my-1"
-                                    data-toggle="tooltip" data-placement="top" title="Integrasi tryout ke sekolah ini">
+                                <a href="{{ route('sekolah.produk', $value->id) }}" class="btn btn-primary my-1"
+                                    data-toggle="tooltip" data-placement="top" title="Integrasi produk ke sekolah ini">
                                     <i class="fas fa-fw fa-desktop"></i>
                                 </a>
                                 <button type="button" data-id="{{ $value->id }}" class="btn btn-danger my-1 hapus"

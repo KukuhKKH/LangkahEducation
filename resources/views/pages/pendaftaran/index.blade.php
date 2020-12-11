@@ -1,15 +1,15 @@
 @extends('layouts.dashboard-app')
-@section('title', 'Pendaftaran / Gelombang')
+@section('title', 'Produk / Gelombang')
 
 @section('content')
-    <h1 class="h3 mb-4 text-gray-800">Pendaftaran / Gelombang</h1>
+    <h1 class="h3 mb-4 text-gray-800">Produk / Gelombang</h1>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="row">
                 <div class="col-xl-12 text-right">
                     <div class="btn-group btn-group-md">
-                        <button type="button" class="btn btn-primary my-1" data-toggle="modal" data-target="#modalData"><i class="fa fa-plus"></i> Tambah Gelombang</button>
+                        <button type="button" class="btn btn-primary my-1" data-toggle="modal" data-target="#modalData"><i class="fa fa-plus"></i> Tambah Produk / Gelombang</button>
                     </div>
                 </div>
             </div>
@@ -20,6 +20,7 @@
                     <thead>
                     <tr>
                         <th>No</th>
+                        <th>Jenis</th>
                         <th>Nama</th>
                         <th>Gelombang</th>
                         <th>Harga</th>
@@ -31,6 +32,7 @@
                     <tfoot>
                     <tr>
                         <th>No</th>
+                        <th>Jenis</th>
                         <th>Nama</th>
                         <th>Gelombang</th>
                         <th>Harga</th>
@@ -43,6 +45,7 @@
                     @forelse($gelombang as $value)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
+                            <td>{{ ($value->jenis == 1) ? 'UMUM' : "SEKOLAH" }}</td>
                             <td>{{ $value->nama }}</td>
                             <td>{{ $value->gelombang }}</td>
                             <td>Rp. {{ number_format($value->harga) }}</td>
@@ -97,18 +100,21 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="">Nama Gelombang</label>
-                            <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" placeholder="Masukkan Nama Gelombang" value="{{ old('nama') }}">
-                            @error('nama')
+                            <label for="">Jenis Gelombang</label>
+                            <select name="jenis" class="form-control @error('jenis') is-invalid @enderror" autocomplete="off">
+                                <option value="1" {{ (old('jenis') == 1) ? 'selected' : '' }}>Umum</option>
+                                <option value="2" {{ (old('jenis') == 2) ? 'selected' : '' }}>Sekolah</option>
+                            </select>
+                            @error('jenis')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="">Kode Gelombang</label>
-                            <input type="text" class="form-control @error('kode_referal') is-invalid @enderror" name="kode_referal" placeholder="Masukkan Kode Gelombang" value="{{ old('kode_referal') }}">
-                            @error('kode_referal')
+                            <label for="">Nama Gelombang</label>
+                            <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" placeholder="Masukkan Nama Gelombang" value="{{ old('nama') }}">
+                            @error('nama')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

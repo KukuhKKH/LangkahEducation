@@ -88,7 +88,9 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                     Route::post('mentor/integrasi/{id}', 'MentorController@integrasi')->name('mentor.integrasi');
                     Route::post('mentor/integrasi/{id}/hapus', 'MentorController@hapus_integrasi')->name('mentor.integrasi.hapus');
                     Route::get('sekolah/tryout/{id}', 'SekolahController@integrasi_tryout')->name('sekolah.tryout');
+                    Route::get('sekolah/produk/{id}', 'SekolahController@integrasi_produk')->name('sekolah.produk');
                     Route::post('sekolah/tryout/{id}', 'SekolahController@integrasi_tryout_store')->name('sekolah.tryout.store');
+                    Route::post('sekolah/produk/{id}', 'SekolahController@integrasi_produk_store')->name('sekolah.produk.store');
                 });
             });
 
