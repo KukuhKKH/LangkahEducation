@@ -32,4 +32,8 @@ class Blog extends Model
     public function komentar() {
         return $this->hasMany('App\Models\KomentarBlog');
     }
+
+    public function like() {
+        return $this->belongsToMany('App\Models\User', 'blog_like', 'blog_id');
+    }
 }

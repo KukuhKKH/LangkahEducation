@@ -32,10 +32,12 @@
                             {!! $string !!}
 
                             <div class="text-right">
-                                    <div class="d-flex justify-content-end align-items-center">
-                                        <small id="textLike" class="mr-2"><span>123</span> Suka</small>
-                                        <button id="btnLike" class="btn btn-primary btn-sm"><i id="icoLike"class="fa fa-thumbs-up mr-1"></i>Like</button>
-                                    </div>
+                                <div class="d-flex justify-content-end align-items-center">
+                                    <small id="textLike" class="mr-2"><span id="totalLike">{{ count($artikel->like) }}</span> Suka</small>
+                                    @auth
+                                    <button id="btnLike" class="btn btn-primary btn-sm"><i id="icoLike"class="fa fa-thumbs-up mr-1"></i>Like</button>    
+                                    @endauth
+                                </div>
                             </div>
 
                             <hr>
@@ -84,7 +86,8 @@
                                     <div class="row my-2" id="komentar">
                                         <div class="col-auto">
                                             @if ($value->user->foto)
-                                            <img src="{{asset("upload/>user/$value->foto") }}" class="avatar " alt="Avatar">    
+                                            <?php $foto = $value->user->foto ?>
+                                            <img src="{{asset("upload/users/$foto") }}" class="avatar " alt="Avatar">    
                                             @else
                                             <img src="{{asset('assets/img/undraw_profile.svg') }}" class="avatar " alt="Avatar">    
                                             @endif
@@ -189,20 +192,56 @@
 <!-- Template Main JS File -->
 <script src="{{asset('assets-landingpage/js/main.js')}}"></script>
 <script>
-var like = 1;
+var like = {{ $btn_like }};
+@auth
+const USER_ID = {{ auth()->user()->id }}
+@endauth
+const BLOG_ID = {{ $artikel->id }}
+const ENDPOINT = `{{ url('api/v1/blog/like/status/') }}`
+let textLike = $('#totalLike')[0].innerHTML
+if(like == 1) {
+    $("#btnLike").removeClass('btn-primary');
+    $("#btnLike").addClass('btn-secondary');
+    $("#btnLike").html('<i id="icoLike"class="fa fa-thumbs-down mr-1"></i>Batal');
+} else {
+    $("#btnLike").addClass('btn-primary');
+    $("#btnLike").removeClass('btn-secondary');
+    $("#btnLike").html('<i id="icoLike"class="fa fa-thumbs-up mr-1"></i>Like');
+}
 $("#btnLike").click(function() {
     if (like == 1) {
-        $("#btnLike").removeClass('btn-primary');
-        $("#btnLike").addClass('btn-secondary');
-        $("#btnLike").html('<i id="icoLike"class="fa fa-thumbs-down mr-1"></i>Batal');
-        like = 0;
-    }else if(like==0){
         $("#btnLike").addClass('btn-primary');
         $("#btnLike").removeClass('btn-secondary');
         $("#btnLike").html('<i id="icoLike"class="fa fa-thumbs-up mr-1"></i>Like');
+        set_like(BLOG_ID, USER_ID, 0)
+        like = 0;
+        textLike--
+        $('#totalLike')[0].innerHTML = textLike
+    }else if(like==0){
+        $("#btnLike").removeClass('btn-primary');
+        $("#btnLike").addClass('btn-secondary');
+        $("#btnLike").html('<i id="icoLike"class="fa fa-thumbs-down mr-1"></i>Batal');
+        set_like(BLOG_ID, USER_ID, 1)
         like = 1;
+        textLike++
+        $('#totalLike')[0].innerHTML = textLike
     }
 });
+
+function set_like(blog_id, user_id, status) {
+    // await Promise((resolve, reject) => {
+        fetch(`${ENDPOINT}/${blog_id}/${user_id}/${status}`, {
+            method: 'POST',
+            body: {
+                blog_id:blog_id,
+                user_id:user_id,
+                status:status
+            }
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+    // })
+}
 
 </script>
 @endsection

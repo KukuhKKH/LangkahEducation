@@ -18,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::group(['prefix' => 'v1', 'namespace' => 'Api\V1'], function () {
-    Route::get('get-prodi/{kelompok_id}/{universitas_id}', 'DataTryoutController@get_prodi');
+Route::group(['prefix' => 'v1'], function () {
+    Route::group(['namespace' => 'Api\V1'], function () {
+        Route::get('get-prodi/{kelompok_id}/{universitas_id}', 'DataTryoutController@get_prodi');
+    });
+    Route::post('blog/like/status/{blog_id}/{user_id}/{status}', 'Web\Blog\PageController@set_like');
 });

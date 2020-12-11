@@ -25,6 +25,7 @@ class BlogCreateRequest extends FormRequest
     {
         return [
             'judul' => 'required',
+            'kategori' => 'required',
             'isi' => 'required',
             'foto' => 'nullable',
             'status' => 'required',

@@ -93,4 +93,8 @@ class User extends Authenticatable
     public function blog() {
         return $this->hasMany('App\Models\Blog');
     }
+
+    public function like() {
+        return $this->belongsToMany('App\Models\Blog', 'blog_like');
+    }
 }

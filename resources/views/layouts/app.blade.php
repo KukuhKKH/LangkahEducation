@@ -38,6 +38,7 @@
 
 @include('partials.landingpage.footer')
 @yield('js')
+<script src="{{ asset('assets/vendor/sweet-alert/sweetalert.min.js') }}"></script>
 <script>
     @if (session('success'))
     swal.fire({
