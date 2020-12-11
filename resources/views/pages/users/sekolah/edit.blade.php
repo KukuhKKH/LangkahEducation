@@ -119,12 +119,12 @@
                                 <input type="file"
                                     class="custom-file-input form-control @error('foto') is-invalid @enderror"
                                     name="foto" accept="image/x-png,image/gif,image/jpeg" id="inputGroupFile02">
+                                <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
                                 @error('foto')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror
-                                <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
                             </div>
                         </div>
                     </div>
@@ -209,4 +209,13 @@
     });
  });
  </script>
+ <script type="text/javascript">
+
+    $('.custom-file input').change(function (e) {
+        if (e.target.files.length) {
+            $(this).next('.custom-file-label').html(e.target.files[0].name);
+        }
+    });
+
+</script>
 @endsection

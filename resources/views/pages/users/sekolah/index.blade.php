@@ -53,7 +53,7 @@
                         <th>Email</th>
                         <th>Total siswa yang terdaftar</th>
                         <th>Status</th>
-                        <th>Aksi</th>
+                        <th width="25%">Aksi</th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -63,7 +63,7 @@
                         <th>Email</th>
                         <th>Total siswa yang terdaftar</th>
                         <th>Status</th>
-                        <th>Aksi</th>
+                        <th width="25%">Aksi</th>
                     </tr>
                 </tfoot>
                 <tbody>
@@ -192,14 +192,24 @@
                         </div>
                         <div class="col-xl-6">
                             <div class="form-group">
-                                <label for="">DAFTAR NISN Siswa <small>Opsional</small></label>
-                                <input type="file" class="form-control" name="nisn">
+                                <label for="">Daftar NISN Siswa <small>Opsional</small></label>
+                                <div class="input-group mb-3">
+                                    <div class="custom-file">
+                                      <input type="file" id="fileNISN" class="custom-file-input form-control" name="nisn">
+                                      <label id="labelNISN" class="custom-file-label" for="fileNISN">Choose file</label>
+                                    </div>
+                                  </div>
                             </div>
                         </div>
                         <div class="col-xl-6">
                             <div class="form-group">
                                 <label for="">Logo Sekolah <small>Opsional</small></label>
-                                <input type="file" class="form-control" name="foto">
+                                <div class="input-group mb-3">
+                                    <div class="custom-file">
+                                      <input type="file" id="fileLogo"  name="foto" class="form-control custom-file-input form-control" name="nisn">
+                                      <label id="labelLogo" class="custom-file-label" for="fileNISN">Choose file</label>
+                                    </div>
+                                  </div>
                             </div>
                         </div>
                     </div>
@@ -235,14 +245,15 @@
     })
 
 </script>
-<script type="text/javascript">
-    $('.custom-file input').change(function (e) {
-        var files = [];
-        for (var i = 0; i < $(this)[0].files.length; i++) {
-            files.push($(this)[0].files[i].name);
-        }
-        $(this).next('.custom-file-label').html(files.join(', '));
-    });
+<script>
+        $('#fileNISN').on('change', function (e) {
+        var fileName = e.target.files[0].name;
+        $(this).next('#labelNISN').html(fileName);
+    })
 
+    $('#fileLogo').on('change', function (e) {
+        var fileNames = e.target.files[0].name;
+        $(this).next('#labelLogo').html(fileNames);
+    })
 </script>
 @endsection

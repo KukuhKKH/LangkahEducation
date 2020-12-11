@@ -13,7 +13,7 @@
                 <div class="row">
                     <div class="col-xl-12 text-right">
                         <div class="btn-group btn-group-md">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalData"><i class="fas fa-fw fa-plus-circle"></i> Tambah Rekening</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalData"><i class="fas fa-fw fa-plus"></i> Tambah Rekening</button>
                         </div>
                     </div>
                 </div>
