@@ -65,8 +65,15 @@
                             @endphp
                             <p>{{ (strlen(strip_tags($string)) > 200) ? substr(strip_tags($string), 0, 200) . '...' : strip_tags($string) }}
                             </p>
-
-                            <a href="{{ route('page.blog.detail', $value->slug) }}" class="btn-link">Read More</a>
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <a href="{{ route('page.blog.detail', $value->slug) }}" class="btn-link">Read More</a>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <small class="font-weight-bold text-dark mt-3"><i class="fa fa-thumbs-up"></i> 123</small>
+                                    <small class="font-weight-bold text-dark mt-3"><i class="fa fa-comment"></i> 123</small>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     @empty
