@@ -32,7 +32,7 @@ class BankController extends Controller
             'nama' => 'required',
             'nomer_rekening' => 'required',
             'alias' => 'required',
-            'file' => 'nullable'
+            'file' => 'nullable|mimes:jpg,jpeg,gif,png|max:2024'
         ]);
         try {
             if($request->hasFile('file')) {
@@ -83,7 +83,7 @@ class BankController extends Controller
             'nama' => 'required',
             'nomer_rekening' => 'required',
             'alias' => 'required',
-            'file' => 'nullable'
+            'file' => 'nullable|mimes:jpg,jpeg,gif,png|max:2024'
         ]);
         try {
             $bank = Bank::find($id);

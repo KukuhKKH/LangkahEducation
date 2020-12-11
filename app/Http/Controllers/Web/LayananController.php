@@ -30,7 +30,7 @@ class LayananController extends Controller
         $this->validate($request, [
             'nama' => 'required',
             'deskripsi' => 'required',
-            'foto' => 'nullable'
+            'foto' => 'nullable|mimes:jpg,jpeg,gif,png|max:2024'
         ]);
         try {
             if($request->hasFile('foto')) {
@@ -76,7 +76,7 @@ class LayananController extends Controller
         $this->validate($request, [
             'nama' => 'required',
             'deskripsi' => 'required',
-            'foto' => 'nullable'
+            'foto' => 'nullable|mimes:jpg,jpeg,gif,png|max:2024'
         ]);
         try {
             if($request->hasFile('foto')) {
