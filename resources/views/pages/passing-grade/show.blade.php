@@ -40,6 +40,18 @@
             </div>
         </div>
         <div class="card-body">
+            <form action="" method="GET">
+                <div class="row mb-4 justify-content-end">
+                    <div class="col-xl-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Masukkan Nama Prodi" aria-label="Masukkan Nama Prodi" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                              <button class="btn btn-primary" type="button">Cari</button>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+            </form>
             <div class="table-responsive">
                 <table class="table table-bordered" width="100%" cellspacing="0">
                     <thead>
