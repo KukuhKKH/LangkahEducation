@@ -26,7 +26,7 @@ class SekolahCreateRequest extends FormRequest
         return [
             'name' => 'required',
             'email' => 'required|unique:users,email',
-            'foto' => 'nullable',
+            'foto' => 'nullable|mimes:jpg,jpeg,gif,png|max:2024',
             'alamat' => 'required',
             'kode_referal' => 'nullable',
             'nisn'  => 'nullable|mimes:xls,xlsx',

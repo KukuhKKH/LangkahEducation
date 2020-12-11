@@ -27,7 +27,7 @@ class BlogCreateRequest extends FormRequest
             'judul' => 'required',
             'kategori' => 'required',
             'isi' => 'required',
-            'foto' => 'nullable',
+            'foto' => 'nullable|mimes:jpg,jpeg,gif,png|max:2024',
             'status' => 'required',
         ];
     }

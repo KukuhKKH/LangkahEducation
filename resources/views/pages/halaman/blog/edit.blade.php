@@ -14,7 +14,7 @@
             @method('PUT')
             <div class="row">
                 <div class="col-xl-12 text-right">
-                    <button class="btn btn-primary" type="submit"><i class="fas fa-fw fa-paper-plane"></i>
+                    <button class="btn btn-primary" type="submit">
                         Simpan Perubahan</button>
                 </div>
                 <div class="col-lg-12 mt-3">

@@ -28,7 +28,7 @@ class SuperadminUpdateRequest extends FormRequest
             'email' => 'required|unique:users,email,'.request()->user_id,
             'password_old' => 'nullable',
             'password' => 'nullable|confirmed',
-            'foto' => 'nullable|mimes:jpg,jpeg,gif,png|max:2000',
+            'foto' => 'nullable|mimes:jpg,jpeg,gif,png|max:2024',
             'is_active' => 'required'
         ];
     }

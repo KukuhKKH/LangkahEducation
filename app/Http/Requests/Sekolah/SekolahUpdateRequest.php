@@ -26,7 +26,7 @@ class SekolahUpdateRequest extends FormRequest
         return [
             'name' => 'required',
             'email' => 'required|unique:users,email,'.request()->user_id,
-            'foto' => 'nullable',
+            'foto' => 'nullable|mimes:jpg,jpeg,gif,png|max:2024',
             'alamat' => 'required',
             'kode_referal' => 'nullable',
         ];
