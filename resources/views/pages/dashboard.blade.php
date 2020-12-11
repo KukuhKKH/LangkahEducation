@@ -121,33 +121,35 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-4">
-            <form action="#" class="mt-4">
-                <input type="hidden" name="kelompok" value="{{ $kelompok->id }}">
-                <div class="form-group">
-                    <label for="prodi-1">Pilihan 1</label>
-                    <select name="prodi-1" id="prodi-1" class="form-control" required>
-                        <option value="" selected disabled>== Program Studi Pilihan 1 ==</option>
-                        @foreach ($passing_grade as $value)
-                        <option value="{{ $value->id }}">({{ $value->passing_grade }}%)
-                            {{ $value->universitas->nama }} - {{ $value->prodi }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="prodi-2">Pilihan 2</label>
-                    <select name="prodi-2" id="prodi-2" class="form-control" required>
-                        <option value="" selected disabled>== Program Studi Pilihan 1 ==</option>
-                        @foreach ($passing_grade as $value)
-                        <option value="{{ $value->id }}">({{ $value->passing_grade }}%)
-                            {{ $value->universitas->nama }} - {{ $value->prodi }}</option>
-                        @endforeach
-                    </select>
-                </div>
+        @if ($kelompok)
+            <div class="col-xl-4">
+                <form action="#" class="mt-4">
+                    <input type="hidden" name="kelompok" value="{{ $kelompok->id }}">
+                    <div class="form-group">
+                        <label for="prodi-1">Pilihan 1</label>
+                        <select name="prodi-1" id="prodi-1" class="form-control" required>
+                            <option value="" selected disabled>== Program Studi Pilihan 1 ==</option>
+                            @foreach ($passing_grade as $value)
+                            <option value="{{ $value->id }}">({{ $value->passing_grade }}%)
+                                {{ $value->universitas->nama }} - {{ $value->prodi }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="prodi-2">Pilihan 2</label>
+                        <select name="prodi-2" id="prodi-2" class="form-control" required>
+                            <option value="" selected disabled>== Program Studi Pilihan 1 ==</option>
+                            @foreach ($passing_grade as $value)
+                            <option value="{{ $value->id }}">({{ $value->passing_grade }}%)
+                                {{ $value->universitas->nama }} - {{ $value->prodi }}</option>
+                            @endforeach
+                        </select>
+                    </div>
 
-                <button class="btn btn-langkah btn-block">Ubah Pilihan</button>
-            </form>
-        </div>
+                    <button class="btn btn-langkah btn-block">Ubah Pilihan</button>
+                </form>
+            </div>
+        @endif
     </div>
 @endhasanyrole
 

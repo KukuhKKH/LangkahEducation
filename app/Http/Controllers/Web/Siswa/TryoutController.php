@@ -28,6 +28,7 @@ class TryoutController extends Controller
         $status_bayar = 0;
         $kosong = true;
         $produk_gelombang = [];
+        $produk_sekolah = [];
         if($user->siswa->batch == 1) {
             $produk_sekolah = $user->siswa->sekolah->first()->gelombang;
             $cek_gelombang = Gelombang::wherehas('siswa', function($query) use($user) {
@@ -45,29 +46,30 @@ class TryoutController extends Controller
 
             // Sudah Daftar Gelombang
             if(count($cek_gelombang) > 0) {
-                $gelombang = $user->siswa->gelombang()->get()->pluck('id');
-                $id_gelombang = [];
-                foreach ($gelombang as $key => $value) {
-                    $pembayaran = Pembayaran::where('gelombang_id', $value)->where('user_id', $user->id)->first();
-                    if($pembayaran->status == 2) {
-                        $id_gelombang[] = $pembayaran->gelombang_id;
-                    }
-                }
-                $id_tryout = DB::table('gelombang_tryout')
-                                ->select('tryout_paket_id')
-                                ->whereIn('gelombang_id', $id_gelombang)->get()->pluck('tryout_paket_id');
-                $gelombang_data = Gelombang::whereIn('id', $id_gelombang)->with('tryout')->get();
-                // dd($gelombang_data);
-                $raw_paket = [];
-                foreach ($gelombang_data as $key => $value) {
-                    $raw_paket[] = $value->tryout;
-                }
-                $paket = [];
-                foreach ($raw_paket as $key => $value) {
-                    foreach ($value as $key2 => $value2) {
-                        $paket[] = $value2;
-                    }
-                }
+                $produk_gelombang = $cek_gelombang;
+                // $gelombang = $user->siswa->gelombang()->get()->pluck('id');
+                // $id_gelombang = [];
+                // foreach ($gelombang as $key => $value) {
+                //     $pembayaran = Pembayaran::where('gelombang_id', $value)->where('user_id', $user->id)->first();
+                //     if($pembayaran->status == 2) {
+                //         $id_gelombang[] = $pembayaran->gelombang_id;
+                //     }
+                // }
+                // $id_tryout = DB::table('gelombang_tryout')
+                //                 ->select('tryout_paket_id')
+                //                 ->whereIn('gelombang_id', $id_gelombang)->get()->pluck('tryout_paket_id');
+                // $gelombang_data = Gelombang::whereIn('id', $id_gelombang)->with('tryout')->get();
+                // // dd($gelombang_data);
+                // $raw_paket = [];
+                // foreach ($gelombang_data as $key => $value) {
+                //     $raw_paket[] = $value->tryout;
+                // }
+                // $paket = [];
+                // foreach ($raw_paket as $key => $value) {
+                //     foreach ($value as $key2 => $value2) {
+                //         $paket[] = $value2;
+                //     }
+                // }
                 // dd($paket, $raw_paket);
                 // $paket = TryoutPaket::whereIn('id', $id_tryout)->get();
                 $status_bayar = 1;

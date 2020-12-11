@@ -58,7 +58,10 @@ class HomeController extends Controller
             return view('pages.dashboard', compact('sekolah', 'siswa', 'belum_bayar', 'pengunjung', 'label', 'total'));
         } elseif($user->getRoleNames()->first() == 'siswa') {
             $kelompok = TempProdi::where('user_id', $user->id)->first();
-            $passing_grade = PassingGrade::where('kelompok_id', $kelompok->id)->get();
+            $passing_grade = [];
+            if($kelompok) {
+                $passing_grade = PassingGrade::where('kelompok_id', $kelompok->id)->get();
+            }
             return view('pages.dashboard', compact('kelompok', 'passing_grade'));
         } else {
             return view('pages.dashboard');

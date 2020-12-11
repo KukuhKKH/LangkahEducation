@@ -65,7 +65,7 @@
     @endforeach
     <?php $kosong = false; ?>
 @empty
-        
+    {{-- Biarkan kosong bruh --}}
 @endforelse
 
 {{-- Produk dari gelombang --}}
