@@ -33,8 +33,8 @@
                             </div>
                         </div>
                         @php
-                            $cek = $item->wherehas('hasil', function($q) use($item) {
-                                        $q->where('user_id', auth()->user()->id)->where('tryout_paket_id', $item->id);
+                            $cek = $item->wherehas('hasil', function($q) use($item, $value) {
+                                        $q->where('user_id', auth()->user()->id)->where('tryout_paket_id', $item->id)->where('gelombang_id', $value->id);
                                     })->get();
                             $today = date('Y-m-d H:i');
                         @endphp
@@ -44,12 +44,12 @@
                                 $prodi = App\Models\TempProdi::where('paket_id', $item->id)->get();
                             @endphp
                                 @if (count($prodi) > 0)
-                                <a class="btn btn-light btn-block mt-4" href="{{ route('tryout.hasil', ['kelompok' => $prodi[0]->kelompok_passing_grade_id, 'slug' => $item->slug, 'prodi-1' => $prodi[0]->passing_grade_id, 'prodi-2' => $prodi[1]->passing_grade_id]) }}">Hasil Analisis</a>    
+                                <a class="btn btn-light btn-block mt-4" href="{{ route('tryout.hasil', ['gelombang_id' => $value->id, 'kelompok' => $prodi[0]->kelompok_passing_grade_id, 'slug' => $item->slug, 'prodi-1' => $prodi[0]->passing_grade_id, 'prodi-2' => $prodi[1]->passing_grade_id]) }}">Hasil Analisis</a>    
                                 @else
-                                <a class="btn btn-light btn-block mt-4" href="{{ route('tryout.hasil', ['slug' => $item->slug]) }}">Hasil Analisis</a>
+                                <a class="btn btn-light btn-block mt-4" href="{{ route('tryout.hasil', ['gelombang_id' => $value->id, 'slug' => $item->slug]) }}">Hasil Analisis</a>
                                 @endif
                             @else
-                                <a href="{{ route('tryout.siswa.detail', ['slug' => $item->slug, 'token' => $user_token]) }}" class="btn btn-langkah btn-block mt-4">
+                                <a href="{{ route('tryout.siswa.detail', ['gelombang_id' => $value->id, 'slug' => $item->slug, 'token' => $user_token]) }}" class="btn btn-langkah btn-block mt-4">
                                     Kerjakan
                                 </a>
                             @endif
@@ -95,8 +95,8 @@
                             </div>
                         </div>
                         @php
-                            $cek = $item->wherehas('hasil', function($q) use($item) {
-                                        $q->where('user_id', auth()->user()->id)->where('tryout_paket_id', $item->id);
+                            $cek = $item->wherehas('hasil', function($q) use($item, $value) {
+                                        $q->where('user_id', auth()->user()->id)->where('tryout_paket_id', $item->id)->where('gelombang_id', $value->id);
                                     })->get();
                             $today = date('Y-m-d H:i');
                         @endphp
@@ -106,12 +106,12 @@
                                 $prodi = App\Models\TempProdi::where('paket_id', $item->id)->get();
                             @endphp
                                 @if (count($prodi) > 0)
-                                <a class="btn btn-light btn-block mt-4" href="{{ route('tryout.hasil', ['kelompok' => $prodi[0]->kelompok_passing_grade_id, 'slug' => $item->slug, 'prodi-1' => $prodi[0]->passing_grade_id, 'prodi-2' => $prodi[1]->passing_grade_id]) }}">Hasil Analisis</a>    
+                                <a class="btn btn-light btn-block mt-4" href="{{ route('tryout.hasil', ['gelombang_id' => $value->id, 'kelompok' => $prodi[0]->kelompok_passing_grade_id, 'slug' => $item->slug, 'prodi-1' => $prodi[0]->passing_grade_id, 'prodi-2' => $prodi[1]->passing_grade_id]) }}">Hasil Analisis</a>    
                                 @else
-                                <a class="btn btn-light btn-block mt-4" href="{{ route('tryout.hasil', ['slug' => $item->slug]) }}">Hasil Analisis</a>
+                                <a class="btn btn-light btn-block mt-4" href="{{ route('tryout.hasil', ['gelombang_id' => $value->id, 'slug' => $item->slug]) }}">Hasil Analisis</a>
                                 @endif
                             @else
-                                <a href="{{ route('tryout.siswa.detail', ['slug' => $item->slug, 'token' => $user_token]) }}" class="btn btn-langkah btn-block mt-4">
+                                <a href="{{ route('tryout.siswa.detail', ['gelombang_id' => $value->id, 'slug' => $item->slug, 'token' => $user_token]) }}" class="btn btn-langkah btn-block mt-4">
                                     Kerjakan
                                 </a>
                             @endif

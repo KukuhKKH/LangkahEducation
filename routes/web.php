@@ -120,7 +120,7 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
             Route::group(['middleware' => 'role:siswa', 'namespace' => 'Siswa'], function () {
                 Route::get('siswa/tryout', 'TryoutController@index')->name('siswa.tryout.index');
                 Route::get('siswa/tryout/{paket}', 'TryoutController@paket')->name('siswa.tryout.paket');
-                Route::get('siswa/hasil/tryout/{slug}', 'TryoutController@hasil')->name('tryout.hasil');
+                Route::get('siswa/hasil/tryout/{gelombang_id}/{slug}', 'TryoutController@hasil')->name('tryout.hasil');
             });
 
             // Bebas
@@ -164,9 +164,9 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                 // Route::post('tryout/{paket}', 'TryoutController@tryout_store')->name('tryout.soal.store');
                 
                 // Tryout baru
-                Route::get('tryout/{token}/{slug}/detail', 'TryoutController@tryout_baru_detail')->name('tryout.siswa.detail');
-                Route::get('tryout/{token}/{slug}', 'TryoutController@tryout_baru')->name('tryout.mulai');
-                Route::post('tryout/{paket}', 'TryoutController@tryout_store_baru')->name('tryout.soal.store');
+                Route::get('tryout/{gelombang_id}/{token}/{slug}/detail', 'TryoutController@tryout_baru_detail')->name('tryout.siswa.detail');
+                Route::get('tryout/{gelombang_id}/{token}/{slug}', 'TryoutController@tryout_baru')->name('tryout.mulai');
+                Route::post('tryout/{gelombang_id}/{paket}', 'TryoutController@tryout_store_baru')->name('tryout.soal.store');
             });
         });
     });
