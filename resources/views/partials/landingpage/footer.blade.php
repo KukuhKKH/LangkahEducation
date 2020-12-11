@@ -24,8 +24,8 @@
                         <span>Kota Malang</span><br>
                         Jawa Timur, 65114</p>
                     <br> --}}
-                    <strong>No. HP/WA</strong> {{ $data->noHP ?? '' }}<br>
-                    <strong>Email:</strong> {{ $data->email ?? '' }}<br>
+                    <strong>No. HP/WA :</strong> {{ $data->noHP ?? '' }}<br>
+                    <strong>Email :</strong> {{ $data->email ?? '' }}<br>
                     </p>
                 </div>
 
