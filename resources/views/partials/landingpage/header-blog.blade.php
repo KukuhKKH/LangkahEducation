@@ -7,11 +7,22 @@
  
         <nav class="nav-menu d-none d-lg-block">
             <ul>
-                <li><a href="{{ url('/') }}">Beranda</a></li>
-                <li><a href="{{ route('page.blog.index') }}">Blog</a></li>
+                <li><a href="{{ url('/') }}"><i class="fas fa-home"></i></a></li>
                 @foreach ($kategori as $value)
                 <li><a href="{{ route('page.blog.kategori', $value->nama) }}">{{ strtoupper($value->nama) }}</a></li>
                 @endforeach
+                <li><a href="#">Recent</a></li>
+                <li><a href="#">Populer</a></li>
+                <li>
+                    <form action="">
+                        <div class="input-group input-group-sm">
+                            <div class="input-group-prepend">
+                              <button class="btn btn-warning text-white" type="button"><i class="fa fa-search"></i></button>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Cari Artikel" aria-label="" aria-describedby="basic-addon1">
+                          </div>
+                    </form>
+                </li>
                 {{-- <li><a href="{{ route('page.blog.kategori', 'UNBK') }}">UTBK</a></li>
                 <li><a href="{{ route('page.blog.kategori', 'SBMPTN') }}">SBMPTN</a></li>
                 <li><a href="{{ route('page.blog.kategori', 'SAINTEK') }}">SAINTEK</a></li>

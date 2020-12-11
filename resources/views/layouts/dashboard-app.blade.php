@@ -99,7 +99,17 @@
         <script src="{{ asset('assets/vendor/toastr/toastr.min.js') }}"></script>
 
         <script src="{{ asset('assets/vendor/sweet-alert/sweetalert.min.js') }}"></script>
-
+        <script>
+            $(function() {
+              $('.only-number').on('keydown', '.number', function(e){
+                  -1!==$
+                  .inArray(e.keyCode,[46,8,9,27,13,110,190]) || /65|67|86|88/
+                  .test(e.keyCode) && (!0 === e.ctrlKey || !0 === e.metaKey)
+                  || 35 <= e.keyCode && 40 >= e.keyCode || (e.shiftKey|| 48 > e.keyCode || 57 < e.keyCode)
+                  && (96 > e.keyCode || 105 < e.keyCode) && e.preventDefault()
+              });
+            })
+        </script>   
         <script>
             @if(request()->is('dashboard/siswa/hasil/tryout/*') || request()->is('dashboard/hasiltryout/siswa/*'))
             let pg1 = {{ $nil_pg1 ?? 0 }}

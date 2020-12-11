@@ -37,7 +37,7 @@
             <div class="col-xl-4 text-right">
                 <div class="btn-group btn-group-md">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalData"><i
-                            class="fas fa-fw fa-plus-circle"></i> Tambah Sekolah</button>
+                            class="fas fa-fw fa-plus"></i> Tambah Sekolah</button>
                 </div>
             </div>
         </div>
@@ -183,20 +183,20 @@
                                 @enderror
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input name="password" class="form-control form-control-user" disabled value="123456">
-                        <small>Password Default</small>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-xl-6">
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input name="password" class="form-control form-control-user" disabled value="123456">
+                                <small>Password Default</small>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
                             <div class="form-group">
                                 <label for="">DAFTAR NISN Siswa <small>Opsional</small></label>
                                 <input type="file" class="form-control" name="nisn">
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-xl-6">
                             <div class="form-group">
                                 <label for="">Logo Sekolah <small>Opsional</small></label>
                                 <input type="file" class="form-control" name="foto">

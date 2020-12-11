@@ -21,9 +21,9 @@
             <div class="row">
                 <div class="col-xl-6">
                     <div class="form-group">
-                        <label for="">Nama / Username</label>
+                        <label for="">Nama Lengkap</label>
                         <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                            value="{{ $user->name }}" placeholder="Nama / username">
+                            value="{{ $user->name }}" placeholder="Nama Lengkap">
                         @error('name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -46,9 +46,9 @@
                 {{-- Data Tabel Siswa --}}
                 @role('siswa')
                 <div class="col-xl-6">
-                    <div class="form-group">
+                    <div class="form-group only-number">
                         <label for="">NISN</label>
-                        <input type="text" name="nisn" class="form-control @error('nisn') is-invalid @enderror"
+                        <input type="text" name="nisn" minlength="10" maxlength="11" class="number form-control @error('nisn') is-invalid @enderror"
                             value="{{ $user->siswa->nisn }}" placeholder="NISN">
                         @error('nisn')
                         <span class="invalid-feedback" role="alert">
@@ -85,10 +85,10 @@
                     </div>
                 </div>
                 <div class="col-xl-6">
-                    <div class="form-group">
+                    <div class="form-group only-number">
                         <label for="">Nomer HP</label>
-                        <input type="number" name="nomor_hp"
-                            class="form-control @error('nomor_hp') is-invalid @enderror"
+                        <input type="text" name="nomor_hp" minlength="10" maxlength="13" 
+                            class="form-control number @error('nomor_hp') is-invalid @enderror"
                             value="{{ $user->siswa->nomor_hp }}" placeholder="Nomer HP">
                         @error('nomor_hp')
                         <span class="invalid-feedback" role="alert">
@@ -157,8 +157,13 @@
     <div class="col-xl-6">
         <div class="form-group">
             <label for="">Password Lama <small>Kosongkan jika tidak mengganti password</small></label>
-            <input type="password" name="password_old" class="form-control @error('password_old') is-invalid @enderror"
+            <div class="input-group" id="show_old_password">
+                <input name="password_old"  type="password" class="form-control @error('password_old') is-invalid @enderror"
                 placeholder="Password Lama">
+                <div class="input-group-addon d-flex align-items-center">
+                    <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                  </div>    
+            </div>
             @error('password_old')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -169,8 +174,10 @@
     <div class="col-xl-6">
         <div class="form-group">
             <label for="">Password Baru <small>Kosongkan jika tidak mengganti password</small></label>
-            <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
-                placeholder="Password Baru">
+            <div class="input-group" id="show_new_password">
+                <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
+                placeholder="Password Baru"> 
+            </div>
             @error('password')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -181,8 +188,10 @@
     <div class="col-xl-6">
         <div class="form-group">
             <label for="">Ulangi Password baru <small>Kosongkan jika tidak mengganti password</small></label>
-            <input type="password" name="password_confirmation" class="form-control "
-                placeholder="Ulangi Password Baru">
+            <div class="input-group" id="show_new_password">
+                <input type="password" name="password_confirmation" class="form-control "
+                placeholder="Ulangi Password Baru"> 
+            </div>
         </div>
     </div>
     <div class="col-xl-6">
@@ -249,6 +258,26 @@
         $('.custom-file-label').html(fileName);
     });
 
+</script>
+<script>
+    $(document).ready(function() {
+    $("#show_old_password a").on('click', function(event) {
+        event.preventDefault();
+        if($('#show_old_password input').attr("type") == "text"){
+            $('#show_old_password input').attr('type', 'password');
+            $('#show_new_password input').attr('type', 'password');
+            $('#show_new_password2 input').attr('type', 'password');
+            $('#show_old_password i').addClass( "fa-eye-slash" );
+            $('#show_old_password i').removeClass( "fa-eye" );
+        }else if($('#show_old_password input').attr("type") == "password"){
+            $('#show_old_password input').attr('type', 'text');
+            $('#show_new_password input').attr('type', 'text');
+            $('#show_new_password2 input').attr('type', 'text');
+            $('#show_old_password i').removeClass( "fa-eye-slash" );
+            $('#show_old_password i').addClass( "fa-eye" );
+        }
+    });
+});
 </script>
 @endsection
 

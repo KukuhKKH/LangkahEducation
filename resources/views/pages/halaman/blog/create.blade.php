@@ -12,7 +12,11 @@
         <form action="{{ route('blog.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="row">
-                <div class="col-lg-10">
+                <div class="col-lg-12 text-right">
+                    <button class="btn btn-primary" type="submit">
+                        Simpan Perubahan</button>
+                </div>
+                <div class="col-lg-12 mt-4">
                     <div class="form-group row">
                         <div class="col-md-2">
                             <label for="">Judul Artikel</label>
@@ -88,11 +92,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-2 text-right">
-                    <button class="btn btn-primary" type="submit"><i class="fas fa-fw fa-paper-plane"></i>
-                        Publikasikan</button>
-                </div>
-
             </div>
             <div class="row">
                 <div class="col-12 mt-4">

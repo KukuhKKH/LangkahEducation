@@ -30,7 +30,7 @@
             <div class="col-xl-12">
                <div class="form-group">
                   <label for="name">Deskripsi Layanan</label>
-                  <textarea name="deskripsi" class="form-control" id="deskripsi">{{ $layanan->deskripsi }}</textarea>
+                  <textarea name="deskripsi" class="form-control" maxlength="15" id="deskripsi">{{ $layanan->deskripsi }}</textarea>
                   @error('nama')
                   <span class="invalid-feedback" role="alert">
                      <strong>{{ $message }}</strong>
@@ -76,7 +76,6 @@
 @endsection
 
 @section('js')
-<script src="{{ asset('assets/vendor/ckeditor/ckeditor.js') }}"></script>
 <script>
    const option = {
         filebrowserImageBrowseUrl: '/filemanager?type=Images',
@@ -84,6 +83,11 @@
         filebrowserBrowseUrl: '/filemanager?type=Files',
         filebrowserUploadUrl: '/filemanager/upload?type=Files&_token='
     }
-    CKEDITOR.replace('deskripsi', option)
+</script>
+<script type="application/javascript">
+   $('input[type="file"]').change(function(e){
+       var fileName = e.target.files[0].name;
+       $('.custom-file-label').html(fileName);
+   });
 </script>
 @endsection

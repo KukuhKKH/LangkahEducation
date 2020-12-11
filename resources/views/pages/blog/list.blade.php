@@ -7,15 +7,43 @@
         <div class="container">
             <div class="row">
                 <div class="col-xl-8">
+                    <label style="font-size:10pt" for="">Urutkan berdasarkan</label>
+                    <div class="row">
+                        <div class="col-xl-3">
+                            <div class="form-group">
+                                <select class="custom-select custom-select-sm">
+                                    <option selected disabled>== Waktu ==</option>
+                                    <option value="1">Terbaru</option>
+                                    <option value="2">Terdahulu</option>
+                                  </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-3">
+                            <div class="form-group">
+                                <select class="custom-select custom-select-sm">
+                                    <option selected disabled>== Popularitas ==</option>
+                                    <option value="1">Terpopuler</option>
+                                    <option value="2">Biasa</option>
+                                  </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-3">
+                            <button type="submit" class="btn btn-dark btn-sm">Tampilkan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-8">
                     @forelse ($artikel as $value)
                     <div class="card shadow mb-4">
                         <div class="card-img-top">
                             @if ($value->foto)
                             <img src="{{asset("upload/blog/$value->foto")}}" class="img-cover"
-                            height="200vh">
+                            height="200px">
                             @else
                             <img src="{{asset('assets-landingpage/img/blog/default-blog.jpg')}}" class="img-cover"
-                                height="200vh">
+                                height="200px">
                             @endif
                         </div>
                         <div class="card-body">
@@ -46,20 +74,6 @@
                     @endforelse
 
                     {{ $artikel->links() }}
-                </div>
-                <div class="col-xl-4">
-                    <div class="card shadow">
-                        <div class="sidebar">
-                            <div id="category">
-                                <h4 class="sidebar-title">Kategori</h4>
-                                @forelse ($kategori as $value)
-                                <li><a href="{{ route('page.blog.kategori', $value->nama) }}">{{ $value->nama }}</a></li>
-                                @empty
-                                    <li>Tidak ada kategori</li>
-                                @endforelse
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -99,4 +113,20 @@
 
 <!-- Template Main JS File -->
 <script src="{{asset('assets-landingpage/js/main.js')}}"></script>
+
+<script>
+      $(window).scroll(function() {
+    if ($(this).scrollTop() > 100) {
+      $('#header').addClass('header-scrolled');
+      $("#navLogo").attr("src","/assets/img/logo-primary.svg");
+      $('#mobileNav').addClass('mobilenav-scrolled');
+
+    } else {
+      $('#header').removeClass('header-scrolled');
+      $("#navLogo").attr("src","/assets/img/logo-secondary.svg");
+      $('#mobileNav').removeClass('mobilenav-scrolled');
+
+    }
+  });
+</script>
 @endsection

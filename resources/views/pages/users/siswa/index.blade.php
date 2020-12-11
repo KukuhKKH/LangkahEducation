@@ -10,7 +10,7 @@
         <a href="{{ asset('template/TemplateSiswa.xlsx') }}" download="" class="btn btn-success"><i
                 class="fas fa-fw fa-file-excel"></i> Template Excel</a>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalData"><i
-                    class="fas fa-fw fa-plus-circle"></i> Tambah Siswa</button>
+                    class="fas fa-fw fa-plus"></i> Tambah Siswa</button>
     </div>
 </div>
 <div class="card shadow mb-4">
@@ -22,7 +22,7 @@
                     @csrf
                     @hasanyrole('superadmin|admin')
                     <div class="row">
-                        <div class="col-xl-6">
+                        <div class="col-xl-3">
                             <div class="form-group">
                                 <label for="">Sekolah</label>
                                 <select name="sekolah" id="sekolah-select" class="form-control" required>
@@ -81,20 +81,20 @@
                     <tr>
                         <th>No</th>
                         <th>NISN</th>
+                        <th  width="50%">Nama Siswa</th>
                         <th>Asal Sekolah</th>
-                        <th>Nama</th>
                         <th>Status</th>
-                        <th>Aksi</th>
+                        <th width="25%">Aksi</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
                         <th>No</th>
                         <th>NISN</th>
+                        <th width="50%">Nama Siswa</th>
                         <th>Asal Sekolah</th>
-                        <th>Nama</th>
                         <th>Status</th>
-                        <th>Aksi</th>
+                        <th width="25%">Aksi</th>
                     </tr>
                 </tfoot>
                 <tbody>
@@ -102,8 +102,8 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $value->nisn }}</td>
-                        <td>{{ $value->asal_sekolah }}</td>
                         <td>{{ $value->user->name }}</td>
+                        <td>{{ $value->asal_sekolah }}</td>
                         <td>{!! ($value->user->is_active == 1) ? '<div class="badge badge-success">Aktif</div>' : '<div
                                 class="badge badge-danger">Tidak Aktif</div>' !!}
         </div>
@@ -180,11 +180,11 @@
                             </div>
                         </div>
                         <div class="col-xl-6">
-                            <div class="form-group">
+                            <div class="form-group only-number">
                                 <label for="nisn">NISN</label>
-                                <input name="nisn" type="number"
-                                    class="form-control form-control-user @error('nisn') is-invalid @enderror"
-                                    placeholder="NSIN" value="{{ old('nisn') }}" required>
+                                <input name="nisn" type="text" minlength="10" maxlength="11"
+                                    class="form-control number form-control-user @error('nisn') is-invalid @enderror"
+                                    placeholder="NISN" value="{{ old('nisn') }}" required>
                                 @error('nisn')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -208,10 +208,10 @@
                     </div>
                     <div class="row">
                         <div class="col-xl-6">
-                            <div class="form-group">
+                            <div class="form-group only-number">
                                 <label for="nomor_hp">Nomor HP</label>
-                                <input name="nomor_hp" type="number"
-                                    class="form-control form-control-user @error('nomor_hp') is-invalid @enderror"
+                                <input name="nomor_hp" type="text" minlength="10" maxlength="13"
+                                    class="form-control number form-control-user @error('nomor_hp') is-invalid @enderror"
                                     placeholder="Nomer HP Aktif" value="{{ old('nomor_hp') }}" required>
                                 @error('nomor_hp')
                                 <span class="invalid-feedback" role="alert">

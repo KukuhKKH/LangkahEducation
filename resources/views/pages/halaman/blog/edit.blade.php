@@ -13,7 +13,11 @@
             @csrf
             @method('PUT')
             <div class="row">
-                <div class="col-lg-10">
+                <div class="col-xl-12 text-right">
+                    <button class="btn btn-primary" type="submit"><i class="fas fa-fw fa-paper-plane"></i>
+                        Simpan Perubahan</button>
+                </div>
+                <div class="col-lg-12 mt-3">
                     <div class="form-group row">
                         <div class="col-md-2">
                             <label for="">Judul Artikel</label>
@@ -89,12 +93,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-2 text-right">
-                    <button class="btn btn-primary" type="submit"><i class="fas fa-fw fa-paper-plane"></i>
-                        Publikasikan</button>
-
-                </div>
-
             </div>
             <div class="row">
                 <div class="col-12 mt-4">

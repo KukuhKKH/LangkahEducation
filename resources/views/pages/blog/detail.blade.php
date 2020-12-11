@@ -11,10 +11,10 @@
                         <div class="card-img-top">
                             @if ($artikel->foto)
                             <img src="{{asset("upload/blog/$artikel->foto")}}" class="img-cover"
-                            height="200vh">
+                            height="200px">
                             @else
                             <img src="{{asset('assets-landingpage/img/blog/default-blog.jpg')}}" class="img-cover"
-                                height="200vh">
+                                height="200px">
                             @endif
                         </div>
                         <div class="card-body">
@@ -29,8 +29,9 @@
                             @php
                                 $string = preg_replace("/&#?[a-z0-9]+;/i", " ", $artikel->isi);
                             @endphp
-                            {!! $string !!}
-
+                            <div id="isi-artikel">
+                                {!! $string !!}
+                            </div>
                             <div class="text-right">
                                 <div class="d-flex justify-content-end align-items-center">
                                     <small id="textLike" class="mr-2"><span id="totalLike">{{ count($artikel->like) }}</span> Suka</small>
@@ -71,7 +72,7 @@
                                             </div>
                                         </div>
                                         <div class="col-xl-12 text-right">
-                                            <button type="submit" class="btn btn-primary">
+                                            <button type="submit" class="btn btn-primary btn-sm">
                                                 <i class="fas fa-paper-plane"></i> Kirim Komentar
                                             </button>
                                         </div>
@@ -79,8 +80,14 @@
                                 </form>
                                 @endguest
                             </div>
-                            <label class="mt-3">Komentar :</label>
-
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <label class="mt-3">Komentar :</label>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <small class="font-weight-bold text-dark mt-3">123 Komentar</small>
+                                </div>
+                            </div>
                             <div id="comment-list" class="bg-light p-4">
                                 @forelse ($komentar as $value)
                                     <div class="row my-2" id="komentar">
@@ -106,39 +113,41 @@
                     </div>
                 </div>
                 <div class="col-xl-4">
-                    <div class="sidebar">
-                        <div id="other-post">
-                            <h4 class="sidebar-title">Artikel Lainnya</h4>
-                            <div class="sidebar-item recent-posts">
-                                @forelse ($lainnya as $value)
-                                    <div class="post-item clearfix">
-                                        <img src="{{asset("upload/blog/$value->foto")}}" alt="">
-                                        <h4>
-                                            <a href="{{ route('page.blog.detail', $value->slug) }}">{{ $value->judul }}</a>
-                                        </h4>
-                                        <time datetime="2020-01-01">{{ Carbon\Carbon::parse($value->created_at)->format('F d, Y') }}</time>
-                                    </div>
-                                @empty
-                                    <h6>Belum ada artikel</h6>
-                                @endforelse
-
-                                <hr>
+                    <div class="card shadow">
+                        <div class="sidebar">
+                            <div id="other-post">
+                                <h4 class="sidebar-title">Artikel Lainnya</h4>
+                                <div class="sidebar-item recent-posts">
+                                    @forelse ($lainnya as $value)
+                                        <div class="post-item clearfix">
+                                            <img src="{{asset("upload/blog/$value->foto")}}" alt="">
+                                            <h4>
+                                                <a href="{{ route('page.blog.detail', $value->slug) }}">{{ $value->judul }}</a>
+                                            </h4>
+                                            <time datetime="2020-01-01">{{ Carbon\Carbon::parse($value->created_at)->format('F d, Y') }}</time>
+                                        </div>
+                                    @empty
+                                        <h6>Belum ada artikel</h6>
+                                    @endforelse
+    
+                                    <hr>
+                                </div>
                             </div>
-                        </div>
-                        <div id="similar-post">
-                            <h4 class="sidebar-title">Artikel Terkait</h4>
-                            <div class="sidebar-item recent-posts">
-                                @forelse ($terkait as $value)
-                                    <div class="post-item clearfix">
-                                        <img src="{{asset("upload/blog/$value->foto")}}" alt="">
-                                        <h4><a href="{{ route('page.blog.detail', $value->slug) }}">{{ $value->judul }}</a></h4>
-                                        <time datetime="2020-01-01">{{ Carbon\Carbon::parse($value->created_at)->format('F d, Y') }}</time>
-                                    </div>
-                                @empty
-                                    <h6>Belum ada artikel</h6>
-                                @endforelse
-                                <hr>
-
+                            <div id="similar-post">
+                                <h4 class="sidebar-title">Artikel Terkait</h4>
+                                <div class="sidebar-item recent-posts">
+                                    @forelse ($terkait as $value)
+                                        <div class="post-item clearfix">
+                                            <img src="{{asset("upload/blog/$value->foto")}}" alt="">
+                                            <h4><a href="{{ route('page.blog.detail', $value->slug) }}">{{ $value->judul }}</a></h4>
+                                            <time>{{ Carbon\Carbon::parse($value->created_at)->format('F d, Y') }}</time>
+                                        </div>
+                                    @empty
+                                        <h6>Belum ada artikel</h6>
+                                    @endforelse
+                                    <hr>
+    
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -177,6 +186,17 @@
 
     #textLike{
         color: #000000;
+    }
+
+    #isi-artikel a{
+        color: #007bff !important;
+        text-decoration: none;
+        background-color: transparent;
+    }
+
+    #isi-artikel a:hover{
+        color: #2a2af0 !important;
+        text-decoration: underline;
     }
 
 </style>

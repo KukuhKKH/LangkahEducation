@@ -102,13 +102,22 @@
                     </div>
                     <div class="form-group">
                         <label for="">Password</label>
-                        <input type="password" class="form-control" placeholder="Password" name="password"
+                        <div class="input-group" id="show_password">
+                            <input type="password" class="form-control" placeholder="Password" name="password"
                             id="password">
+                            <div class="input-group-addon d-flex align-items-center">
+                                <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                              </div>    
+                        </div>
+
                     </div>
                     <div class="form-group">
                         <label for="">Konfirmasi Password</label>
-                        <input type="password" class="form-control" placeholder="Konfirmasi Password"
+                        <div class="input-group" id="show_password2">
+                            <input type="password" class="form-control" placeholder="Konfirmasi Password"
                             name="password_confirmation" id="password_confirmation">
+                        </div>
+
                     </div>
                     <div class="form-group">
                         <label for="">Foto <small>Opsional</small></label>
@@ -180,4 +189,22 @@
     });
 
 </script>
+<script>
+    $(document).ready(function() {
+    $("#show_password a").on('click', function(event) {
+        event.preventDefault();
+        if($('#show_password input').attr("type") == "text"){
+            $('#show_password input').attr('type', 'password');
+            $('#show_password2 input').attr('type', 'password');
+            $('#show_password i').addClass( "fa-eye-slash" );
+            $('#show_password i').removeClass( "fa-eye" );
+        }else if($('#show_password input').attr("type") == "password"){
+            $('#show_password input').attr('type', 'text');
+            $('#show_password2 input').attr('type', 'text');
+            $('#show_password i').removeClass( "fa-eye-slash" );
+            $('#show_password i').addClass( "fa-eye" );
+        }
+    });
+ });
+ </script>
 @endsection

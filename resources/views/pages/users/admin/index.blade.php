@@ -21,7 +21,7 @@
             <thead>
                <tr>
                   <th>No</th>
-                  <th>Nama / Username</th>
+                  <th>Nama</th>
                   <th>Email</th>
                   <th>Status</th>
                   <th>Aksi</th>
@@ -30,7 +30,7 @@
             <tfoot>
                <tr>
                   <th>No</th>
-                  <th>Nama / Username</th>
+                  <th>Nama</th>
                   <th>Email</th>
                   <th>Status</th>
                   <th>Aksi</th>
@@ -90,8 +90,8 @@
             @csrf
             <div class="modal-body">
                <div class="form-group">
-                  <label for="">Nama / Username</label>
-                  <input type="text" class="form-control" name="name" placeholder="Masukkan Nama / Username">
+                  <label for="">Nama Lengkap</label>
+                  <input type="text" class="form-control" name="name" placeholder="Masukkan Nama Lengkap">
                </div>
                <div class="form-group">
                   <label for="">Email</label>
@@ -100,12 +100,19 @@
                <div class="form-group row">
                   <div class="col-xl-6">
                      <label for="">Password</label>
-                     <input type="password" class="form-control" placeholder="Password" name="password" id="password">
+                     <div class="input-group" id="show_password">
+                        <input type="password" class="form-control" placeholder="Password" name="password" id="password">
+                        <div class="input-group-addon d-flex align-items-center">
+                            <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                          </div>    
+                    </div>
                   </div>
                   <div class="col-xl-6">
                      <label for="">Konfirmasi Password</label>
-                     <input type="password" class="form-control" placeholder="Konfirmasi Password"
-                        name="password_confirmation" id="password_confirmation">
+                        <div class="input-group" id="show_password2">
+                           <input type="password" class="form-control" placeholder="Konfirmasi Password"
+                           name="password_confirmation" id="password_confirmation">
+                       </div>
                   </div>
                </div>
                <div class="form-group">
@@ -174,5 +181,23 @@
        var fileName = e.target.files[0].name;
        $('.custom-file-label').html(fileName);
    });
+</script>
+<script>
+   $(document).ready(function() {
+   $("#show_password a").on('click', function(event) {
+       event.preventDefault();
+       if($('#show_password input').attr("type") == "text"){
+           $('#show_password input').attr('type', 'password');
+           $('#show_password2 input').attr('type', 'password');
+           $('#show_password i').addClass( "fa-eye-slash" );
+           $('#show_password i').removeClass( "fa-eye" );
+       }else if($('#show_password input').attr("type") == "password"){
+           $('#show_password input').attr('type', 'text');
+           $('#show_password2 input').attr('type', 'text');
+           $('#show_password i').removeClass( "fa-eye-slash" );
+           $('#show_password i').addClass( "fa-eye" );
+       }
+   });
+});
 </script>
 @endsection

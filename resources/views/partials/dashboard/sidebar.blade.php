@@ -16,6 +16,7 @@
     </li>
 
     <hr class="sidebar-divider">
+
     <div class="sidebar-heading">
         FITUR
     </div>
@@ -80,13 +81,6 @@
         </a>
     </li>
 
-    {{-- <li class="nav-item">
-        <a class="nav-link" href="#">
-            <i class="fas fa-fw fa-chart-bar"></i>
-            <span>Statistik</span>
-        </a>
-    </li> --}}
-
     <li class="nav-item {{ request()->is('dashboard/daftar/gelombang') ? 'active' : "" }}">
         <a class="nav-link" href="{{ route('gelombang.siswa') }}">
             <i class="fas fa-fw fa-newspaper"></i>
@@ -94,6 +88,12 @@
         </a>
     </li>
 
+    <li class="nav-item">
+        <a class="nav-link" href="#">
+            <i class="fas fa-fw fa-history"></i>
+            <span>Riwayat Try Out</span>
+        </a>
+    </li>
     @endhasanyrole
     @hasanyrole('mentor')
     <li class="nav-item {{ (request()->segment(2) == 'mentoring') ? 'active' : '' }}">
@@ -110,8 +110,9 @@
             <span>List Siswa</span>
         </a>
     </li>
-    @endhasanyrole
     <hr class="sidebar-divider">
+
+    @endhasanyrole
 
     @hasanyrole('siswa|admin|superadmin')
 
@@ -140,7 +141,7 @@
     @endhasanyrole
 
     @can('create blog')
-        <li class="nav-item">
+        <li class="nav-item {{ request()->is('dashboard/blog') ? 'active' : "" }}">
             <a class="nav-link" href="{{ route('blog.index') }}">
                 <i class="fas fa-fw fa-newspaper"></i>
                 <span>Blog</span>

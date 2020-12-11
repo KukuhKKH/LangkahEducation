@@ -44,9 +44,14 @@
                 <div class="col-xl-6">
                     <div class="form-group">
                         <label for="">Password Lama <small>Kosongkan jika tidak mengganti password</small></label>
-                        <input type="password" name="password_old"
+                        <div class="input-group" id="show_old_password">
+                            <input type="password" name="password_old"
                             class="form-control @error('password_old') is-invalid @enderror"
                             placeholder="Password Lama">
+                            <div class="input-group-addon d-flex align-items-center">
+                                <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                              </div>    
+                        </div>        
                         @error('password_old')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -57,8 +62,11 @@
                 <div class="col-xl-6">
                     <div class="form-group">
                         <label for="">Password Baru <small>Kosongkan jika tidak mengganti password</small></label>
-                        <input type="password" name="password"
+                        <div class="input-group" id="show_new_password">
+                            <input type="password" name="password"
                             class="form-control @error('password') is-invalid @enderror" placeholder="Password Baru">
+                        </div>
+
                         @error('password')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -70,8 +78,10 @@
                     <div class="form-group">
                         <label for="">Ulangi Password baru <small>Kosongkan jika tidak mengganti
                                 password</small></label>
-                        <input type="password" name="password_confirmation" class="form-control "
+                                <div class="input-group" id="show_new_password2">
+                                    <input type="password" name="password_confirmation" class="form-control "
                             placeholder="Ulangi Password Baru">
+                                </div>
                     </div>
                 </div>
                 <div class="col-xl-6">
@@ -159,4 +169,24 @@
         $('.custom-file-label').html(fileName);
     });
 </script>
+<script>
+    $(document).ready(function() {
+    $("#show_old_password a").on('click', function(event) {
+        event.preventDefault();
+        if($('#show_old_password input').attr("type") == "text"){
+            $('#show_old_password input').attr('type', 'password');
+            $('#show_new_password input').attr('type', 'password');
+            $('#show_new_password2 input').attr('type', 'password');
+            $('#show_old_password i').addClass( "fa-eye-slash" );
+            $('#show_old_password i').removeClass( "fa-eye" );
+        }else if($('#show_old_password input').attr("type") == "password"){
+            $('#show_old_password input').attr('type', 'text');
+            $('#show_new_password input').attr('type', 'text');
+            $('#show_new_password2 input').attr('type', 'text');
+            $('#show_old_password i').removeClass( "fa-eye-slash" );
+            $('#show_old_password i').addClass( "fa-eye" );
+        }
+    });
+ });
+ </script>
 @endsection

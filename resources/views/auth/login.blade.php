@@ -10,7 +10,8 @@
                 <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
                     <div id="auth"  class="row">
-                        <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                        <div class="col-lg-6 d-none d-lg-block bg-login-image">
+                        </div>
                         <div class="col-lg-6 ">
                             <div class="p-5">
                                 <div class="text-center">
@@ -53,7 +54,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox small">
-                                            <input type="checkbox" class="custom-control-input" name="remember" id="suctomCheck" {{ old('remember') ? 'checked' : '' }}>
+                                            <input type="checkbox" class="custom-control-input" name="remember" id="customCheck" {{ old('remember') ? 'checked' : '' }}>
                                             <label class="custom-control-label" for="customCheck">Ingatkan Saya</label>
                                         </div>
                                     </div>
@@ -70,6 +71,9 @@
                                     <a class="small" href="{{ route('register') }}">Saya Belum Punya Akun, Daftar!</a>
                                 </div>
                                 @endif
+                                <div class="text-center mt-4">
+                                    <a class="small text-langkah" href="{{ url('/') }}">Kembali Ke Beranda</a>
+                                </div>
                             </div>
                         </div>
                     </div>

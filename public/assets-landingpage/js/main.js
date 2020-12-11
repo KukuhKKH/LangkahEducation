@@ -125,12 +125,12 @@
   $(window).scroll(function() {
     if ($(this).scrollTop() > 100) {
       $('#header').addClass('header-scrolled');
-      $("#navLogo").attr("src","assets/img/logo-primary.svg");
+      $("#navLogo").attr("src","/assets/img/logo-primary.svg");
       $('#mobileNav').addClass('mobilenav-scrolled');
 
     } else {
       $('#header').removeClass('header-scrolled');
-      $("#navLogo").attr("src","assets/img/logo-secondary.svg");
+      $("#navLogo").attr("src","/assets/img/logo-secondary.svg");
       $('#mobileNav').removeClass('mobilenav-scrolled');
 
     }

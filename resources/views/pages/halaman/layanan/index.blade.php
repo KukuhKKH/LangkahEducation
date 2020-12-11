@@ -90,8 +90,8 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                     <label for="name">Deskripsi Layanan</label>
-                     <textarea name="deskripsi" class="form-control" id="deskripsi">{{ old('layanan') }}</textarea>
+                     <label for="name">Deskripsi Layanan <small>(85)</small></label>
+                     <textarea name="deskripsi" class="form-control" id="deskripsi" maxlength="85">{{ old('layanan') }}</textarea>
                      @error('nama')
                      <span class="invalid-feedback" role="alert">
                          <strong>{{ $message }}</strong>
@@ -99,7 +99,7 @@
                      @enderror
                  </div>
                     <div class="form-group">
-                        <label for="testimonial">Foto</label>
+                        <label for="testimonial">Foto <small>Maksimal 2 Mb</small></label>
                         <div class="input-group mb-3">
                             <div class="custom-file">
                               <input type="file" name="foto" class="custom-file-input form-control form-control-user @error('foto') is-invalid @enderror" id="inputGroupFile02">
@@ -124,7 +124,6 @@
 @endsection
 
 @section('js')
-<script src="{{ asset('assets/vendor/ckeditor/ckeditor.js') }}"></script>
 <script>
    const option = {
         filebrowserImageBrowseUrl: '/filemanager?type=Images',
@@ -132,7 +131,6 @@
         filebrowserBrowseUrl: '/filemanager?type=Files',
         filebrowserUploadUrl: '/filemanager/upload?type=Files&_token='
     }
-    CKEDITOR.replace('deskripsi', option)
     $(".hapus").on('click', function() {
       Swal.fire({
          title: 'Yakin?',
@@ -150,5 +148,11 @@
          }
       })
    })
+</script>
+<script type="application/javascript">
+    $('input[type="file"]').change(function(e){
+        var fileName = e.target.files[0].name;
+        $('.custom-file-label').html(fileName);
+    });
 </script>
 @endsection

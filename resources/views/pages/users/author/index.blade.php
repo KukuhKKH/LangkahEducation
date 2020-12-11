@@ -8,7 +8,7 @@
    <div class="card-header py-3">
       <div class="row">
           <div class="col-xl-12 text-right">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalData"><i class="fa fa-plus-circle"></i> Tambah Author</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalData"><i class="fa fa-plus"></i> Tambah Author</button>
           </div>
       </div>
    </div>
@@ -83,8 +83,8 @@
             @csrf
             <div class="modal-body">
                <div class="form-group">
-                  <label for="">Nama / Username</label>
-                  <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Masukkan Nama / Username" required>
+                  <label for="">Nama Lengkap</label>
+                  <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Masukkan Nama Lengkap" required>
                   @error('name')
                      <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -100,7 +100,7 @@
                      </span>
                   @enderror
                </div>
-               <div class="row">
+               {{-- <div class="row">
                   <div class="col-xl-6">
                      <div class="form-group">
                         <label for="">Password</label>
@@ -119,7 +119,12 @@
                         name="password_confirmation" id="password_confirmation" required>
                      </div>
                   </div>
-               </div>
+               </div> --}}
+               <div class="form-group">
+                  <label for="password">Password</label>
+                  <input name="password" name="password" id="password" class="form-control form-control-user" disabled value="123456" required>
+                  <small>Password Default</small>
+              </div>
                <div class="form-group">
                   <label for="">Foto <small>Opsional</small></label>
                   <div class="input-group mb-3">
@@ -142,26 +147,6 @@
 
 @section('js')
 <script>
-   $("#form").on('submit', function(e) {
-      if($("#password_confirmation").val() != $("#password").val()) {
-         swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Password konfirmasi tidak sama',
-         })
-         return false
-      }
-      if($("#password").val().length < 8) {
-         swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Password minimal 8 karakter',
-         })
-         return false
-      }
-      return
-      e.preventDefault()
-   })
 
    $(".hapus").on('click', function() {
       Swal.fire({

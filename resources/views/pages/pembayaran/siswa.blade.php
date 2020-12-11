@@ -66,8 +66,14 @@
                                         </a>
                                     @endif
                                 @else
-                                    <a href="{{ route('pembayaran.siswa.show', ['slug' => $value->gelombang->slug, 'pembayaran_id' => $value->id]) }}" class="btn btn-primary my-1" data-toggle="tooltip" data-placement="top" title="Upload Bukti Pembayaran">
+                                    <a href="{{ url('dashboard/pembayaran/'.$value->id.'/detail') }}" class="btn btn-primary my-1" data-toggle="tooltip" data-placement="top" title="Lihat Pembayaran">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="{{ route('pembayaran.siswa.show', ['slug' => $value->gelombang->slug, 'pembayaran_id' => $value->id]) }}" class="btn btn-secondary my-1" data-toggle="tooltip" data-placement="top" title="Upload Bukti Pembayaran">
                                         <i class="fas fa-upload"></i>
+                                    </a>
+                                    <a href="" class="btn btn-danger my-1" data-toggle="tooltip" data-placement="top" title="Batal Beli Produk">
+                                        <i class="fas fa-window-close"></i>
                                     </a>
                                 @endif
                             </td>

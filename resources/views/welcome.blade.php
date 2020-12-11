@@ -83,12 +83,12 @@
             <div class="row justify-content-center mt-4">
                 @forelse ($layanan as $value)
                 <div class="col-lg-4 mb-4">
-                    <div class="card shadow ">
+                    <div class="card shadow">
                         <div class="card-body justify-content-center">
                         @if ($value->foto)
-                        <img class="img-cover img-circle img-fluid"src="{{asset("upload/layanan/$value->foto")}}" alt="" width="50px">
+                        <img class="img-cover img-circle img-fluid"src="{{asset("upload/layanan/$value->foto")}}" alt="">
                         @else
-                        <img class="img-cover img-circle img-fluid"src="{{asset('assets/img/logo-circle-primary.svg')}}" alt="" width="50px">
+                        <img class="img-cover img-circle img-fluid"src="{{asset('assets/img/logo-circle-primary.svg')}}" alt="">
                         @endif
                             <h4 class="mt-4 font-weight-bold">{{ $value->nama }}</h4>
                             {!! $value->deskripsi !!}
@@ -186,6 +186,6 @@
             }
         })
     })
-
 </script>
+
 @endsection

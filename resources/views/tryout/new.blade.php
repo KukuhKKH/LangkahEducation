@@ -154,7 +154,7 @@
                 <div class="modal-body">Pilih ‘Logout’ apabila Anda ingin menyudahi sesi ini.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Kembali</button>
-                    <button type="submit" class="btn btn-primary">Logout</button>
+                    <button type="submit" class="btn btn-danger">Logout</button>
                 </div>
             </form>
         </div>
@@ -166,6 +166,8 @@
 @section('js')
 <script src="{{ asset('assets/vendor/moment.js') }}"></script>
 <script>
+   window.onbeforeunload = function () {return false;}
+
    const total_soal = {{ count($soal) }}
    const paket_slug = `{{ $paket->slug }}`
    const user = `{{ auth()->user()->name }}`

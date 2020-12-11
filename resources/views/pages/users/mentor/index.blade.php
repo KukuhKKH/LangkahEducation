@@ -33,7 +33,7 @@
                     </div>
                     <div class="col-xl-4 text-right">
                         <div class="btn-group btn-group-md">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalData"><i class="fas fa-fw fa-plus-circle"></i> Tambah Mentor</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalData"><i class="fas fa-fw fa-plus"></i> Tambah Mentor</button>
                         </div>
                     </div>
                 </div>
