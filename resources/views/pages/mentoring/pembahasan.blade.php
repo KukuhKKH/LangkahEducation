@@ -67,7 +67,7 @@
                                     <?php $j = 1; ?>
                                     @foreach($value->jawaban as $option)
                                        <li>
-                                          <input class="mt-4 mr-1" type="radio" name="jawaban[{{ $value->id }}]" value="{{ $option->id }}" id="option{{ $i }}ke{{ $j }}" {{ $option->benar ? 'checked': '' }}>
+                                          <input class="mt-2 mr-1" type="radio" name="jawaban[{{ $value->id }}]" value="{{ $option->id }}" id="option{{ $i }}ke{{ $j }}" {{ $option->benar ? 'checked': '' }}>
                                           <label for="option{{ $i }}ke{{ $j }}">{!! $option->jawaban !!}</label>
                                           @if ($option->benar)
                                              <i class="fa fa-check text-success"></i>
