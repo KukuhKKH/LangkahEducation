@@ -11,6 +11,16 @@
         </div>
     </div>
     <div class="card-body">
+        <div class="row">
+            <div class="col-xl-12 text-center mb-3">
+               @if ($sekolah->user->foto)
+                  <img src="{{ asset('upload/users/'.$sekolah->user->foto) }}" alt="{{ $sekolah->user->name }}" class="img-fluid w-100">
+               @else
+                <img class="img-fluid" width="100px" src="{{ asset("assets/img/undraw_profile.svg") }}"
+                    alt="foto-{{ $sekolah->user->namee }}">
+                @endif
+            </div>
+        </div>
         <form action="{{ route('sekolah.update', $sekolah->id) }}" id="form" method="post"
             enctype="multipart/form-data">
             @csrf
@@ -119,12 +129,12 @@
                                 <input type="file"
                                     class="custom-file-input form-control @error('foto') is-invalid @enderror"
                                     name="foto" accept="image/x-png,image/gif,image/jpeg" id="inputGroupFile02">
+                                <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
                                 @error('foto')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror
-                                <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
                             </div>
                         </div>
                     </div>
@@ -148,10 +158,7 @@
             </div>
             <div class="row">
                 <div class="col-xl-6">
-                    @if ($sekolah->user->foto)
-                    <img src="{{ asset('upload/users/'.$sekolah->user->foto) }}" alt="{{ $sekolah->user->name }}"
-                        class="img-fluid w-100">
-                    @endif
+
                 </div>
                 <div class="col-xl-6">
                     <div class="float-right">
@@ -209,4 +216,13 @@
     });
  });
  </script>
+ <script type="text/javascript">
+
+    $('.custom-file input').change(function (e) {
+        if (e.target.files.length) {
+            $(this).next('.custom-file-label').html(e.target.files[0].name);
+        }
+    });
+
+</script>
 @endsection

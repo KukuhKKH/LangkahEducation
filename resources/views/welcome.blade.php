@@ -81,15 +81,19 @@
                 {!! $data->headline_produk !!}
             </div>
             <div class="row justify-content-center mt-4">
+                <div class="owl-carousel products-carousel">
+
                 @forelse ($layanan as $value)
-                <div class="col-lg-4 mb-4">
+                <div class="products-item">
                     <div class="card shadow">
-                        <div class="card-body justify-content-center">
-                        @if ($value->foto)
-                        <img class="img-cover img-circle img-fluid"src="{{asset("upload/layanan/$value->foto")}}" alt="">
-                        @else
-                        <img class="img-cover img-circle img-fluid"src="{{asset('assets/img/logo-circle-primary.svg')}}" alt="">
-                        @endif
+                        <div class="card-body text-center">
+                        <div class="d-flex justify-content-center">
+                            @if ($value->foto)
+                            <img class="img-cover img-circle"src="{{asset("upload/layanan/$value->foto")}}" alt="">
+                            @else
+                            <img class="img-cover img-circle "src="{{asset('assets/img/logo-circle-primary.svg')}}" alt="">
+                            @endif
+                        </div>
                             <h4 class="mt-4 font-weight-bold">{{ $value->nama }}</h4>
                             {!! $value->deskripsi !!}
                         </div>
@@ -98,6 +102,8 @@
                 @empty
                     
                 @endforelse
+                </div>
+
             </div>
         </div>
     </section><!-- End Why Us Section -->
@@ -106,7 +112,7 @@
         <div class="container py-4">
             <div class="section-title">
                 <h2>Blog</h2>
-                {!! $data->headline_blog !!}
+                <p class="text-white">{!! $data->headline_blog !!}</p>
                 {{-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
                     consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
                     fugiat sit

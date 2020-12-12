@@ -41,11 +41,11 @@
    </div>
    <div class="card-body">
       <form action="" method="get">
-         <div class="row mb-4">
+         <div class="row mb-4 justify-content-end">
              <div class="col-xl-6">
-                 <input type="text" class="form-control" name="keyword" placeholder="Masukkan NISN">
+                 <input type="number" class="form-control" name="keyword" placeholder="Masukkan NISN">
              </div>
-             <div class="col-xl-6">
+             <div class="col-xl-auto">
                  <button type="submit" class="btn btn-primary my-1">Cari</button>
                  <a href="{{ route('nisn.show', $sekolah->id) }}" class="btn btn-light text-danger my-1">Reset Filter</a>
              </div>

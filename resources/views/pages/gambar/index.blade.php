@@ -2,14 +2,14 @@
 @section('title', 'Gambar ')
 
 @section('content')
-   <h1 class="h3 mb-2 text-gray-800">Gambar Soal</h1>
+   <h1 class="h3 mb-3 text-gray-800">Gambar Soal</h1>
 
     <div class="card shadow mb-4">
-        <div class="card-header py-3">
-         <div class="d-flex justify-content-between mb-1">
+        <div class="card-header">
+         <div class="d-flex justify-content-between align-items-center">
             <h6 class="m-0 font-weight-bold text-primary">Gambar Soal</h6>
             <div class="btn-group btn-group-md">
-               <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#modalData"><i class="fa fa-plus"></i> Tambah Gambar</button>
+               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalData"><i class="fa fa-plus"></i> Tambah Gambar</button>
             </div>
          </div>
         </div>

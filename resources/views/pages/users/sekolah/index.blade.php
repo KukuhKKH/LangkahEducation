@@ -44,6 +44,21 @@
         @endhasanyrole
     </div>
     <div class="card-body">
+        <form action="" method="GET">
+            <div class="row mb-4 justify-content-end align-items-center">
+                <div class="col-xl-5">
+                    <div class="input-group">
+                        <input type="text" name="keyword" class="form-control" placeholder="Masukkan Nama Sekolah" aria-label="Masukkan Nama Sekolah" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                          <button class="btn btn-primary" type="button">Cari</button>
+                        </div>
+                     </div>
+                </div>
+                <div class="col-xl-auto">
+                  <a href="{{ route('sekolah.index') }}" class="btn btn-lght text-danger my-1">Refresh</a>
+                </div>
+            </div>
+        </form>
         <div class="table-responsive">
             <table class="table table-bordered" width="100%" cellspacing="0">
                 <thead>
@@ -53,7 +68,7 @@
                         <th>Email</th>
                         <th>Total siswa yang terdaftar</th>
                         <th>Status</th>
-                        <th>Aksi</th>
+                        <th width="25%">Aksi</th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -63,7 +78,7 @@
                         <th>Email</th>
                         <th>Total siswa yang terdaftar</th>
                         <th>Status</th>
-                        <th>Aksi</th>
+                        <th width="25%">Aksi</th>
                     </tr>
                 </tfoot>
                 <tbody>
@@ -192,14 +207,24 @@
                         </div>
                         <div class="col-xl-6">
                             <div class="form-group">
-                                <label for="">DAFTAR NISN Siswa <small>Opsional</small></label>
-                                <input type="file" class="form-control" name="nisn">
+                                <label for="">Daftar NISN Siswa <small>Opsional</small></label>
+                                <div class="input-group mb-3">
+                                    <div class="custom-file">
+                                      <input type="file" id="fileNISN" class="custom-file-input form-control" name="nisn">
+                                      <label id="labelNISN" class="custom-file-label" for="fileNISN">Choose file</label>
+                                    </div>
+                                  </div>
                             </div>
                         </div>
                         <div class="col-xl-6">
                             <div class="form-group">
                                 <label for="">Logo Sekolah <small>Opsional</small></label>
-                                <input type="file" class="form-control" name="foto">
+                                <div class="input-group mb-3">
+                                    <div class="custom-file">
+                                      <input type="file" id="fileLogo"  name="foto" class="form-control custom-file-input form-control" name="nisn">
+                                      <label id="labelLogo" class="custom-file-label" for="fileNISN">Choose file</label>
+                                    </div>
+                                  </div>
                             </div>
                         </div>
                     </div>
@@ -235,14 +260,15 @@
     })
 
 </script>
-<script type="text/javascript">
-    $('.custom-file input').change(function (e) {
-        var files = [];
-        for (var i = 0; i < $(this)[0].files.length; i++) {
-            files.push($(this)[0].files[i].name);
-        }
-        $(this).next('.custom-file-label').html(files.join(', '));
-    });
+<script>
+        $('#fileNISN').on('change', function (e) {
+        var fileName = e.target.files[0].name;
+        $(this).next('#labelNISN').html(fileName);
+    })
 
+    $('#fileLogo').on('change', function (e) {
+        var fileNames = e.target.files[0].name;
+        $(this).next('#labelLogo').html(fileNames);
+    })
 </script>
 @endsection

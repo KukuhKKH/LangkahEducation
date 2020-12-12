@@ -16,6 +16,21 @@
       </div>
    </div>
    <div class="card-body">
+      <form action="" method="GET">
+         <div class="row mb-4 justify-content-end align-items-center">
+            <div class="col-xl-5">
+                <div class="input-group">
+                    <input type="text" name="keyword" class="form-control" placeholder="Masukkan Nama Admin" aria-label="Masukkan Nama Admin" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                      <button class="btn btn-primary" type="button">Cari</button>
+                    </div>
+                 </div>
+            </div>
+            <div class="col-xl-auto">
+              <a href="{{ route('admin.index') }}" class="btn btn-lght text-danger my-1">Refresh</a>
+            </div>
+        </div>
+     </form>
       <div class="table-responsive">
          <table class="table table-bordered" width="100%" cellspacing="0">
             <thead>

@@ -1,8 +1,8 @@
 @extends('layouts.dashboard-app')
-@section('title', 'Pengaturan Landing Page')
+@section('title', 'Pengaturan Testimonials')
 
 @section('content')
-<h1 class="h3 mb-4 text-gray-800">Pengaturan - Landing Page</h1>
+<h1 class="h3 mb-4 text-gray-800">Pengaturan - Testimonials</h1>
 <div class="row">
     <div class="col-xl-12">
         <div class="card shadow mb-4">

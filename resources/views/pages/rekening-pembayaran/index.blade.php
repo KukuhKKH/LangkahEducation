@@ -4,7 +4,7 @@
 @section('content')
     <div class="row">
         <div class="col-10">
-            <h1 class="h3 mb-4 text-gray-800">Rekening Pemabayaran</h1>
+            <h1 class="h3 mb-4 text-gray-800">Rekening Pembayaran</h1>
         </div>
     </div>
     <div class="card shadow mb-4">
@@ -13,13 +13,28 @@
                 <div class="row">
                     <div class="col-xl-12 text-right">
                         <div class="btn-group btn-group-md">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalData"><i class="fas fa-fw fa-plus-circle"></i> Tambah Rekening</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalData"><i class="fas fa-fw fa-plus"></i> Tambah Rekening</button>
                         </div>
                     </div>
                 </div>
             @endhasanyrole
         </div>
         <div class="card-body">
+            <form action="" method="GET">
+                <div class="row mb-4 justify-content-end align-items-center">
+                    <div class="col-xl-5">
+                        <div class="input-group">
+                            <input type="text" name="keyword" class="form-control" placeholder="Masukkan Nama Bank" aria-label="Masukkan Nama Bank" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                              <button class="btn btn-primary" type="button">Cari</button>
+                            </div>
+                         </div>
+                    </div>
+                    <div class="col-xl-auto">
+                      <a href="{{ route('rekening.index') }}" class="btn btn-lght text-danger my-1">Refresh</a>
+                    </div>
+                </div>
+            </form>
             <div class="table-responsive">
                 <table class="table table-bordered" width="100%" cellspacing="0">
                     <thead>

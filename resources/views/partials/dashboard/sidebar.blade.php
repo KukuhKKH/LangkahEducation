@@ -34,8 +34,8 @@
         <div id="collapseTryOut" class="{{ ($nav_tryout) ? 'show collapse' : 'collapse' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Try Out :</h6>
-                <a class="collapse-item {{ request()->is('dashboard/tryout/paket/*') ? 'active' : '' }}" href="{{ route('paket.index') }}">Paket Soal</a>
-                <a class="collapse-item {{ request()->is('dashboard/tryout/kategori-soal') ? 'active' : '' }}" href="{{ route('kategori-soal.index') }}">Kategori Soal</a>
+                <a class="collapse-item {{ request()->is('dashboard/tryout/paket/*') || request()->is('dashboard/tryout/paket') ? 'active' : '' }}" href="{{ route('paket.index') }}">Paket Soal</a>
+                <a class="collapse-item {{ request()->is('dashboard/tryout/kategori-soal') || request()->is('dashboard/tryout/kategori-soal/*') ? 'active' : '' }}" href="{{ route('kategori-soal.index') }}">Kategori Soal</a>
             </div>
         </div>
     </li>
@@ -54,6 +54,13 @@
         </a>
     </li>
 
+    <li class="nav-item {{ request()->segment(2) == 'gambar' ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('gambar.index') }}">
+            <i class="fas fa-fw fa-image"></i>
+            <span>Gambar Soal</span>
+        </a>
+    </li>
+    <hr class="sidebar-divider">
     @endhasanyrole
 
     @hasanyrole('siswa')
@@ -162,9 +169,9 @@
         <div id="collapsePembayaran" class="{{ ($aktif_bayar) ? 'show collapse' : 'collapse' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Pembayaran :</h6>
-                <a class="collapse-item" href="{{ route('pembayaran.show', 'belum-bayar') }}">Belum Bayar <span class="badge badge-warning">{{ $pembayaran_notif->total_belum }}</span></a>
-                <a class="collapse-item" href="{{ route('pembayaran.show', 'sudah-bayar') }}">Sudah Bayar <span class="badge badge-success">{{ $pembayaran_notif->total_sudah }}</span></a>
-                <a class="collapse-item" href="{{ route('pembayaran.show', 'ditolak') }}">Ditolak <span class="badge badge-danger">{{ $pembayaran_notif->total_tolak }}</span></a>
+                <a class="collapse-item {{ request()->is('dashboard/pembayaran/belum-bayar') || request()->is('dashboard/pembayaran/belum-bayar/*') ? 'active' : '' }}" href="{{ route('pembayaran.show', 'belum-bayar') }}">Belum Bayar <span class="badge badge-warning">{{ $pembayaran_notif->total_belum }}</span></a>
+                <a class="collapse-item {{ request()->is('dashboard/pembayaran/sudah-bayar') || request()->is('dashboard/pembayaran/sudah-bayar/*') ? 'active' : '' }}" href="{{ route('pembayaran.show', 'sudah-bayar') }}">Sudah Bayar <span class="badge badge-success">{{ $pembayaran_notif->total_sudah }}</span></a>
+                <a class="collapse-item {{ request()->is('dashboard/pembayaran/ditolak') || request()->is('dashboard/pembayaran/ditolak/*') ? 'active' : '' }}" href="{{ route('pembayaran.show', 'ditolak') }}">Ditolak <span class="badge badge-danger">{{ $pembayaran_notif->total_tolak }}</span></a>
             </div>
         </div>
     </li>
@@ -249,7 +256,7 @@
     </div>
     @hasanyrole('admin|superadmin')
     @php
-        $aktif_halaman = (request()->is('dashboard/testimoni')|request()->is('dashboard/layanan')|request()->is('dashboard/landing-page')|request()->is('dashboard/blog')|request()->segment(2)=='kategori-blog') ? true : false
+        $aktif_halaman = (request()->is('dashboard/testimoni')|request()->is('dashboard/testimoni/*')|request()->is('dashboard/layanan')|request()->is('dashboard/landing-page')|request()->is('dashboard/blog')|request()->segment(2)=='kategori-blog') ? true : false
     @endphp
     <li class="nav-item {{ ($aktif_halaman) ? 'active' : '' }}">
         <a class="nav-link {{ ($aktif_halaman) ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseHalaman" aria-expanded="{{ $aktif_halaman }}" aria-controls="collapseTwo">
@@ -270,12 +277,6 @@
         <a class="nav-link" href="{{ route('rekening.index') }}">
             <i class="fas fa-fw fa-credit-card"></i>
             <span>Rekening Pembayaran</span>
-        </a>
-    </li>
-    <li class="nav-item {{ request()->segment(2) == 'gambar' ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('gambar.index') }}">
-            <i class="fas fa-fw fa-image"></i>
-            <span>Gambar Soal</span>
         </a>
     </li>
     @endhasanyrole

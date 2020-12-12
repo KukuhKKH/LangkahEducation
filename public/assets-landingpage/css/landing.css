@@ -644,7 +644,6 @@ section {
   border: none;
   padding: 20px;
   height: 40vh;
-  border-radius: 8px;
 }
 
 .products .img-circle{
@@ -721,7 +720,17 @@ section {
   border: none;
 }
 
+.products .products-item {
+  box-sizing: content-box;
+  min-height: 320px;
+  padding: 10px;
+}
 
+.products-carousel .products-item img{
+  width: 75px;
+  height: 75px;
+  border-radius: 100px;
+}
 /*--------------------------------------------------------------
 # Blog
 --------------------------------------------------------------*/

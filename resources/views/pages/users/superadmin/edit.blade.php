@@ -11,6 +11,17 @@
         </div>
     </div>
     <div class="card-body">
+        <div class="row">
+            <div class="col-xl-12 text-center mb-3">
+               @if ($superadmin->foto)
+                  <img src="{{ asset('upload/users/'.$superadmin->foto) }}" alt="{{ $superadmin->name }}" class="img-fluid w-100">
+               @else
+                <img class="img-fluid" width="100px" src="{{ asset("assets/img/undraw_profile.svg") }}"
+                    alt="foto-{{ $superadmin->namee }}">
+                @endif
+            </div>
+        </div>
+        
         <form action="{{ route('admin.update', $superadmin->id) }}" id="form" method="post"
             enctype="multipart/form-data">
             @csrf
@@ -125,10 +136,6 @@
             </div>
             <div class="row">
                 <div class="col-xl-6">
-                    @if ($superadmin->foto)
-                    <img src="{{ asset('upload/users/'.$superadmin->foto) }}" alt="{{ $superadmin->name }}"
-                        class="img-fluid w-100">
-                    @endif
                 </div>
                 <div class="col-xl-6">
                     <div class="float-right">

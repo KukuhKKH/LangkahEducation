@@ -37,6 +37,7 @@
                             <label for="">Gambar Utama Artikel</label>
                         </div>
                         <div class="col-md-10">
+                            <small>Rekomendasi Ukuran 1200x330 , Ukuran Maksimal 2 MB</small>
                             <div class="input-group mb-3">
                                 <div class="custom-file">
                                     <input type="file"

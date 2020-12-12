@@ -15,6 +15,18 @@
             </div>
         </div>
         <div class="card-body">
+            <form action="" method="GET">
+                <div class="row mb-4 justify-content-end">
+                    <div class="col-xl-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Masukkan Nama Gelombang" aria-label="Masukkan Nama Gelombang" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                              <button class="btn btn-primary" type="button">Cari</button>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+            </form>
             <div class="table-responsive">
                 <table class="table table-bordered" width="100%" cellspacing="0">
                     <thead>
@@ -72,7 +84,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6">
+                            <td colspan="7">
                                 <div class="text-center mb-3 p-5 bg-light">
                                     <img class="mb-3" height="50px" src="{{asset('assets/img/null-icon.svg')}}" alt="">
                                     <h6>Tidak Ada Gelombang/Batch</h6>

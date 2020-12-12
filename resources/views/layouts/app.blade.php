@@ -22,12 +22,12 @@
         href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
         rel="stylesheet">
 
-    <link href="{{asset('assets-landingpage/css/landing.css')}}" rel="stylesheet">
-
     <!-- Vendor CSS Files -->
     <link href="{{asset('assets-landingpage/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('assets-landingpage/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet">
     <link href="{{asset('assets-landingpage/vendor/owl.carousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
+
+    <link href="{{asset('assets-landingpage/css/landing.css')}}" rel="stylesheet">
 
     <title>Langkah Education</title>
     @yield('css')
