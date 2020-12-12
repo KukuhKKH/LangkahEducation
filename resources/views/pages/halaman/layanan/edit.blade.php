@@ -11,7 +11,7 @@
       </div>
    </div>
    <div class="card-body">
-      <form action="{{ route('layanan.update', $layanan->id) }}" id="form" method="post">
+      <form action="{{ route('layanan.update', $layanan->id) }}" id="form" method="post" enctype="multipart/form-data">
          @csrf
          @method("PUT")
          <div class="row">

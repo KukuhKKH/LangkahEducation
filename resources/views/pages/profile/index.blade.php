@@ -34,6 +34,7 @@
                          <p><strong>Asal Sekolah : {{ $user->siswa->sekolah[0]->nama }}</strong></p>
                          @else
                          <p class="badge badge-warning text-dark p-2">Anda tidak tergabung pada sekolah</p>
+                         @endif
                          <form action="{{ route('profil.kode_referal', $user->siswa->id) }}" method="POST">
                              @csrf
                              <div class="row">
@@ -48,7 +49,6 @@
                                  </div>
                              </div>
                          </form>
-                         @endif
                          @endrole
                          {{-- End Role Siswa --}}
                      </div>

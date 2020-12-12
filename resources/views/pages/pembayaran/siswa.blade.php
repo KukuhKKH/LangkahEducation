@@ -50,31 +50,39 @@
                                         <span class="badge badge-danger p-2">Transfer ditolak</span>
                                     @endif
                                 @else
-                                    <span class="badge badge-danger p-2">Balum Upload Bukti Pembayaran</span>
+                                    @if($value->status == 3)
+                                        <span class="badge badge-danger p-2">Transfer ditolak</span>
+                                    @else
+                                        <span class="badge badge-danger p-2">Balum Upload Bukti Pembayaran</span>
+                                    @endif
                                 @endif
                             </td>
                             <td>
-                                @if (count($value->pembayaran_bukti) > 0)
-                                    @if ($value->status == 1)
-                                        <a href="{{ route('pembayaran.siswa.edit', $value->id) }}" class="btn btn-success my-1" data-toggle="tooltip" data-placement="top" title="Edit Bukti Pembayaran">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
+                                @if ($value->status != 3)
+                                    @if (count($value->pembayaran_bukti) > 0)
+                                        @if ($value->status == 1)
+                                            <a href="{{ route('pembayaran.siswa.edit', $value->id) }}" class="btn btn-success my-1" data-toggle="tooltip" data-placement="top" title="Edit Bukti Pembayaran">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        @endif
+                                        @if ($value->status == 3)
+                                            <a href="{{ route('pembayaran.siswa.edit', $value->id) }}" class="btn btn-warning my-1" data-toggle="tooltip" data-placement="top" title="Upload ulang Pembayaran">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        @endif
+                                    @else
+                                        <form action="{{ route('pembayaran.siswa.destroy', $value->id) }}" id="form-{{ $value->id }}">
+                                            <a href="{{ url('dashboard/pembayaran/'.$value->id.'/detail') }}" class="btn btn-primary my-1" data-toggle="tooltip" data-placement="top" title="Lihat Pembayaran">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="{{ route('pembayaran.siswa.show', ['slug' => $value->gelombang->slug, 'pembayaran_id' => $value->id]) }}" class="btn btn-secondary my-1" data-toggle="tooltip" data-placement="top" title="Upload Bukti Pembayaran">
+                                                <i class="fas fa-upload"></i>
+                                            </a>
+                                            <button type="button" class="btn btn-danger my-1 batal" data-toggle="tooltip" data-placement="top" title="Batal Beli Produk" data-id="{{ $value->id }}">
+                                                <i class="fas fa-window-close"></i>
+                                            </button>
+                                        </form>
                                     @endif
-                                    @if ($value->status == 3)
-                                        <a href="{{ route('pembayaran.siswa.edit', $value->id) }}" class="btn btn-warning my-1" data-toggle="tooltip" data-placement="top" title="Upload ulang Pembayaran">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                    @endif
-                                @else
-                                    <a href="{{ url('dashboard/pembayaran/'.$value->id.'/detail') }}" class="btn btn-primary my-1" data-toggle="tooltip" data-placement="top" title="Lihat Pembayaran">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                    <a href="{{ route('pembayaran.siswa.show', ['slug' => $value->gelombang->slug, 'pembayaran_id' => $value->id]) }}" class="btn btn-secondary my-1" data-toggle="tooltip" data-placement="top" title="Upload Bukti Pembayaran">
-                                        <i class="fas fa-upload"></i>
-                                    </a>
-                                    <a href="" class="btn btn-danger my-1" data-toggle="tooltip" data-placement="top" title="Batal Beli Produk">
-                                        <i class="fas fa-window-close"></i>
-                                    </a>
                                 @endif
                             </td>
                         </tr>
@@ -95,4 +103,26 @@
         </div>
     </div>
 
+@endsection
+
+@section('js')
+    <script>
+        $(".batal").on('click', function() {
+            Swal.fire({
+                title: 'Yakin?',
+                text: "Ingin membatalkan membeli produk ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Tidak',
+                confirmButtonText: 'Ya!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let id = $(this).data('id')
+                    $(`#form-${id}`).submit()
+                }
+            })
+        })
+    </script>
 @endsection

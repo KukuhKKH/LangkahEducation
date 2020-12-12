@@ -153,6 +153,7 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                 Route::get('pembayaran-siswa/{pembayaran_id}', 'PembayaranController@siswa_edit')->name('pembayaran.siswa.edit');
                 Route::put('pembayaran-siswa/{pembayaran_id}', 'PembayaranController@siswa_update')->name('pembayaran.siswa.update');
                 Route::get('pembayaran/{pembayaran_id}/detail', 'PembayaranController@detail_pembayaran')->name('pembayaran-siswa.detail');
+                Route::get('pembayaran/{pembayaran_id}/delete', 'PembayaranController@siswa_destry')->name('pembayaran.siswa.destroy');
 
                 Route::get('daftar/gelombang', 'PembayaranController@daftar_gelombang')->name('gelombang.siswa');
                 Route::get('daftar-gelombang/{id}', 'PembayaranController@daftar_gelombang_store');

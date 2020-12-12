@@ -86,6 +86,10 @@
                               <a class="btn btn-success my-1 terima {{ ($disable) ? 'disabled' : '' }}" data-id="{{ $value->id }}" data-toggle="tooltip" data-placement="top" title="Verifikasi Pembayaran" {{ ($disable) ? 'disabled' : '' }}>
                                  <i class="fas fa-check"></i>
                               </a>
+                              @elseif($value->status == 0)
+                              <a class="btn btn-danger my-1 tolak" data-id="{{ $value->id }}" data-toggle="tooltip" data-placement="top" title="Tolak Pembayaran">
+                                 <i class="fas fa-times"></i>
+                              </a>
                               @endif
                            </td>
                         </tr>
