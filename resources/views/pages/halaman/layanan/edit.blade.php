@@ -2,7 +2,7 @@
 @section('title', 'Edit '.$layanan->nama)
 
 @section('content')
-<h1 class="h3 mb-2 text-gray-800">layanan</h1>
+<h1 class="h3 mb-2 text-gray-800">Edit Layanan</h1>
 
 <div class="card shadow mb-4">
    <div class="card-header py-3">
@@ -30,7 +30,7 @@
             <div class="col-xl-12">
                <div class="form-group">
                   <label for="name">Deskripsi Layanan</label>
-                  <textarea name="deskripsi" class="form-control" maxlength="15" id="deskripsi">{{ $layanan->deskripsi }}</textarea>
+                  <textarea name="deskripsi" class="form-control" maxlength="85"id="deskripsi">{{ $layanan->deskripsi }}</textarea>
                   @error('nama')
                   <span class="invalid-feedback" role="alert">
                      <strong>{{ $message }}</strong>

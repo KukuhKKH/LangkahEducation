@@ -18,8 +18,13 @@ class PendaftaranController extends Controller
      */
     public function index(Request $request)
     {
-        $gelombang = Gelombang::latest()->paginate(10);
         $data = $request->all();
+        if($request->get('keyword') != '') {    
+            $nama = $request->get('keyword');
+            $gelombang = Gelombang::latest()->where('nama', 'LIKE', "%$nama%")->paginate(10);
+        } else {
+            $gelombang = Gelombang::latest()->paginate(10);
+        }
         return view('pages.pendaftaran.index', compact('gelombang', 'data'));
     }
 

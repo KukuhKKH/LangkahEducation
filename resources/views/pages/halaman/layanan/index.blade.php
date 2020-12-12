@@ -4,10 +4,11 @@
 @section('content')
 <div class="row">
     <div class="col-10">
-        <h1 class="h3 mb-4 text-gray-800">Layanan / Produk</h1>
+        <h1 class="h3 text-gray-800">Layanan / Produk</h1>
+        <small class="text-secondary">*Rekomendasi Minimal 3 Layanan</small>
     </div>
 </div>
-<div class="card shadow mb-4">
+<div class="card shadow mb-4 mt-4">
     <div class="card-header">
         <div class="row">
             <div class="col-xl-12 text-right">

@@ -2,10 +2,12 @@
 @section('title', 'Pengaturan Testimonials')
 
 @section('content')
-<h1 class="h3 mb-4 text-gray-800">Pengaturan - Testimonials</h1>
+<h1 class="h3 text-gray-800">Pengaturan - Testimonial</h1>
+<small class="text-secondary">*Rekomendasi Minimal 3 Testimonial</small>
+
 <div class="row">
     <div class="col-xl-12">
-        <div class="card shadow mb-4">
+        <div class="card shadow mb-4 mt-4">
             <div class="card-header">
                 <div class="row">
                     <div class="col-xl-6">
@@ -48,10 +50,10 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>
                                     @if ($value->foto)
-                                    <img src="{{asset("upload/testimoni/$value->foto")}}" alt="profil-mentor"
+                                    <img src="{{asset("upload/testimoni/$value->foto")}}" alt="profil-testimoni"
                                         style="height:40px">
                                     @else
-                                    <img src="{{asset('assets/img/undraw_profile.svg')}}" alt="profil-mentor"
+                                    <img src="{{asset('assets/img/undraw_profile.svg')}}" alt="profil-testimoni"
                                         style="height:40px">
                                     @endif
                                 </td>
