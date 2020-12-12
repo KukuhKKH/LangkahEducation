@@ -19,7 +19,7 @@
                  <div class="input-group">
                      <input type="text" name="keyword" class="form-control" placeholder="Masukkan Nama Author" aria-label="Masukkan Nama Author" aria-describedby="basic-addon2">
                      <div class="input-group-append">
-                       <button class="btn btn-primary" type="button">Cari</button>
+                       <button class="btn btn-primary" type="submit">Cari</button>
                      </div>
                   </div>
              </div>

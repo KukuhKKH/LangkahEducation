@@ -19,7 +19,7 @@
                         <label for="">Bukti Transfer</label>
                         <input class="form-control" type="file" name="file" placeholder="Bukti Transfer" accept="image/*">
                      </div>
-                     <a href="{{ route('pembayaran.siswa') }}" class="btn btn-outline-primary">Kembali</a>
+                     <a href="{{ route('pembayaran.siswa') }}" class="btn btn-dark">Kembali</a>
                      <button class="btn btn-primary">Kirim</button>
                  </form>
               </div>
