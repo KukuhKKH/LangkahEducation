@@ -24,7 +24,7 @@
                                 <a id="author" href="{{ route('page.blog.author', $artikel->user->api_token) }}"><small class="mx-2">{{ $artikel->user->name }}</small></a>
 
                                 <i class="fa fa-sm fa-clock"></i>
-                                <small class="mx-2">{{ Carbon\Carbon::parse($artikel->created_at)->format('d F Y, H:i') }}</small>
+                                <small class="mx-2">{{ Carbon\Carbon::parse($artikel->updated_at)->format('d F Y, H:i') }}</small>
                             </div>
                             @php
                                 $string = preg_replace("/&#?[a-z0-9]+;/i", " ", $artikel->isi);
@@ -124,7 +124,7 @@
                                             <h4>
                                                 <a href="{{ route('page.blog.detail', $value->slug) }}">{{ $value->judul }}</a>
                                             </h4>
-                                            <time datetime="2020-01-01">{{ Carbon\Carbon::parse($value->created_at)->format('F d, Y') }}</time>
+                                            <time datetime="2020-01-01">{{ Carbon\Carbon::parse($value->updated_at)->format('F d, Y') }}</time>
                                         </div>
                                     @empty
                                         <h6>Belum ada artikel</h6>
@@ -140,7 +140,7 @@
                                         <div class="post-item clearfix">
                                             <img src="{{asset("upload/blog/$value->foto")}}" alt="">
                                             <h4><a href="{{ route('page.blog.detail', $value->slug) }}">{{ $value->judul }}</a></h4>
-                                            <time>{{ Carbon\Carbon::parse($value->created_at)->format('F d, Y') }}</time>
+                                            <time>{{ Carbon\Carbon::parse($value->updated_at)->format('F d, Y') }}</time>
                                         </div>
                                     @empty
                                         <h6>Belum ada artikel</h6>

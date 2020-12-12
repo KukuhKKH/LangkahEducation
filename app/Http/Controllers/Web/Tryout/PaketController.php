@@ -32,6 +32,11 @@ class PaketController extends Controller
     public function store(PaketStore $request)
     {
         try {
+            $foto_name = '';
+            if($request->hasFile('foto')) {
+                $foto_name = time().'.'.$request->foto->extension();  
+                $request->foto->move(public_path('upload/paket-tryout/'), $foto_name);
+            }
             $raw_tgl_awal = \explode('/', $request->tgl_awal);
             $raw_tgl_akhir = \explode('/', $request->tgl_akhir);
             $tgl_awal = "$raw_tgl_awal[2]-$raw_tgl_awal[1]-$raw_tgl_awal[0] $request->jam_awal";
@@ -41,8 +46,8 @@ class PaketController extends Controller
                 // 'tgl_akhir' => date('Y-m-d H:i:s', time() + 24*7*60*60) // 7 Hari
                 'tgl_awal' => $tgl_awal,
                 'tgl_akhir' => $tgl_akhir,
-                'image' => '',
                 'deskripsi' => '',
+                'image' => $foto_name ?? ''
             ]);
             TryoutPaket::create($request->all());
             return redirect()->back()->with(['success' => 'Berhasil tambah paket tryout']);
@@ -95,6 +100,11 @@ class PaketController extends Controller
     public function update(PaketUpdate $request, $id)
     {
         try {
+            $foto_name = '';
+            if($request->hasFile('foto')) {
+                $foto_name = time().'.'.$request->foto->extension();  
+                $request->foto->move(public_path('upload/paket-tryout/'), $foto_name);
+            }
             $paket = TryoutPaket::find($id);
             $raw_tgl_awal = \explode('/', $request->tgl_awal);
             $raw_tgl_akhir = \explode('/', $request->tgl_akhir);
@@ -104,7 +114,8 @@ class PaketController extends Controller
                 'nama' => $request->nama,
                 'status' => $request->status,
                 'tgl_awal' => $tgl_awal,
-                'tgl_akhir' => $tgl_akhir
+                'tgl_akhir' => $tgl_akhir,
+                'image' => $foto_name ?? ''
             ]);
             return redirect()->route('paket.index')->with(['success' => 'Berhasil update paket tryout']);
         } catch(\Exception $e) {
@@ -124,7 +135,7 @@ class PaketController extends Controller
         try {
             $paket = TryoutPaket::find($id);
             $paket->delete();
-            return redirect()->route('paket.show', $paket->kategori->nama)->with(['success' => 'Berhasil hapus paket tryout']);
+            return redirect()->back()->with(['success' => 'Berhasil hapus paket tryout']);
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }

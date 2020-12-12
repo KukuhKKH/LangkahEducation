@@ -40,7 +40,7 @@
                                         <a href=""><small class="mx-2">{{ $value->user->name }}</small></a>
 
                                         <i class="fa fa-sm fa-clock"></i>
-                                        <small class="mx-2">{{ Carbon\Carbon::parse($value->created_at)->format('F d, Y') }}</small>
+                                        <small class="mx-2">{{ Carbon\Carbon::parse($value->updated_at)->format('F d, Y') }}</small>
                                     </div>
 
                                     @php

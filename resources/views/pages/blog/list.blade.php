@@ -8,29 +8,31 @@
             <div class="row">
                 <div class="col-xl-8">
                     <label style="font-size:10pt" for="">Urutkan berdasarkan</label>
-                    <div class="row">
-                        <div class="col-xl-3">
-                            <div class="form-group">
-                                <select class="custom-select custom-select-sm">
-                                    <option selected disabled>== Waktu ==</option>
-                                    <option value="1">Terbaru</option>
-                                    <option value="2">Terdahulu</option>
-                                  </select>
+                    <form action="" method="get">
+                        <div class="row">
+                            <div class="col-xl-3">
+                                <div class="form-group">
+                                    <select class="custom-select custom-select-sm" name="time">
+                                        <option selected disabled>== Waktu ==</option>
+                                        <option value="DESC">Terbaru</option>
+                                        <option value="ASC">Terdahulu</option>
+                                      </select>
+                                </div>
+                            </div>
+                            <div class="col-xl-3">
+                                <div class="form-group">
+                                    <select class="custom-select custom-select-sm" name="pop">
+                                        <option selected disabled>== Popularitas ==</option>
+                                        <option value="popular">Terpopuler</option>
+                                        <option value="euh">Biasa</option>
+                                      </select>
+                                </div>
+                            </div>
+                            <div class="col-xl-3">
+                                <button type="submit" class="btn btn-dark btn-sm">Tampilkan</button>
                             </div>
                         </div>
-                        <div class="col-xl-3">
-                            <div class="form-group">
-                                <select class="custom-select custom-select-sm">
-                                    <option selected disabled>== Popularitas ==</option>
-                                    <option value="1">Terpopuler</option>
-                                    <option value="2">Biasa</option>
-                                  </select>
-                            </div>
-                        </div>
-                        <div class="col-xl-3">
-                            <button type="submit" class="btn btn-dark btn-sm">Tampilkan</button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
             <div class="row">
@@ -57,7 +59,7 @@
 
                                 <i class="fa fa-sm fa-clock"></i>
                                 <small
-                                    class="mx-2">{{ Carbon\Carbon::parse($value->created_at)->format('F d, Y') }}</small>
+                                    class="mx-2">{{ Carbon\Carbon::parse($value->updated_at)->format('F d, Y') }}</small>
                             </div>
 
                             @php
@@ -70,8 +72,8 @@
                                     <a href="{{ route('page.blog.detail', $value->slug) }}" class="btn-link">Read More</a>
                                 </div>
                                 <div class="col-6 text-right">
-                                    <small class="font-weight-bold text-dark mt-3"><i class="fa fa-thumbs-up"></i> 123</small>
-                                    <small class="font-weight-bold text-dark mt-3"><i class="fa fa-comment"></i> 123</small>
+                                    <small class="font-weight-bold text-dark mt-3"><i class="fa fa-thumbs-up"></i> {{ count($value->like) }}</small>
+                                    <small class="font-weight-bold text-dark mt-3"><i class="fa fa-comment"></i> {{ count($value->komentar) }}</small>
                                 </div>
                             </div>
                         </div>
@@ -80,7 +82,7 @@
                     <h4>Tidak ada artikel</h4>
                     @endforelse
 
-                    {{ $artikel->links() }}
+                    {{ $artikel->appends($data)->links() }}
                 </div>
             </div>
         </div>
