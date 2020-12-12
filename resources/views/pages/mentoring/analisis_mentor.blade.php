@@ -66,7 +66,7 @@
                         </select>
                     </div>
 
-                    <button class="btn btn-langkah btn-block">uba Pilihan</button>
+                    <button class="btn btn-langkah btn-block">Ubah Pilihan</button>
                 </form>
             </div>
         </div>
@@ -182,13 +182,13 @@
                     @csrf
                     {{-- <img class="my-3" src="{{asset('assets/img/undraw_profile.svg')}}" alt="profil-mentor"
                     style="height:100px"> --}}
-                    <img class="img-profile rounded-circle" src="{{ (auth()->user()->foto) ? asset("upload/users/". auth()->user()->foto) : asset('assets/img/default_avatar.svg') }}">
+                    <img id="img-profile" class="img-cover rounded-circle" src="{{ (auth()->user()->foto) ? asset("upload/users/". auth()->user()->foto) : asset('assets/img/default_avatar.svg') }}">
 
                     <div class="form-group">
                         @php
                             $role = auth()->user()->getRoleNames()->first();
                         @endphp
-                        <textarea class="form-control mt-4" name="komentar" id="komentarMentor" rows="5" {{ $role == 'mentor' ? '' : 'disabled' }} placeholder="Tulis Komentarmu">{{ $komentar->komentar ?? '' }}</textarea>
+                        <textarea class="form-control mt-4" name="komentar" id="komentarMentor" rows="5" {{ $role == 'mentor' ? '' : 'disabled' }} placeholder="Komentar Mentor">{{ $komentar->komentar ?? '' }}</textarea>
                     </div>
                     @hasanyrole('mentor')
                     <button class="btn btn-langkah btn-block" type="submit">Kirim Komentar</button>
