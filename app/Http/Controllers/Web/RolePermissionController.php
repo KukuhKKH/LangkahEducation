@@ -15,14 +15,30 @@ class RolePermissionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $role = Role::paginate(10);
+        $data = $request->all();
+
+        if($request->get('keyword') != '') {
+            $nama = $request->get('keyword');
+            $role = Role::where('name', 'LIKE', "%$nama%")->paginate(10);
+        }else{
+            $role = Role::paginate(10);
+        }
+        
         return view('pages.role.index', compact('role'));
     }
 
-    public function permission() {
-        $permission = Permission::paginate(10);
+    public function permission(Request $request) {
+        $data = $request->all();
+
+        if($request->get('keyword') != '') {
+            $nama = $request->get('keyword');
+            $permission = Permission::where('name', 'LIKE', "%$nama%")->paginate(10);
+        }else{
+            $permission = Permission::paginate(10);
+        }
+        
         return view('pages.role.permission', compact('permission'));
     }
 
