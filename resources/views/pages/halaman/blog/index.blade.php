@@ -20,14 +20,17 @@
     </div>
     <div class="card-body">
         <form action="" method="GET">
-            <div class="row mb-4 justify-content-end">
-                <div class="col-xl-6">
+            <div class="row mb-4 justify-content-end align-items-center">
+                <div class="col-xl-5">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Masukkan Judul Artikel" aria-label="Masukkan Judul Artikel" aria-describedby="basic-addon2">
+                        <input type="text" name="keyword" class="form-control" placeholder="Masukkan Judul Artikel" aria-label="Masukkan Judul Artikel" aria-describedby="basic-addon2">
                         <div class="input-group-append">
-                          <button class="btn btn-primary" type="button">Cari</button>
+                          <button class="btn btn-primary" type="submit">Cari</button>
                         </div>
-                      </div>
+                     </div>
+                </div>
+                <div class="col-xl-auto">
+                  <a href="{{ route('blog.index') }}" class="btn btn-lght text-danger my-1">Refresh</a>
                 </div>
             </div>
         </form>

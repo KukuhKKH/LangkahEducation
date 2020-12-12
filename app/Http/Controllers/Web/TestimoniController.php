@@ -14,9 +14,16 @@ class TestimoniController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $testimoni = Testimoni::latest()->paginate(10);
+        $data = $request->all();
+
+        if($request->get('keyword') != '') {
+            $nama = $request->get('keyword');
+            $testimoni = Testimoni::latest()->where('nama', 'LIKE', "%$nama%")->paginate(10);
+        }else{
+            $testimoni = Testimoni::latest()->paginate(10);
+        }
         return view('pages.halaman.testimonial.index', compact('testimoni'));
     }
 

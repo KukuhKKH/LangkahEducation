@@ -26,14 +26,18 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = auth()->user();
-        if($user->getRoleNames()->first() == 'superadmin' || $user->getRoleNames()->first() == 'admin') {
-            $artikel = Blog::latest()->paginate(10);
-        } else {
+        $data = $request->all();
+
+        if($request->get('keyword') != '') {
+            $judul = $request->get('keyword');
+            $artikel = $user->blog()->latest()->where('judul', 'LIKE', "%$judul%")->paginate(10);
+        }else{
             $artikel = $user->blog()->latest()->paginate(10);
         }
+
         return view('pages.halaman.blog.index', compact('artikel'));
     }
 
