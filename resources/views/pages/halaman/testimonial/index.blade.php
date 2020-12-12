@@ -153,10 +153,10 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="status">Role</label>
+                        <label for="status">Status Narasumber</label>
                         <input name="role" type="text"
                             class="form-control form-control-user @error('role') is-invalid @enderror"
-                            id="exampleFirstName" placeholder="Masukkan Role" value="{{ old('role') }}">
+                            id="exampleFirstName" placeholder="Masukkan Status" value="{{ old('role') }}">
                         @error('role')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

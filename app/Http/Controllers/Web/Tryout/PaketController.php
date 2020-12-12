@@ -18,8 +18,15 @@ class PaketController extends Controller
      */
     public function index(Request $request)
     {
-        $paket = TryoutPaket::latest()->paginate(10);
-        $data = $request->input();
+        $data = $request->all();
+
+        if($request->get('keyword') != '') {
+            $nama = $request->get('keyword');
+            $paket = TryoutPaket::latest()->where('nama', 'LIKE', "%$nama%")->paginate(10);
+        }else{
+            $paket = TryoutPaket::latest()->paginate(10);
+        }
+
         return view('pages.tryout.paket.index', compact('paket', 'data'));
     }
 

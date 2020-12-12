@@ -13,9 +13,17 @@ class KategoriSoalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $kategori = TryoutKategoriSoal::latest()->paginate(10);
+        $data = $request->all();
+
+        if($request->get('keyword') != '') {
+            $nama = $request->get('keyword');
+            $kategori = TryoutKategoriSoal::latest()->where('nama', 'LIKE', "%$nama%")->paginate(10);
+        }else{
+            $kategori = TryoutKategoriSoal::latest()->paginate(10);
+        }
+
         return view('pages.tryout.kategori-soal.index', compact('kategori'));
     }
 
