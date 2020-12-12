@@ -27,7 +27,7 @@ class AdminCreateRequest extends FormRequest
             'name' => 'required',
             'email' => 'required|unique:users',
             'password' => 'required|confirmed',
-            'foto' => 'nullable'
+            'foto' => 'nullable|mimes:jpg,jpeg,gif,png|max:2024'
         ];
     }
 }

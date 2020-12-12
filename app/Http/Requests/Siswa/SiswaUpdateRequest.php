@@ -34,7 +34,7 @@ class SiswaUpdateRequest extends FormRequest
             'nomor_hp' => 'required|numeric',
             'password_old' => 'nullable',
             'password' => 'nullable|confirmed',
-            'foto' => 'nullable|mimes:jpg,jpeg,gif,png|max:2000',
+            'foto' => 'nullable|mimes:jpg,jpeg,gif,png|max:2024',
             'is_active' => 'required'
         ];
     }

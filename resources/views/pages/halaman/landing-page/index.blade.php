@@ -380,12 +380,12 @@
     }
 
     CKEDITOR.replace('tentang_kami', option)
-    CKEDITOR.replace('headline_produk', option)
-    CKEDITOR.replace('headline_blog', option)
-    CKEDITOR.replace('headline_testimoni', option)
-    CKEDITOR.replace('headline_biaya', option)
-    CKEDITOR.replace('biaya_individu', option)
-    CKEDITOR.replace('biaya_sekolah', option)
+    // CKEDITOR.replace('headline_produk', option)
+    // CKEDITOR.replace('headline_blog', option)
+    // CKEDITOR.replace('headline_testimoni', option)
+    // CKEDITOR.replace('headline_biaya', option)
+    // CKEDITOR.replace('biaya_individu', option)
+    // CKEDITOR.replace('biaya_sekolah', option)
 
     $('#inputFileHero').on('change', function (e) {
         var fileName = e.target.files[0].name;
