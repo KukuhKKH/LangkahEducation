@@ -308,7 +308,10 @@
                         </div>
                         <hr>
                     @empty
-                        <h1>Iki tulung di ganti lek kosong boy</h1>
+                    <div class="text-center mb-3 p-5 bg-light">
+                        <img class="mb-3" height="50px" src="{{asset('assets/img/null-icon.svg')}}" alt="">
+                        <h6>Tidak Ada Artikel</h6>
+                    </div>
                     @endforelse
 
                 </div>
@@ -335,7 +338,10 @@
                         </div>
                         <hr>
                     @empty
-                        <h1>Iki tulung di ganti lek kosong boy</h1>
+                    <div class="text-center mb-3 p-5 bg-light">
+                        <img class="mb-3" height="50px" src="{{asset('assets/img/null-icon.svg')}}" alt="">
+                        <h6>Tidak Ada Artikel</h6>
+                    </div>
                     @endforelse
 
                 </div>
@@ -364,7 +370,10 @@
                         </div>
                         <hr>
                     @empty
-                        <h1>Iki tulung di ganti lek kosong boy</h1>
+                    <div class="text-center mb-3 p-5 bg-light">
+                        <img class="mb-3" height="50px" src="{{asset('assets/img/null-icon.svg')}}" alt="">
+                        <h6>Tidak Ada Artikel</h6>
+                    </div>
                     @endforelse
 
                 </div>
@@ -391,7 +400,10 @@
                         </div>
                         <hr>
                     @empty
-                        <h1>Iki tulung di ganti lek kosong boy</h1>
+                    <div class="text-center mb-3 p-5 bg-light">
+                        <img class="mb-3" height="50px" src="{{asset('assets/img/null-icon.svg')}}" alt="">
+                        <h6>Tidak Ada Artikel</h6>
+                    </div>
                     @endforelse
 
                 </div>

@@ -12,6 +12,12 @@
   border-radius: 100px;
 }
 
+.img-hover{
+  width: 150px;
+  height: 150px;
+  border-radius: 100px;
+}
+
 /* Button */
 .btn-langkah {
   color: #fff;

@@ -17,6 +17,9 @@
     <link href="{{asset('assets/css/dashboard.min.css')}}" rel="stylesheet">
     <link href="{{asset('assets/css/langkahedu.css')}}" rel="stylesheet">
 
+    <!-- Favicons -->
+    <link href="{{asset('assets-landingpage/img/favicon.png')}}" rel="icon">
+    <link href="{{asset('assets-landingpage/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
     <style>
         .toast-success {
             color: #ffffff;

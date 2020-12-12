@@ -8,20 +8,33 @@
         Edit Profil
     </div>
     <div class="card-body">
-        <div class="row">
-            <div class="col-xl-12 text-center mb-3">
-                @if ($user->foto)
-                <img  id="img-profile" class="img-fluid img-cover"  src="{{ asset('upload/users/'.$user->foto) }}" alt="{{ $user->name }}" class="img-fluid w-100">
-                @else
-                <img class="img-fluid" width="100px" src="{{ asset("assets/img/undraw_profile.svg") }}"
-                    alt="foto-{{ $user->name }}">
-                @endif
-            </div>
-        </div>
         <form action="{{ route('profile.update', $user->id) }}" id="form" method="post" enctype="multipart/form-data">
             @csrf
             @method("PUT")
-            <div class="row">
+            <div class="row justify-content-center">
+                <div class="col-xl-12">
+                        <div class="img-hover">
+                            @if ($user->foto)
+                            <img id="img-profile" class="img-fluid img-cover"  src="{{ asset('upload/users/'.$user->foto) }}" alt="{{ $user->name }}" class="img-fluid w-100">
+                            @else
+                            <img id="img-profile" class="img-fluid" width="100px" src="{{ asset("assets/img/undraw_profile.svg") }}"
+                                alt="foto-{{ $user->name }}">
+                            @endif
+                            <div class="profile-overlay">
+                                <div class="text"><a id="btn-img-profile" href="#"><i class="fa fa-edit"></i> Edit Foto</a></div>
+                            </div>
+                        </div>
+                </div>
+                <div class="col-xl-12 text-center">
+                    <small class="mt-2">Ubah Foto Profil (Max. 2MB)</small>
+                    @error('foto')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+            </div>
+            <div class="row mt-3">
                 <div class="col-xl-6">
                     <div class="form-group">
                         <label for="">Nama Lengkap</label>
@@ -199,19 +212,10 @@
     </div>
     <div class="col-xl-6">
         <div class="form-group">
-            <label for="">Foto <small>Maksimal 2 Mb</small></label>
-            <div class="input-group mb-3">
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input orm-control @error('foto') is-invalid @enderror"
-                        name="foto" accept="image/x-png,image/gif,image/jpeg" id="inputGroupFile02">
-                    @error('foto')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                    <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
-                </div>
-            </div>
+            <input type="file" class="form-control @error('foto') is-invalid @enderror"
+            name="foto" accept="image/x-png,image/gif,image/jpeg" id="myImgProfile" style="display: none;">
+
+            {{-- <label class="custom-file-label" for="myImgProfile">Choose file</label> --}}
         </div>
     </div>
 </div>
@@ -255,13 +259,6 @@
     })
 
 </script>
-<script type="application/javascript">
-    $('input[type="file"]').change(function (e) {
-        var fileName = e.target.files[0].name;
-        $('.custom-file-label').html(fileName);
-    });
-
-</script>
 <script>
     $(document).ready(function() {
     $("#show_old_password a").on('click', function(event) {
@@ -282,8 +279,63 @@
     });
 });
 </script>
+<script>
+    $('#btn-img-profile').click(function(){
+        $('#myImgProfile').click()
+    })
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function(e) {
+            $('#img-profile').attr('src', e.target.result);
+            }
+            
+            reader.readAsDataURL(input.files[0]); // convert to base64 string
+        }
+    }
+
+    $("#myImgProfile").change(function() {
+        readURL(this);
+    });
+</script>
 @endsection
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets/vendor/datepicker/css/bootstrap-datepicker3.min.css') }}">
+<style>
+    .profile-overlay{
+        width: 150px;
+        height: 150px;  
+        border-radius: 100px;
+        position: absolute;
+        opacity: 0.6;
+        transition: .5s ease;
+        background-color: #000000a2;
+        top: 0;
+    }
+
+    .img-hover:hover .profile-overlay{
+        opacity: 1;
+    }
+
+    .text a{
+        color: white;
+        font-size: 14px;
+        text-decoration: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+
+    .img-hover{
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
 @endsection
