@@ -6,7 +6,7 @@
     <section id="blog" class="blog">
         <div class="container">
             <div class="row">
-                <div class="col-xl-8">
+                <div class="col-xl-8 ">
                     <label style="font-size:10pt" for="">Urutkan berdasarkan</label>
                     <form action="" method="get">
                         <div class="row">
@@ -29,7 +29,7 @@
                                 </div>
                             </div>
                             <div class="col-xl-3">
-                                <button type="submit" class="btn btn-dark btn-sm">Tampilkan</button>
+                                <button type="submit" class="btn btn-light text-secondary btn-sm">Tampilkan</button>
                             </div>
                         </div>
                     </form>

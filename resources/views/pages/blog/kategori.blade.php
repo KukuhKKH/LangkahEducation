@@ -6,6 +6,36 @@
         <section id="blog" class="blog">
             <div class="container">
                 <div class="row">
+                    <div class="col-xl-8 ">
+                        <label style="font-size:10pt" for="">Urutkan berdasarkan</label>
+                        <form action="" method="get">
+                            <div class="row">
+                                <div class="col-xl-3">
+                                    <div class="form-group">
+                                        <select class="custom-select custom-select-sm" name="time">
+                                            <option selected disabled>== Waktu ==</option>
+                                            <option value="DESC">Terbaru</option>
+                                            <option value="ASC">Terdahulu</option>
+                                          </select>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3">
+                                    <div class="form-group">
+                                        <select class="custom-select custom-select-sm" name="pop">
+                                            <option selected disabled>== Popularitas ==</option>
+                                            <option value="popular">Terpopuler</option>
+                                            <option value="euh">Biasa</option>
+                                          </select>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3">
+                                    <button type="submit" class="btn btn-light text-secondary btn-sm">Tampilkan</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-xl-12">
                         @forelse ($artikel as $value)
                             <div class="card shadow mb-4">
