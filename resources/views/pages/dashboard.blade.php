@@ -123,31 +123,35 @@
         </div>
         @if ($kelompok)
             <div class="col-xl-4">
-                <form action="#" class="mt-4">
-                    <input type="hidden" name="kelompok" value="{{ $kelompok->kelompok_passing_grade_id }}">
-                    <div class="form-group">
-                        <label for="prodi-1">Pilihan 1</label>
-                        <select name="prodi-1" id="prodi-1" class="form-control" required>
-                            <option value="" selected disabled>== Program Studi Pilihan 1 ==</option>
-                            @foreach ($passing_grade as $value)
-                            <option value="{{ $value->id }}">({{ $value->passing_grade }}%)
-                                {{ $value->universitas->nama }} - {{ $value->prodi }}</option>
-                            @endforeach
-                        </select>
+                <div class="card">
+                    <div class="card-body">
+                        <form action="#" class="mt-4">
+                            <input type="hidden" name="kelompok" value="{{ $kelompok->kelompok_passing_grade_id }}">
+                            <div class="form-group">
+                                <label for="prodi-1">Pilihan 1</label>
+                                <select name="prodi-1" id="prodi-1" class="form-control" required>
+                                    <option value="" selected disabled>== Program Studi Pilihan 1 ==</option>
+                                    @foreach ($passing_grade as $value)
+                                    <option value="{{ $value->id }}">({{ $value->passing_grade }}%)
+                                        {{ $value->universitas->nama }} - {{ $value->prodi }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="prodi-2">Pilihan 2</label>
+                                <select name="prodi-2" id="prodi-2" class="form-control" required>
+                                    <option value="" selected disabled>== Program Studi Pilihan 1 ==</option>
+                                    @foreach ($passing_grade as $value)
+                                    <option value="{{ $value->id }}">({{ $value->passing_grade }}%)
+                                        {{ $value->universitas->nama }} - {{ $value->prodi }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+        
+                            <button class="btn btn-langkah btn-block">Ubah Pilihan</button>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <label for="prodi-2">Pilihan 2</label>
-                        <select name="prodi-2" id="prodi-2" class="form-control" required>
-                            <option value="" selected disabled>== Program Studi Pilihan 1 ==</option>
-                            @foreach ($passing_grade as $value)
-                            <option value="{{ $value->id }}">({{ $value->passing_grade }}%)
-                                {{ $value->universitas->nama }} - {{ $value->prodi }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <button class="btn btn-langkah btn-block">Ubah Pilihan</button>
-                </form>
+                </div>
             </div>
         @endif
     </div>
@@ -205,29 +209,55 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-xl-12">
+        <div class="col-xl-8">
             <div class="card">
                 <div class="card-header">
-                    <h6 class="m-0 font-weight-bold text-primary">Grafik Nilai User</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Grafik Nilai Siswa</h6>
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-xl-8">
-                            <canvas id="myAreaChart"></canvas>
-                        </div>
-                        <div class="col-xl-4">
-                            <div class="chart-pie pt-4 pb-2">
-                                <canvas id="myPersaingan"></canvas>
+                        <div class="col-xl-12">
+                            <div class="row justify-content-end">
+                                <div class="col-xl-6">
+                                    <form action="">
+                                        <div class="input-group mb-3">
+                                            <select class="custom-select custom-select-sm" id="inputGroupSelect01">
+                                                {{-- Default e Paket Try Out 1 --}}
+                                              <option value="2">Paket Try Out 1</option>
+                                              <option value="2">Paket Try Out 2</option>
+                                              <option value="2">Paket Try Out 2</option>
+                                            </select>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-sm btn-outline-secondary" type="button">Tampilkan</button>
+                                              </div>
+                                          </div>
+                                    </form>
+                                </div>
+                                <div class="col-xl-12" style="height: 275px">
+                                    <canvas id="myAreaChart"></canvas>
+                                </div>
                             </div>
-                            <div class="mt-4 text-center small">
-                                <span class="mr-2">
-                                    <i class="fas fa-circle text-primary"></i> SAINTEK
-                                </span>
-                                <span class="mr-2">
-                                    <i class="fas fa-circle text-success"></i> SOSHUM
-                                </span>
-                            </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="m-0 font-weight-bold text-primary">Penyebaran Kelompok</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart-pie pt-4 pb-2">
+                        <canvas id="myPersaingan"></canvas>
+                    </div>
+                    <div class="mt-4 text-center small">
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-primary"></i> SAINTEK
+                        </span>
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-success"></i> SOSHUM
+                        </span>
                     </div>
                 </div>
             </div>
@@ -413,11 +443,15 @@
 @endhasanyrole
 
 @endsection
+@section('css')
+<link rel="stylesheet" href="{{ asset('assets/vendor/select2/dist/css/select2.min.css') }}">
+@endsection
 
 @section('js')
     <!-- Page level plugins -->
     <script src="{{ asset('assets/vendor/chart.js/Chart.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/chart.js/annotation.js') }}"></script>
+    <script src="{{ asset('assets/vendor/select2/dist/js/select2.js') }}"></script>
 
     <!-- Page level custom scripts -->
     {{-- <script src="{{ asset('assets/js/chart-pengunjung-harian.js') }}"></script> --}}
@@ -505,6 +539,10 @@
     @endhasanyrole
 
     @hasanyrole('siswa')
+        <script>
+                $("#prodi-1").select2();
+                $("#prodi-2").select2();
+        </script>
         <script>
             let ctx = document.getElementById("myRiwayatNilai")
             let data_riwayat = {

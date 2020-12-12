@@ -62,6 +62,14 @@ class PassingGradeController extends Controller
             $passing_grade = PassingGrade::where('universitas_id', $id)->latest()->paginate(10);
             $universitas = Universitas::find($id);
             $data = $request->all();
+
+            if($request->get('keyword') != '') {
+                $nama = $request->get('keyword');
+                $kelompok = KelompokPassingGrade::all();
+                $passing_grade = PassingGrade::where('universitas_id', $id)->where('prodi', 'LIKE', "%$nama%")->latest()->paginate(10);
+                $universitas = Universitas::find($id);
+            }
+
             return view('pages.passing-grade.show', compact('passing_grade','kelompok', 'universitas', 'data'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);

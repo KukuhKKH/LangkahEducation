@@ -16,14 +16,17 @@
         </div>
         <div class="card-body">
             <form action="" method="GET">
-                <div class="row mb-4 justify-content-end">
-                    <div class="col-xl-6">
+                <div class="row mb-4 justify-content-end align-items-center">
+                    <div class="col-xl-5">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Masukkan Nama Gelombang" aria-label="Masukkan Nama Gelombang" aria-describedby="basic-addon2">
+                            <input type="text" name="keyword" class="form-control" placeholder="Masukkan Nama Gelombang" aria-label="Masukkan Nama Gelombang" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                               <button class="btn btn-primary" type="button">Cari</button>
                             </div>
-                          </div>
+                         </div>
+                    </div>
+                    <div class="col-xl-auto">
+                      <a href="{{ route('pendaftaran.index') }}" class="btn btn-lght text-danger my-1">Refresh</a>
                     </div>
                 </div>
             </form>
@@ -57,7 +60,7 @@
                     @forelse($gelombang as $value)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ ($value->jenis == 1) ? 'UMUM' : "SEKOLAH" }}</td>
+                            <td>{{ ($value->jenis == 1) ? 'Umum' : "Sekolah" }}</td>
                             <td>{{ $value->nama }}</td>
                             <td>{{ $value->gelombang }}</td>
                             <td>Rp. {{ number_format($value->harga) }}</td>
