@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xl-8">
+                <div class="col-xl-12">
                     @forelse ($artikel as $value)
                     <div class="card shadow mb-4">
                         <div class="card-img-top">
@@ -71,15 +71,18 @@
                                 <div class="col-6">
                                     <a href="{{ route('page.blog.detail', $value->slug) }}" class="btn-link">Read More</a>
                                 </div>
-                                <div class="col-6 text-right">
-                                    <small class="font-weight-bold text-dark mt-3"><i class="fa fa-thumbs-up"></i> {{ count($value->like) }}</small>
-                                    <small class="font-weight-bold text-dark mt-3"><i class="fa fa-comment"></i> {{ count($value->komentar) }}</small>
+                                <div class="col-6 text-right d-flex justify-content-end">
+                                    <h6 class="font-weight-bold text-dark mt-3 mr-2"><i class="fa fa-thumbs-up"></i> {{ count($value->like) }}</h6>
+                                    <h6 class="font-weight-bold text-dark mt-3"><i class="fa fa-comment"></i> {{ count($value->komentar) }}</h6>
                                 </div>
                             </div>
                         </div>
                     </div>
                     @empty
-                    <h4>Tidak ada artikel</h4>
+                    <div class="text-center">
+                        <img class="mb-3" height="50px" src="{{asset('/assets-landingpage/img/null-icon.svg')}}" alt="">
+                        <h6>Tidak Ada Artikel</h6>
+                    </div>
                     @endforelse
 
                     {{ $artikel->appends($data)->links() }}

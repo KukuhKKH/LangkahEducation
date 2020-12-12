@@ -7,7 +7,7 @@
 
                 <div class="col-lg-4 col-md-6 footer-contact">
                     <a href="index.html" class="logo">
-                        <img src="assets/img/logo-primary.svg" alt="" class="img-fluid w-50 mb-4"></a>
+                        <img src="/assets/img/logo-primary.svg" alt="" class="img-fluid w-50 mb-4"></a>
                         @php
                             $deskripsi = $data->deskripsi ?? 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nemo, nisi eligendi eum facere officiis
                         fugiat aliquid laudantium repellendus amet cum?'

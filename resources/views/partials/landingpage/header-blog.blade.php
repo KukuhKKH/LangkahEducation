@@ -7,7 +7,7 @@
  
         <nav class="nav-menu d-none d-lg-block">
             <ul>
-                <li><a href="{{ route('page.blog.index') }}"><i class="fas fa-home"></i></a></li>
+                <li><a href="{{ url('/') }}"><i class="fas fa-home"></i></a></li>
                 @foreach ($kategori as $value)
                 <li><a href="{{ route('page.blog.kategori', $value->nama) }}">{{ strtoupper($value->nama) }}</a></li>
                 @endforeach

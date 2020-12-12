@@ -35,11 +35,22 @@
                                     @endphp
                                     <p>{{ (strlen(strip_tags($string)) > 200) ? substr(strip_tags($string), 0, 200) . '...' : strip_tags($string) }}</p>
 
-                                    <a href="{{ route('page.blog.detail', $value->slug) }}" class="btn-link">Read More</a>
+                                    <div class="row align-items-center">
+                                        <div class="col-6">
+                                            <a href="{{ route('page.blog.detail', $value->slug) }}" class="btn-link">Read More</a>
+                                        </div>
+                                        <div class="col-6 text-right d-flex justify-content-end">
+                                            <h6 class="font-weight-bold text-dark mt-3 mr-2"><i class="fa fa-thumbs-up"></i> {{ count($value->like) }}</h6>
+                                            <h6 class="font-weight-bold text-dark mt-3"><i class="fa fa-comment"></i> {{ count($value->komentar) }}</h6>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>    
                         @empty
-                            <h4>Tidak ada artikel</h4>
+                        <div class="text-center">
+                            <img class="mb-3" height="50px" src="{{asset('/assets-landingpage/img/null-icon.svg')}}" alt="">
+                            <h6>Tidak Ada Artikel</h6>
+                        </div>
                         @endforelse
                         {{ $artikel->links() }}
                     </div>
