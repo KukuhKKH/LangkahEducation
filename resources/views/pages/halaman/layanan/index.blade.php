@@ -102,14 +102,14 @@
                         <label for="testimonial">Foto <small>Maksimal 2 Mb</small></label>
                         <div class="input-group mb-3">
                             <div class="custom-file">
-                              <input type="file" name="foto" class="custom-file-input form-control form-control-user @error('foto') is-invalid @enderror" id="inputGroupFile02">
-                              @error('foto')
-                              <span class="invalid-feedback" role="alert">
-                                  <strong>{{ $message }}</strong>
-                              </span>
-                              @enderror
+                              <input type="file"  accept="image/*" name="foto" class="custom-file-input form-control form-control-user @error('foto') is-invalid @enderror" id="inputGroupFile02" accept="image/x-png,image/gif,image/jpeg">
                               <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
                             </div>
+                            @error('foto')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                           </div>
                     </div>
                 </div>

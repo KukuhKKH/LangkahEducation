@@ -112,7 +112,7 @@
         <div class="container py-4">
             <div class="section-title">
                 <h2>Blog</h2>
-                {!! $data->headline_blog !!}
+                <p class="text-white">{!! $data->headline_blog !!}</p>
                 {{-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
                     consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
                     fugiat sit

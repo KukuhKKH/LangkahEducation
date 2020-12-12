@@ -81,7 +81,7 @@
                     <tr>
                         <th>No</th>
                         <th>NISN</th>
-                        <th  width="50%">Nama Siswa</th>
+                        <th  width="30%">Nama Siswa</th>
                         <th>Asal Sekolah</th>
                         <th>Status</th>
                         <th width="25%">Aksi</th>
@@ -91,7 +91,7 @@
                     <tr>
                         <th>No</th>
                         <th>NISN</th>
-                        <th width="50%">Nama Siswa</th>
+                        <th width="30%">Nama Siswa</th>
                         <th>Asal Sekolah</th>
                         <th>Status</th>
                         <th width="25%">Aksi</th>

@@ -256,7 +256,7 @@
     </div>
     @hasanyrole('admin|superadmin')
     @php
-        $aktif_halaman = (request()->is('dashboard/testimoni')|request()->is('dashboard/layanan')|request()->is('dashboard/landing-page')|request()->is('dashboard/blog')|request()->segment(2)=='kategori-blog') ? true : false
+        $aktif_halaman = (request()->is('dashboard/testimoni')|request()->is('dashboard/testimoni/*')|request()->is('dashboard/layanan')|request()->is('dashboard/landing-page')|request()->is('dashboard/blog')|request()->segment(2)=='kategori-blog') ? true : false
     @endphp
     <li class="nav-item {{ ($aktif_halaman) ? 'active' : '' }}">
         <a class="nav-link {{ ($aktif_halaman) ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseHalaman" aria-expanded="{{ $aktif_halaman }}" aria-controls="collapseTwo">
