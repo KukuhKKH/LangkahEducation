@@ -33,7 +33,10 @@ class TryoutController extends Controller
             $produk_sekolah = $user->siswa->sekolah->first()->gelombang;
             $cek_gelombang = Gelombang::wherehas('siswa', function($query) use($user) {
                 $query->where('siswa_id', $user->siswa->id);
+            })->whereHas('pembayaran', function($q) use($user) {
+                $q->where('status', 2)->where('user_id', $user->id);
             })->get();
+
             // Jika membeli produk sendiri
             if(count($cek_gelombang) > 0) {
                 $produk_gelombang = $cek_gelombang;
@@ -42,6 +45,8 @@ class TryoutController extends Controller
         } else if($user->siswa->batch == 0) {
             $cek_gelombang = Gelombang::wherehas('siswa', function($query) use($user) {
                 $query->where('siswa_id', $user->siswa->id);
+            })->whereHas('pembayaran', function($q) use($user) {
+                $q->where('status', 2)->where('user_id', $user->id);
             })->get();
 
             // Sudah Daftar Gelombang

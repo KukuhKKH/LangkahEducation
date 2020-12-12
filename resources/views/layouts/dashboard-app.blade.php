@@ -121,6 +121,15 @@
             var pg1_name = "{{ $pg1->universitas->nama }} - {{ $pg1->prodi }}";
             var pg2_name = "{{ $pg2->universitas->nama }} -  {{ $pg2->prodi }}";
             @endif
+            @if(request()->is('dashboard'))
+            let pg1 = {{ $nil_pg1 ?? 0 }}
+            let pg2 = {{ $nil_pg2 ?? 0 }}
+
+                @if(request()->get('prodi-1'))
+                    var pg1_name = "{{ $pg1->universitas->nama }} - {{ $pg1->prodi }}";
+                    var pg2_name = "{{ $pg2->universitas->nama }} -  {{ $pg2->prodi }}";
+                @endif
+            @endif
             const CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute("content")
             var barOptions = {
                 maintainAspectRatio: false,

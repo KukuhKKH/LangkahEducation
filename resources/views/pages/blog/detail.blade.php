@@ -94,9 +94,9 @@
                                         <div class="col-auto">
                                             @if ($value->user->foto)
                                             <?php $foto = $value->user->foto ?>
-                                            <img src="{{asset("upload/users/$foto") }}" class="avatar " alt="Avatar">    
+                                            <img src="{{asset("upload/users/$foto") }}" class="avatar" alt="Avatar">    
                                             @else
-                                            <img src="{{asset('assets/img/undraw_profile.svg') }}" class="avatar " alt="Avatar">    
+                                            <img src="{{asset('assets/img/undraw_profile.svg') }}" class="avatar" alt="Avatar">    
                                             @endif
                                         </div>
                                         <div class="col">

@@ -116,9 +116,12 @@ class PembayaranController extends Controller
         try {
             $user = auth()->user();
             $today = date('m/d/Y');
-            $gelombang = Gelombang::where('jenis', 1)->where('tgl_awal', '<', $today)->where('tgl_akhir', '>', $today)->whereDoesntHave('siswa', function($query) use($user) {
-                $query->where('siswa_id', $user->siswa->id);
-            })->get();
+            $gelombang = Gelombang::where('jenis', 1)
+                            ->where('tgl_awal', '<', $today)
+                            ->where('tgl_akhir', '>', $today)
+                            ->whereDoesntHave('siswa', function($query) use($user) {
+                                $query->where('siswa_id', $user->siswa->id);
+                            })->get();
             return view('pages.pendaftaran.gelombang_siswa', compact('gelombang'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
@@ -223,17 +226,43 @@ class PembayaranController extends Controller
 
     public function set_status($id, $jenis) {
         try {
+            DB::beginTransaction();
+            $pembayaran = Pembayaran::find($id);
             if($jenis == 'terima') {
                 $status = 2;
             } elseif($jenis == 'tolak') {
                 $status = 3;
+                DB::table('siswa_has_gelombang')
+                    ->where('siswa_id', '=', $pembayaran->user->siswa->id)
+                    ->where('gelombang_id', '=', $pembayaran->gelombang->id)
+                    ->delete();
             }
-            $pembayaran = Pembayaran::find($id);
             $pembayaran->update([
                 'status' => $status
             ]);
+            DB::commit();
             return redirect()->route('pembayaran.show', 'sudah-bayar')->with(['success' => "Berhasil $jenis bukti transfer"]);
         } catch(\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function siswa_destry($id) {
+        try {
+            DB::beginTransaction();
+            $pembayaran = Pembayaran::find($id);
+            DB::table('siswa_has_gelombang')
+                ->where('siswa_id', '=', $pembayaran->user->siswa->id)
+                ->where('gelombang_id', '=', $pembayaran->gelombang->id)
+                ->delete();
+            $pembayaran->update([
+                'status' => 3
+            ]);
+            DB::commit();
+            return redirect()->route('pembayaran.siswa')->with(['success' => "Membatalkan pembelian"]);
+        } catch(\Exception $e) {
+            DB::rollback();
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
     }

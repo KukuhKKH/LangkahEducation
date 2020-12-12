@@ -160,7 +160,10 @@
 
 <div class="row">
     <!-- Area Chart -->
-    <div class="col-xl-8 col-lg-8">
+    @php
+        $hasMentor = auth()->user()->siswa->mentor;
+    @endphp
+    <div class="{{ ($hasMentor != '') ? 'col-xl-8 col-lg-8' : 'col-xl-12 col-lg-12' }}">
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-dark">Riwayat Nilai</h6>
@@ -172,26 +175,34 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-4 col-lg-4">
-        <div class="card shadow mb-4 text-center">
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-dark">Komentar Mentor</h6>
-            </div>
-            <div class="card-body">
-                <form action="{{ route('mentoring.komentar', $tryout->id) }}" method="post">
-                    @csrf
-                    <img class="my-3" src="{{asset('assets/img/undraw_profile.svg')}}" alt="profil-mentor"
-                    style="height:100px">
-                    <div class="form-group">
-                        <textarea class="form-control mt-4" name="komentar" id="komentarMentor" rows="5" placeholder="Tulis Komentarmu">{{ $komentar->komentar ?? '' }}</textarea>
-                    </div>
-                    @hasanyrole('mentor')
-                    <button class="btn btn-langkah btn-block" type="submit">Kirim Komentar</button>
-                    @endhasanyrole
-                </form>
+    @if ($hasMentor != '')
+        <div class="col-xl-4 col-lg-4">
+            <div class="card shadow mb-4 text-center">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-dark">Komentar Mentor</h6>
+                </div>
+                <div class="card-body">
+                    <form action="{{ route('mentoring.komentar', $tryout->id) }}" method="post">
+                        @csrf
+                        @if (auth()->user()->siswa->mentor()->first()->user->foto)
+                        <?php $foto = auth()->user()->siswa->mentor->first()->user->foto; ?>
+                        <img class="my-3" src="{{asset("upload/users/$foto")}}" alt="profil-mentor"
+                        style="height:100px">
+                        @else
+                        <img class="my-3" src="{{asset('assets/img/undraw_profile.svg')}}" alt="profil-mentor"
+                        style="height:100px">
+                        @endif
+                        <div class="form-group">
+                            <textarea class="form-control mt-4" name="komentar" id="komentarMentor" rows="5" placeholder="Tulis Komentarmu">{{ $komentar->komentar ?? '' }}</textarea>
+                        </div>
+                        @hasanyrole('mentor')
+                        <button class="btn btn-langkah btn-block" type="submit">Kirim Komentar</button>
+                        @endhasanyrole
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
+    @endif
 </div>
 
 <div class="row">
