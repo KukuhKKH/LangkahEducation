@@ -13,6 +13,7 @@ use App\Models\PassingGrade;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\KelompokPassingGrade;
+use App\Models\TryoutHasilJawaban;
 use Illuminate\Support\Facades\Auth;
 
 class MentoringController extends Controller
@@ -61,10 +62,16 @@ class MentoringController extends Controller
         }
     }
 
-    public function pembahasan($paket_id, $kategori_id) {
+    public function pembahasan($paket_id, $kategori_id, $hasil_id) {
         try {
             $paket = TryoutSoal::with(['jawaban', 'paket'])->where('tryout_paket_id', $paket_id)->where('tryout_kategori_soal_id', $kategori_id)->get();
-            return view('pages.mentoring.pembahasan', compact('paket'));
+            $detail = TryoutHasil::find($hasil_id);
+            $detail_jawaban = TryoutHasilJawaban::where('tryout_hasil_id', $detail->id)->get();
+            $jawabanmu = [];
+            foreach ($detail_jawaban as $key => $value) {
+                $jawabanmu[] = $value->tryout_jawaban_id;
+            }
+            return view('pages.mentoring.pembahasan', compact('paket', 'jawabanmu'));
         }  catch(\Exception $e) {
             dd($e);
             return redirect()->back()->with(['error' => $e->getMessage()]);

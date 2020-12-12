@@ -102,7 +102,7 @@ class HomeController extends Controller
             $val = [];
             foreach ($grafik as $key => $value) {
                 $label[] = $value->nama;
-                $val[] = $value->total;
+                $val[] = $value->total / 2;
             }
             $grafik2 = TryoutHasil::selectRaw("count(id) as total, nilai_awal")->whereIn('user_id', $id_siswa)->groupBy('nilai_awal')->get();
             $label2 = [];
@@ -124,8 +124,10 @@ class HomeController extends Controller
             $artikel_like = Blog::withCount('like')->with('like')->where('status', 1)->orderBy('like_count', 'DESC')->limit(3)->get();
             $artikel_komentar = Blog::withCount('komentar')->with('komentar')->where('status', 1)->orderBy('komentar_count', 'DESC')->limit(3)->get();
             return view('pages.dashboard', compact('artikel_publish', 'artikel_draft', 'total_artikel', 'artikelmu_like', 'artikelmu_komentar', 'artikel_like', 'artikel_komentar'));
-        } else {
+        } elseif($user->getRoleNames()->first() == 'sekolah') {
             return view('pages.dashboard');
+        } else {
+            abort('403');
         }
     }
 

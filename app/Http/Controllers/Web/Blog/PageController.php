@@ -21,12 +21,27 @@ class PageController extends Controller
     }
 
     public function index(Request $request) {
-        if($request->get('urut')) {
-            $artikel = Blog::withCount('like')->with('like')->where('status', 1)->orderBy('like_count', 'DESC')->paginate(10);
+        $cari = $request->get('keyword');
+        $popular = $request->get('pop');
+        $time = $request->get('time');
+        if($popular != '' || $time != '') {
+            $artikel = Blog::when($time, function($query) use ($time) {
+                $query->withCount('like')->with('like')->where('status', 1)->orderBy('created_at', $time);
+            })->when($popular, function($query) use ($popular) {
+                if($popular == 'popular') {
+                    $popular = "DESC";
+                } else {
+                    $popular = "ASC";
+                }
+                $query->withCount('like')->with('like')->where('status', 1)->orderBy('like_count', $popular);
+            })->paginate(10);
         } else {
-            $artikel = Blog::where('status', 1)->latest()->paginate(10);
+            $artikel = Blog::when($cari, function($query) use($cari) {
+                $query->where('judul', 'LIKE', "%$cari%");
+            })->where('status', 1)->latest()->paginate(10);
         }
-        return view('pages.blog.list', compact('artikel'));
+        $data = $request->all();
+        return view('pages.blog.list', compact('artikel', 'data'));
     }
 
     public function detail($slug) {
@@ -58,7 +73,7 @@ class PageController extends Controller
     public function detail_author($kode) {
         try {
             $user = User::where('api_token', $kode)->first();
-            $artikel = Blog::where('user_id', $user->id)->latest()->get();
+            $artikel = Blog::where('user_id', $user->id)->where('status', 1)->latest()->get();
             $lainnya = $this->artikel_lainnya($user->id);
             return view('pages.blog.author-profile', compact('artikel', 'user'));
         } catch(\Exception $e) {
@@ -70,7 +85,7 @@ class PageController extends Controller
         try {
             $artikel = Blog::whereHas('kategori', function($q) use($kategori) {
                 $q->where('nama', 'LIKE', "%$kategori%");
-            })->latest()->paginate(10);
+            })->where('status', 1)->latest()->paginate(10);
             return view('pages.blog.kategori', compact('artikel'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()])->withInput();
@@ -91,13 +106,13 @@ class PageController extends Controller
     }
 
     private function artikel_lainnya($user_id, $id = null) {
-        return Blog::where('user_id', $user_id)->where('id', '!=', $id)->latest()->limit(5)->get();
+        return Blog::where('user_id', $user_id)->where('id', '!=', $id)->where('status', 1)->latest()->limit(5)->get();
     }
 
     private function artikel_terkait($kategori, $id = null) {
         return Blog::wherehas('kategori', function($q) use($kategori) {
             $q->whereIn('nama', $kategori);
-        })->where('id', '!=', $id)->latest()->limit(5)->get();
+        })->where('status', 1)->where('id', '!=', $id)->latest()->limit(5)->get();
         // return Blog::where('kategori', $kategori)->where('id', '!=', $id)->latest()->limit(5)->get();
     }
 

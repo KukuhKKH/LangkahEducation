@@ -30,6 +30,7 @@ class PaketStore extends FormRequest
             'jam_awal' => 'required',
             'tgl_akhir' => 'required',
             'jam_akhir' => 'required',
+            'image' => 'nullable'
         ];
     }
 }

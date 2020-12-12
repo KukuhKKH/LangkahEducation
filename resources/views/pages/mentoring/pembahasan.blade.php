@@ -26,7 +26,7 @@
                      aria-haspopup="true" aria-expanded="false">
                      <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ auth()->user()->name }}</span>
                      <img class="img-profile rounded-circle"
-                        src="{{ (auth()->user()->foto) ? asset("upload/user/". auth()->user()->foto) : asset('assets/img/undraw_profile.svg') }}">
+                        src="{{ (auth()->user()->foto) ? asset("upload/users/". auth()->user()->foto) : asset('assets/img/undraw_profile.svg') }}">
                   </a>
                   <!-- Dropdown - User Information -->
                   <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -60,7 +60,7 @@
                            data-kategori="{{ $value->kategori_soal->nama }}"
                            data-kode="{{ $value->kategori_soal->kode }}">
                            <h3 id="pertanyaan" class="h4 mt-3 mb-2 text-gray-800 font-weight-bold">
-                              {!! $value->soal !!} (A = BENAR)
+                              {!! $value->soal !!}
                            </h3>
                            <input type="hidden" name="soal[{{ $i }}]" value="{{ $value->id }}">
                                  <ol type="A">
@@ -70,7 +70,12 @@
                                           <input class="mt-4 mr-1" type="radio" name="jawaban[{{ $value->id }}]" value="{{ $option->id }}" id="option{{ $i }}ke{{ $j }}" {{ $option->benar ? 'checked': '' }}>
                                           <label for="option{{ $i }}ke{{ $j }}">{!! $option->jawaban !!}</label>
                                           @if ($option->benar)
-                                             <span class="badge badge-success">Ini jawaban yang benar</span>
+                                             <i class="fa fa-check text-success"></i>
+                                          {{-- @else
+                                             <i class="fa fa-times text-danger"></i> --}}
+                                          @endif
+                                          @if (in_array($option->id, $jawabanmu))
+                                             <span class="badge badge-primary">ini jawabanmu</span>
                                           @endif
                                           {{-- {{ dd($value->hasil) }}
                                           @if ($value->hasil->tryout_hasil_jawaban->tryout_jawaban_id == $option->id)

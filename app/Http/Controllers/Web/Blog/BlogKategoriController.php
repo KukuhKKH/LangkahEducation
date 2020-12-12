@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\Blog;
 use App\Http\Controllers\Controller;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BlogKategoriController extends Controller
 {
@@ -31,6 +32,7 @@ class BlogKategoriController extends Controller
             'foto' => 'nullable'
         ]);
         try {
+            $foto_name = '';
             if($request->hasFile('foto')) {
                 $foto_name = time().'.'.$request->foto->extension();  
                 $request->foto->move(public_path('upload/kategori/'), $foto_name);
@@ -74,6 +76,7 @@ class BlogKategoriController extends Controller
     {
         try {
             $kategori = Kategori::find($id);
+            $foto_name = '';
             if($request->hasFile('foto')) {
                 $foto_name = time().'.'.$request->foto->extension();  
                 $request->foto->move(public_path('upload/kategori/'), $foto_name);
@@ -97,7 +100,11 @@ class BlogKategoriController extends Controller
     public function destroy($id)
     {
         try {
-            $kategori = Kategori::find($id)->delete();
+            $kategori = Kategori::find($id);
+            DB::table('blog_kategori')
+                    ->where('kategori_id', $id)
+                    ->delete();
+            $kategori->delete();
             return redirect()->route('kategori-blog.index')->with(['success' => 'Berhasil hapus kategori']);
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
