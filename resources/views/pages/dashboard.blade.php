@@ -523,47 +523,47 @@
 
     @hasanyrole('mentor')
         <script>
-            var ctx = document.getElementById("myPieChart");
+            var ctx = document.getElementById("myPersaingan");
             var myPieChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: ["SAINTEK", "SOSHUM"],
-                datasets: [{
-                data: [55, 30],
-                backgroundColor: ['#4e73df', '#1cc88a'],
-                hoverBackgroundColor: ['#2e59d9', '#17a673'],
-                hoverBorderColor: "rgba(234, 236, 244, 1)",
-                }],
-            },
-            options: {
-                maintainAspectRatio: false,
-                tooltips: {
-                backgroundColor: "rgb(255,255,255)",
-                bodyFontColor: "#858796",
-                borderColor: '#dddfeb',
-                borderWidth: 1,
-                xPadding: 15,
-                yPadding: 15,
-                displayColors: false,
-                caretPadding: 10,
+                type: 'doughnut',
+                data: {
+                    labels: {!! json_encode($label ?? []) !!},
+                    datasets: [{
+                        data: {!! json_encode($val ?? []) !!},
+                        backgroundColor: ['#4e73df', '#1cc88a'],
+                        hoverBackgroundColor: ['#2e59d9', '#17a673'],
+                        hoverBorderColor: "rgba(234, 236, 244, 1)",
+                    }],
                 },
-                legend: {
-                display: false
+                options: {
+                    maintainAspectRatio: false,
+                    tooltips: {
+                        backgroundColor: "rgb(255,255,255)",
+                        bodyFontColor: "#858796",
+                        borderColor: '#dddfeb',
+                        borderWidth: 1,
+                        xPadding: 15,
+                        yPadding: 15,
+                        displayColors: false,
+                        caretPadding: 10,
+                    },
+                    legend: {
+                        display: false
+                    },
+                    cutoutPercentage: 50,
                 },
-                cutoutPercentage: 50,
-            },
             });
 
             // Grafik Persaingan
-            let ctx2 = document.getElementById("myPersaingan");
+            let ctx2 = document.getElementById("myAreaChart");
             let data_saingan = {
-                labels: ["80", "90", "100"],
+                labels: {!! json_encode($label2 ?? []) !!},
                 datasets: [{
                     label: "Nilai",
                     backgroundColor: "#4e73df",
                     hoverBackgroundColor: "#2e59d9",
                     borderColor: "#4e73df",
-                    data: [2, 3, 1],
+                    data: {!! json_encode($val2 ?? []) !!},
                     // data : jumlah nilai yg sama
                 }],
             }

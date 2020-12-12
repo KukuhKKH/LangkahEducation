@@ -20,4 +20,8 @@ class TempProdi extends Model
     public function passing_grade() {
         return $this->belongsTo('App\Models\PassingGrade', 'passing_grade_id');
     }
+
+    public function kelompok() {
+        return $this->belongsTo('App\Models\KelompokPassingGrade', 'kelompok_passing_grade_id');
+    }
 }

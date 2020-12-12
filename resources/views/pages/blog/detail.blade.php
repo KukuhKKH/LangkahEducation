@@ -85,7 +85,7 @@
                                     <label class="mt-3">Komentar :</label>
                                 </div>
                                 <div class="col-6 text-right">
-                                    <small class="font-weight-bold text-dark mt-3">123 Komentar</small>
+                                    <small class="font-weight-bold text-dark mt-3">{{ count($artikel->komentar) }} Komentar</small>
                                 </div>
                             </div>
                             <div id="comment-list" class="bg-light p-4">

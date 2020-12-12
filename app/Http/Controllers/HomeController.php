@@ -92,9 +92,28 @@ class HomeController extends Controller
             foreach($user->mentor->siswa as $key => $value) {
                 $id_siswa[] = $value->user_id;
             }
+            $grafik =  DB::table('temp_prodi_tryout')
+                            ->selectRaw("COUNT(temp_prodi_tryout.id) AS total, kelompok_passing_grade.nama")
+                            ->join('kelompok_passing_grade', 'temp_prodi_tryout.kelompok_passing_grade_id', '=', 'kelompok_passing_grade.id', 'LEFT')
+                            ->whereIn('user_id', $id_siswa)
+                            ->groupBy('kelompok_passing_grade_id')
+                            ->get();
+            $label = [];
+            $val = [];
+            foreach ($grafik as $key => $value) {
+                $label[] = $value->nama;
+                $val[] = $value->total;
+            }
+            $grafik2 = TryoutHasil::selectRaw("count(id) as total, nilai_awal")->whereIn('user_id', $id_siswa)->groupBy('nilai_awal')->get();
+            $label2 = [];
+            $val2 = [];
+            foreach ($grafik2 as $key => $value) {
+                $label2[] = $value->nilai_awal;
+                $val2[] = $value->total;
+            }
             $rata = TryoutHasil::whereIn('user_id', $id_siswa)->avg('nilai_sekarang');
             $nilai_tertinggi = TryoutHasil::whereIn('user_id', $id_siswa)->max('nilai_sekarang');
-            return view('pages.dashboard', compact('total_siswa', 'rata', 'nilai_tertinggi'));
+            return view('pages.dashboard', compact('total_siswa', 'rata', 'nilai_tertinggi', 'label', 'val', 'label2', 'val2'));
         } elseif($user->getRoleNames()->first() == 'author') {
             $user = auth()->user();
             $artikel_publish = Blog::where('user_id', $user->id)->where('status', 1)->count();
@@ -105,6 +124,8 @@ class HomeController extends Controller
             $artikel_like = Blog::withCount('like')->with('like')->where('status', 1)->orderBy('like_count', 'DESC')->limit(3)->get();
             $artikel_komentar = Blog::withCount('komentar')->with('komentar')->where('status', 1)->orderBy('komentar_count', 'DESC')->limit(3)->get();
             return view('pages.dashboard', compact('artikel_publish', 'artikel_draft', 'total_artikel', 'artikelmu_like', 'artikelmu_komentar', 'artikel_like', 'artikel_komentar'));
+        } else {
+            return view('pages.dashboard');
         }
     }
 
