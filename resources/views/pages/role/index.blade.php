@@ -6,12 +6,12 @@
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <div class="row">
+            <div class="row align-items-center">
                 <div class="col-xl-6">
                     <h6 class="m-0 font-weight-bold text-primary">Role</h6>
                 </div>
                 <div class="col-xl-6 text-right">
-                    <div class="btn-group btn-group-md mb-3">
+                    <div class="btn-group btn-group-md">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalRole"><i class="fa fa-plus"></i> Tambah Role</button>
                     </div>
                 </div>
