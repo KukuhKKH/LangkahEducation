@@ -14,6 +14,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\Sekolah\SekolahCreateRequest;
 use App\Http\Requests\Sekolah\SekolahUpdateRequest;
 use App\Imports\NisnSiswaKeSekolahImport;
+use App\Models\Gelombang;
 use App\Models\TryoutPaket;
 
 class SekolahController extends Controller
@@ -241,6 +242,30 @@ class SekolahController extends Controller
             $sekolah = Sekolah::find($id);
             $sekolah->tryout()->sync($request->tryout);
             return redirect()->route('sekolah.index')->with(['success' => "Tryout berhasil diintegrasikan"]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()])->withInput();
+        }
+    }
+
+    public function integrasi_produk($id) {
+        try {
+            $sekolah = Sekolah::find($id);
+            $produk = Gelombang::where('jenis', 2)->get();
+            $hasProduk = DB::table('sekolah_has_gelombang')
+                                ->select('gelombang.nama')
+                                ->join('gelombang', 'gelombang.id', '=', 'sekolah_has_gelombang.gelombang_id')
+                                ->where('sekolah_id', $sekolah->id)->get()->pluck('nama')->all();
+            return view('pages.users.sekolah.sekolah_produk', compact('sekolah', 'produk', 'hasProduk'));
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function integrasi_produk_store(Request $request, $id) {
+        try {
+            $sekolah = Sekolah::find($id);
+            $sekolah->gelombang()->sync($request->produk);
+            return redirect()->route('sekolah.index')->with(['success' => "Produk / Gelombang berhasil diintegrasikan"]);
         } catch (\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()])->withInput();
         }

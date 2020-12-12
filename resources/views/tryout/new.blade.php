@@ -53,7 +53,7 @@
          <!-- Begin Page Content -->
          <div class="container-fluid">
             <div class="card p-3">
-               <form action="{{ route('tryout.soal.store', ['paket' => $paket->slug]) }}" method="post" id="form-data">
+               <form action="{{ route('tryout.soal.store', ['gelombang_id' => $gelombang_id, 'paket' => $paket->slug]) }}" method="post" id="form-data">
                @csrf
                   <div class="card-body">
                      <h4>
@@ -166,7 +166,7 @@
 @section('js')
 <script src="{{ asset('assets/vendor/moment.js') }}"></script>
 <script>
-   window.onbeforeunload = function () {return false;}
+   // window.onbeforeunload = function () {return false;}
 
    const total_soal = {{ count($soal) }}
    const paket_slug = `{{ $paket->slug }}`

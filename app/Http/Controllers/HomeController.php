@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KelompokPassingGrade;
+use App\Models\PassingGrade;
 use App\Models\User;
 use App\Models\Siswa;
 use App\Models\Sekolah;
@@ -9,6 +11,7 @@ use App\Models\Pembayaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Models\StatistikPengunjung;
+use App\Models\TempProdi;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -52,8 +55,14 @@ class HomeController extends Controller
                 $label[] = $value['tanggal']. " $bulan";
                 $total[] = $value['total'];
             }
-            // dd($label, $total);
             return view('pages.dashboard', compact('sekolah', 'siswa', 'belum_bayar', 'pengunjung', 'label', 'total'));
+        } elseif($user->getRoleNames()->first() == 'siswa') {
+            $kelompok = TempProdi::where('user_id', $user->id)->first();
+            $passing_grade = [];
+            if($kelompok) {
+                $passing_grade = PassingGrade::where('kelompok_id', $kelompok->id)->get();
+            }
+            return view('pages.dashboard', compact('kelompok', 'passing_grade'));
         } else {
             return view('pages.dashboard');
         }

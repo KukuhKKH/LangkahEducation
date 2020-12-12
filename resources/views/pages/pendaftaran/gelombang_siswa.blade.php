@@ -22,12 +22,11 @@
                         : <span class="font-weight-normal">{{ Carbon\Carbon::parse($value->tgl_awal)->format('d F Y') }}
                            </span></h6>
                     <h6 class="font-weight-bold">Pendaftaran Berakhir : <span class="font-weight-normal">{{ Carbon\Carbon::parse($value->tgl_akhir)->format('d F Y') }}</span> </h6>
-                    <h6 class="font-weight-bold">Biaya Pendaftaran : <span class="font-weight-normal">Rp. {{ $value->harga }}</span></h6>
+                    <h6 class="font-weight-bold">Biaya Pendaftaran : <span class="font-weight-normal">Rp. {{ number_format($value->harga) }}</span></h6>
                 </div>
         
                 <div class="d-flex justify-content-center">
-                <a href="javascript:void(0)" data-id="{{ $value->id }}" class="my-4 btn btn-langkah btn-block w-100 m-4 daftar"
-                    data-toggle="tooltip" data-placement="top" title="Daftar">
+                <a href="javascript:void(0)" data-id="{{ $value->id }}" class="my-4 btn btn-langkah btn-block w-100 m-4 daftar" data-toggle="tooltip" data-placement="top" title="Daftar">
                     Daftar Sekarang
                 </a>
                 </div>

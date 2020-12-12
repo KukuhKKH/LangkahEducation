@@ -26,10 +26,17 @@ class TryoutController extends Controller
     public function index() {
         $user = Auth::user();
         $status_bayar = 0;
+        $kosong = true;
+        $produk_gelombang = [];
+        $produk_sekolah = [];
         if($user->siswa->batch == 1) {
-            $paket = $user->siswa->sekolah->first()->tryout;
-            if(count($user->siswa->gelombang) > 0) {
-                dd($user->siswa->gelombang);
+            $produk_sekolah = $user->siswa->sekolah->first()->gelombang;
+            $cek_gelombang = Gelombang::wherehas('siswa', function($query) use($user) {
+                $query->where('siswa_id', $user->siswa->id);
+            })->get();
+            // Jika membeli produk sendiri
+            if(count($cek_gelombang) > 0) {
+                $produk_gelombang = $cek_gelombang;
             }
             $status_bayar = 1;
         } else if($user->siswa->batch == 0) {
@@ -39,29 +46,32 @@ class TryoutController extends Controller
 
             // Sudah Daftar Gelombang
             if(count($cek_gelombang) > 0) {
-                $gelombang = $user->siswa->gelombang()->get()->pluck('id');
-                $id_gelombang = [];
-                foreach ($gelombang as $key => $value) {
-                    $pembayaran = Pembayaran::where('gelombang_id', $value)->where('user_id', $user->id)->first();
-                    if($pembayaran->status == 2) {
-                        $id_gelombang[] = $pembayaran->gelombang_id;
-                    }
-                }
-                $id_tryout = DB::table('gelombang_tryout')
-                                ->select('tryout_paket_id')
-                                ->whereIn('gelombang_id', $id_gelombang)->get()->pluck('tryout_paket_id');
-                $gelombang_data = Gelombang::whereIn('id', $id_gelombang)->with('tryout')->get();
-                // dd($gelombang_data);
-                $raw_paket = [];
-                foreach ($gelombang_data as $key => $value) {
-                    $raw_paket[] = $value->tryout;
-                }
-                $paket = [];
-                foreach ($raw_paket as $key => $value) {
-                    foreach ($value as $key2 => $value2) {
-                        $paket[] = $value2;
-                    }
-                }
+                $produk_gelombang = $cek_gelombang;
+                // INI TIDAK JADI BRUH
+                // SEPAK EMANG
+                // $gelombang = $user->siswa->gelombang()->get()->pluck('id');
+                // $id_gelombang = [];
+                // foreach ($gelombang as $key => $value) {
+                //     $pembayaran = Pembayaran::where('gelombang_id', $value)->where('user_id', $user->id)->first();
+                //     if($pembayaran->status == 2) {
+                //         $id_gelombang[] = $pembayaran->gelombang_id;
+                //     }
+                // }
+                // $id_tryout = DB::table('gelombang_tryout')
+                //                 ->select('tryout_paket_id')
+                //                 ->whereIn('gelombang_id', $id_gelombang)->get()->pluck('tryout_paket_id');
+                // $gelombang_data = Gelombang::whereIn('id', $id_gelombang)->with('tryout')->get();
+                // // dd($gelombang_data);
+                // $raw_paket = [];
+                // foreach ($gelombang_data as $key => $value) {
+                //     $raw_paket[] = $value->tryout;
+                // }
+                // $paket = [];
+                // foreach ($raw_paket as $key => $value) {
+                //     foreach ($value as $key2 => $value2) {
+                //         $paket[] = $value2;
+                //     }
+                // }
                 // dd($paket, $raw_paket);
                 // $paket = TryoutPaket::whereIn('id', $id_tryout)->get();
                 $status_bayar = 1;
@@ -70,7 +80,7 @@ class TryoutController extends Controller
             }
         }
         $user_token = Crypt::encrypt($user->api_token);
-        return view('pages.siswa.tryout.index',compact('paket', 'status_bayar', 'user_token'));
+        return view('pages.siswa.tryout.index',compact('produk_sekolah', 'produk_gelombang', 'kosong', 'status_bayar', 'user_token'));
     }
 
     /**
@@ -181,7 +191,7 @@ class TryoutController extends Controller
     }
     // End Tryout Lama
 
-    public function tryout_baru_detail(Request $request, $token, $slug) {
+    public function tryout_baru_detail(Request $request, $gelombang_id, $token, $slug) {
         try {
             $paket = TryoutPaket::findSlug($slug);
             $detail = DB::table('tryout_soal')
@@ -193,7 +203,8 @@ class TryoutController extends Controller
             $user_token = $token;
             $kelompok = KelompokPassingGrade::all();
             $universitas = Universitas::all();
-            return view('tryout.detail',compact('detail', 'paket', 'user_token', 'universitas', 'kelompok'));
+            $gelombang_id = $gelombang_id;
+            return view('tryout.detail',compact('detail', 'paket', 'user_token', 'universitas', 'kelompok', 'gelombang_id'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
@@ -205,34 +216,35 @@ class TryoutController extends Controller
      * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function tryout_baru(Request $request, $token, $slug) {
+    public function tryout_baru(Request $request, $gelombang_id, $token, $slug) {
         try {
-            // dd($request->session());
-            // $request->session()->forget('kategori_id');
-            // $request->session()->forget('index_kategori');
+            $gelombang_id = $gelombang_id;
             $cek_token = Crypt::decrypt($token);
-            // dd(auth()->user()->api_token == $cek_token);
             if(auth()->user()->api_token == $cek_token) {
                 $paket = TryoutPaket::findSlug($slug);
                 if($request->get('prodi-1')) {
                     TempProdi::updateOrCreate([
                         'paket_id' => $paket->id,
+                        'gelombang_id' => $gelombang_id,
                         'user_id' => auth()->user()->id,
                         'passing_grade_id' => $request->get('prodi-1'),
                         'kelompok_passing_grade_id' => $request->get('kelompok'),
                     ], [
                         'paket_id' => $paket->id,
+                        'gelombang_id' => $gelombang_id,
                         'user_id' => auth()->user()->id,
                         'passing_grade_id' => $request->get('prodi-1'),
                         'kelompok_passing_grade_id' => $request->get('kelompok'),
                     ]);
                     TempProdi::updateOrCreate([
                         'paket_id' => $paket->id,
+                        'gelombang_id' => $gelombang_id,
                         'user_id' => auth()->user()->id,
                         'passing_grade_id' => $request->get('prodi-2'),
                         'kelompok_passing_grade_id' => $request->get('kelompok'),
                     ], [
                         'paket_id' => $paket->id,
+                        'gelombang_id' => $gelombang_id,
                         'user_id' => auth()->user()->id,
                         'passing_grade_id' => $request->get('prodi-2'),
                         'kelompok_passing_grade_id' => $request->get('kelompok'),
@@ -265,7 +277,7 @@ class TryoutController extends Controller
                                         ->where('tryout_kategori_soal_id', $kateogri_id[$index])
                                         ->get();
                     $waktu = TryoutKategoriSoal::where('id', $kateogri_id[$index])->first()->waktu;
-                    return view('tryout.new', compact('soal', 'paket', 'waktu'));
+                    return view('tryout.new', compact('soal', 'paket', 'waktu', 'gelombang_id'));
                 // }
             } else {
                 return redirect()->route('siswa.tryout.index')->with(['error' => 'Ini bukan link anda']);
@@ -278,11 +290,12 @@ class TryoutController extends Controller
         }
     }
 
-    public function tryout_store_baru(Request $request, $paket_slug) {
+    public function tryout_store_baru(Request $request, $gelombang_id, $paket_slug) {
         $paket_id = TryoutPaket::findSlug($paket_slug)->id;
 
         $data_hasil = Auth::user()->tryout_hasil()->firstOrCreate([
             'tryout_paket_id' => $paket_id,
+            'gelombang_id' => $gelombang_id,
         ],[
             'nilai_awal' => 0,
             'nilai_sekarang' => 0,
@@ -351,55 +364,62 @@ class TryoutController extends Controller
             $request->session()->put('index_kategori', $index_sekarang);
         }
         $user_token = Crypt::encrypt(Auth::user()->api_token);
-        return redirect()->route('tryout.mulai', ['slug' => $paket_slug, 'token' => $user_token])->withInput();
+        return redirect()->route('tryout.mulai', ['gelombang_id' => $gelombang_id, 'slug' => $paket_slug, 'token' => $user_token])->withInput();
     }
 
     // End Tryout Baru
 
     // Analisa Tryout
-    public function hasil(Request $request, $slug) {
-        $paket = TryoutPaket::findSlug($slug);
-        $tryout = TryoutHasil::with(['user', 'paket', 'tryout_hasil_jawaban', 'tryout_hasil_detail'])->where('user_id', auth()->user()->id)->where('tryout_paket_id', $paket->id)->first();
-        if($request->get('kelompok')) {
-            $kelompok = KelompokPassingGrade::find($request->get('kelompok'));
-            $passing_grade = PassingGrade::with('universitas')->whereHas('kelompok', function($q) use($kelompok) {
-                $q->where('id', $kelompok->id);
-            })->latest()->get();
-        } else {
-            $kelompok = '';
-            $passing_grade = PassingGrade::with('universitas')->latest()->get();
-        }
-        $saingan = TryoutHasil::where('tryout_paket_id', $paket->id)->with(['user'])->orderBy('nilai_awal', 'ASC')->get();
+    public function hasil(Request $request, $gelombang_id, $slug) {
+        try {
+            $paket = TryoutPaket::findSlug($slug);
+            $tryout = TryoutHasil::with(['user', 'paket', 'tryout_hasil_jawaban', 'tryout_hasil_detail'])
+                                ->where('user_id', auth()->user()->id)
+                                ->where('tryout_paket_id', $paket->id)
+                                ->where('gelombang_id', $gelombang_id)->first();
+            if($request->get('kelompok')) {
+                $kelompok = KelompokPassingGrade::find($request->get('kelompok'));
+                $passing_grade = PassingGrade::with('universitas')->whereHas('kelompok', function($q) use($kelompok) {
+                    $q->where('id', $kelompok->id);
+                })->latest()->get();
+            } else {
+                $kelompok = '';
+                $passing_grade = PassingGrade::with('universitas')->latest()->get();
+            }
+            $saingan = TryoutHasil::where('tryout_paket_id', $paket->id)->with(['user'])->orderBy('nilai_awal', 'ASC')->get();
 
-        // Data Grafik User
-        $nilai_by_user = TryoutHasil::with(['user', 'paket', 'tryout_hasil_jawaban', 'tryout_hasil_detail'])->where('user_id', auth()->user()->id)->get();
-        $nilai_grafik = [];
-        $nama_paket = [];
-        foreach ($nilai_by_user as $key => $value) {
-            $nilai_grafik[] = $value->nilai_awal;
-            $nama_paket[] = $value->paket->nama;
-        }
+            // Data Grafik User
+            $nilai_by_user = TryoutHasil::with(['user', 'paket', 'tryout_hasil_jawaban', 'tryout_hasil_detail'])->where('user_id', auth()->user()->id)->get();
+            $nilai_grafik = [];
+            $nama_paket = [];
+            foreach ($nilai_by_user as $key => $value) {
+                $nilai_grafik[] = $value->nilai_awal;
+                $nama_paket[] = $value->paket->nama;
+            }
 
-        // Data Grafik Saingan
-        $nama_saingan = [];
-        $nilai_saingan = [];
-        foreach ($saingan as $key => $value) {
-            $nama_saingan[] = $value->user->name;
-            $nilai_saingan[] = $value->nilai_awal;
-        }
+            // Data Grafik Saingan
+            $nama_saingan = [];
+            $nilai_saingan = [];
+            foreach ($saingan as $key => $value) {
+                $nama_saingan[] = $value->user->name;
+                $nilai_saingan[] = $value->nilai_awal;
+            }
 
-        if($request->get('prodi-1') && $request->get('prodi-2')) {
-            $pg1 = PassingGrade::find($request->get('prodi-1'));
-            $pg2 = PassingGrade::find($request->get('prodi-2'));
-            $nilai_awal = $tryout->nilai_awal;
-            $nilai_max = $tryout->nilai_maksimal;
-            $nilai_user = round($nilai_awal/$nilai_max * 100, 2);
-            $nil_pg1 = ($pg1->passing_grade/100)*$nilai_max;
-            $nil_pg2 = ($pg2->passing_grade/100)*$nilai_max;
-        } else {
-            $pg1 = $pg2 = $nilai_user = $nil_pg1 = $nil_pg2 = 0;
+            if($request->get('prodi-1') && $request->get('prodi-2')) {
+                $pg1 = PassingGrade::find($request->get('prodi-1'));
+                $pg2 = PassingGrade::find($request->get('prodi-2'));
+                $nilai_awal = $tryout->nilai_awal;
+                $nilai_max = $tryout->nilai_maksimal;
+                $nilai_user = round($nilai_awal/$nilai_max * 100, 2);
+                $nil_pg1 = ($pg1->passing_grade/100)*$nilai_max;
+                $nil_pg2 = ($pg2->passing_grade/100)*$nilai_max;
+            } else {
+                $pg1 = $pg2 = $nilai_user = $nil_pg1 = $nil_pg2 = 0;
+            }
+            $komentar = Komentar::where('tryout_hasil_id', $tryout->id)->first();
+            return view('pages.tryout.hasil-analisis.index', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket', 'komentar', 'nil_pg1', 'nil_pg2', 'kelompok'));
+        } catch(\Exception $e) {
+            return redirect()->route('siswa.tryout.index')->with(['error' => 'jangan merubah url bwang']);
         }
-        $komentar = Komentar::where('tryout_hasil_id', $tryout->id)->first();
-        return view('pages.tryout.hasil-analisis.index', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket', 'komentar', 'nil_pg1', 'nil_pg2', 'kelompok'));
     }
 }

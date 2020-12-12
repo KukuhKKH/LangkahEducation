@@ -43,7 +43,7 @@
     <li class="nav-item {{ request()->segment(2) == 'pendaftaran' ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('pendaftaran.index') }}">
             <i class="fas fa-fw fa-user"></i>
-            <span>Pendaftaran Batch</span>
+            <span>Produk / Gelombang</span>
         </a>
     </li>
     

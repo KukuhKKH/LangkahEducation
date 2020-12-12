@@ -25,10 +25,10 @@ class GelombangStore extends FormRequest
     {
         return [
             'nama' => 'required',
-            'kode_referal' => 'required',
             'harga' => 'required',
             'tgl_awal' => 'required',
-            'tgl_akhir' => 'required'
+            'tgl_akhir' => 'required',
+            'jenis' => 'required'
         ];
     }
 }

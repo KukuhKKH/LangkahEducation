@@ -80,7 +80,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <form action="{{ route('tryout.mulai', ['slug' => $paket->slug, 'token' => $user_token]) }}" class="mt-4" method="get">
+                            <form action="{{ route('tryout.mulai', ['gelombang_id' => $gelombang_id, 'slug' => $paket->slug, 'token' => $user_token]) }}" class="mt-4" method="get">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">

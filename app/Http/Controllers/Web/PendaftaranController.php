@@ -38,8 +38,8 @@ class PendaftaranController extends Controller
             $tgl_akhir = "$raw_tgl_akhir[1]/$raw_tgl_akhir[0]/$raw_tgl_akhir[2]";
             $gelombang = Gelombang::latest()->first();
             $data = [
+                'jenis' => $request->jenis,
                 'nama' => $request->nama,
-                'kode_referal' => $request->kode_referal,
                 'harga' => $request->harga,
                 'tgl_awal' => $tgl_awal,
                 'tgl_akhir' => $tgl_akhir
@@ -89,8 +89,8 @@ class PendaftaranController extends Controller
             $tgl_awal = "$raw_tgl_awal[1]/$raw_tgl_awal[0]/$raw_tgl_awal[2]";
             $tgl_akhir = "$raw_tgl_akhir[1]/$raw_tgl_akhir[0]/$raw_tgl_akhir[2]";
             $pendftaran->update([
+                'jenis' => $request->jenis,
                 'nama' => $request->nama,
-                'kode_referal' => $request->kode_referal,
                 'harga' => $request->harga,
                 'tgl_awal' => $tgl_awal,
                 'tgl_akhir' => $tgl_akhir

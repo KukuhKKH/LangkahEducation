@@ -15,7 +15,21 @@
          @csrf
          @method("PUT")
          <div class="row">
-            <div class="col-6">
+            <div class="col-md-6">
+               <div class="form-group">
+                  <label for="">Jenis Gelombang</label>
+                  <select name="jenis" class="form-control @error('jenis') is-invalid @enderror" autocomplete="off">
+                      <option value="1" {{ ($pendaftaran->jenis == 1) ? 'selected' : '' }}>Umum</option>
+                      <option value="2" {{ ($pendaftaran->jenis == 2) ? 'selected' : '' }}>Sekolah</option>
+                  </select>
+                  @error('jenis')
+                      <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                      </span>
+                  @enderror
+              </div>
+            </div>
+            <div class="col-md-6">
                <div class="form-group">
                   <label for="">Nama</label>
                   <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" value="{{ $pendftaran->nama }}" placeholder="Nama Gelombang">
@@ -26,18 +40,7 @@
                   @enderror
                </div>
             </div>
-            <div class="col-6">
-               <div class="form-group">
-                  <label for="">Kode Referal</label>
-                  <input type="text" name="kode_referal" class="form-control @error('kode_referal') is-invalid @enderror" value="{{ $pendftaran->kode_referal }}" placeholder="Kode Referal">
-                  @error('kode_referal')
-                  <span class="invalid-feedback" role="alert">
-                     <strong>{{ $message }}</strong>
-                  </span>
-                  @enderror
-               </div>
-            </div>
-            <div class="col-6">
+            <div class="col-md-6">
                <div class="form-group">
                   <label for="tgl_awal">Tanggal Awal</label>
                   <input name="tgl_awal" id="tgl_awal" type="text" class="datepicker form-control form-control-user @error('tgl_awal') is-invalid @enderror" placeholder="Tanggal Awal" value="{{ date('d/m/Y', strtotime($pendftaran->tgl_awal)) }}" required>
@@ -48,7 +51,7 @@
                   @enderror
                </div>
             </div>
-            <div class="col-6">
+            <div class="col-md-6">
                <div class="form-group">
                   <label for="tgl_akhir">Tanggal Akhir</label>
                   <input name="tgl_akhir" id="tgl_akhir" type="text" class="datepicker form-control form-control-user @error('tgl_akhir') is-invalid @enderror" placeholder="Tanggal Akhir" value="{{ date('d/m/Y', strtotime($pendftaran->tgl_akhir)) }}" required>
@@ -59,7 +62,7 @@
                   @enderror
                </div>
             </div>
-            <div class="col-6">
+            <div class="col-md-6">
                <div class="form-group">
                   <label for="">Biaya Pendaftaran</label>
                   <input type="text" class="form-control @error('harga') is-invalid @enderror" id="harga" name="harga" placeholder="Masukkan Harga Gelombang" value="{{ $pendftaran->harga }}">
