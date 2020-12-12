@@ -29,10 +29,18 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
-        $admin = User::whereHas('roles', function($q){
-            $q->where('name', 'admin');
-        })->latest()->paginate(10);
         $data = $request->all();
+
+        if($request->get('keyword') != '') {
+            $admin = User::whereHas('roles', function($q) use($request) {
+                $nama = $request->get('keyword');
+                $q->where('name', 'admin')->where('name', 'LIKE', "%$nama%");
+            })->paginate(10);
+        } else {
+            $admin = User::whereHas('roles', function($q){
+                $q->where('name', 'admin');
+            })->latest()->paginate(10);
+        }
         return view('pages.users.admin.index', compact("admin", "data"));
     }
 

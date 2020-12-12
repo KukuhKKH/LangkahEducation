@@ -11,15 +11,15 @@
                 <h6 class="m-0 font-weight-bold text-primary">Superadmin</h6>
             </div>
             <div class="col-xl-6 text-right">
-                {{-- <div class="btn-group btn-group-md">
+                <div class="btn-group btn-group-md">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalData"><i
                             class="fa fa-plus"></i> Tambah Superadmin</button>
-                </div> --}}
+                </div>
             </div>
         </div>
     </div>
     <div class="card-body">
-        {{-- <form action="" method="GET">
+        <form action="" method="GET">
             <div class="row mb-4 justify-content-end align-items-center">
                 <div class="col-xl-5">
                     <div class="input-group">
@@ -33,7 +33,7 @@
                   <a href="{{ route('superadmin.index') }}" class="btn btn-lght text-danger my-1">Refresh</a>
                 </div>
             </div>
-        </form> --}}
+        </form>
         <div class="table-responsive">
             <table class="table table-bordered" width="100%" cellspacing="0">
                 <thead>
@@ -68,7 +68,7 @@
                                 id="form-{{ $value->id }}">
                                 @csrf
                                 @method("DELETE")
-                                <a href="{{ route('admin.edit', $value->id) }}" class="btn btn-success"
+                                <a href="{{ route('superadmin.edit', $value->id) }}" class="btn btn-success"
                                     data-toggle="tooltip" data-placement="top" title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </a>
@@ -104,7 +104,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('admin.store') }}" id="form" method="post" enctype="multipart/form-data">
+            <form action="{{ route('superadmin.store') }}" id="form" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <div class="form-group">

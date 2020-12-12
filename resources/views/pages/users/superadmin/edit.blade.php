@@ -22,7 +22,7 @@
             </div>
         </div>
         
-        <form action="{{ route('admin.update', $superadmin->id) }}" id="form" method="post"
+        <form action="{{ route('superadmin.update', $superadmin->id) }}" id="form" method="post"
             enctype="multipart/form-data">
             @csrf
             @method("PUT")
@@ -140,7 +140,7 @@
                 <div class="col-xl-6">
                     <div class="float-right">
                         <button type="submit" class="btn btn-success">Edit</button>
-                        <a href="{{ url()->previous() }}" class="btn btn-warning text-dark ml-1">Kembali</a>
+                        <a href="{{ url()->previous() }}" class="btn btn-dark ml-1">Kembali</a>
                     </div>
                 </div>
             </div>

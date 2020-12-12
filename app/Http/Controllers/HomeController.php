@@ -41,7 +41,6 @@ class HomeController extends Controller
 
     public function dashboard(Request $request) {
         $user = Auth::user();
-        // dd($user->getRoleNames()->first());
         if($user->getRoleNames()->first() == 'superadmin' || $user->getRoleNames()->first() == 'admin') {
             $sekolah = Sekolah::count();
             $siswa = Siswa::count();

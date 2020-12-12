@@ -29,10 +29,18 @@ class SuperadminController extends Controller
      */
     public function index(Request $request)
     {
-        $superadmin = User::whereHas('roles', function($q){
-            $q->where('name', 'superadmin');
-        })->latest()->paginate(10);
         $data = $request->all();
+
+        if($request->get('keyword') != '') {
+            $superadmin = User::whereHas('roles', function($q) use($request) {
+                $nama = $request->get('keyword');
+                $q->where('name', 'superadmin')->where('name', 'LIKE', "%$nama%");
+            })->paginate(10);
+        } else {
+            $superadmin = User::whereHas('roles', function($q){
+                $q->where('name', 'superadmin');
+            })->latest()->paginate(10);
+        }
         return view('pages.users.superadmin.index', compact("superadmin", "data"));
     }
 
