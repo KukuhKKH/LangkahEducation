@@ -25,8 +25,15 @@ class SekolahController extends Controller
      */
     public function index(Request $request)
     {
-        $sekolah = Sekolah::latest()->paginate(10);
         $data = $request->all();
+        if($request->get('keyword') != '') {
+            $sekolah = Sekolah::latest()->whereHas('user', function($q) use($request) {
+                $nama = $request->get('keyword');
+                $q->where('name', 'LIKE', "%$nama%");
+            })->paginate(10);
+        } else {
+            $sekolah = Sekolah::latest()->paginate(10);
+        }
         return view('pages.users.sekolah.index', compact('sekolah', 'data'));
     }
 

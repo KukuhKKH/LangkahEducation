@@ -18,7 +18,15 @@ class AuthorController extends Controller
     public function index(Request $request)
     {
         $data = $request->all();
-        $author = Author::latest()->paginate(10);
+        if($request->get('keyword') != '') {
+            $author = Author::latest()->whereHas('user', function($q) use($request) {
+                $nama = $request->get('keyword');
+                $q->where('name', 'LIKE', "%$nama%");
+            })->paginate(10);
+        } else {
+            $author = Author::latest()->paginate(10);
+        }
+
         return view('pages.users.author.index', compact("author", "data"));
     }
 

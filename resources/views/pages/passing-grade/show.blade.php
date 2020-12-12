@@ -41,14 +41,17 @@
         </div>
         <div class="card-body">
             <form action="" method="GET">
-                <div class="row mb-4 justify-content-end">
-                    <div class="col-xl-6">
+                <div class="row mb-4 justify-content-end align-items-center">
+                    <div class="col-xl-5">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Masukkan Nama Prodi" aria-label="Masukkan Nama Prodi" aria-describedby="basic-addon2">
+                            <input type="text" name="keyword" class="form-control" placeholder="Masukkan Nama Prodi" aria-label="Masukkan Nama Prodi" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                               <button class="btn btn-primary" type="button">Cari</button>
                             </div>
-                          </div>
+                         </div>
+                    </div>
+                    <div class="col-xl-auto">
+                      <a href="{{ route('passing-grade.show', $universitas->id) }}" class="btn btn-lght text-danger my-1">Refresh</a>
                     </div>
                 </div>
             </form>
@@ -57,20 +60,20 @@
                     <thead>
                     <tr>
                         <th>No</th>
+                        <th width="25%">Prodi</th>
                         <th>Nama Universitas</th>
-                        <th>Kategori</th>
-                        <th>Prodi</th>
                         <th>Passing Grade</th>
+                        <th>Kategori</th>
                         <th width="25%">Aksi</th>
                     </tr>
                     </thead>
                     <tfoot>
                     <tr>
                         <th>No</th>
+                        <th width="25%">Prodi</th>
                         <th>Nama Universitas</th>
-                        <th>Kategori</th>
-                        <th>Prodi</th>
                         <th>Passing Grade</th>
+                        <th>Kategori</th>
                         <th width="25%">Aksi</th>
                     </tr>
                     </tfoot>
@@ -78,10 +81,10 @@
                     @forelse($passing_grade as $value)
                         <tr>
                            <td>{{ $loop->iteration }}</td>
-                           <td>{{ $value->universitas->nama }}</td>
-                           <td>{{ Str::upper($value->kelompok->nama) }}</td>
                            <td>{{ $value->prodi }}</td>
+                           <td>{{ $value->universitas->nama }}</td>
                            <td>{{ $value->passing_grade }} %</td>
+                           <td>{{ Str::upper($value->kelompok->nama) }}</td>
                            <td>
                               <form action="{{ route('passing-grade.destroy', $value->id) }}" method="POST" id="form-{{ $value->id }}">
                                  @csrf

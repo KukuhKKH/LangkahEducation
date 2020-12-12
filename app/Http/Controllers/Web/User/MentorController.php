@@ -22,8 +22,15 @@ class MentorController extends Controller
      */
     public function index(Request $request)
     {
-        $mentor = Mentor::latest()->paginate(10);
         $data = $request->all();
+        if($request->get('keyword') != '') {
+            $mentor = Mentor::latest()->whereHas('user', function($q) use($request) {
+                $nama = $request->get('keyword');
+                $q->where('name', 'LIKE', "%$nama%");
+            })->paginate(10);
+        } else {
+            $mentor = Mentor::latest()->paginate(10);
+        }
         return view('pages.users.mentor.index', compact('mentor', 'data'));
     }
 

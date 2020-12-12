@@ -15,8 +15,13 @@ class BankController extends Controller
      */
     public function index(Request $request)
     {
-        $bank = Bank::latest()->paginate(10);
         $data = $request->all();
+        if($request->get('keyword') != '') {
+            $nama = $request->get('keyword');
+            $bank = Bank::latest()->where('nama', 'LIKE', "%$nama%")->paginate(10);
+        } else {
+            $bank = Bank::latest()->paginate(10);
+        }
         return view('pages.rekening-pembayaran.index', compact('bank', 'data'));
     }
 
