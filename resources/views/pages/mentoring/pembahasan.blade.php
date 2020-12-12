@@ -12,7 +12,7 @@
       <div id="content">
 
          <!-- Topbar -->
-         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow sticky-topbar">
+         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow ">
 
             <ul class="navbar-nav mr-auto">
                <img class="w-50" src="{{ asset('assets/img/logo-primary.svg') }}" alt="">
@@ -75,7 +75,7 @@
                                              <i class="fa fa-times text-danger"></i> --}}
                                           @endif
                                           @if (in_array($option->id, $jawabanmu))
-                                             <span class="badge badge-primary">ini jawabanmu</span>
+                                             <span class="badge badge-primary">Jawaban Kamu</span>
                                           @endif
                                           {{-- {{ dd($value->hasil) }}
                                           @if ($value->hasil->tryout_hasil_jawaban->tryout_jawaban_id == $option->id)

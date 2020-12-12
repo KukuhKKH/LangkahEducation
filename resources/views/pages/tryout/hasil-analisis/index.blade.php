@@ -193,7 +193,7 @@
                         style="height:100px">
                         @endif
                         <div class="form-group">
-                            <textarea class="form-control mt-4" name="komentar" id="komentarMentor" rows="5" placeholder="Komentar Mentor">{{ $komentar->komentar ?? '' }}</textarea>
+                            <textarea class="form-control mt-4" name="komentar" id="komentarMentor" rows="5" placeholder="Komentar Mentor" disabled>{{ $komentar->komentar ?? '' }}</textarea>
                         </div>
                         @hasanyrole('mentor')
                         <button class="btn btn-langkah btn-block" type="submit">Kirim Komentar</button>

@@ -11,7 +11,7 @@
     @foreach ($value->tryout as $item)
         @if ($item->status == 1)
             <div class="col-xl-4">
-                <div class="card mb-2">
+                <div class="card mb-4">
                     @if ($item->image)
                     <img class="card-img-top img-cover" src="{{ asset("upload/paket-tryout/$item->image") }}" alt="Try Out">
                     @else
@@ -19,8 +19,12 @@
                     @endif
                     <div class="card-body">
                         {{-- Nama paket - Nama Gelombang --}}
-                        <h5 class="card-text">{{ $item->nama }} - {{ $value->nama }}</h5>
+                        <h5 class="card-text">{{ $item->nama }}</h5>
                         <div class="row">
+                            <div class="col-xl-12">
+                                <strong>Produk</strong>
+                                <h6>{{ $value->nama }}</h6>
+                            </div>
                             <div class="col-xl-12">
                                 <strong>Mulai</strong>
                                 <h6>Tanggal : {{ Carbon\Carbon::parse($item->tgl_awal)->format('d F Y') }}</h6>
@@ -73,7 +77,7 @@
     @foreach ($value->tryout as $item)
         @if ($item->status == 1)
             <div class="col-xl-4">
-                <div class="card mb-2">
+                <div class="card mb-4">
                     @if ($item->image)
                     <img class="card-img-top img-cover" src="{{ asset("upload/paket-tryout/$item->image") }}" alt="Try Out">
                     @else
@@ -81,9 +85,13 @@
                     @endif
                     <div class="card-body">
                         {{-- Nama paket - Nama Gelombang --}}
-                        <h5 class="card-text">{{ $item->nama }} - {{ $value->nama }}</h5>
+                        <h5 class="card-text">{{ $item->nama }}</h5>
                         <div class="row">
                             <div class="col-xl-12">
+                                <div class="col-xl-12">
+                                    <strong>Produk - Sekolah</strong>
+                                    <h6>{{ $value->nama }}</h6>
+                                </div>
                                 <strong>Mulai</strong>
                                 <h6>Tanggal : {{ Carbon\Carbon::parse($item->tgl_awal)->format('d F Y') }}</h6>
                                 <h6>Jam : {{ Carbon\Carbon::parse($item->tgl_awal)->format('H:i') }} WIB</h6>

@@ -95,12 +95,12 @@
         </a>
     </li>
 
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a class="nav-link" href="#">
             <i class="fas fa-fw fa-history"></i>
             <span>Riwayat Try Out</span>
         </a>
-    </li>
+    </li> --}}
     @endhasanyrole
     @hasanyrole('mentor')
     <li class="nav-item {{ (request()->segment(2) == 'mentoring') ? 'active' : '' }}">
