@@ -6,7 +6,7 @@
     <section id="blog" class="blog">
         <div class="container">
             <div class="row">
-                <div class="col-xl-8 ">
+                <div class="col-xl-8 mb-3">
                     <label style="font-size:10pt" for="">Urutkan berdasarkan</label>
                     <form action="" method="get">
                         <div class="row">
