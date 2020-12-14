@@ -42,6 +42,8 @@
                 <thead>
                     <tr>
                         <th>No</th>
+                        <th>Jenis</th>
+                        <th>Tipe</th>
                         <th>Nama Kategori</th>
                         <th>Kode Kategori</th>
                         <th>Waktu Pengerjaan</th>
@@ -51,6 +53,8 @@
                 <tfoot>
                     <tr>
                         <th>No</th>
+                        <th>Jenis</th>
+                        <th>Tipe</th>
                         <th>Nama Kategori</th>
                         <th>Kode Kategori</th>
                         <th>Waktu Pengerjaan</th>
@@ -61,6 +65,8 @@
                     @forelse ($kategori as $value)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
+                            <td>{{ strtoupper($value->jenis) }}</td>
+                            <td>{{ strtoupper($value->tipe) }}</td>
                             <td>{{ $value->nama }}</td>
                             <td>{{ $value->kode }}</td>
                             <td>{{ $value->waktu }} Menit</td>
@@ -103,6 +109,31 @@
             <form action="{{ route('kategori-soal.store') }}" method="post">
                 @csrf
                 <div class="modal-body">
+                    <div class="form-group">
+                        <label for="jenis">Jenis Kategori</label>
+                        <select name="jenis" class="form-control @error('jenis') is-invalid @enderror" autocomplete="off">
+                            <option value="tps" {{ old('jenis') == 'tps' ? 'selected' : '' }}>TPS</option>
+                            <option value="tka" {{ old('jenis') == 'tka' ? 'selected' : '' }}>TKA</option>
+                        </select>
+                        @error('nama')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="tipe">Tipe Kategori</label>
+                        <select name="tipe" class="form-control @error('tipe') is-invalid @enderror" autocomplete="off">
+                            <option value="umum" {{ old('tipe') == 'umum' ? 'selected' : '' }}>UMUM</option>
+                            <option value="saintek" {{ old('tipe') == 'saintek' ? 'selected' : '' }}>SAINTEK</option>
+                            <option value="soshum" {{ old('tipe') == 'soshum' ? 'selected' : '' }}>SOSHUM</option>
+                        </select>
+                        @error('nama')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
                     <div class="form-group">
                         <label for="nama">Nama Kategori</label>
                         <input name="nama" type="text" class="form-control form-control-user @error('nama') is-invalid @enderror" id="namaKategori" placeholder="Nama Kategori" value="{{ old('nama') }}" required>

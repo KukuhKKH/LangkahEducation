@@ -66,6 +66,14 @@
             padding: 0;
         }
     </style>
+    {{-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-EM1ZQM2LE7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-EM1ZQM2LE7');
+    </script> --}}
 
     @yield('css')
 </head>

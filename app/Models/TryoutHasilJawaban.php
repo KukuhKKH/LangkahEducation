@@ -12,4 +12,8 @@ class TryoutHasilJawaban extends Model
     public function soal() {
         return $this->belongsTo('App\Models\TryoutSoal', 'tryout_soal_id');
     }
+
+    public function hasil() {
+        return $this->belongsTo('App\Models\TryoutHasil', 'tryout_hasil_id');
+    }
 }
