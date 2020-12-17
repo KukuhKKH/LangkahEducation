@@ -88,7 +88,7 @@ class RegisterController extends Controller
             'asal_sekolah' => $data['asal_sekolah'],
             'tanggal_lahir' => $new_tgl,
         ]);
-        // Mail::to($user->email)->send(new VerifikasiEmail($user));
+        Mail::to($user->email)->send(new VerifikasiEmail($user));
         return $user;
     }
 }

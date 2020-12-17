@@ -107,8 +107,10 @@ class SiswaController extends Controller
             $siswa = Siswa::with('user')->find($id);
             $foto = $siswa->user->foto;
             if($request->hasFile('foto')) {
-                if(file_exists(public_path('upload/users/'.$siswa->user->foto))){
-                    unlink(public_path('upload/users/'.$siswa->user->foto));
+                if($siswa->user->foto != "") {
+                    if(file_exists(public_path('upload/users/'.$siswa->user->foto))){
+                        unlink(public_path('upload/users/'.$siswa->user->foto));
+                    }
                 }
                 $foto_name = time().'.'.$request->foto->extension();  
                 $request->foto->move(public_path('upload/users/'), $foto_name);
@@ -131,7 +133,8 @@ class SiswaController extends Controller
                 $siswa->user()->update([
                     'name' => $request->name,
                     'password' => $request->password_old,
-                    'email' => $request->email
+                    'email' => $request->email,
+                    'foto' => $foto
                 ]);
             } else {
                 $siswa->user()->update([

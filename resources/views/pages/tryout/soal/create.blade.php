@@ -192,20 +192,24 @@
 <script src="{{ asset('assets/vendor/ckeditor/ckeditor.js') }}"></script>
 {{-- <script src="{{ asset('assets/vendor/ckeditor/styles.js') }}"></script> --}}
 <script>
+    const TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+    const URL_LFM = "{{ url('/') }}";
     const option = {
-        filebrowserImageBrowseUrl: '/filemanager?type=Images',
-        filebrowserImageUploadUrl: '/filemanager/upload?type=Images&_token=',
-        filebrowserBrowseUrl: '/filemanager?type=Files',
-        filebrowserUploadUrl: '/filemanager/upload?type=Files&_token='
+        filebrowserImageBrowseUrl: URL_LFM +'/filemanager?type=Images',
+        filebrowserImageUploadUrl: URL_LFM +'/filemanager/upload?type=Images&_token='+TOKEN,
+        filebrowserBrowseUrl: URL_LFM +'/filemanager?type=Files',
+        filebrowserUploadUrl: URL_LFM +'/filemanager/upload?type=Files&_token='+TOKEN
     }
 
-    CKEDITOR.replace('soal', option)
-    CKEDITOR.replace('pembahasan', option)
-    CKEDITOR.replace('pilihan1', option)
-    CKEDITOR.replace('pilihan2', option)
-    CKEDITOR.replace('pilihan3', option)
-    CKEDITOR.replace('pilihan4', option)
-    CKEDITOR.replace('pilihan5', option)
+    $(document).ready(function() {
+        CKEDITOR.replace('soal', option)
+        CKEDITOR.replace('pembahasan', option)
+        CKEDITOR.replace('pilihan1', option)
+        CKEDITOR.replace('pilihan2', option)
+        CKEDITOR.replace('pilihan3', option)
+        CKEDITOR.replace('pilihan4', option)
+        CKEDITOR.replace('pilihan5', option)
+    })
 
 </script>
 @endsection

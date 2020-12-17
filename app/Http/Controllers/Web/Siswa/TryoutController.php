@@ -200,7 +200,7 @@ class TryoutController extends Controller
         try {
             $paket = TryoutPaket::findSlug($slug);
             $detail = DB::table('tryout_soal')
-                            ->selectRaw('tryout_kategori_soal.nama as nama, count(tryout_soal.id) as total, tryout_kategori_soal.waktu as waktu')
+                            ->selectRaw('tryout_kategori_soal.nama as nama, count(tryout_soal.id) as total, tryout_kategori_soal.waktu as waktu, tryout_kategori_soal.tipe as tipe')
                             ->join('tryout_kategori_soal', 'tryout_soal.tryout_kategori_soal_id', '=', 'tryout_kategori_soal.id', 'LEFT')
                             ->where('tryout_paket_id', $paket->id)
                             ->groupBy('tryout_soal.tryout_kategori_soal_id')
@@ -262,14 +262,35 @@ class TryoutController extends Controller
                     $request->session()->put('index_kategori', $index);
                 }
                 if(!$request->session()->has('kategori_id')) {
-                    $kateogri_id = $paket->soal()
+                    $kelompok = KelompokPassingGrade::find($request->get('kelompok'));
+                    if($kelompok->nama == 'saintek') {
+                        $kategori_soal_id = TryoutKategoriSoal::where('tipe', 'umum')->orWhere('tipe', 'saintek')->get()->pluck('id');
+                    } elseif($kelompok->nama == 'soshum') {
+                        $kategori_soal_id = TryoutKategoriSoal::where('tipe', 'umum')->orWhere('tipe', 'soshum')->get()->pluck('id');
+                    } else {
+                        $kategori_soal_id = TryoutKategoriSoal::all()->pluck('id');
+                    }
+                    $kategori_id = $paket->soal()
                                         ->distinct()
                                         ->select('tryout_kategori_soal_id')
+                                        ->whereIn('tryout_kategori_soal_id', $kategori_soal_id)
                                         ->get()->pluck('tryout_kategori_soal_id')
                                         ->toArray();
-                    $request->session()->put('kategori_id', $kateogri_id);
+                    $request->session()->put('kategori_id', $kategori_id);
                 } else {
-                    $kateogri_id = $request->session()->get('kategori_id');
+                    $kategori_id = $request->session()->get('kategori_id');
+                }
+                if($index > 0) {
+                    $temp_index = $index;
+                    $kategori_satu = TryoutKategoriSoal::find($kategori_id[$temp_index])->tipe;
+                    $kategori_dua = TryoutKategoriSoal::find($kategori_id[$temp_index - 1])->tipe;
+                    if($kategori_satu != $kategori_dua) {
+                        if(empty($request->get('lanjut'))) {
+                            $waktu = 5;
+                            $user_token = $token;
+                            return view('tryout.jeda', compact('gelombang_id', 'paket', 'waktu', 'user_token'));
+                        }
+                    }
                 }
                 $cek = $paket->whereHas('hasil', function($q) {
                     $q->where('user_id', auth()->user()->id);
@@ -279,9 +300,9 @@ class TryoutController extends Controller
                 // } else {
                     $soal = TryoutSoal::where('tryout_paket_id', $paket->id)
                                         ->inRandomOrder()
-                                        ->where('tryout_kategori_soal_id', $kateogri_id[$index])
+                                        ->where('tryout_kategori_soal_id', $kategori_id[$index])
                                         ->get();
-                    $waktu = TryoutKategoriSoal::where('id', $kateogri_id[$index])->first()->waktu;
+                    $waktu = TryoutKategoriSoal::where('id', $kategori_id[$index])->first()->waktu;
                     return view('tryout.new', compact('soal', 'paket', 'waktu', 'gelombang_id'));
                 // }
             } else {

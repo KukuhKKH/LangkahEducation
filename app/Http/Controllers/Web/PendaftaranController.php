@@ -39,8 +39,8 @@ class PendaftaranController extends Controller
         try {
             $raw_tgl_awal = \explode('/', $request->tgl_awal);
             $raw_tgl_akhir = \explode('/', $request->tgl_akhir);
-            $tgl_awal = "$raw_tgl_awal[1]/$raw_tgl_awal[0]/$raw_tgl_awal[2]";
-            $tgl_akhir = "$raw_tgl_akhir[1]/$raw_tgl_akhir[0]/$raw_tgl_akhir[2]";
+            $tgl_awal = "$raw_tgl_awal[2]-$raw_tgl_awal[1]-$raw_tgl_awal[0]";
+            $tgl_akhir = "$raw_tgl_akhir[2]-$raw_tgl_akhir[1]-$raw_tgl_akhir[0]";
             $gelombang = Gelombang::latest()->first();
             $data = [
                 'jenis' => $request->jenis,
@@ -71,8 +71,8 @@ class PendaftaranController extends Controller
     public function edit($id)
     {
         try {
-            $pendftaran = Gelombang::find($id);
-            return view('pages.pendaftaran.edit', compact('pendftaran'));
+            $pendaftaran = Gelombang::find($id);
+            return view('pages.pendaftaran.edit', compact('pendaftaran'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
@@ -91,8 +91,8 @@ class PendaftaranController extends Controller
             $pendftaran = Gelombang::find($id);
             $raw_tgl_awal = \explode('/', $request->tgl_awal);
             $raw_tgl_akhir = \explode('/', $request->tgl_akhir);
-            $tgl_awal = "$raw_tgl_awal[1]/$raw_tgl_awal[0]/$raw_tgl_awal[2]";
-            $tgl_akhir = "$raw_tgl_akhir[1]/$raw_tgl_akhir[0]/$raw_tgl_akhir[2]";
+            $tgl_awal = "$raw_tgl_awal[2]-$raw_tgl_awal[1]-$raw_tgl_awal[0]";
+            $tgl_akhir = "$raw_tgl_akhir[2]-$raw_tgl_akhir[1]-$raw_tgl_akhir[0]";
             $pendftaran->update([
                 'jenis' => $request->jenis,
                 'nama' => $request->nama,

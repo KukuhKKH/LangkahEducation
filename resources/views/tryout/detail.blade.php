@@ -52,20 +52,18 @@
                                 <table class="table w-50">
                                     <thead>
                                         <tr>
-                                            <td>
-                                                Nama Kategori
-                                            </td>
-                                            <td>
-                                                Jumlah Soal
-                                            </td>
-                                            <td>
-                                                Waktu Pengerjaan
-                                            </td>
+                                            <td> Jenis Kategori </td>
+                                            <td> Nama Kategori </td>
+                                            <td> Jumlah Soal </td>
+                                            <td> Waktu Pengerjaan </td>
                                         </tr>
                                     </thead>
                                     <tbody>
                                        @foreach ($detail as $value)
                                         <tr>
+                                            <td>
+                                                {{ strtoupper($value->tipe) }}
+                                            </td>
                                             <td>
                                                 {{ $value->nama }}
                                             </td>
