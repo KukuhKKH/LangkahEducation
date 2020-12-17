@@ -123,6 +123,11 @@
 {{-- <script src="{{ asset('assets/vendor/ckeditor/styles.js') }}"></script> --}}
 <script src="{{ asset('assets/vendor/select2/dist/js/select2.js') }}"></script>
 <script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
     const option = {
         filebrowserImageBrowseUrl: '/filemanager?type=Images',
         filebrowserImageUploadUrl: '/filemanager/upload?type=Images&_token=',
@@ -137,6 +142,14 @@
             allowClear: true
         })
     })
+
+    $("#foto").change(function() {
+        if(this.files[0].size > 2097152){
+            alert("Maaf Gambar Kamu Terlalu Besar");
+            $("#foto").val('');
+            $('.custom-file-label').html("Choose File");
+        }
+    });
 </script>
 
 <script type="application/javascript">

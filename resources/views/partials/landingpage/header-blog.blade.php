@@ -1,18 +1,18 @@
 <header id="header" class="fixed-top ">
-    <div class="container d-flex align-items-center justify-content-between">
+    <div class="container d-flex align-items-center justify-content-start">
  
         <!-- Uncomment below if you prefer to use an image logo -->
     <a href="{{ url('/') }}" class="logo"><img id="navLogo" src="{{asset('assets/img/logo-secondary.svg')}}" alt=""
                 class="img-fluid"></a>
  
         <nav class="nav-menu d-none d-lg-block">
-            <ul>
-                <li><a href="{{ url('/') }}"><i class="fas fa-home"></i></a></li>
+            <ul class="align-items-center">
+                <li><a href="{{ url('/') }}">Home Blog</a></li>
                 @foreach ($kategori as $value)
                 <li><a href="{{ route('page.blog.kategori', $value->nama) }}">{{ strtoupper($value->nama) }}</a></li>
                 @endforeach
-                <li><a href="{{ route('page.blog.index') }}">Recent</a></li>
-                <li><a href="{{ route('page.blog.index', ['pop' => 'popular']) }}">Populer</a></li>
+                {{-- <li><a href="{{ route('page.blog.index') }}">Recent</a></li>
+                <li><a href="{{ route('page.blog.index', ['pop' => 'popular']) }}">Populer</a></li> --}}
                 <li>
                     <form action="{{ route('page.blog.index') }}" method="get">
                         <div class="input-group input-group-sm">

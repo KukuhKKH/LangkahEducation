@@ -11,6 +11,16 @@
         </div>
     </div>
     <div class="card-body">
+        <div class="row">
+            <div class="col-xl-12 text-center mb-3">
+               @if ($paket->image)
+                  <img src="{{ asset('upload/paket-tryout/'.$paket->image) }}" alt="{{ $paket->nama }}" class="img-fluid" width="200px" >
+               @else
+                <img class="img-fluid" width="200px" src="{{ asset("assets/img/default-tryout.svg") }}"
+                    alt="foto-{{ $paket->nama }}">
+                @endif
+            </div>
+        </div>
         <form action="{{ route('paket.update', $paket->id) }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('PUT')
@@ -97,7 +107,7 @@
                         <label for="testimonial">Foto <small>Maksimal 2 Mb</small></label>
                         <div class="input-group mb-3">
                             <div class="custom-file">
-                              <input type="file"  accept="image/*" name="foto" class="custom-file-input form-control form-control-user @error('foto') is-invalid @enderror" id="inputGroupFile02" accept="image/x-png,image/gif,image/jpeg">
+                              <input id="thumbPaket" type="file"  accept="image/*" name="foto" class="custom-file-input form-control form-control-user @error('foto') is-invalid @enderror" id="inputGroupFile02" accept="image/x-png,image/gif,image/jpeg">
                               <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
                             </div>
                             @error('foto')
@@ -145,5 +155,11 @@
         autoclose: true,
     });
 
+    $("#thumbPaket").change(function() {
+        if(this.files[0].size > 2097152){
+            alert("Maaf Gambar Kamu Terlalu Besar");
+            $("#thumbPaket").val('');
+        }
+    });
 </script>
 @endsection

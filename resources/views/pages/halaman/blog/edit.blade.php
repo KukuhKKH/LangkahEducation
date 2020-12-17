@@ -137,5 +137,21 @@
             allowClear: true
         })
     })
+
+    $("#foto").change(function() {
+        if(this.files[0].size > 2097152){
+            alert("Maaf Gambar Kamu Terlalu Besar");
+            $("#foto").val('');
+            $('.custom-file-label').html("Choose File");
+        }
+    });
+</script>
+
+<script type="application/javascript">
+    $('input[type="file"]').change(function (e) {
+        var fileName = e.target.files[0].name;
+        $('.custom-file-label').html(fileName);
+    });
+
 </script>
 @endsection

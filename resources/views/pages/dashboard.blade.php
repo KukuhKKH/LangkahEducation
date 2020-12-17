@@ -329,7 +329,7 @@
                             <div class="col-3">
                             <?php $foto = $value->foto; ?>
                             <img src="{{asset("upload/blog/$foto")}}" alt="" width="100%">
-                            {{-- <img src="{{asset('assets-landingpage/img/blog/default-blog.jpg')}}" alt="" width="100%"> --}}
+                            {{-- <img class="img-cover" src="{{asset('assets-landingpage/img/blog/default-blog.jpg')}}" alt="" width="100%" height="50px"> --}}
                             </div>
                             <div class="col-9">
                                 <h6 class="font-weight-bold">{{ $value->judul }}</h6>
@@ -358,8 +358,8 @@
                         <div class="row align-items-center">
                             <div class="col-3">
                             <?php $foto = $value->foto; ?>
-                            <img src="{{asset("upload/blog/$foto")}}" alt="" width="100%">
-                            {{-- <img src="{{asset('assets-landingpage/img/blog/default-blog.jpg')}}" alt="" width="100%"> --}}
+                            <img class="img-cover" src="{{asset("upload/blog/$foto")}}" alt="" width="100%">
+                            {{-- <img src="{{asset('assets-landingpage/img/blog/default-blog.jpg')}}" alt="" width="100%" height="50px"> --}}
                             </div>
                             <div class="col-9">
                                 <h6 class="font-weight-bold">{{ $value->judul }}</h6>
