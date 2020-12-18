@@ -41,7 +41,7 @@
                                  <div class="col-xl-10">
                                      <div class="form-group">
                                          <input type="text" class="form-control"
-                                             placeholder="Masukkan Kode Referal Sekolah" name="kode_referal" required>
+                                             placeholder="Masukkan Kode Referal" name="kode_referal" required>
                                      </div>
                                  </div>
                                  <div class="col-xl-2">

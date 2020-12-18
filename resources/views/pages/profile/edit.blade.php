@@ -214,8 +214,6 @@
         <div class="form-group">
             <input type="file" class="form-control @error('foto') is-invalid @enderror"
             name="foto" accept="image/x-png,image/gif,image/jpeg" id="myImgProfile" style="display: none;">
-
-            {{-- <label class="custom-file-label" for="myImgProfile">Choose file</label> --}}
         </div>
     </div>
 </div>
@@ -223,7 +221,7 @@
     <div class="col-xl-12">
         <div class="float-right">
             <a href="{{ url()->previous() }}" class="btn btn-dark ml-1">Kembali</a>
-            <button type="submit" class="btn btn-success">Simpan</button>
+            <button id="btn-submit" type="submit" class="btn btn-success">Simpan</button>
         </div>
     </div>
 </div>
@@ -297,7 +295,12 @@
     }
 
     $("#myImgProfile").change(function() {
-        readURL(this);
+        if(this.files[0].size > 2097152){
+            alert("Maaf Foto Kamu Terlalu Besar");
+            $("#myImgProfile").val('');
+        }else{
+            readURL(this);
+        }
     });
 </script>
 @endsection

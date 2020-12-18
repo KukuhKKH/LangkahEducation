@@ -202,7 +202,7 @@
                                 <label for="testimonial">Foto <small>Maksimal 2 Mb</small></label>
                                 <div class="input-group mb-3">
                                     <div class="custom-file">
-                                      <input type="file"  accept="image/*" name="foto" class="custom-file-input form-control form-control-user @error('foto') is-invalid @enderror" id="inputGroupFile02" accept="image/x-png,image/gif,image/jpeg">
+                                      <input id="thumbPaket" type="file"  accept="image/*" name="foto" class="custom-file-input form-control form-control-user @error('foto') is-invalid @enderror" id="inputGroupFile02" accept="image/x-png,image/gif,image/jpeg">
                                       <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
                                     </div>
                                     @error('foto')
@@ -263,6 +263,13 @@
             }
         })
     })
+
+    $("#thumbPaket").change(function() {
+        if(this.files[0].size > 2097152){
+            alert("Maaf Gambar Kamu Terlalu Besar");
+            $("#thumbPaket").val('');
+        }
+    });
 
 </script>
 <script>

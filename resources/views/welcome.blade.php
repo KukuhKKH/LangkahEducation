@@ -85,6 +85,11 @@
 
                 @forelse ($layanan as $value)
                 <div class="products-item">
+                    <p>
+                        <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                        {{ $value->testimoni }}
+                        <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                    </p>
                     <div class="card shadow">
                         <div class="card-body text-center">
                         <div class="d-flex justify-content-center">

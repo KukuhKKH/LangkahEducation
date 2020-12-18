@@ -397,5 +397,21 @@
         $(this).next('#labelFileAbout').html(fileNames);
     })
 
+    $("#inputFileHero").change(function() {
+        if(this.files[0].size > 2097152){
+            alert("Maaf Gambar Hero Terlalu Besar");
+            $("#inputFileHero").val('');
+            $('#labelFileHero').html("Choose File");
+        }
+    });
+
+    $("#inputFileAbout").change(function() {
+        if(this.files[0].size > 2097152){
+            alert("Maaf Gambar About Terlalu Besar");
+            $("#inputFileAbout").val('');
+            $('#labelFileAbout').html("Choose File");
+        }
+    });
+
 </script>
 @endsection
