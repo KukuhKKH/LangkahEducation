@@ -8,6 +8,7 @@ class TryoutSoal extends Model
 {
     protected $table = "tryout_soal";
     protected $fillable = ['user_id', 'tryout_paket_id', 'tryout_kategori_soal_id','soal', 'pembahasan', 'benar', 'salah'];
+    protected $with = ['kategori_soal'];
 
     public function paket() {
         return $this->belongsTo('App\Models\TryoutPaket', 'tryout_paket_id');
