@@ -11,6 +11,7 @@ use App\Models\TryoutKategoriSoal;
 use App\Http\Controllers\Controller;
 use App\Models\KelompokPassingGrade;
 use App\Models\TempProdi;
+use App\Models\TryoutHasilDetail;
 
 class TryoutController extends Controller
 {
@@ -137,40 +138,68 @@ class TryoutController extends Controller
             }
         }
 
+        $nilai_maksimal = [];
+        $nilai_maksimal['campuran'] = array_sum($raw_poin);
+        $nilai_maksimal['saintek'] = 0;
+        $nilai_maksimal['soshum'] = 0;
+        foreach ($id_soal_saintek as $key => $value) {
+            if(isset($raw_poin[$value])) {
+                $nilai_maksimal['saintek'] += $raw_poin[$value];
+            }
+        }
+        foreach ($id_soal_soshum as $key => $value) {
+            if(isset($raw_poin[$value])) {
+                $nilai_maksimal['soshum'] += $raw_poin[$value];
+            }
+        }
+
         $nilai_sekarang = [];
-        $hasil_detail = [];
         $temp_detail = [];
-        // dd($detail)
         foreach ($detail as $key => $value) {
-            $temp_nilai = null;
-            $temp_nilai_raw = null;
+            $temp_nilai = 0;
             $user_id = null;
             foreach ($value as $k => $v) {
                 if($v->status == 'kosong') {
                     $user_id = $v->user_id;
+                    $temp_nilai -= 0;
                 } else {
                     $user_id = $v->hasil->user_id;
-                    
                     $kategori_soal_id = $v->soal->kategori_soal->id;
                     if(TryoutJawaban::find($v->tryout_jawaban_id)->benar) {
                         $temp_nilai += $raw_poin[$v->tryout_soal_id];
-                        $temp_nilai_raw = $raw_poin[$v->tryout_soal_id];
                     } else {
                         $temp_nilai -= $v->soal->salah;
-                        $temp_nilai_raw = -$v->soal->salah;
                     }
                     $temp_detail[$user_id][$kategori_soal_id] = $temp_nilai;
                 }
-                // echo $temp_nilai_raw;
-                // echo "<br>";
-                // empty($nilai_sekarang[$user_id]) ? $nilai_sekarang[$user_id] = $temp_nilai : $nilai_sekarang[$user_id] += $temp_nilai;
             }
-            $nilai_sekarang[$user_id] = array_sum($temp_detail[$user_id]);
-            // die;
+            $nilai_sekarang[$user_id] = $temp_nilai;
             // Harus e di sini Update Nilai mulai detail sama hasil detail
+            // Update Detail per kategori
+            foreach ($temp_detail[$user_id] as $key => $value) {
+                TryoutHasilDetail::where('tryout_paket_id', 1)
+                            ->where('tryout_kategori_soal_id', $key)
+                            ->where('user_id', $user_id)
+                            ->update([
+                                'nilai' => $value
+                            ]);
+            }
+            if($nama_kategori_to == 'saintek') {
+                $index_nilai_max = 'saintek';
+            } elseif($nama_kategori_to == 'soshum') {
+                $index_nilai_max = 'soshum';
+            } else {
+                $index_nilai_max = 'campuran';
+            }
+            TryoutHasil::where('gelombang_id', 8)
+                            ->where('tryout_paket_id', 1)
+                            ->where('user_id', $user_id)
+                            ->update([
+                                'nilai_sekarang' => $nilai_sekarang[$user_id],
+                                'nilai_maksimal_new' => $nilai_maksimal[$index_nilai_max]
+                            ]);
         }
-        dd($nilai_sekarang, $temp_detail, $raw_poin);
-
+        return response()->json(['error' => false, 'status' => 'iso cuakkkkk'], 200);
     }
 
     public function soal(Request $request) {
