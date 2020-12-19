@@ -59,3 +59,17 @@
     </div>
 </div>
 @endsection
+
+@section('js')
+<script>
+    function getMessages(letter) {
+    var div = $("#mentoring");
+    div.scrollTop(div.prop('scrollHeight'));
+    }
+
+    $(function() {
+        getMessages();
+    });
+
+</script>
+@endsection

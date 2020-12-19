@@ -43,7 +43,7 @@
             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                 aria-labelledby="messagesDropdown">
                 <h6 class="dropdown-header">
-                    Pesan Terbaru
+                    Chat
                 </h6>
                 @foreach ($chat_masuk as $value)
                     @if (auth()->user()->getRolenames()->first() == 'siswa')

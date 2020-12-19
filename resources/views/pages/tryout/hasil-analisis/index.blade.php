@@ -163,7 +163,7 @@
     @php
         $hasMentor = auth()->user()->siswa->mentor;
     @endphp
-    <div class="{{ ($hasMentor != '') ? 'col-xl-8 col-lg-8' : 'col-xl-12 col-lg-12' }}">
+    <div class="{{ ($hasMentor != '') ? 'col-xl-6 col-lg-6' : 'col-xl-12 col-lg-12' }}">
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-dark">Riwayat Nilai</h6>
@@ -176,21 +176,22 @@
         </div>
     </div>
     @if ($hasMentor != '')
-        <div class="col-xl-4 col-lg-4">
+        <div class="col-xl-6 col-lg-6">
             <div class="card shadow mb-4 text-center">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-dark">Komentar Mentor</h6>
+                    <h6 class="m-0 font-weight-bold text-dark">Interpretasi Hasil</h6>
                 </div>
                 <div class="card-body">
+                    {{-- IF SISWA (SEKOLAH) --}}
                     <form action="{{ route('mentoring.komentar', $tryout->id) }}" method="post">
                         @csrf
                         @if (auth()->user()->siswa->mentor()->first()->user->foto)
                         <?php $foto = auth()->user()->siswa->mentor->first()->user->foto; ?>
-                        <img class="my-3" src="{{asset("upload/users/$foto")}}" alt="profil-mentor"
-                        style="height:100px">
+                        <img class="my-3 img-cover" src="{{asset("upload/users/$foto")}}" alt="profil-mentor"
+                        style="height:110px; width:110px; border-radius:120px">
                         @else
                         <img class="my-3" src="{{asset('assets/img/undraw_profile.svg')}}" alt="profil-mentor"
-                        style="height:100px">
+                        style="height:110px">
                         @endif
                         <div class="form-group">
                             <textarea class="form-control mt-4" name="komentar" id="komentarMentor" rows="5" placeholder="Komentar Mentor" disabled>{{ $komentar->komentar ?? '' }}</textarea>
@@ -199,6 +200,21 @@
                         <button class="btn btn-langkah btn-block" type="submit">Kirim Komentar</button>
                         @endhasanyrole
                     </form>
+
+                    {{-- IF SISWA UMUM (INTERPRETASI) --}}
+
+                    {{-- @php
+                        $interpretasi = "";
+                        //$prodi 1 dan 2 wes onok ng duwur 
+                        if ($prodi1 < 100 && $prodi2 < 100) {
+                            $interpretasi = $interpretasi_1;
+                        }else if($prodi2 < 100){
+                            $interpretasi = $interpretasi_2;
+                        }else{
+                            $interpretasi = $intrepretasi_3;
+                        }
+                    @endphp
+                    <p>{{$interpretasi}}</p> --}}
                 </div>
             </div>
         </div>

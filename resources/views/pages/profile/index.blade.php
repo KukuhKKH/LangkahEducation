@@ -29,9 +29,9 @@
                      <div class="col-xl-12">
                          {{-- Role Siswa --}}
                          @role('siswa')
-                         <p class="text-center">NISN : {{ $user->siswa->nisn }}</p>
+                         <h5><span class="badge badge-dark">{{ $user->siswa->nisn }}</span></h5>
                          @if (count($user->siswa->sekolah) > 0)
-                         <p><strong>Asal Sekolah : {{ $user->siswa->sekolah[0]->nama }}</strong></p>
+                         <p class="text-success"><strong>{{ $user->siswa->sekolah[0]->nama }}</strong></p>
                          @else
                          <p class="badge badge-warning text-dark p-2">Anda tidak tergabung pada sekolah</p>
                          @endif

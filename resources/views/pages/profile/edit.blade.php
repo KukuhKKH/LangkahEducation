@@ -191,7 +191,7 @@
         <div class="form-group">
             <label for="">Password Baru <small>Kosongkan jika tidak mengganti password</small></label>
             <div class="input-group" id="show_new_password">
-                <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
+                <input id="password" type="password" name="password" class="form-control @error('password') is-invalid @enderror"
                 placeholder="Password Baru"> 
             </div>
             @error('password')
@@ -205,7 +205,7 @@
         <div class="form-group">
             <label for="">Ulangi Password baru <small>Kosongkan jika tidak mengganti password</small></label>
             <div class="input-group" id="show_new_password">
-                <input type="password" name="password_confirmation" class="form-control "
+                <input type="password" id="password_confirmation" name="password_confirmation" class="form-control "
                 placeholder="Ulangi Password Baru"> 
             </div>
         </div>
