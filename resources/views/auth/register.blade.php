@@ -32,7 +32,7 @@
                             </div>
                             <div class="form-group row only-number">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input name="nisn" type="text" minlength="10" maxlength="11" class="form-control number form-control-user @error('nisn') is-invalid @enderror" placeholder="NISN" value="{{ old('nisn') }}">
+                                    <input name="nisn" type="text" minlength="10" maxlength="11" class="form-control number form-control-user @error('nisn') is-invalid @enderror" placeholder="NISN" oninvalid="setCustomValidity('NISN Tidak Valid')"  onchange="try{setCustomValidity('')}catch(e){}" value="{{ old('nisn') }}">
                                     @error('nisn')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -50,7 +50,7 @@
                             </div>
                             <div class="form-group row only-number">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input name="nomor_hp" type="text" minlength="10" maxlength="13" class="form-control form-control-user number @error('nomor_hp') is-invalid @enderror" placeholder="Nomer HP Aktif" value="{{ old('nomor_hp') }}" >
+                                    <input name="nomor_hp" type="text" minlength="10" maxlength="13" class="form-control form-control-user number @error('nomor_hp') is-invalid @enderror" onchange="try{setCustomValidity('')}catch(e){}"  oninvalid="setCustomValidity('No HP Tidak Valid')" placeholder="Nomer HP Aktif" value="{{ old('nomor_hp') }}" >
                                     @error('nomor_hp')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

@@ -34,7 +34,7 @@
                   <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                      aria-haspopup="true" aria-expanded="false">
                      <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ auth()->user()->name }}</span>
-                     <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                     <img class="img-profile rounded-circle" src="{{ (auth()->user()->foto) ? asset("upload/users/". auth()->user()->foto) : asset('assets/img/default_avatar.svg') }}">
                   </a>
                   <!-- Dropdown - User Information -->
                   <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -104,7 +104,7 @@
                            <button id="btn-kembali" type="button" class="btn btn-dark">Kembali</button>
 
                            <button id="btn-lanjut" type="button" class="btn btn-success">Lanjut</button>
-                           <button id="btn-reset" type="button" class="btn btn-warning">Reset</button>
+                           <button id="btn-reset" type="button" class="btn btn-light text-danger">Reset</button>
                         </div>
                         <div class="col-lg-6">
                            <button id="btn-kumpulkan" type="button" class="btn btn-danger" disabled>Kumpulkan</button>
@@ -167,7 +167,6 @@
 <script src="{{ asset('assets/vendor/moment.js') }}"></script>
 <script>
    // window.onbeforeunload = function () {return false;}
-
    const total_soal = {{ count($soal) }}
    const paket_slug = `{{ $paket->slug }}`
    const user = `{{ auth()->user()->name }}`
@@ -232,8 +231,8 @@
    history.pushState(null, null, document.URL);
    window.addEventListener('popstate', function () {
       swal.fire({
-         title: 'WOYYY?',
-         text: "anda tidak bisa kembali ke kategori sebelumnya!",
+         title: 'Maaf',
+         text: "Kamu tidak bisa kembali ke kategori sebelumnya!",
          icon: 'warning',
       })
       history.pushState(null, null, document.URL);

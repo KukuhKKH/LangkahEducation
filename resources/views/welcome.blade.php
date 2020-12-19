@@ -82,14 +82,9 @@
             </div>
             <div class="row justify-content-center mt-4">
                 <div class="owl-carousel products-carousel">
-
                 @forelse ($layanan as $value)
                 <div class="products-item">
-                    <p>
-                        <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                        {{ $value->testimoni }}
-                        <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                    </p>
+                    
                     <div class="card shadow">
                         <div class="card-body text-center">
                         <div class="d-flex justify-content-center">
@@ -176,7 +171,6 @@
 <script src="{{asset('assets-landingpage/vendor/owl.carousel/owl.carousel.min.js')}}"></script>
 
 <!-- Template Main JS File -->
-<script src="{{asset('assets-landingpage/js/main.js')}}"></script>
 <script src="{{ asset('assets/vendor/sweet-alert/sweetalert.min.js') }}"></script>
 <script>
     const URL = `{{ url('dashboard/daftar-gelombang') }}`

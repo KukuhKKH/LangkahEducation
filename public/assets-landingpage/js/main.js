@@ -74,6 +74,8 @@
           $('body').removeClass('mobile-nav-active');
           $('.mobile-nav-toggle i').toggleClass('fa fa-bars fa fa-times');
           $('.mobile-nav-overly').fadeOut();
+      console.log("Clicked")
+
         }
       }
     });

@@ -396,6 +396,7 @@ h6 {
     height: 100vh;
     background: linear-gradient(45deg, rgba(236, 185, 17, 0.9) 0%, rgba(255, 196, 0, 0.9)  100%), url(../img/hero-bg.jpg) center center no-repeat;
     border-bottom: 2px solid white;
+    background-size: cover;
 }
 
 #hero .container {
@@ -643,7 +644,7 @@ section {
 .products .card{
   border: none;
   padding: 20px;
-  height: 40vh;
+  max-height: 40vh;
 }
 
 .products .img-circle{
@@ -754,6 +755,12 @@ section {
 --------------------------------------------------------------*/
 #blog .container{
   padding-top: 80px;
+}
+
+@media (max-width: 992px) {
+  #blog .container{
+    padding-top: 10px;
+  }
 }
 
 #blog .card{

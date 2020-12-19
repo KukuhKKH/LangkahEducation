@@ -36,7 +36,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xl-12">
+                    <div class="col-xl-8">
                         @forelse ($artikel as $value)
                             <div class="card shadow mb-4">
                                 <div class="card-img-top">

@@ -31,7 +31,7 @@
                                     @csrf
                                     <div class="form-group">
                                         <label for="email">Email</label>
-                                        <input type="email" class="form-control form-control-user @error('email') is-invalid @enderror" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Masukkan Email" value="{{ old('email') }}" name="email" autofocus>
+                                        <input type="email" class="form-control form-control-user @error('email') is-invalid @enderror" id="exampleInputEmail" onchange="try{setCustomValidity('')}catch(e){}"  oninvalid="setCustomValidity('Email Tidak Valid')" aria-describedby="emailHelp" placeholder="Masukkan Email" value="{{ old('email') }}" name="email" autofocus>
                                         @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>

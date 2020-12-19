@@ -14,6 +14,6 @@ return [
     */
 
     'failed' => 'Email atau password salah.',
-    'throttle' => 'Terlalu banyak percobaan. Silahkan tunggu :seconds detik.',
+    'throttle' => 'Terlalu banyak percobaan. Silahkan tunggu :beberapa detik.',
 
 ];
