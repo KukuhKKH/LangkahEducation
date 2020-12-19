@@ -126,7 +126,7 @@
                 <div class="modal-body">Pilih ‘Logout’ apabila Anda ingin menyudahi sesi ini.</div>
                 <div class="modal-footer">
                     <button class="btn btn-dark" type="button" data-dismiss="modal">Kembali</button>
-                    <button type="submit" class="btn btn-danger">Logout</button>
+                    <button type="submit" class="btn btn-light text-danger">Logout</button>
                 </div>
             </form>
         </div>

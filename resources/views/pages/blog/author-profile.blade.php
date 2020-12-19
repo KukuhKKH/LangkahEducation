@@ -29,10 +29,10 @@
                             <div class="card shadow mb-4">
                                 <div class="card-img-top">
                                     @if ($value->foto)
-                                    <img src="{{asset("upload/blog/$value->foto")}}" class="img-cover"
+                                    <img src="{{asset("upload/blog/$value->foto")}}" class=""
                                     height="200px">
                                     @else
-                                    <img src="{{asset('assets-landingpage/img/blog/default-blog.jpg')}}" class="img-cover"
+                                    <img src="{{asset('assets-landingpage/img/blog/default-blog.jpg')}}" class="img-cover   "
                                         height="200px">
                                     @endif
                                 </div>

@@ -10,7 +10,7 @@
                     <div class="card shadow mb-2">
                         <div class="card-img-top">
                             @if ($artikel->foto)
-                            <img src="{{asset("upload/blog/$artikel->foto")}}" class="img-cover"
+                            <img src="{{asset("upload/blog/$artikel->foto")}}" class=""
                             height="200px">
                             @else
                             <img src="{{asset('assets-landingpage/img/blog/default-blog.jpg')}}" class="img-cover"
@@ -52,12 +52,7 @@
                                     @csrf
                                     <div class="row">
                                         <div class="col-auto">
-                                            @if (auth()->user()->foto)
-                                            <?php $foto = auth()->user()->foto ?>
-                                            <img src="{{asset("upload/>user/$foto") }}" class="avatar " alt="Avatar">    
-                                            @else
-                                            <img src="{{asset('assets/img/undraw_profile.svg') }}" class="avatar " alt="Avatar">    
-                                            @endif
+                                            <img class="img-profile rounded-circle avatar" src="{{ (auth()->user()->foto) ? asset("upload/users/". auth()->user()->foto) : asset('assets/img/default_avatar.svg') }}">
                                         </div>
                                         <div class="col">
                                             <div class="form-group">

@@ -56,7 +56,18 @@ class HomeController extends Controller
                 $label[] = $value['tanggal']. " $bulan";
                 $total[] = $value['total'];
             }
-            return view('pages.dashboard', compact('sekolah', 'siswa', 'belum_bayar', 'pengunjung', 'label', 'total'));
+            $artikel_publish = Blog::where('user_id', $user->id)->where('status', 1)->count();
+            $artikel_draft = Blog::where('user_id', $user->id)->where('status', 0)->count();
+            
+            $total_artikel = Blog::where('status', 1)->count();
+
+            $artikelmu_like = Blog::withCount('like')->with('like')->where('user_id', $user->id)->where('status', 1)->orderBy('like_count', 'DESC')->limit(3)->get();
+            $artikelmu_komentar = Blog::withCount('komentar')->with('komentar')->where('user_id', $user->id)->where('status', 1)->orderBy('komentar_count', 'DESC')->limit(3)->get();
+            $artikel_like = Blog::withCount('like')->with('like')->where('status', 1)->orderBy('like_count', 'DESC')->limit(3)->get();
+            $artikel_komentar = Blog::withCount('komentar')->with('komentar')->where('status', 1)->orderBy('komentar_count', 'DESC')->limit(3)->get();
+
+            return view('pages.dashboard', compact('sekolah', 'siswa', 'belum_bayar', 'pengunjung', 'label', 'total', 'artikel_publish', 'artikel_draft', 'total_artikel', 'artikelmu_like', 'artikelmu_komentar', 'artikel_like', 'artikel_komentar'));
+
         } elseif($user->getRoleNames()->first() == 'siswa') {
             $pg1 = $pg2 = $nilai_user = $nil_pg1 = $nil_pg2 = 0;
             $nilai_grafik = [];
@@ -112,16 +123,31 @@ class HomeController extends Controller
             }
             $rata = TryoutHasil::whereIn('user_id', $id_siswa)->avg('nilai_sekarang');
             $nilai_tertinggi = TryoutHasil::whereIn('user_id', $id_siswa)->max('nilai_sekarang');
-            return view('pages.dashboard', compact('total_siswa', 'rata', 'nilai_tertinggi', 'label', 'val', 'label2', 'val2'));
-        } elseif($user->getRoleNames()->first() == 'author') {
-            $user = auth()->user();
+
             $artikel_publish = Blog::where('user_id', $user->id)->where('status', 1)->count();
             $artikel_draft = Blog::where('user_id', $user->id)->where('status', 0)->count();
-            $total_artikel = $artikel_draft + $artikel_publish;
+            
+            $total_artikel = Blog::where('status', 1)->count();
+
             $artikelmu_like = Blog::withCount('like')->with('like')->where('user_id', $user->id)->where('status', 1)->orderBy('like_count', 'DESC')->limit(3)->get();
             $artikelmu_komentar = Blog::withCount('komentar')->with('komentar')->where('user_id', $user->id)->where('status', 1)->orderBy('komentar_count', 'DESC')->limit(3)->get();
             $artikel_like = Blog::withCount('like')->with('like')->where('status', 1)->orderBy('like_count', 'DESC')->limit(3)->get();
             $artikel_komentar = Blog::withCount('komentar')->with('komentar')->where('status', 1)->orderBy('komentar_count', 'DESC')->limit(3)->get();
+
+            return view('pages.dashboard', compact('total_siswa', 'rata', 'nilai_tertinggi', 'label', 'val', 'label2', 'val2', 'artikel_publish', 'artikel_draft', 'total_artikel', 'artikelmu_like', 'artikelmu_komentar', 'artikel_like', 'artikel_komentar'));
+            
+        } elseif($user->getRoleNames()->first() == 'author') {
+            $user = auth()->user();
+            $artikel_publish = Blog::where('user_id', $user->id)->where('status', 1)->count();
+            $artikel_draft = Blog::where('user_id', $user->id)->where('status', 0)->count();
+            
+            $total_artikel = Blog::where('status', 1)->count();
+
+            $artikelmu_like = Blog::withCount('like')->with('like')->where('user_id', $user->id)->where('status', 1)->orderBy('like_count', 'DESC')->limit(3)->get();
+            $artikelmu_komentar = Blog::withCount('komentar')->with('komentar')->where('user_id', $user->id)->where('status', 1)->orderBy('komentar_count', 'DESC')->limit(3)->get();
+            $artikel_like = Blog::withCount('like')->with('like')->where('status', 1)->orderBy('like_count', 'DESC')->limit(3)->get();
+            $artikel_komentar = Blog::withCount('komentar')->with('komentar')->where('status', 1)->orderBy('komentar_count', 'DESC')->limit(3)->get();
+
             return view('pages.dashboard', compact('artikel_publish', 'artikel_draft', 'total_artikel', 'artikelmu_like', 'artikelmu_komentar', 'artikel_like', 'artikel_komentar'));
         } elseif($user->getRoleNames()->first() == 'sekolah') {
             return view('pages.dashboard');

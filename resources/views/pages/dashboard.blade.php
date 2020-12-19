@@ -208,7 +208,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row mb-4">
         <div class="col-xl-8">
             <div class="card">
                 <div class="card-header">
@@ -265,7 +265,7 @@
     </div>
 @endhasanyrole
 
-@hasanyrole('author')
+@hasanyrole('author|superadmin|mentor|admin')
     <div class="row">
         <div class="col-xl-4 col-md-4 mb-4">
             <div class="card border-left-success shadow h-100 py-2">
@@ -320,7 +320,7 @@
         <div class="col-xl-6">
             <div class="card shadow mb-4">
                 <div class="card-header">
-                    <h6 class="m-0 font-weight-bold text-primary">Artikelmu dengan Like Terbanyak</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Like Terbanyak</h6>
                 </div>
                 <div class="card-body">
                     {{-- CUMA 3 ARTIKEL --}}
@@ -328,12 +328,18 @@
                         <div class="row align-items-center">
                             <div class="col-3">
                             <?php $foto = $value->foto; ?>
-                            <img src="{{asset("upload/blog/$foto")}}" alt="" width="100%">
-                            {{-- <img class="img-cover" src="{{asset('assets-landingpage/img/blog/default-blog.jpg')}}" alt="" width="100%" height="50px"> --}}
+                            @if ($value->foto)
+                            <img class="img-cover" src="{{asset("upload/blog/$foto")}}" alt="" width="100%" height="75px">
+                            @else
+                            <img class="img-cover" src="{{asset('assets-landingpage/img/blog/default-blog.jpg')}}" alt="" width="100%" height="75px">
+                            @endif
                             </div>
                             <div class="col-9">
                                 <h6 class="font-weight-bold">{{ $value->judul }}</h6>
-                                <a class="text-gray-800" href="{{ route('page.blog.detail', $value->slug) }}">Lihat Artikel</a>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a class="text-gray-800" href="{{ route('page.blog.detail', $value->slug) }}">Lihat Artikel</a>
+                                    <small class="font-weight-bold text-primary mt-3 mr-2"><i class="fa fa-thumbs-up"></i> {{ $value->like_count }}</small>
+                                </div>
                             </div>
                         </div>
                         <hr>
@@ -350,7 +356,7 @@
         <div class="col-xl-6">
             <div class="card shadow mb-4">
                 <div class="card-header">
-                    <h6 class="m-0 font-weight-bold text-primary">Artikelmu dengan Komentar Terbanyak</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Komentar Terbanyak</h6>
                 </div>
                 <div class="card-body">
                     {{-- CUMA 3 ARTIKEL --}}
@@ -358,12 +364,19 @@
                         <div class="row align-items-center">
                             <div class="col-3">
                             <?php $foto = $value->foto; ?>
-                            <img class="img-cover" src="{{asset("upload/blog/$foto")}}" alt="" width="100%">
-                            {{-- <img src="{{asset('assets-landingpage/img/blog/default-blog.jpg')}}" alt="" width="100%" height="50px"> --}}
+                            @if ($value->foto)
+                            <img class="img-cover" src="{{asset("upload/blog/$foto")}}" alt="" width="100%" height="75px">
+                            @else
+                            <img class="img-cover" src="{{asset('assets-landingpage/img/blog/default-blog.jpg')}}" alt="" width="100%" height="75px">
+                            @endif
+
                             </div>
                             <div class="col-9">
                                 <h6 class="font-weight-bold">{{ $value->judul }}</h6>
-                                <a class="text-gray-800" href="{{ route('page.blog.detail', $value->slug) }}">Lihat Artikel</a>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a class="text-gray-800" href="{{ route('page.blog.detail', $value->slug) }}">Lihat Artikel</a>
+                                    <small class="font-weight-bold text-primary mt-3 mr-2"><i class="fa fa-comment"></i> {{ $value->komentar_count }}</small>
+                                </div>
                             </div>
                         </div>
                         <hr>
@@ -390,12 +403,18 @@
                         <div class="row align-items-center">
                             <div class="col-3">
                             <?php $foto = $value->foto; ?>
-                            <img src="{{asset("upload/blog/$foto")}}" alt="" width="100%">
-                            {{-- <img src="{{asset('assets-landingpage/img/blog/default-blog.jpg')}}" alt="" width="100%"> --}}
+                            @if ($value->foto)
+                            <img class="img-cover" src="{{asset("upload/blog/$foto")}}" alt="" width="100%" height="75px">
+                            @else
+                            <img class="img-cover" src="{{asset('assets-landingpage/img/blog/default-blog.jpg')}}" alt="" width="100%" height="75px">
+                            @endif
                             </div>
                             <div class="col-9">
                                 <h6 class="font-weight-bold">{{ $value->judul }}</h6>
-                                <a class="text-gray-800" href="{{ route('page.blog.detail', $value->slug) }}">Lihat Artikel</a>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a class="text-gray-800" href="{{ route('page.blog.detail', $value->slug) }}">Lihat Artikel</a>
+                                    <small class="font-weight-bold text-primary mt-3 mr-2"><i class="fa fa-thumbs-up"></i> {{ $value->like_count }}</small>
+                                </div>
                             </div>
                         </div>
                         <hr>
@@ -420,12 +439,18 @@
                         <div class="row align-items-center">
                             <div class="col-3">
                             <?php $foto = $value->foto; ?>
-                            <img src="{{asset("upload/blog/$foto")}}" alt="" width="100%">
-                            {{-- <img src="{{asset('assets-landingpage/img/blog/default-blog.jpg')}}" alt="" width="100%"> --}}
+                             @if ($value->foto)
+                            <img class="img-cover" src="{{asset("upload/blog/$foto")}}" alt="" width="100%" height="75px">
+                            @else
+                            <img class="img-cover" src="{{asset('assets-landingpage/img/blog/default-blog.jpg')}}" alt="" width="100%" height="75px">
+                            @endif
                             </div>
                             <div class="col-9">
                                 <h6 class="font-weight-bold">{{ $value->judul }}</h6>
-                                <a class="text-gray-800" href="{{ route('page.blog.detail', $value->slug) }}">Lihat Artikel</a>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a class="text-gray-800" href="{{ route('page.blog.detail', $value->slug) }}">Lihat Artikel</a>
+                                    <small class="font-weight-bold text-primary mt-3 mr-2"><i class="fa fa-comment"></i> {{ $value->komentar_count }}</small>
+                                </div>
                             </div>
                         </div>
                         <hr>

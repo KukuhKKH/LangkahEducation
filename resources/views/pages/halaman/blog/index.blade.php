@@ -63,6 +63,10 @@
                                 id="form-{{ $value->id }}">
                                 @csrf
                                 @method("DELETE")
+                                <a href="{{ route('page.blog.detail', $value->slug) }}" class="btn btn-primary my-1"
+                                    data-toggle="tooltip" data-placement="top" title="Lihat Artikel">
+                                    <i class="fas fa-eye"></i>
+                                </a>
                                 <a href="{{ route('blog.edit', $value->id) }}" class="btn btn-success my-1"
                                     data-toggle="tooltip" data-placement="top" title="Edit">
                                     <i class="fas fa-edit"></i>
