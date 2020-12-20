@@ -47,7 +47,7 @@
                     <input type="hidden" name="kelompok" value="{{ $kelompok->id }}">
                     <div class="form-group">
                         <label for="prodi-1">Pilihan 1</label>
-                        <select name="prodi-1" id="prodi-1" class="form-control" required>
+                        <select name="prodi-1" id="prodi-1" class="form-control select-prodi" required>
                             <option value="" selected disabled>== Program Studi Pilihan 1 ==</option>
                             @foreach ($passing_grade as $value)
                             <option value="{{ $value->id }}">({{ $value->passing_grade }}%)
@@ -57,8 +57,8 @@
                     </div>
                     <div class="form-group">
                         <label for="prodi-2">Pilihan 2</label>
-                        <select name="prodi-2" id="prodi-2" class="form-control" required>
-                            <option value="" selected disabled>== Program Studi Pilihan 1 ==</option>
+                        <select name="prodi-2" id="prodi-2" class="form-control select-prodi" required>
+                            <option value="" selected disabled>== Program Studi Pilihan 2 ==</option>
                             @foreach ($passing_grade as $value)
                             <option value="{{ $value->id }}">({{ $value->passing_grade }}%)
                                 {{ $value->universitas->nama }} - {{ $value->prodi }}</option>

@@ -93,10 +93,13 @@
                         <li>
                             Simpan struk pembayaran sebagai bukti transfer
                         </li>
-                        <li>
-                            Upload bukti transfer <a href="{{ route('pembayaran.siswa.show', ['pembayaran_id' => $pembayaran->id, 'slug' => $pembayaran->gelombang->slug]) }}">disini</a>
-                        </li>
                     </ol>
+                    <a class="btn btn-success btn-block btn-radius my-1" href="{{ route('pembayaran.siswa.show', ['pembayaran_id' => $pembayaran->id, 'slug' => $pembayaran->gelombang->slug]) }}">Upload Bukti Pembayaran</a>
+                    <form action="{{ route('pembayaran.siswa.destroy', $pembayaran->id) }}" id="form-{{ $pembayaran->id }}">
+                        <button type="button" class="btn btn-outline-danger btn-block btn-radius batal my-1" data-toggle="tooltip" data-placement="top" title="Batal Beli Produk" data-id="{{ $pembayaran->id }}">
+                            Batal Beli Produk Ini
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -142,5 +145,25 @@
         // }
     });
 
+</script>
+
+<script>
+    $(".batal").on('click', function() {
+        Swal.fire({
+            title: 'Yakin?',
+            text: "Ingin membatalkan membeli produk ini!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Tidak',
+            confirmButtonText: 'Ya!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let id = $(this).data('id')
+                $(`#form-${id}`).submit()
+            }
+        })
+    })
 </script>
 @endsection

@@ -278,9 +278,7 @@ class PembayaranController extends Controller
                 ->where('siswa_id', '=', $pembayaran->user->siswa->id)
                 ->where('gelombang_id', '=', $pembayaran->gelombang->id)
                 ->delete();
-            $pembayaran->update([
-                'status' => 3
-            ]);
+            $pembayaran->delete();
             DB::commit();
             return redirect()->route('pembayaran.siswa')->with(['success' => "Membatalkan pembelian"]);
         } catch(\Exception $e) {

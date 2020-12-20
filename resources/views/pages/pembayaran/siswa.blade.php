@@ -53,7 +53,7 @@
                                     @if($value->status == 3)
                                         <span class="badge badge-danger p-2">Transfer ditolak</span>
                                     @else
-                                        <span class="badge badge-danger p-2">Balum Upload Bukti Pembayaran</span>
+                                        <span class="badge badge-danger p-2">Belum Upload Bukti Pembayaran</span>
                                     @endif
                                 @endif
                             </td>
@@ -79,7 +79,7 @@
                                                 <i class="fas fa-upload"></i>
                                             </a>
                                             <button type="button" class="btn btn-danger my-1 batal" data-toggle="tooltip" data-placement="top" title="Batal Beli Produk" data-id="{{ $value->id }}">
-                                                <i class="fas fa-window-close"></i>
+                                                <i class="fas fas fa-times"></i>
                                             </button>
                                         </form>
                                     @endif
