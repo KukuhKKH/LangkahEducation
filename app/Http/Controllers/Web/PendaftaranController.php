@@ -130,8 +130,22 @@ class PendaftaranController extends Controller
                                 ->select('tryout_paket.nama')
                                 ->join('tryout_paket', 'tryout_paket.id', '=', 'gelombang_tryout.tryout_paket_id')
                                 ->where('gelombang_id', $gelombang->id)->get()->pluck('nama')->all();
-            return view('pages.pendaftaran.gelombang_tryout', compact('gelombang', 'tryout', 'hasTryout'));
+            $to_lewat = DB::table('gelombang_tryout')
+                            ->select('tryout_paket.id as id')
+                            ->join('tryout_paket', 'tryout_paket.id', '=', 'gelombang_tryout.tryout_paket_id')
+                            ->where('gelombang_id', '=', $id)
+                            ->whereDate('tryout_paket.tgl_akhir', '<=', date('Y-m-d H:i'))
+                            ->get()->pluck('id')->all();
+            $sudah_koreksi = '';
+            // DB::table('gelombang_tryout')
+            //                     ->select('tryout_paket.id as id')
+            //                     ->join('tryout_paket', 'tryout_paket.id', '=', 'gelombang_tryout.tryout_paket_id')
+            //                     ->where('gelombang_id', '=', $id)
+            //                     ->where('tryout_paket.koreksi', '=', 1)
+            //                     ->get()->pluck('id')->all();
+            return view('pages.pendaftaran.gelombang_tryout', compact('gelombang', 'tryout', 'hasTryout', 'to_lewat', 'sudah_koreksi'));
         } catch(\Exception $e) {
+            dd($e);
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
     }
@@ -150,6 +164,15 @@ class PendaftaranController extends Controller
         try {
             $gelombang = Gelombang::with('siswa')->find($id);
             return view('pages.pendaftaran.list_siswa', compact('gelombang'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()])->withInput();
+        }
+    }
+
+    public function list_sekolah($id) {
+        try {
+            $gelombang = Gelombang::with('sekolah')->find($id);
+            return view('pages.pendaftaran.list_sekolah', compact('gelombang'));
         } catch (\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()])->withInput();
         }

@@ -73,10 +73,16 @@
                                     <a href="{{ route('pendaftaran.edit', $value->id) }}" class="btn btn-success my-1" data-toggle="tooltip" data-placement="top" title="Edit Gelombang">
                                         <i class="fas fa-fw fa-edit"></i>
                                     </a>
-                                    <a href="{{ route('pendaftaran.list', $value->id) }}" class="btn btn-warning my-1" data-toggle="tooltip" data-placement="top" title="List siswa yang tergabung">
-                                        <i class="fas fa-fw fa-users"></i>
-                                    </a>
-                                    <a href="{{ route('pendaftaran.tryout', $value->id) }}" class="btn btn-primary my-1" data-toggle="tooltip" data-placement="top" title="Integrasi tryout ke gelombang ini">
+                                    @if ($value->jenis == 1)
+                                        <a href="{{ route('pendaftaran.list', $value->id) }}" class="btn btn-warning my-1" data-toggle="tooltip" data-placement="top" title="List siswa yang tergabung">
+                                            <i class="fas fa-fw fa-users"></i>
+                                        </a>
+                                    @else
+                                        <a href="{{ route('pendaftaran.list.sekolah', $value->id) }}" class="btn btn-warning my-1" data-toggle="tooltip" data-placement="top" title="List sekolah yang tergabung">
+                                            <i class="fas fa-fw fa-school"></i>
+                                        </a>
+                                    @endif
+                                    <a href="{{ route('pendaftaran.tryout', $value->id) }}" class="btn btn-primary my-1" data-toggle="tooltip" data-placement="top" title="Integrasi tryout / Koreksi">
                                     <i class="fas fa-fw fa-desktop"></i>
                                     </a>
                                     <button type="button" class="btn btn-danger my-1 hapus" data-id="{{ $value->id }}" data-toggle="tooltip" data-placement="top" title="Hapus Gelombang">

@@ -74,7 +74,7 @@ class MentorController extends Controller
         foreach($id_siswa as $value) {
             $id[] = $value->siswa_id;
         }
-        $siswa = Siswa::with(['user'])->whereNotIn('id', $id)->get();
+        $siswa = Siswa::with(['user'])->whereNotIn('id', $id)->where('batch', 1)->get();
         $hapus = false;
         return view('pages.users.mentor.show', compact('mentor', 'siswa', 'hapus'));
     }

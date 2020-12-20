@@ -122,7 +122,16 @@ class PaketController extends Controller
                 'status' => $request->status,
                 'tgl_awal' => $tgl_awal,
                 'tgl_akhir' => $tgl_akhir,
-                'image' => $foto_name ?? ''
+                'image' => $foto_name ?? '',
+                'poin_1' => $request->poin_1,
+                'poin_2' => $request->poin_2,
+                'poin_3' => $request->poin_3,
+                'poin_4' => $request->poin_4,
+                'url_youtube_saintek' => $request->url_youtube_saintek,
+                'url_youtube_soshum' => $request->url_youtube_soshum,
+                'interpretasi_1' => $request->interpretasi_1,
+                'interpretasi_2' => $request->interpretasi_2,
+                'interpretasi_3' => $request->interpretasi_3,
             ]);
             return redirect()->route('paket.index')->with(['success' => 'Berhasil update paket tryout']);
         } catch(\Exception $e) {

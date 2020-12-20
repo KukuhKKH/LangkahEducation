@@ -23,6 +23,17 @@
                             <input type="checkbox" name="tryout[]" value="{{ $row->id }}"
                                 {{ in_array($row->nama, $hasTryout) ? 'checked':'' }} />
                             <label>{{ $row->nama }}</label>
+                            @if (in_array($row->nama, $hasTryout))
+                                @if (in_array($row->id, $to_lewat))
+                                    {{-- @if (in_array($row->id, $sudah_koreksi))
+                                        <button type="button" class="btn btn-sm btn-langkah">Sudah di Koreksi</button>
+                                    @else --}}
+                                        <button type="button" class="btn btn-sm btn-success koreksi" data-to="{{ $row->id }}" data-gel="{{ $gelombang->id }}">Koreksi</button>
+                                    {{-- @endif --}}
+                                @else
+                                    <button type="button" class="btn btn-sm btn-warning" disabled style="color: black">Tryout Belum selesai</button>
+                                @endif
+                            @endif
                         </li>
                         @endforeach
                     </ol>
@@ -42,4 +53,28 @@
 
     @section('css')
     <link rel="stylesheet" href="{{ asset('assets/vendor/pretty-checkbox.min.css') }}">
+    @endsection
+
+    @section('js')
+        <script>
+            const URL_KOREKSI = `{{ url('dashboard/koreksi/tryout') }}`
+            $(".koreksi").on('click', function() {
+                Swal.fire({
+                    title: 'Yakin?',
+                    text: "Ingin Mengoreksi Tryout ini!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'Tidak',
+                    confirmButtonText: 'Ya!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        let to = $(this).data('to')
+                        let gel = $(this).data('gel')
+                        window.location.replace(`${URL_KOREKSI}/${gel}/${to}`)
+                    }
+                })
+            })
+        </script>
     @endsection

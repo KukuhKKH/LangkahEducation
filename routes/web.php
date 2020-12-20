@@ -39,8 +39,8 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
             Route::get('landing-page', 'PageController@landing_page')->name('landing_page.index');
             Route::post('landing-page/{id}', 'PageController@update')->name('landing_page.update');
 
+            // Manajemen Role & Permission
             Route::group(['middleware' => ['role:superadmin']], function () {
-                // Manajemen Role & Permission
                 Route::resource('role', 'RolePermissionController')->except(['create', 'show']);
                 Route::get('permission', 'RolePermissionController@permission')->name('role.permission');
                 Route::post('permission/create', 'RolePermissionController@create')->name('permission.create');
@@ -52,8 +52,8 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                 Route::delete('permission/{id}', 'RolePermissionController@destroy_permission')->name('permission.destroy');
             });
 
+            // Lain lain
             Route::group(['middleware' => ['role:admin|superadmin']], function() {
-                // Lain lain
                 Route::resource('universitas', 'UniversitasController')->except(['create']);
                 Route::post('universitas/import/batch', 'UniversitasController@import_batch')->name('universitas.import_batch');
                 Route::resource('universitas/passing-grade', 'PassingGradeController');
@@ -64,6 +64,7 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                 Route::resource('gambar', 'GambarController')->except(['create', 'show']);
                 Route::resource('rekening', 'BankController')->except(['create', 'show']);
                 Route::get('pendaftaran/list/siswa/{id}', 'PendaftaranController@list_siswa')->name('pendaftaran.list');
+                Route::get('pendaftaran/list/sekolah/{id}', 'PendaftaranController@list_sekolah')->name('pendaftaran.list.sekolah');
                 Route::resource('testimoni', 'TestimoniController');
                 Route::get('testimoni/status/{id}/{status}', 'TestimoniController@set_status')->name('testimoni.status');
                 Route::resource('layanan', 'LayananController');
@@ -72,8 +73,11 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                 Route::get('pendaftaran/tryout/{id}', 'PendaftaranController@integrasi_tryout')->name('pendaftaran.tryout');
                 Route::post('pendaftaran/tryout/{id}', 'PendaftaranController@integrasi_tryout_store')->name('pendaftaran.tryout.store');
 
+                // Koreksi Terbaru
+                Route::get('koreksi/tryout/{gelombang_id}/{paket_id}', 'Siswa\TryoutController@koreksi_tryout_super_baru');
+
+                // Manajemen Users
                 Route::group(['namespace' => 'User'], function () {
-                    // Manajemen Users
                     Route::resource('mentor', 'MentorController');
                     Route::resource('sekolah', 'SekolahController')->except(['create']);
                     Route::resource('admin', 'AdminController')->except(['create', 'show']);

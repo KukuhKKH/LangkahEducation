@@ -184,6 +184,11 @@ class TryoutController extends Controller
                                 'nilai' => $value
                             ]);
             }
+            $kategori_to = TempProdi::where('gelombang_id', 8)
+                            ->where('paket_id', 1)
+                            ->where('user_id', $user_id)
+                            ->first()->kelompok_passing_grade_id;
+            $nama_kategori_to = KelompokPassingGrade::find($kategori_to)->nama;
             if($nama_kategori_to == 'saintek') {
                 $index_nilai_max = 'saintek';
             } elseif($nama_kategori_to == 'soshum') {

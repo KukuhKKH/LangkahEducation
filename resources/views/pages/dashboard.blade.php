@@ -127,14 +127,14 @@
                     <div class="card-body">
                         <form action="#" class="mt-4">
                             <input type="hidden">
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label for="kelompok">Kelompok</label>
                                 <select name="kelompok"class="form-control" required>
                                     <option value="" selected disabled>== Kelompok Ujian ==</option>
                                     <option value="0">SAINTEK</option>
                                     <option value="1">SOSHUM</option>
                                 </select>
-                            </div>
+                            </div> --}}
                             <input type="hidden" value="{{ $kelompok->kelompok_passing_grade_id }}">
                             <div class="form-group">
                                 <label for="prodi-1">Pilihan 1</label>

@@ -27,7 +27,16 @@ class PaketUpdate extends FormRequest
             'nama' => 'required',
             'status' => 'required',
             'tgl_awal' => 'required',
-            'tgl_akhir' => 'required'
+            'tgl_akhir' => 'required',
+            'poin_1' => 'required|integer',
+            'poin_2' => 'required|integer',
+            'poin_3' => 'required|integer',
+            'poin_4' => 'required|integer',
+            'url_youtube_saintek' => 'required',
+            'url_youtube_soshum' => 'required',
+            'interpretasi_1' => 'required',
+            'interpretasi_2' => 'required',
+            'interpretasi_3' => 'required',
         ];
     }
 }

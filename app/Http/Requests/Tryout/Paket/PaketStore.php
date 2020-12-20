@@ -30,7 +30,16 @@ class PaketStore extends FormRequest
             'jam_awal' => 'required',
             'tgl_akhir' => 'required',
             'jam_akhir' => 'required',
-            'image' => 'nullable'
+            'image' => 'nullable',
+            'poin_1' => 'required|integer',
+            'poin_2' => 'required|integer',
+            'poin_3' => 'required|integer',
+            'poin_4' => 'required|integer',
+            'url_youtube_saintek' => 'required',
+            'url_youtube_soshum' => 'required',
+            'interpretasi_1' => 'required',
+            'interpretasi_2' => 'required',
+            'interpretasi_3' => 'required',
         ];
     }
 }

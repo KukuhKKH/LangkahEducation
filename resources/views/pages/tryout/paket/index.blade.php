@@ -183,6 +183,136 @@
                                 @enderror
                             </div>
                         </div>
+
+                        {{-- Iki ASU --}}
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="poin_1">Point 1</label>
+                                <input name="poin_1" type="number"
+                                    class="form-control form-control-user @error('poin_1') is-invalid @enderror"
+                                    placeholder="Nilai Point 1" value="{{ old('poin_1') }}" required>
+                                @error('poin_1')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="poin_2">Point 2</label>
+                                <input name="poin_2" type="number"
+                                    class="form-control form-control-user @error('poin_2') is-invalid @enderror"
+                                    placeholder="Nilai Point 2" value="{{ old('poin_2') }}" required>
+                                @error('poin_2')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="poin_3">Point 3</label>
+                                <input name="poin_3" type="number"
+                                    class="form-control form-control-user @error('poin_3') is-invalid @enderror"
+                                    placeholder="Nilai Point 3" value="{{ old('poin_3') }}" required>
+                                @error('poin_3')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="poin_4">Point 4</label>
+                                <input name="poin_4" type="number"
+                                    class="form-control form-control-user @error('poin_4') is-invalid @enderror"
+                                    placeholder="Nilai Point 4" value="{{ old('poin_4') }}" required>
+                                @error('poin_4')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="url_youtube_saintek">Url Youtube Saintek</label>
+                                <input name="url_youtube_saintek" type="text"
+                                    class="form-control form-control-user @error('url_youtube_saintek') is-invalid @enderror"
+                                    placeholder="Url Youtube Saintek" value="{{ old('url_youtube_saintek') }}" required>
+                                @error('url_youtube_saintek')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="url_youtube_soshum">Url Youtube Soshum</label>
+                                <input name="url_youtube_soshum" type="text"
+                                    class="form-control form-control-user @error('url_youtube_soshum') is-invalid @enderror"
+                                    placeholder="Url Youtube Soshum" value="{{ old('url_youtube_soshum') }}" required>
+                                @error('url_youtube_soshum')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="interpretasi_1">Interpretasi 1</label>
+                                <input name="interpretasi_1" type="text"
+                                    class="form-control form-control-user @error('interpretasi_1') is-invalid @enderror"
+                                    placeholder="Interpretasi 1" value="{{ old('interpretasi_1') }}" required>
+                                @error('interpretasi_1')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="interpretasi_2">Interpretasi 2</label>
+                                <input name="interpretasi_2" type="text"
+                                    class="form-control form-control-user @error('interpretasi_2') is-invalid @enderror"
+                                    placeholder="Interpretasi 2" value="{{ old('interpretasi_2') }}" required>
+                                @error('interpretasi_2')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="interpretasi_3">Interpretasi 3</label>
+                                <input name="interpretasi_3" type="text"
+                                    class="form-control form-control-user @error('interpretasi_3') is-invalid @enderror"
+                                    placeholder="Interpretasi 3" value="{{ old('interpretasi_3') }}" required>
+                                @error('interpretasi_3')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        {{-- Iki ASU --}}
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Status</label>

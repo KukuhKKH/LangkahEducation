@@ -77,7 +77,7 @@ class HomeController extends Controller
             $nilai_by_user = TryoutHasil::with(['user', 'paket', 'tryout_hasil_jawaban', 'tryout_hasil_detail'])->where('user_id', auth()->user()->id)->get();
             if(count($nilai_by_user) > 0) {
                 foreach ($nilai_by_user as $key => $value) {
-                    $nilai_grafik[] = $value->nilai_awal;
+                    $nilai_grafik[] = $value->nilai_sekarang;
                     $nama_paket[] = $value->paket->nama;
                 }
             }

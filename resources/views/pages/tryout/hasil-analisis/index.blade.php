@@ -163,7 +163,8 @@
     @php
         $hasMentor = auth()->user()->siswa->mentor;
     @endphp
-    <div class="{{ ($hasMentor != '') ? 'col-xl-6 col-lg-6' : 'col-xl-12 col-lg-12' }}">
+    {{-- <div class="{{ ($hasMentor != '') ? 'col-xl-6 col-lg-6' : 'col-xl-12 col-lg-12' }}"> --}}
+    <div class="col-xl-6 col-lg-6">
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-dark">Riwayat Nilai</h6>
@@ -175,11 +176,11 @@
             </div>
         </div>
     </div>
-    @if ($hasMentor != '')
+    @if (count($hasMentor) > 0)
         <div class="col-xl-6 col-lg-6">
             <div class="card shadow mb-4 text-center">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-dark">Interpretasi Hasil</h6>
+                    <h6 class="m-0 font-weight-bold text-dark">Komentar Mentor</h6>
                 </div>
                 <div class="card-body">
                     {{-- IF SISWA (SEKOLAH) --}}
@@ -218,6 +219,30 @@
                 </div>
             </div>
         </div>
+    @else
+    <div class="col-xl-6 col-lg-6">
+        <div class="card shadow mb-4 text-center">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-dark">Interpretasi Hasil</h6>
+            </div>
+            <div class="card-body">
+                {{-- IF SISWA UMUM (INTERPRETASI) --}}
+
+                @php
+                    $interpretasi = "";
+                    //$prodi 1 dan 2 wes onok ng duwur 
+                    if ($prodi1 < 100 && $prodi2 < 100) {
+                        $interpretasi = $paket->interpretasi_1;
+                    }else if($prodi2 < 100){
+                        $interpretasi = $paket->interpretasi_2;
+                    }else{
+                        $interpretasi = $paket->intrepretasi_3;
+                    }
+                @endphp
+                <p>{{ $interpretasi }}</p>
+            </div>
+        </div>
+    </div>
     @endif
 </div>
 
