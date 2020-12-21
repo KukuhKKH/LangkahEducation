@@ -128,7 +128,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="name">Logo</label>
+                            <label for="name">Logo <small>Maksimal 500 Kb</small></label>
 
                             <div class="input-group">
                                 <div class="custom-file">
@@ -167,10 +167,19 @@
          }
       })
    })
-
-   $('#inputFile').on('change', function (e) {
-        var fileName = e.target.files[0].name;
-        $(this).next('#labelFile').html(fileName);
-    })
 </script>
+
+<script type="application/javascript">
+    $('input[type="file"]').change(function(e){
+        var fileName = e.target.files[0].name;
+        $('.custom-file-label').html(fileName);
+    });
+    $("#inputFile").change(function() {
+         if(this.files[0].size > 524000){
+             alert("Maaf Foto Kamu Terlalu Besar");
+             $("#inputFile").val('');
+             $("#labelFile").text('Choose file');
+         }
+     });
+ </script>
 @endsection

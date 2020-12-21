@@ -59,18 +59,18 @@
             @enderror
          </div>
          <div class="form-group">
-            <label for="testimonial">Foto <small>Opsional</small></label>
+            <label for="testimonial">Foto <small>Maksimal 500 Kb</small></label>
             <div class="input-group mb-3">
                <div class="custom-file">
                   <input type="file" name="file"
                      class="custom-file-input form-control form-control-user @error('foto') is-invalid @enderror"
-                     id="inputGroupFile02">
+                     id="fotoTestimoni">
                   @error('foto')
                   <span class="invalid-feedback" role="alert">
                      <strong>{{ $message }}</strong>
                   </span>
                   @enderror
-                  <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+                  <label class="custom-file-label" id="labelTestimoni" for="inputGroupFile02">Choose file</label>
                </div>
             </div>
          </div>
@@ -92,6 +92,19 @@
         filebrowserBrowseUrl: '/filemanager?type=Files',
         filebrowserUploadUrl: '/filemanager/upload?type=Files&_token='
     }
-    CKEDITOR.replace('deskripsi', option)
+   //  CKEDITOR.replace('deskripsi', option)
+</script>
+<script type="application/javascript">
+   $('input[type="file"]').change(function(e){
+       var fileName = e.target.files[0].name;
+       $('.custom-file-label').html(fileName);
+   });
+   $("#fotoTestimoni").change(function() {
+        if(this.files[0].size > 524000){
+            alert("Maaf Foto Kamu Terlalu Besar");
+            $("#fotoTestimoni").val('');
+            $("#labelTestimoni").text('Choose file');
+        }
+    });
 </script>
 @endsection

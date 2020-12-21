@@ -188,16 +188,16 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="testimonial">Foto</label>
+                        <label for="testimonial">Foto <small>Maksimal 500 Kb</small></label>
                         <div class="input-group mb-3">
                             <div class="custom-file">
-                              <input type="file" name="file" class="custom-file-input form-control form-control-user @error('foto') is-invalid @enderror" id="inputGroupFile02">
+                              <input type="file" name="file" class="custom-file-input form-control form-control-user @error('foto') is-invalid @enderror" id="fotoTestimoni" accept="image/x-png,image/gif,image/jpeg">
                               @error('foto')
                               <span class="invalid-feedback" role="alert">
                                   <strong>{{ $message }}</strong>
                               </span>
                               @enderror
-                              <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+                              <label class="custom-file-label" id="labelTestimoni" for="inputGroupFile02">Choose file</label>
                             </div>
                           </div>
                     </div>
@@ -238,5 +238,12 @@
         var fileName = e.target.files[0].name;
         $('.custom-file-label').html(fileName);
     });
-</script>
+    $("#fotoTestimoni").change(function() {
+         if(this.files[0].size > 524000){
+             alert("Maaf Foto Kamu Terlalu Besar");
+             $("#fotoTestimoni").val('');
+             $("#labelTestimoni").text('Choose file');
+         }
+     });
+ </script>
 @endsection

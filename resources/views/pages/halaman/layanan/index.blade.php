@@ -115,11 +115,11 @@
                      @enderror
                  </div>
                     <div class="form-group">
-                        <label for="testimonial">Foto <small>Maksimal 2 Mb</small></label>
+                        <label for="testimonial">Foto <small>Maksimal 500 Kb</small></label>
                         <div class="input-group mb-3">
                             <div class="custom-file">
                               <input type="file"  accept="image/*" name="foto" class="custom-file-input form-control form-control-user @error('foto') is-invalid @enderror" id="thumbLayanan" accept="image/x-png,image/gif,image/jpeg">
-                              <label class="custom-file-label" for="thumbLayanan">Choose file</label>
+                              <label class="custom-file-label" id="labelThumb" for="thumbLayanan">Choose file</label>
                             </div>
                             @error('foto')
                             <span class="invalid-feedback" role="alert">
@@ -167,16 +167,16 @@
    
 </script>
 <script type="application/javascript">
-
     $('input[type="file"]').change(function(e){
-        if(this.files[0].size > 2097152){
-            alert("Maaf Gambar Kamu Terlalu Besar");
-            $("#thumbLayanan")val('');
-            $('.custom-file-label').html("Choose File");
-        }else{
-            var fileName = e.target.files[0].name;
-            $('.custom-file-label').html(fileName);
-        }
+        var fileName = e.target.files[0].name;
+        $('.custom-file-label').html(fileName);
     });
-</script>
+    $("#thumbLayanan").change(function() {
+         if(this.files[0].size > 524000){
+             alert("Maaf Foto Kamu Terlalu Besar");
+             $("#thumbLayanan").val('');
+             $("#labelThumb").text('Choose file');
+         }
+     });
+ </script>
 @endsection

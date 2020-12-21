@@ -13,7 +13,7 @@
             <div class="col-xl-4">
                 <div class="card mb-4">
                     @if ($item->image)
-                    <img class="card-img-top img-cover" src="{{ asset("upload/paket-tryout/$item->image") }}" alt="Try Out">
+                    <img class="card-img-top img-cover" src="{{ asset("upload/paket-tryout/$item->image") }}" alt="Try Out" style="height:225px">
                     @else
                     <img class="card-img-top img-cover" src="{{asset('assets/img/default-tryout.svg')}}" alt="Try Out">
                     @endif
@@ -79,7 +79,7 @@
             <div class="col-xl-4">
                 <div class="card mb-4">
                     @if ($item->image)
-                    <img class="card-img-top img-cover" src="{{ asset("upload/paket-tryout/$item->image") }}" alt="Try Out">
+                    <img class="card-img-top img-cover" src="{{ asset("upload/paket-tryout/$item->image") }}" alt="Try Out" style="height:225px">
                     @else
                     <img class="card-img-top img-cover" src="{{asset('assets/img/default-tryout.svg')}}" alt="Try Out">
                     @endif

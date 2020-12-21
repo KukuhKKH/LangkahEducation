@@ -128,8 +128,8 @@
                             <div class="custom-file">
                                 <input type="file"
                                     class="custom-file-input form-control @error('foto') is-invalid @enderror"
-                                    name="foto" accept="image/x-png,image/gif,image/jpeg" id="inputGroupFile02">
-                                <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+                                    name="foto" accept="image/x-png,image/gif,image/jpeg" id="fotoUser">
+                                <label class="custom-file-label" id="labelFoto" for="inputGroupFile02">Choose file</label>
                                 @error('foto')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -162,8 +162,8 @@
                 </div>
                 <div class="col-xl-6">
                     <div class="float-right">
-                        <button type="submit" class="btn btn-success">Simpan</button>
                         <a href="{{ url()->previous() }}" class="btn btn-dark ml-1">Kembali</a>
+                        <button type="submit" class="btn btn-success">Simpan</button>
                     </div>
                 </div>
             </div>
@@ -223,6 +223,14 @@
             $(this).next('.custom-file-label').html(e.target.files[0].name);
         }
     });
+
+    $("#fotoUser").change(function() {
+             if(this.files[0].size > 2097152){
+                 alert("Maaf Foto Kamu Terlalu Besar");
+                 $("#fotoUser").val('');
+                 $("#labelFoto").text('Choose file');
+             }
+         });
 
 </script>
 @endsection

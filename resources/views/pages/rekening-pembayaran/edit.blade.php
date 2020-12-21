@@ -45,25 +45,18 @@
             </span>
             @enderror
          </div>
-         <div class="form-group row">
-            <div class="col-md-6">
-               <label for="name">Logo</label>
+         <div class="form-group">
+            <label for="name">Logo <small>Ukuran Maksimal 500Kb</small></label>
                <div class="input-group">
                   <div class="custom-file">
                      <input type="file" name="file" class="custom-file-input" id="inputFile" accept="image/*">
                      <label class="custom-file-label" id="labelFile" for="inputGroupFile02">Choose file</label>
                   </div>
                </div>
-            </div>
-            @if ($bank->logo)
-               <div class="col-md-6">
-                  <img src="{{ asset("upload/bank/$bank->logo") }}" alt="{{ $bank->nama }}" width=100>
-               </div>
-            @endif
          </div>
-         <div class="mt-3">
-            <button type="submit" class="btn btn-primary">Update</button>
-            <button type="button" class="btn btn-light" data-dismiss="modal">Batal</button>
+         <div class="mt-3 text-right">
+            <button type="button" class="btn btn-dark" data-dismiss="modal">Kembali</button>
+            <button type="submit" class="btn btn-success">Simpan</button>
          </div>
       </form>
    </div>
@@ -71,10 +64,17 @@
 @endsection
 
 @section('js')
-<script>
-   $('#inputFile').on('change', function (e) {
-        var fileName = e.target.files[0].name;
-        $(this).next('#labelFile').html(fileName);
-    })
+<script type="application/javascript">
+   $('input[type="file"]').change(function(e){
+       var fileName = e.target.files[0].name;
+       $('.custom-file-label').html(fileName);
+   });
+   $("#inputFile").change(function() {
+        if(this.files[0].size > 524000){
+            alert("Maaf Foto Kamu Terlalu Besar");
+            $("#inputFile").val('');
+            $("#labelFile").text('Choose file');
+        }
+    });
 </script>
 @endsection

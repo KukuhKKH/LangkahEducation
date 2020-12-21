@@ -270,5 +270,13 @@
         var fileNames = e.target.files[0].name;
         $(this).next('#labelLogo').html(fileNames);
     })
+
+    $("#fileLogo").change(function() {
+             if(this.files[0].size > 2097152){
+                 alert("Maaf Foto Kamu Terlalu Besar");
+                 $("#fileLogo").val('');
+                 $("#labelLogo").text('Choose file');
+             }
+         });
 </script>
 @endsection

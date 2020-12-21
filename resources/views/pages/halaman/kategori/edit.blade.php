@@ -31,13 +31,13 @@
                   <label for="">Foto <small>Maksimal 2 Mb</small></label>
                   <div class="input-group mb-3">
                      <div class="custom-file">
-                       <input type="file" class="custom-file-input form-control @error('foto') is-invalid @enderror" name="foto" accept="image/x-png,image/gif,image/jpeg" id="inputGroupFile02">
+                       <input type="file" class="custom-file-input form-control @error('foto') is-invalid @enderror" name="foto" accept="image/x-png,image/gif,image/jpeg" id="iconKategori">
                        @error('foto')
                        <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
                        </span>
                        @enderror
-                       <label class="custom-file-label " for="inputGroupFile02">Choose file</label>
+                       <label class="custom-file-label " id="labelKategori" for="inputGroupFile02">Choose file</label>
                      </div>
                    </div>
                </div>
@@ -59,4 +59,20 @@
       </form>
    </div>
 </div>
+@endsection
+
+@section('js')
+<script type="application/javascript">
+   $('input[type="file"]').change(function(e){
+       var fileName = e.target.files[0].name;
+       $('.custom-file-label').html(fileName);
+   });
+   $("#iconKategori").change(function() {
+        if(this.files[0].size > 524000){
+            alert("Maaf Foto Kamu Terlalu Besar");
+            $("#iconKategori").val('');
+            $("#labelKategori").text('Choose file');
+        }
+    });
+</script>
 @endsection
