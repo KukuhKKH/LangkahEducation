@@ -41,11 +41,11 @@
                                     <div class="form-group rounded-circle">
                                         <label for="password">Kata Sandi</label>
                                         <div class="input-group" id="show_hide_password">
-                                            <input type="password" class="form-control form-control-user @error('password') is-invalid @enderror" id="exampleInputPassword" placeholder="Kata Sandi" name="password">
+                                            <input type="password" class="form-control form-control-user @error('email') is-invalid @enderror" id="exampleInputPassword" placeholder="Kata Sandi" name="password">
                                             <div class="input-group-addon d-flex align-items-center">
                                                 <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
                                               </div>
-                                            @error('password')
+                                            @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

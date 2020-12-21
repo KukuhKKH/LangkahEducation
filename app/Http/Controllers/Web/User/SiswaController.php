@@ -11,9 +11,7 @@ use App\Http\Requests\Siswa\SiswaCreateRequest;
 use App\Http\Requests\Siswa\SiswaUpdateRequest;
 use App\Imports\SiswaImport;
 use App\Models\Sekolah;
-use Illuminate\Validation\ValidationException as ValidationException;
 use Maatwebsite\Excel\Facades\Excel;
-use PhpParser\Node\Expr\Instanceof_;
 
 class SiswaController extends Controller
 {

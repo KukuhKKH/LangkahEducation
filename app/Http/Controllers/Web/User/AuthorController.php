@@ -100,8 +100,10 @@ class AuthorController extends Controller
             }
             $foto = $user->foto;
             if($request->hasFile('foto')) {
-                if(file_exists(public_path('upload/users/'.$user->foto))){
-                    unlink(public_path('upload/users/'.$user->foto));
+                if($user->foto != '') {
+                    if(file_exists(public_path('upload/users/'.$user->foto))){
+                        unlink(public_path('upload/users/'.$user->foto));
+                    }
                 }
                 $foto_name = time().'.'.$request->foto->extension();  
                 $request->foto->move(public_path('upload/users/'), $foto_name);

@@ -121,7 +121,8 @@ class MentorController extends Controller
                 $mentor->user()->update([
                     'name' => $request->name,
                     'password' => $request->password_old,
-                    'email' => $request->email
+                    'email' => $request->email,
+                    'foto' => $foto
                 ]);
             } else {
                 $mentor->user()->update([

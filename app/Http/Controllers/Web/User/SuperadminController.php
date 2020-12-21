@@ -104,8 +104,10 @@ class SuperadminController extends Controller
             }
             $foto = $admin->foto;
             if($request->hasFile('foto')) {
-                if(file_exists(public_path('upload/users/'.$admin->foto))){
-                    unlink(public_path('upload/users/'.$admin->foto));
+                if($admin->foto != '') {
+                    if(file_exists(public_path('upload/users/'.$admin->foto))){
+                        unlink(public_path('upload/users/'.$admin->foto));
+                    }
                 }
                 $foto_name = time().'.'.$request->foto->extension();  
                 $request->foto->move(public_path('upload/users/'), $foto_name);
