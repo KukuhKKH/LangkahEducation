@@ -35,7 +35,22 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        // $this->redirectTo = redirect()->back();
+        $this->redirectTo = session('url.intended');
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * Show the application's login form.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showLoginForm()
+    {
+        if(url()->previous() != url('/').'/') {
+            session(['url.intended' => url()->previous()]);
+        } else {
+            session(['url.intended' => '/dashboard']);
+        }
+        return view('auth.login');
     }
 }

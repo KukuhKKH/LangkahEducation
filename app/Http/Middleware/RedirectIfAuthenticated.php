@@ -20,7 +20,6 @@ class RedirectIfAuthenticated
     {
         // dd(url()->previous());
         if (Auth::guard($guard)->check()) {
-            return redirect()->back();
             return redirect(RouteServiceProvider::HOME);
         }
 
