@@ -162,9 +162,9 @@ class SiswaController extends Controller
     {
         try {
             DB::beginTransaction();
-            $user = User::find($id);
-            $user->siswa()->delete();
-            $user->delete();
+            $siswa = Siswa::find($id);
+            $siswa->delete();
+            $siswa->user()->delete();
             DB::commit();
             return \redirect()->back()->with(['success' => "Berhasil hapus siswa"]);
         } catch(\Exception $e) {
