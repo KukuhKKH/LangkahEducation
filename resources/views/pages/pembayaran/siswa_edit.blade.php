@@ -17,20 +17,22 @@
                      @csrf
                      @method('PUt')
                      <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                            <div class="form-group">
                               <label for="">Bukti Transfer</label>
-                              <input class="form-control" type="file" name="file" placeholder="Bukti Transfer" accept="image/*">
+                              <div class="custom-file">
+                                 <input id="buktiTransfer" type="file" class="custom-file-input form-control @error('foto') is-invalid @enderror" name="file" accept="image/x-png,image/gif,image/jpeg" id="inputGroupFile02" required>
+                                 @error('foto')
+                                 <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                 </span>
+                                 @enderror
+                                 <label id="labelBukti" class="custom-file-label " for="inputGroupFile02">Choose file</label>
+                               </div>
                            </div>
                         </div>
-                        <div class="col-md-6">
-                           <?php $bukti = $pembayaran->pembayaran_bukti->first()->bukti; ?>
-                           <a href="{{ asset("upload/bukti/$bukti") }}" target="_blank">
-                              <img src="{{ asset("upload/bukti/$bukti") }}" alt="{{ $pembayaran->bukti }}" width="100">
-                           </a>
-                        </div>
                      </div>
-                     <a href="{{ route('pembayaran.siswa') }}" class="btn btn-outline-primary">Kembali</a>
+                     <a href="{{ route('pembayaran.siswa') }}" class="btn btn-dark">Kembali</a>
                      <button class="btn btn-primary">Kirim</button>
                  </form>
               </div>
@@ -48,4 +50,20 @@
         </div>
     </div>
 
+@endsection
+
+@section('js')
+<script type="application/javascript">
+   $('input[type="file"]').change(function(e){
+       var fileName = e.target.files[0].name;
+       $('.custom-file-label').html(fileName);
+   });
+   $("#buktiTransfer").change(function() {
+        if(this.files[0].size > 2097152){
+            alert("Maaf Foto Kamu Terlalu Besar");
+            $("#buktiTransfer").val('');
+            $("#labelBukti").text('Choose file');
+        }
+    });
+</script>
 @endsection

@@ -14,7 +14,7 @@
       <div class="row">
          <div class="col-xl-12 text-center mb-3">
             @if ($admin->foto)
-               <img src="{{ asset('upload/users/'.$admin->foto) }}" alt="{{ $admin->name }}" class="img-fluid w-100">
+               <img id="img-profile" class="img-fluid img-cover" src="{{ asset('upload/users/'.$admin->foto) }}" alt="{{ $admin->name }}" class="img-fluid w-100">
             @else
              <img class="img-fluid" width="100px" src="{{ asset("assets/img/undraw_profile.svg") }}"
                  alt="foto-{{ $admin->name }}">
@@ -91,13 +91,13 @@
                   <label for="">Foto <small>Maksimal 2 Mb</small></label>
                   <div class="input-group mb-3">
                      <div class="custom-file">
-                       <input type="file" class="custom-file-input form-control @error('foto') is-invalid @enderror" name="foto" accept="image/x-png,image/gif,image/jpeg" id="inputGroupFile02">
+                       <input type="file" class="custom-file-input form-control @error('foto') is-invalid @enderror" name="foto" accept="image/x-png,image/gif,image/jpeg" id="fotoUser">
                        @error('foto')
                        <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
                        </span>
                        @enderror
-                       <label class="custom-file-label " for="inputGroupFile02">Choose file</label>
+                       <label id="labelFoto" class="custom-file-label " for="inputGroupFile02">Choose file</label>
                      </div>
                    </div>
                </div>
@@ -160,7 +160,15 @@
           var fileName = e.target.files[0].name;
           $('.custom-file-label').html(fileName);
       });
+      $("#fotoUser").change(function() {
+        if(this.files[0].size > 2097152){
+            alert("Maaf Foto Kamu Terlalu Besar");
+            $("#fotoUser").val('');
+            $("#labelFoto").text('Choose file');
+        }
+    });
   </script>
+  
   <script>
    $(document).ready(function() {
    $("#show_old_password a").on('click', function(event) {

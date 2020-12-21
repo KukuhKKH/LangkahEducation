@@ -16,7 +16,7 @@
                @if ($author->user->foto)
                   <img src="{{ asset('upload/users/'.$author->user->foto) }}" alt="{{ $author->user->name }}" class="img-fluid w-100">
                @else
-                <img class="img-fluid" width="100px" src="{{ asset("assets/img/undraw_profile.svg") }}"
+                <img id="img-profile" class="img-fluid img-cover" class="img-fluid" width="100px" src="{{ asset("assets/img/undraw_profile.svg") }}"
                     alt="foto-{{ $author->user->namee }}">
                 @endif
             </div>

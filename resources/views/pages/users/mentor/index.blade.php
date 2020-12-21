@@ -166,6 +166,15 @@
                             <input name="password" class="form-control form-control-user" disabled value="123456">
                             <small>Password Default</small>
                         </div>
+                        <div class="form-group">
+                            <label for="">Foto <small>Opsional</small></label>
+                            <div class="input-group mb-3">
+                               <div class="custom-file">
+                                 <input type="file" class="custom-file-input" id="fotoUser" name="foto" accept="image/*">
+                                 <label class="custom-file-label" id="labelFoto" for="inputGroupFile02">Choose file</label>
+                               </div>
+                             </div>
+                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Simpan</button>
@@ -198,6 +207,23 @@
             })
         })
     </script>
+    <script type="text/javascript">
+
+        $('.custom-file input').change(function (e) {
+            var files = [];
+            for (var i = 0; i < $(this)[0].files.length; i++) {
+                files.push($(this)[0].files[i].name);
+            }
+            $(this).next('.custom-file-label').html(files.join(', '));
+        });
+        $("#fotoUser").change(function() {
+             if(this.files[0].size > 2097152){
+                 alert("Maaf Foto Kamu Terlalu Besar");
+                 $("#fotoUser").val('');
+                 $("#labelFoto").text('Choose file');
+             }
+         });
+     </script>
 @endsection
 
 @section('css')

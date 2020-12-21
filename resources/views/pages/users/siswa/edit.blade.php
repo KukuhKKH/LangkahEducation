@@ -14,7 +14,6 @@
       <div class="row">
          <div class="col-xl-12 text-center mb-3">
             @if ($user->user->foto)
-               <img src="{{ asset('upload/users/'.$user->user->foto) }}" alt="{{ $user->user->name }}" class="img-fluid w-100">
             @else
              <img class="img-fluid" width="100px" src="{{ asset("assets/img/undraw_profile.svg") }}"
                  alt="foto-{{ $user->user->namee }}">

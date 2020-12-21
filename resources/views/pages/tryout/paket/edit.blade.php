@@ -146,10 +146,10 @@
 
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="url_youtube_saintek">Url Youtube Saintek</label>
+                        <label for="url_youtube_saintek">URL Youtube Saintek</label>
                         <input name="url_youtube_saintek" type="text"
                             class="form-control form-control-user @error('url_youtube_saintek') is-invalid @enderror"
-                            placeholder="Url Youtube Saintek" value="{{ $paket->url_youtube_saintek }}" required>
+                            placeholder="URL Youtube Saintek" value="{{ $paket->url_youtube_saintek }}" required>
                         @error('url_youtube_saintek')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -160,10 +160,10 @@
 
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="url_youtube_soshum">Url Youtube Soshum</label>
+                        <label for="url_youtube_soshum">URL Youtube Soshum</label>
                         <input name="url_youtube_soshum" type="text"
                             class="form-control form-control-user @error('url_youtube_soshum') is-invalid @enderror"
-                            placeholder="Url Youtube Soshum" value="{{ $paket->url_youtube_soshum }}" required>
+                            placeholder="URL Youtube Soshum" value="{{ $paket->url_youtube_soshum }}" required>
                         @error('url_youtube_soshum')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -200,7 +200,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="form-group">
                         <label for="interpretasi_3">Interpretasi 3</label>
                         <input name="interpretasi_3" type="text"
@@ -232,7 +232,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="testimonial">Foto <small>Maksimal 2 Mb</small></label>
-                        <div class="input-group mb-3">
+                        <div class="input-group">
                             <div class="custom-file">
                               <input id="thumbPaket" type="file"  accept="image/*" name="foto" class="custom-file-input form-control form-control-user @error('foto') is-invalid @enderror" id="inputGroupFile02" accept="image/x-png,image/gif,image/jpeg">
                               <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
@@ -243,6 +243,8 @@
                             </span>
                             @enderror
                           </div>
+                          <small>Rekomendasi Ukuran 880x535</small>
+
                     </div>
                 </div>
             </div>
@@ -287,6 +289,12 @@
             alert("Maaf Gambar Kamu Terlalu Besar");
             $("#thumbPaket").val('');
         }
+    });
+</script>
+<script type="application/javascript">
+    $('input[type="file"]').change(function(e){
+        var fileName = e.target.files[0].name;
+        $('.custom-file-label').html(fileName);
     });
 </script>
 @endsection

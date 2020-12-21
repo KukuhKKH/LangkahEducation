@@ -144,8 +144,8 @@
                   <label for="">Foto <small>Opsional</small></label>
                   <div class="input-group mb-3">
                      <div class="custom-file">
-                       <input type="file" class="custom-file-input" id="inputGroupFile02" name="foto" accept="image/*">
-                       <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+                       <input type="file" class="custom-file-input" id="fotoUser" name="foto" accept="image/*">
+                       <label class="custom-file-label" id="labelFoto" for="inputGroupFile02">Choose file</label>
                      </div>
                    </div>
                </div>
@@ -187,5 +187,12 @@
        var fileName = e.target.files[0].name;
        $('.custom-file-label').html(fileName);
    });
+   $("#fotoUser").change(function() {
+        if(this.files[0].size > 2097152){
+            alert("Maaf Foto Kamu Terlalu Besar");
+            $("#fotoUser").val('');
+            $("#labelFoto").text('Choose file');
+        }
+    });
 </script>
 @endsection

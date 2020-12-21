@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-xl-12 text-center mb-3">
                @if ($mentor->user->foto)
-                  <img src="{{ asset('upload/users/'.$mentor->user->foto) }}" alt="{{ $mentor->user->name }}" class="img-fluid w-100">
+                  <img id="img-profile" class="img-fluid img-cover" src="{{ asset('upload/users/'.$mentor->user->foto) }}" alt="{{ $mentor->user->name }}" class="img-fluid w-100">
                @else
                 <img class="img-fluid" width="100px" src="{{ asset("assets/img/undraw_profile.svg") }}"
                     alt="foto-{{ $mentor->user->namee }}">
@@ -117,8 +117,8 @@
                             <div class="custom-file">
                                 <input type="file"
                                     class="custom-file-input form-control @error('foto') is-invalid @enderror"
-                                    name="foto" accept="image/x-png,image/gif,image/jpeg" id="inputGroupFile02">
-                                <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+                                    name="foto" accept="image/x-png,image/gif,image/jpeg" id="fotoUser">
+                                <label id="labelFoto" class="custom-file-label" for="inputGroupFile02">Choose file</label>
                             </div>
                             @error('foto')
                             <span class="invalid-feedback" role="alert">
@@ -194,7 +194,13 @@
        }
        $(this).next('.custom-file-label').html(files.join(', '));
    });
-
+   $("#fotoUser").change(function() {
+        if(this.files[0].size > 2097152){
+            alert("Maaf Foto Kamu Terlalu Besar");
+            $("#fotoUser").val('');
+            $("#labelFoto").text('Choose file');
+        }
+    });
 </script>
 <script>
     $(document).ready(function() {
