@@ -136,15 +136,13 @@ class PembayaranController extends Controller
     public function daftar_gelombang() {
         try {
             $user = auth()->user();
-            $today = date('Y-m-d');
+            $today = date('Y-m-d H:i');
             $gelombang = Gelombang::where('jenis', 1)
-                            ->where('tgl_awal', '<', $today)
-                            ->where('tgl_akhir', '>', $today)
                             ->where('jenis', 1)
                             ->whereDoesntHave('siswa', function($query) use($user) {
                                 $query->where('siswa_id', $user->siswa->id);
                             })->get();
-            return view('pages.pendaftaran.gelombang_siswa', compact('gelombang'));
+            return view('pages.pendaftaran.gelombang_siswa', compact('gelombang', 'today'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }

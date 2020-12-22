@@ -201,6 +201,8 @@
 
 <script>
     const URL_GET = `{{ url('api/v1/get-prodi') }}`
+    $("#univ-1").select2();
+    $("#univ-2").select2();
     $("#prodi-1").select2();
     $("#prodi-2").select2();
 

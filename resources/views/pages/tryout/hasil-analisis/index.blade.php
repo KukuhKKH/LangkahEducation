@@ -44,29 +44,73 @@
                 </table>
 
                 <form action="#" class="mt-4">
-                    <input type="hidden" name="kelompok" value="{{ $kelompok->id }}">
-                    <div class="form-group">
-                        <label for="prodi-1">Pilihan 1</label>
-                        <select name="prodi-1" id="prodi-1" class="form-control select-prodi" required>
-                            <option value="" selected disabled>== Program Studi Pilihan 1 ==</option>
-                            @foreach ($passing_grade as $value)
-                            <option value="{{ $value->id }}">({{ $value->passing_grade }}%)
-                                {{ $value->universitas->nama }} - {{ $value->prodi }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="prodi-2">Pilihan 2</label>
-                        <select name="prodi-2" id="prodi-2" class="form-control select-prodi" required>
-                            <option value="" selected disabled>== Program Studi Pilihan 2 ==</option>
-                            @foreach ($passing_grade as $value)
-                            <option value="{{ $value->id }}">({{ $value->passing_grade }}%)
-                                {{ $value->universitas->nama }} - {{ $value->prodi }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    <label for="kelompok">Pilihan Kelompok</label><br>
+                    <select name="kelompok" id="kelompok" class="form-control" required autocomplete="off">
+                        <option value="" selected disabled>== Kelompok Pilihan ==</option>
+                        @foreach ($kelompok_all as $value)
+                            @if ($value->id == request()->get('kelompok'))
+                            <option value="{{ $value->id }}" selected>{{ strtoupper($value->nama) }}</option>
+                            @else
+                            <option value="{{ $value->id }}">{{ strtoupper($value->nama) }}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="univ-1">Pilihan Universitas 1</label><br>
+                            <select name="univ-1" id="univ-1" class="form-control" required autocomplete="off">
+                                <option value="" selected disabled>== Universitas Pilihan 1 ==</option>
+                                @foreach ($universitas as $value)
+                                    @if (request()->get('univ-1'))
+                                        @if ($value->id == request()->get('univ-1'))
+                                            <option value="{{ $value->id }}" selected>{{ $value->nama }}</option>
+                                        @else
+                                            <option value="{{ $value->id }}">{{ $value->nama }}</option>
+                                        @endif
+                                    @else
+                                    <option value="{{ $value->id }}">{{ $value->nama }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
 
-                    <button class="btn btn-langkah btn-block">Ubah Pilihan</button>
+                            <label for="prodi-1">Prodi 1</label>
+                            <select name="prodi-1" id="prodi-1" class="form-control select-prodi" required>
+                                @if (request()->get('prodi-1'))
+                                <option value="{{ request()->get('prodi-1') }}" selected>{{ App\Models\PassingGrade::find(request()->get('prodi-1'))->prodi }}</option>    
+                                @else
+                                <option value="" selected disabled>== Program Studi Pilihan 1 ==</option>
+                                @endif
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="univ-2">Pilihan Universitas 2</label><br>
+                            <select name="univ-2" id="univ-2" class="form-control" required autocomplete="off">
+                                <option value="" selected disabled>== Universitas Pilihan 2 ==</option>
+                                @foreach ($universitas as $value)
+                                    @if (request()->get('univ-2'))
+                                        @if ($value->id == request()->get('univ-2'))
+                                            <option value="{{ $value->id }}" selected>{{ $value->nama }}</option>
+                                        @else
+                                            <option value="{{ $value->id }}">{{ $value->nama }}</option>
+                                        @endif
+                                    @else
+                                    <option value="{{ $value->id }}">{{ $value->nama }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+
+                            <label for="prodi-2">Prodi 2</label>
+                            <select name="prodi-2" id="prodi-2" class="form-control select-prodi" required>
+                                @if (request()->get('prodi-2'))
+                                <option value="{{ request()->get('prodi-2') }}" selected>{{ App\Models\PassingGrade::find(request()->get('prodi-2'))->prodi }}</option>    
+                                @else
+                                <option value="" selected disabled>== Program Studi Pilihan 2 ==</option>
+                                @endif
+                            </select>
+                        </div>
+                    </div>
+                    <button class="btn btn-langkah btn-block mt-4">Ubah Pilihan</button>
                 </form>
             </div>
         </div>
@@ -277,8 +321,68 @@
 <script src="{{ asset('assets/js/hasil-pg-prodi2.js') }}"></script> --}}
 
 <script>
+    const URL_GET = `{{ url('api/v1/get-prodi') }}`
+    $("#univ-1").select2();
+    $("#univ-2").select2();
     $("#prodi-1").select2();
     $("#prodi-2").select2();
+
+    $('#kelompok').on('change', function() {
+        $("#prodi-1").empty()
+        $("#prodi-2").empty()
+        $("#univ-1").val('').trigger("change")
+        $("#univ-2").val('').trigger("change")
+    })
+
+    let kelompok = $('#kelompok').val()
+    // kelompok-2 univ-2 prodi-2
+    $('#univ-1').on('change', function() {
+        kelompok = $('#kelompok').val()
+        let univ1 = $('#univ-1').val()
+        new Promise((resolve, reject) => {
+            $.ajax({
+                url: `${URL_GET}/${kelompok}/${univ1}`,
+                method: 'GET',
+                dataType: 'JSON'
+            })
+            .done(res => {
+                console.log(res)
+                let data = res.data
+                $('#prodi-1').empty()
+                data.forEach(element => {
+                    $('#prodi-1').append(`<option value="${element.id}">${element.prodi}</option>`)
+                })
+                $('#prodi-1').removeAttr('disabled')
+            })
+            .fail(err => {
+                console.log(err)
+            })
+        })
+    })
+
+    $('#univ-2').on('change', function() {
+        kelompok = $('#kelompok').val()
+        let univ2 = $('#univ-2').val()
+        new Promise((resolve, reject) => {
+            $.ajax({
+                url: `${URL_GET}/${kelompok}/${univ2}`,
+                method: 'GET',
+                dataType: 'JSON'
+            })
+            .done(res => {
+                console.log(res)
+                let data = res.data
+                $('#prodi-2').empty()
+                data.forEach(element => {
+                    $('#prodi-2').append(`<option value="${element.id}">${element.prodi}</option>`)
+                })
+                $('#prodi-2').removeAttr('disabled')
+            })
+            .fail(err => {
+                console.log(err)
+            })
+        })
+    })
 
     // Grafik Riwayat Nilai
     let ctx = document.getElementById("myRiwayatNilai")

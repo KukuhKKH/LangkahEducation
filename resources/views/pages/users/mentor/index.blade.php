@@ -127,7 +127,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ route('mentor.store') }}" method="post">
+                <form action="{{ route('mentor.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
@@ -170,7 +170,7 @@
                             <label for="">Foto <small>Opsional</small></label>
                             <div class="input-group mb-3">
                                <div class="custom-file">
-                                 <input type="file" class="custom-file-input" id="fotoUser" name="foto" accept="image/*">
+                                 <input type="file" class="custom-file-input" id="fotoUser" name="image" accept="image/*">
                                  <label class="custom-file-label" id="labelFoto" for="inputGroupFile02">Choose file</label>
                                </div>
                              </div>

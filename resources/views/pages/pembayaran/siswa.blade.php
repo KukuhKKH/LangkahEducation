@@ -83,6 +83,11 @@
                                             </button>
                                         </form>
                                     @endif
+                                @else
+                                    <?php $bukti = $value->pembayaran_bukti->first()->bukti; ?>
+                                    <a href="{{ asset("upload/bukti/$bukti") }}" target="_blank" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Lihat Bukti Pembayaran">
+                                       <i class="fas fa-eye"></i>
+                                    </a>
                                 @endif
                             </td>
                         </tr>

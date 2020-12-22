@@ -49,10 +49,12 @@ class MentorController extends Controller
                 'password' => 123456,
                 'email_verified_at' => date('Y-m-d')
             ]);
-            if($request->hasFile('foto')) {
-                $foto_name = time().'-'.$request->foto->extension();  
-                $request->foto->move(public_path('upload/users/'), $foto_name);
-                $request->foto = $foto_name;
+            if($request->hasFile('image')) {
+                $foto_name = time().'-'.$request->image->extension();  
+                $request->image->move(public_path('upload/users/'), $foto_name);
+                $request->merge([
+                    'foto' => $foto_name
+                ]);
             }
             $user = User::create($request->all());
             $user->mentor()->create($request->all());

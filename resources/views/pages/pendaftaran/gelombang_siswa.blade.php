@@ -5,34 +5,36 @@
 <div class="row">
 @forelse($gelombang as $value)
 
-    <div class="col-xl-6">
-        <div class="card shadow mb-4">
-            <div class="card-body p-4">
-                <div class="text-center">
-                    <div class="alert alert-primary font-weight-bold" role="alert">
-                        Dibuka Pendaftaran Try Out!
+    @if ($today > $value->tgl_awal && $today < $value->tgl_akhir)
+        <div class="col-xl-6">
+            <div class="card shadow mb-4">
+                <div class="card-body p-4">
+                    <div class="text-center">
+                        <div class="alert alert-primary font-weight-bold" role="alert">
+                            Dibuka Pendaftaran Try Out!
+                        </div>
+                        <h4 class="font-weight-bold">{{ $value->nama }}</h4>
+                        <img class="img-fluid w-50 my-4" src="{{asset('assets/img/welcome-illustration.svg')}}" alt="">
                     </div>
-                    <h4 class="font-weight-bold">{{ $value->nama }}</h4>
-                    <img class="img-fluid w-50 my-4" src="{{asset('assets/img/welcome-illustration.svg')}}" alt="">
-                </div>
-        
-                <div class="ml-4">
-                    <h6 class="font-weight-bold">Fasilitas <span class="font-weight-normal">{{ count($value->tryout) }}x Try Out</span></h6>
-                    <h6 class="font-weight-bold">Tanggal Pendaftaran
-                        : <span class="font-weight-normal">{{ Carbon\Carbon::parse($value->tgl_awal)->format('d F Y') }}
-                           </span></h6>
-                    <h6 class="font-weight-bold">Pendaftaran Berakhir : <span class="font-weight-normal">{{ Carbon\Carbon::parse($value->tgl_akhir)->format('d F Y') }}</span> </h6>
-                    <h6 class="font-weight-bold">Biaya Pendaftaran : <span class="font-weight-normal">Rp. {{ number_format($value->harga) }}</span></h6>
-                </div>
-        
-                <div class="d-flex justify-content-center">
-                <a href="javascript:void(0)" data-id="{{ $value->id }}" class="my-4 btn btn-langkah btn-block w-100 m-4 daftar" data-toggle="tooltip" data-placement="top" title="Daftar">
-                    Daftar Sekarang
-                </a>
+            
+                    <div class="ml-4">
+                        <h6 class="font-weight-bold">Fasilitas <span class="font-weight-normal">{{ count($value->tryout) }}x Try Out</span></h6>
+                        <h6 class="font-weight-bold">Tanggal Pendaftaran
+                            : <span class="font-weight-normal">{{ Carbon\Carbon::parse($value->tgl_awal)->format('d F Y') }}
+                            </span></h6>
+                        <h6 class="font-weight-bold">Pendaftaran Berakhir : <span class="font-weight-normal">{{ Carbon\Carbon::parse($value->tgl_akhir)->format('d F Y') }}</span> </h6>
+                        <h6 class="font-weight-bold">Biaya Pendaftaran : <span class="font-weight-normal">Rp. {{ number_format($value->harga) }}</span></h6>
+                    </div>
+            
+                    <div class="d-flex justify-content-center">
+                    <a href="javascript:void(0)" data-id="{{ $value->id }}" class="my-4 btn btn-langkah btn-block w-100 m-4 daftar" data-toggle="tooltip" data-placement="top" title="Daftar">
+                        Daftar Sekarang
+                    </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
     @empty
     <div class="col-xl-12">
         <div class="text-center">

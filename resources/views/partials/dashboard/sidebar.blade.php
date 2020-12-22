@@ -80,13 +80,14 @@
             <span>Passing Grade</span>
         </a>
     </li> --}}
-
+    @if (auth()->user()->siswa->batch)
     <li class="nav-item {{ (request()->is('dashboard/mentoring/virtual')) ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('mentorig.siswa') }}">
             <i class="fas fa-fw fa-microphone"></i>
             <span>Virtual Mentoring</span>
         </a>
     </li>
+    @endif
 
     <li class="nav-item {{ request()->is('dashboard/daftar/gelombang') ? 'active' : "" }}">
         <a class="nav-link" href="{{ route('gelombang.siswa') }}">
@@ -95,12 +96,12 @@
         </a>
     </li>
 
-    {{-- <li class="nav-item">
-        <a class="nav-link" href="#">
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('tryout.history') }}">
             <i class="fas fa-fw fa-history"></i>
             <span>Riwayat Try Out</span>
         </a>
-    </li> --}}
+    </li>
     @endhasanyrole
     @hasanyrole('mentor')
     <li class="nav-item {{ (request()->segment(2) == 'mentoring') ? 'active' : '' }}">

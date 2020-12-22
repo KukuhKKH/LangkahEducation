@@ -398,14 +398,16 @@ class TryoutController extends Controller
     // Analisa Tryout
     public function hasil(Request $request, $gelombang_id, $slug) {
         try {
+            $user = auth()->user();
             $paket = TryoutPaket::findSlug($slug);
             if($paket->koreksi) {
                 $tryout = TryoutHasil::with(['user', 'paket', 'tryout_hasil_jawaban', 'tryout_hasil_detail'])
                                     ->where('user_id', auth()->user()->id)
                                     ->where('tryout_paket_id', $paket->id)
                                     ->where('gelombang_id', $gelombang_id)->first();
-                if($request->get('kelompok')) {
-                    $kelompok = KelompokPassingGrade::find($request->get('kelompok'));
+                $raw_kelompok = $request->get('kelompok');
+                if($raw_kelompok) {
+                    $kelompok = KelompokPassingGrade::find($raw_kelompok);
                     $passing_grade = PassingGrade::with('universitas')->whereHas('kelompok', function($q) use($kelompok) {
                         $q->where('id', $kelompok->id);
                     })->latest()->get();
@@ -417,6 +419,13 @@ class TryoutController extends Controller
     
                 // Data Grafik User
                 $nilai_by_user = TryoutHasil::with(['user', 'paket', 'tryout_hasil_jawaban', 'tryout_hasil_detail'])->where('user_id', auth()->user()->id)->get();
+                if($raw_kelompok) {
+                    if($raw_kelompok != 3) {
+                        $nilai_by_user = TryoutHasil::with(['user', 'tryout_hasil_jawaban', 'tryout_hasil_detail', 'paket.temp'])->whereHas('paket.temp', function($q) use($raw_kelompok, $user) {
+                            $q->where('kelompok_passing_grade_id', $raw_kelompok)->where('user_id', $user->id);
+                        })->where('user_id', auth()->user()->id)->get();
+                    }
+                }
                 $nilai_grafik = [];
                 $nama_paket = [];
                 foreach ($nilai_by_user as $key => $value) {
@@ -444,11 +453,14 @@ class TryoutController extends Controller
                     $pg1 = $pg2 = $nilai_user = $nil_pg1 = $nil_pg2 = 0;
                 }
                 $komentar = Komentar::where('tryout_hasil_id', $tryout->id)->first();
-                return view('pages.tryout.hasil-analisis.index', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket', 'komentar', 'nil_pg1', 'nil_pg2', 'kelompok'));
+                $kelompok_all = KelompokPassingGrade::all();
+                $universitas = Universitas::all();
+                return view('pages.tryout.hasil-analisis.index', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket', 'komentar', 'nil_pg1', 'nil_pg2', 'kelompok', 'kelompok_all', 'universitas'));
             } else {
                 return redirect()->back()->with(['error' => 'Hasil belum dikoreksi oleh sistem']);
             }
         } catch(\Exception $e) {
+            dd($e);
             return redirect()->route('siswa.tryout.index')->with(['error' => 'jangan merubah url bwang']);
         }
     }
@@ -650,5 +662,11 @@ class TryoutController extends Controller
         ]);
         $nama_gelombang = Gelombang::find($gelombang_id)->nama;
         return redirect()->back()->with(['success' => "Paket $paket->nama pada gelombang $nama_gelombang Berhasil dikoreksi"]);
+    }
+
+    public function riwayat_tryout() {
+        $user = auth()->user();
+        $riwayat = TryoutHasil::with(['user', 'paket', 'gelombang'])->where('user_id', $user->id)->latest()->get();
+        return view('pages.siswa.tryout.riwayat', compact('riwayat'));
     }
 }

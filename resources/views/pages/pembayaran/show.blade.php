@@ -22,7 +22,7 @@
                     </div>
                </div>
                <div class="col-xl-auto">
-                 <a href="# " class="btn btn-lght text-danger my-1">Refresh</a>
+                 <a href="{{ route('pembayaran.show', request()->segment(3)) }}" class="btn btn-lght text-danger my-1">Refresh</a>
                </div>
            </div>
         </form>

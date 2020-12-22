@@ -150,23 +150,56 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="form-group">
-                            <label for="tgl_awal">Tanggal Awal</label>
-                            <input name="tgl_awal" id="tgl_awal" type="text" class="datepicker form-control form-control-user @error('tgl_awal') is-invalid @enderror" placeholder="Tanggal Awal" value="{{ old('tgl_awal') }}" value="{{ old('tgl_akhir') }}" required>
-                            @error('tgl_awal')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="tgl_akhir">Tanggal Akhir</label>
-                            <input name="tgl_akhir" id="tgl_akhir" type="text" class="datepicker form-control form-control-user @error('tgl_akhir') is-invalid @enderror" placeholder="Tanggal Akhir" value="{{ old('tgl_akhir') }}" required>
-                            @error('tgl_akhir')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="jam_awal">Jam Awal</label>
+                                    <input name="jam_awal" id="jam-awal" type="text"
+                                        class="datepicker form-control form-control-user @error('jam_awal') is-invalid @enderror"
+                                        placeholder="Jam Awal" value="{{ old('jam_awal') }}" required>
+                                    @error('jam_awal')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="tgl_awal">Tanggal Awal</label>
+                                    <input name="tgl_awal" id="tgl_awal" type="text" class="datepicker form-control form-control-user @error('tgl_awal') is-invalid @enderror" placeholder="Tanggal Awal" value="{{ old('tgl_awal') }}" value="{{ old('tgl_akhir') }}" required>
+                                    @error('tgl_awal')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="jam_akhir">Jam Akhir</label>
+                                    <input name="jam_akhir" id="jam-akhir" type="text"
+                                        class="datepicker form-control form-control-user @error('jam_akhir') is-invalid @enderror"
+                                        placeholder="Jam Awal" value="{{ old('jam_akhir') }}" required>
+                                    @error('jam_akhir')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="tgl_akhir">Tanggal Akhir</label>
+                                    <input name="tgl_akhir" id="tgl_akhir" type="text" class="datepicker form-control form-control-user @error('tgl_akhir') is-invalid @enderror" placeholder="Tanggal Akhir" value="{{ old('tgl_akhir') }}" required>
+                                    @error('tgl_akhir')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -181,10 +214,12 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets/vendor/datepicker/css/bootstrap-datepicker3.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/clockpicker/clockpicker.css') }}">
 @endsection
 
 @section('js')
     <script src="{{ asset('assets/vendor/datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/clockpicker/clockpicker.js') }}"></script>
     <script src="{{ asset('assets/vendor/autoNumeric.js') }}"></script>
     <script>
         $.fn.datepicker.defaults.format = "dd/mm/yyyy"
@@ -221,5 +256,14 @@
                 }
             })
         })
+
+        $('#jam-awal').clockpicker({
+            autoclose: true,
+            placement: 'top'
+        });
+        $('#jam-akhir').clockpicker({
+            autoclose: true,
+            placement: 'top'
+        });
     </script>
 @endsection

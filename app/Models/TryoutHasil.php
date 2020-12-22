@@ -17,6 +17,10 @@ class TryoutHasil extends Model
         return $this->belongsTo('App\Models\TryoutPaket', 'tryout_paket_id');
     }
 
+    public function gelombang() {
+        return $this->belongsTo('App\Models\Gelombang', 'gelombang_id');
+    }
+
     public function tryout_hasil_jawaban() {
         return $this->hasMany('App\Models\TryoutHasilJawaban');
     }
