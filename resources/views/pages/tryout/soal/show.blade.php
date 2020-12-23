@@ -56,7 +56,6 @@
                         <th>No</th>
                         <th>Soal</th>
                         <th>Kategori Soal</th>
-                        <th>Nilai Benar</th>
                         <th>Nilai Salah</th>
                         <th>Tgl Dibuat</th>
                         <th>Tgl Diupdate</th>
@@ -68,7 +67,6 @@
                         <th>No</th>
                         <th>Soal</th>
                         <th>Kategori Soal</th>
-                        <th>Nilai Benar</th>
                         <th>Nilai Salah</th>
                         <th>Tgl Dibuat</th>
                         <th>Tgl Diupdate</th>
@@ -81,7 +79,6 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ strip_tags($value->soal) }}</td>
                         <td>{{ $value->kategori_soal->kode }}</td>
-                        <td>{{ $value->benar }}</td>
                         <td>{{ $value->salah }}</td>
                         <td>{{ \Carbon\Carbon::parse($value->created_at)->format('d F Y') }}</td>
                         <td>{{ \Carbon\Carbon::parse($value->updated_at)->format('d F Y') }}</td>

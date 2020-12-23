@@ -206,6 +206,13 @@
     $("#prodi-1").select2();
     $("#prodi-2").select2();
 
+    $('#kelompok').on('change', function() {
+        $("#prodi-1").empty()
+        $("#prodi-2").empty()
+        $("#univ-1").val('').trigger("change")
+        $("#univ-2").val('').trigger("change")
+    })
+
     let kelompok = $('#kelompok').val()
     // kelompok-2 univ-2 prodi-2
     $('#univ-1').on('change', function() {

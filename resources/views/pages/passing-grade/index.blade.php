@@ -171,10 +171,12 @@
                         </tfoot>
                         <tbody>
                         @foreach($kelompok as $value)
+                            @if ($value->nama != 'campuran')
                             <tr>
-                            <td>{{ $value->id }}</td>
-                            <td>{{ Str::upper($value->nama) }}</td>
+                                <td>{{ $value->id }}</td>
+                                <td>{{ Str::upper($value->nama) }}</td>
                             </tr>
+                            @endif
                         @endforeach
                         </tbody>
                     </table>

@@ -55,7 +55,7 @@ class TryoutController extends Controller
                 'soal' => $request->soal,
                 'tryout_kategori_soal_id' => $request->tryout_kategori_soal_id,
                 'pembahasan' => $request->pembahasan,
-                'benar' => $request->nilai_benar,
+                'benar' => 4,
                 'salah' => $request->nilai_salah,
             ]);
             foreach ($request->input() as $key => $value) {
@@ -135,7 +135,6 @@ class TryoutController extends Controller
                 'soal' => $request->soal,
                 'tryout_kategori_soal_id' => $request->tryout_kategori_soal_id,
                 'pembahasan' => $request->pembahasan,
-                'benar' => $request->nilai_benar,
                 'salah' => $request->nilai_salah
             ]);
             $i = 0;

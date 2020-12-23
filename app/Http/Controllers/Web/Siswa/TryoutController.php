@@ -400,6 +400,9 @@ class TryoutController extends Controller
         try {
             $user = auth()->user();
             $paket = TryoutPaket::findSlug($slug);
+            if($this->isFuture($paket->tgl_akhir)) {
+                return redirect()->back()->with(['error' => 'Waktu Tryout Belum Selesai']);
+            }
             if($paket->koreksi) {
                 $tryout = TryoutHasil::with(['user', 'paket', 'tryout_hasil_jawaban', 'tryout_hasil_detail'])
                                     ->where('user_id', auth()->user()->id)
@@ -668,5 +671,9 @@ class TryoutController extends Controller
         $user = auth()->user();
         $riwayat = TryoutHasil::with(['user', 'paket', 'gelombang'])->where('user_id', $user->id)->latest()->get();
         return view('pages.siswa.tryout.riwayat', compact('riwayat'));
+    }
+
+    public function isFuture($time) {
+        return (strtotime($time) > time());
     }
 }

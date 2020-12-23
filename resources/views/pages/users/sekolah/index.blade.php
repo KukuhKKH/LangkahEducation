@@ -66,6 +66,7 @@
                         <th>No</th>
                         <th>Nama Sekolah</th>
                         <th>Email</th>
+                        <th>Kode Referal</th>
                         <th>Total siswa yang terdaftar</th>
                         <th>Status</th>
                         <th width="25%">Aksi</th>
@@ -76,6 +77,7 @@
                         <th>No</th>
                         <th>Nama Sekolah</th>
                         <th>Email</th>
+                        <th>Kode Referal</th>
                         <th>Total siswa yang terdaftar</th>
                         <th>Status</th>
                         <th width="25%">Aksi</th>
@@ -87,6 +89,7 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $value->user->name }}</td>
                         <td>{{ $value->user->email }}</td>
+                        <td>{{ $value->kode_referal }}</td>
                         <td>{{ count($value->siswa) }}</td>
                         <td>{!! ($value->user->is_active == 1) ? '<div class="badge badge-success">Aktif</div>' : '<div
                                 class="badge badge-danger">Tidak Aktif</div>' !!}</td>
