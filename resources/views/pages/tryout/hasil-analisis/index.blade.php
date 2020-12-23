@@ -45,7 +45,7 @@
 
                 <form action="#" class="mt-4">
                     <label for="kelompok">Pilihan Kelompok</label><br>
-                    <select name="kelompok" id="kelompok" class="form-control" required autocomplete="off">
+                    <select disabled name="kelompok" id="kelompok" class="form-control" required autocomplete="off">
                         <option value="" selected disabled>== Kelompok Pilihan ==</option>
                         @foreach ($kelompok_all as $value)
                             @if ($value->id == request()->get('kelompok'))
