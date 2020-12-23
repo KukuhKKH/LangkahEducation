@@ -84,6 +84,30 @@
                         @endforelse
                         {{ $artikel->links() }}
                     </div>
+                    <div class="col-xl-4">
+                        <div class="card shadow">
+                            <div class="sidebar">
+                                <div id="populer-post">
+                                    <h4 class="sidebar-title">Populer Post</h4>
+                                    <div class="sidebar-item recent-posts">
+                                        @forelse ($artikel_like as $value)
+                                            <div class="post-item clearfix">
+                                                <img src="{{asset("upload/blog/$value->foto")}}" alt="">
+                                                <h4 class="text-dark">
+                                                    <a href="{{ route('page.blog.detail', $value->slug) }}">{{ $value->judul }}</a>
+                                                </h4>
+                                                <time datetime="2020-01-01">{{ Carbon\Carbon::parse($value->updated_at)->format('F d, Y') }}</time>
+                                            </div>
+                                        <hr>
+    
+                                        @empty
+                                            <h6>Belum ada artikel</h6>
+                                        @endforelse
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -109,6 +133,15 @@
 
         .btn-link{
             color: #aaaaaa  !important;
+        }
+
+        #blog a{
+            color: #444444;
+        }
+
+        #blog a:hover,
+        #blog a:hover small {
+            color: #ECB811 !important;
         }
 
     </style>
