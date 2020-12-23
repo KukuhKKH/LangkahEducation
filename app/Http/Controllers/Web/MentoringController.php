@@ -159,7 +159,7 @@ class MentoringController extends Controller
             if(auth()->user()->getRoleNames()->first() == 'mentor') {
                 $komentar = Komentar::where('mentor_id', auth()->user()->mentor()->first()->id)->where('tryout_hasil_id', $id)->first();
             }
-            return view('pages.mentoring.analisis_mentor', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket' ,'komentar', 'nil_pg1', 'nil_pg2', 'kelompok', '$siswaID'));
+            return view('pages.mentoring.analisis_mentor', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket' ,'komentar', 'nil_pg1', 'nil_pg2', 'kelompok', 'siswaID'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
