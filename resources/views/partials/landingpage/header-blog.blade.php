@@ -11,8 +11,8 @@
                 @foreach ($kategori as $value)
                 <li><a href="{{ route('page.blog.kategori', $value->nama) }}">{{ strtoupper($value->nama) }}</a></li>
                 @endforeach
-                <li>
-                    <form class="form-inline" action="{{ route('page.blog.index') }}" method="get">
+                <li class="p-2">
+                    <form id="searchBlog" class="form-inline" action="{{ route('page.blog.index') }}" method="get">
                         <div class="input-group input-group-sm">
                             <div class="input-group-prepend">
                               <button class="btn btn-warning text-white" type="button"><i class="fa fa-search"></i></button>

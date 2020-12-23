@@ -1688,3 +1688,10 @@ section {
     text-decoration: none;
   }
   
+  
+
+  @media (max-width: 992px) {
+    #searchBlog .input-group{
+      padding: 10px;
+    }
+}

@@ -468,7 +468,7 @@ class TryoutController extends Controller
                 $universitas = Universitas::all();
                 return view('pages.tryout.hasil-analisis.index', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket', 'komentar', 'nil_pg1', 'nil_pg2', 'kelompok', 'kelompok_all', 'universitas'));
             } else {
-                return redirect()->back()->with(['error' => 'Hasil belum dikoreksi oleh sistem']);
+                return redirect()->back()->with(['Mohon Maaf' => 'Try Out Belum Selesai']);
             }
         } catch(\Exception $e) {
             dd($e);

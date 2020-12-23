@@ -75,9 +75,10 @@ class PageController extends Controller
     public function detail_author($kode) {
         try {
             $user = User::where('api_token', $kode)->first();
+            $artikel_like = Blog::withCount('like')->with('like')->where('status', 1)->orderBy('like_count', 'DESC')->limit(3)->get();
             $artikel = Blog::where('user_id', $user->id)->where('status', 1)->latest()->get();
             $lainnya = $this->artikel_lainnya($user->id);
-            return view('pages.blog.author-profile', compact('artikel', 'user'));
+            return view('pages.blog.author-profile', compact('artikel', 'user', 'artikel_like'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()])->withInput();
         }

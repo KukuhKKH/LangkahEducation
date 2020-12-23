@@ -109,7 +109,7 @@
 @hasanyrole('siswa')
     <div class="row">
         <!-- Area Chart -->
-        <div class="col-xl-8 col-lg-8">
+        <div class="col-xl-12 col-lg-12">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-dark">Riwayat Nilai</h6>
@@ -121,7 +121,7 @@
                 </div>
             </div>
         </div>
-        @if ($kelompok)
+        {{-- @if ($kelompok)
             <div class="col-xl-4">
                 <div class="card">
                     <div class="card-body">
@@ -162,7 +162,7 @@
                     </div>
                 </div>
             </div>
-        @endif
+        @endif --}}
     </div>
 @endhasanyrole
 
@@ -580,7 +580,7 @@
         <script>
             let ctx = document.getElementById("myRiwayatNilai")
             let data_riwayat = {
-                labels: {!! json_encode($nama_paket ?? []) !!},
+                labels: {!! json_encode($nama_paket ?? []) !!}  ,
                 datasets: [{
                     label: "Nilai",
                     lineTension: 0.3,
