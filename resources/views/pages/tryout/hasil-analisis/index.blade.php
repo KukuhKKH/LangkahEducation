@@ -68,7 +68,7 @@
                                             <option value="{{ $value->id }}">{{ $value->nama }}</option>
                                         @endif
                                     @else
-                                    <option value="{{ $value->id }}">{{ $value->nama }}</option>
+                                    <option value="{{ $value->id }}" {{ ($value->id == App\Models\PassingGrade::find(request()->get('prodi-1'))->universitas->id) ? 'selected' : '' }}>{{ $value->nama }}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -95,7 +95,7 @@
                                             <option value="{{ $value->id }}">{{ $value->nama }}</option>
                                         @endif
                                     @else
-                                    <option value="{{ $value->id }}">{{ $value->nama }}</option>
+                                    <option value="{{ $value->id }}" {{ ($value->id == App\Models\PassingGrade::find(request()->get('prodi-2'))->universitas->id) ? 'selected' : '' }}>{{ $value->nama }}</option>
                                     @endif
                                 @endforeach
                             </select>
