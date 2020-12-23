@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Models\Gelombang;
 use App\Models\KelompokPassingGrade;
 use App\Models\PassingGrade;
 use Illuminate\Http\Request;
@@ -20,6 +21,15 @@ class DataTryoutController extends Controller
             }
             return response()->json(['error' => false, 'data' => $passing_grade], 200);
         }catch(\Exception $e)      {
+            return response()->json(['error' => true, 'message' => $e->getMessage()], 500);
+        }
+    }
+
+    public function get_paket_tryout($gelombang_id) {
+        try {
+            $gelombang = Gelombang::with(['tryout'])->find($gelombang_id);
+            return response()->json(['error' => false, 'data' => $gelombang], 200);
+        } catch(\Exception $e)      {
             return response()->json(['error' => true, 'message' => $e->getMessage()], 500);
         }
     }

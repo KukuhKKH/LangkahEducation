@@ -174,7 +174,7 @@
         <div class="form-group">
             <label for="">Password Lama <small>Kosongkan jika tidak mengganti password</small></label>
             <div class="input-group" id="show_old_password">
-                <input name="password_old"  type="password" class="form-control @error('password_old') is-invalid @enderror"
+                <input name="password_old" id="password_old"  type="password" class="form-control @error('password_old') is-invalid @enderror"
                 placeholder="Password Lama">
                 <div class="input-group-addon d-flex align-items-center">
                     <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
@@ -236,21 +236,23 @@
     $.fn.datepicker.defaults.format = "dd/mm/yyyy"
     $('.datepicker').datepicker();
     $("#form").on('submit', function (e) {
-        if ($("#password_confirmation").val() != $("#password").val()) {
-            swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Password konfirmasi tidak sama',
-            })
-            return false
-        }
-        if ($("#password").val().length < 8) {
-            swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Password minimal 8 karakter',
-            })
-            return false
+        if($("#password_old").val() != '') {
+            if ($("#password_confirmation").val() != $("#password").val()) {
+                swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Password konfirmasi tidak sama',
+                })
+                return false
+            }
+            if ($("#password").val().length < 8) {
+                swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Password minimal 8 karakter',
+                })
+                return false
+            }
         }
         return
         e.preventDefault()

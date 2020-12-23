@@ -9,11 +9,12 @@ use App\Models\Mentoring;
 use App\Models\TryoutSoal;
 use App\Models\TryoutHasil;
 use App\Models\TryoutPaket;
+use App\Models\Universitas;
 use App\Models\PassingGrade;
 use Illuminate\Http\Request;
+use App\Models\TryoutHasilJawaban;
 use App\Http\Controllers\Controller;
 use App\Models\KelompokPassingGrade;
-use App\Models\TryoutHasilJawaban;
 use Illuminate\Support\Facades\Auth;
 
 class MentoringController extends Controller
@@ -105,11 +106,14 @@ class MentoringController extends Controller
     public function hasil_tryout_detail(Request $request, $id, $slug) {
         try {
             $paket = TryoutPaket::findSlug($slug);
+            if($this->isFuture($paket->tgl_akhir)) {
+                return redirect()->back()->with(['error' => 'Waktu Tryout Belum Selesai']);
+            }
             $tryout = TryoutHasil::with([
                                     'user', 'paket', 'tryout_hasil_jawaban', 'tryout_hasil_detail'
                                 ])
                                 // ->where('user_id', $id)
-                                // ->where('tryout_paket_id', $paket->id)
+                                ->where('tryout_paket_id', $paket->id)
                                 ->find($id);
             // $passing_grade = PassingGrade::with('universitas')->latest()->get();
             if($request->get('kelompok')) {
@@ -158,7 +162,9 @@ class MentoringController extends Controller
             if(auth()->user()->getRoleNames()->first() == 'mentor') {
                 $komentar = Komentar::where('mentor_id', auth()->user()->mentor()->first()->id)->where('tryout_hasil_id', $id)->first();
             }
-            return view('pages.mentoring.analisis_mentor', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket' ,'komentar', 'nil_pg1', 'nil_pg2', 'kelompok'));
+            $kelompok_all = KelompokPassingGrade::all();
+            $universitas = Universitas::all();
+            return view('pages.mentoring.analisis_mentor', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket' ,'komentar', 'nil_pg1', 'nil_pg2', 'kelompok', 'kelompok_all', 'universitas'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
@@ -183,5 +189,9 @@ class MentoringController extends Controller
     public function mentoring_sekolah() {
         $sekolah = Auth::user()->sekolah()->first();
         return view('pages.mentoring.sekolah', compact('sekolah'));
+    }
+
+    public function isFuture($time) {
+        return (strtotime($time) > time());
     }
 }

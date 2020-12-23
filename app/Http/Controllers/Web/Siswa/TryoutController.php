@@ -376,7 +376,7 @@ class TryoutController extends Controller
         }
         $data_hasil->update([
             'nilai_awal' => $nilai_sekarang,
-            'nilai_sekarang' => $nilai_sekarang,
+            'nilai_sekarang' => 0,
             'nilai_maksimal' => $nilai_maksimal
         ]);
         $index_kategori = $request->session()->get('index_kategori');

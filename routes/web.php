@@ -194,12 +194,5 @@ Route::group(['prefix' => 'dev'], function() {
     Route::get('bwang', 'HelperController@clear_kabeh');
     Route::get('to', 'Dev\TryoutController@index');
     Route::get('soal', 'Dev\TryoutController@soal');
-    Route::get('siap', function() {
-        dd(url('/'), url()->previous());
-        if(url()->previous() == url('/')) {
-            return 'benar';
-        } else {
-            return 'salah';
-        }
-    });
+    Route::get('siap', 'HomeController@total_siswa_pg');
 });

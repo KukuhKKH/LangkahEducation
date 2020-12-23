@@ -44,73 +44,29 @@
                 </table>
 
                 <form action="#" class="mt-4">
-                    <label for="kelompok">Pilihan Kelompok</label><br>
-                    <select name="kelompok" id="kelompok" class="form-control" required autocomplete="off">
-                        <option value="" selected disabled>== Kelompok Pilihan ==</option>
-                        @foreach ($kelompok_all as $value)
-                            @if ($value->id == request()->get('kelompok'))
-                            <option value="{{ $value->id }}" selected>{{ strtoupper($value->nama) }}</option>
-                            @else
-                            <option value="{{ $value->id }}">{{ strtoupper($value->nama) }}</option>
-                            @endif
-                        @endforeach
-                    </select>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="univ-1">Pilihan Universitas 1</label><br>
-                            <select name="univ-1" id="univ-1" class="form-control" required autocomplete="off">
-                                <option value="" selected disabled>== Universitas Pilihan 1 ==</option>
-                                @foreach ($universitas as $value)
-                                    @if (request()->get('univ-1'))
-                                        @if ($value->id == request()->get('univ-1'))
-                                            <option value="{{ $value->id }}" selected>{{ $value->nama }}</option>
-                                        @else
-                                            <option value="{{ $value->id }}">{{ $value->nama }}</option>
-                                        @endif
-                                    @else
-                                    <option value="{{ $value->id }}">{{ $value->nama }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-
-                            <label for="prodi-1">Prodi 1</label>
-                            <select name="prodi-1" id="prodi-1" class="form-control select-prodi" required>
-                                @if (request()->get('prodi-1'))
-                                <option value="{{ request()->get('prodi-1') }}" selected>{{ App\Models\PassingGrade::find(request()->get('prodi-1'))->prodi }}</option>    
-                                @else
-                                <option value="" selected disabled>== Program Studi Pilihan 1 ==</option>
-                                @endif
-                            </select>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="univ-2">Pilihan Universitas 2</label><br>
-                            <select name="univ-2" id="univ-2" class="form-control" required autocomplete="off">
-                                <option value="" selected disabled>== Universitas Pilihan 2 ==</option>
-                                @foreach ($universitas as $value)
-                                    @if (request()->get('univ-2'))
-                                        @if ($value->id == request()->get('univ-2'))
-                                            <option value="{{ $value->id }}" selected>{{ $value->nama }}</option>
-                                        @else
-                                            <option value="{{ $value->id }}">{{ $value->nama }}</option>
-                                        @endif
-                                    @else
-                                    <option value="{{ $value->id }}">{{ $value->nama }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-
-                            <label for="prodi-2">Prodi 2</label>
-                            <select name="prodi-2" id="prodi-2" class="form-control select-prodi" required>
-                                @if (request()->get('prodi-2'))
-                                <option value="{{ request()->get('prodi-2') }}" selected>{{ App\Models\PassingGrade::find(request()->get('prodi-2'))->prodi }}</option>    
-                                @else
-                                <option value="" selected disabled>== Program Studi Pilihan 2 ==</option>
-                                @endif
-                            </select>
-                        </div>
+                    <input type="hidden" name="kelompok" value="{{ $kelompok->id }}">
+                    <div class="form-group">
+                        <label for="prodi-1">Pilihan 1</label>
+                        <select name="prodi-1" id="prodi-1" class="form-control" required>
+                            <option value="" selected disabled>== Program Studi Pilihan 1 ==</option>
+                            @foreach ($passing_grade as $value)
+                            <option value="{{ $value->id }}">({{ $value->passing_grade }}%)
+                                {{ $value->universitas->nama }} - {{ $value->prodi }}</option>
+                            @endforeach
+                        </select>
                     </div>
-                    <button class="btn btn-langkah btn-block mt-4">Ubah Pilihan</button>
+                    <div class="form-group">
+                        <label for="prodi-2">Pilihan 2</label>
+                        <select name="prodi-2" id="prodi-2" class="form-control" required>
+                            <option value="" selected disabled>== Program Studi Pilihan 1 ==</option>
+                            @foreach ($passing_grade as $value)
+                            <option value="{{ $value->id }}">({{ $value->passing_grade }}%)
+                                {{ $value->universitas->nama }} - {{ $value->prodi }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <button class="btn btn-langkah btn-block">Ubah Pilihan</button>
                 </form>
             </div>
         </div>
@@ -187,7 +143,7 @@
                             <td>{{ $value->salah }}</td>
                             <td>{{ $value->kosong }}</td>
                             <td>{{ $value->nilai }}</td>
-                            <td><a href="{{ route('mentoring.pembahasan',['paket_id' => $value->tryout_paket_id, 'kategori_id' =>  $value->tryout_kategori_soal_id, 'hasil_id' => $value->tryout_hasil_id]) }}"
+                            <td><a href="{{ route('mentoring.pembahasan',['paket_id' => $value->tryout_paket_id, 'kategori_id' =>  $value->tryout_kategori_soal_id]) }}"
                                     class="btn btn-primary">Lihat</a></td>
                         </tr>
                         @empty
@@ -204,8 +160,7 @@
 
 <div class="row">
     <!-- Area Chart -->
-    {{-- <div class="{{ ($hasMentor != '') ? 'col-xl-6 col-lg-6' : 'col-xl-12 col-lg-12' }}"> --}}
-    <div class="col-xl-6 col-lg-6">
+    <div class="col-xl-8 col-lg-8">
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-dark">Riwayat Nilai</h6>
@@ -217,25 +172,23 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-6 col-lg-6">
+    <div class="col-xl-4 col-lg-4">
         <div class="card shadow mb-4 text-center">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-dark">Komentar Mentor</h6>
             </div>
             <div class="card-body">
-                {{-- IF SISWA (SEKOLAH) --}}
                 <form action="{{ route('mentoring.komentar', $tryout->id) }}" method="post">
                     @csrf
-                    @if (auth()->user()->foto)
-                    <?php $foto = auth()->user()->foto; ?>
-                    <img class="my-3 img-cover" src="{{asset("upload/users/$foto")}}" alt="profil-mentor"
-                    style="height:110px; width:110px; border-radius:120px">
-                    @else
-                    <img class="my-3" src="{{asset('assets/img/undraw_profile.svg')}}" alt="profil-mentor"
-                    style="height:110px">
-                    @endif
+                    {{-- <img class="my-3" src="{{asset('assets/img/undraw_profile.svg')}}" alt="profil-mentor"
+                    style="height:100px"> --}}
+                    <img id="img-profile" class="img-cover rounded-circle" src="{{ (auth()->user()->foto) ? asset("upload/users/". auth()->user()->foto) : asset('assets/img/default_avatar.svg') }}">
+                    
                     <div class="form-group">
-                        <textarea class="form-control mt-4" name="komentar" id="komentarMentor" rows="5" placeholder="Komentar Mentor">{{ $komentar->komentar ?? '' }}</textarea>
+                        @php
+                            $role = auth()->user()->getRoleNames()->first();
+                        @endphp
+                        <textarea class="form-control mt-4" name="komentar" id="komentarMentor" rows="5" {{ $role == 'mentor' ? '' : 'disabled' }} placeholder="Komentar Mentor">{{ $komentar->komentar ?? '' }}</textarea>
                     </div>
                     @hasanyrole('mentor')
                     <button class="btn btn-langkah btn-block" type="submit">Kirim Komentar</button>
@@ -277,70 +230,8 @@
 <script src="{{ asset('assets/js/hasil-pg-prodi2.js') }}"></script> --}}
 
 <script>
-    const URL_GET = `{{ url('api/v1/get-prodi') }}`
-    $(document).ready(function() {
-        $("#univ-1").select2();
-        $("#univ-2").select2();
-        $("#prodi-1").select2();
-        $("#prodi-2").select2();
-    })
-
-    $('#kelompok').on('change', function() {
-        $("#prodi-1").empty()
-        $("#prodi-2").empty()
-        $("#univ-1").val('').trigger("change")
-        $("#univ-2").val('').trigger("change")
-    })
-
-    let kelompok = $('#kelompok').val()
-    // kelompok-2 univ-2 prodi-2
-    $('#univ-1').on('change', function() {
-        kelompok = $('#kelompok').val()
-        let univ1 = $('#univ-1').val()
-        new Promise((resolve, reject) => {
-            $.ajax({
-                url: `${URL_GET}/${kelompok}/${univ1}`,
-                method: 'GET',
-                dataType: 'JSON'
-            })
-            .done(res => {
-                console.log(res)
-                let data = res.data
-                $('#prodi-1').empty()
-                data.forEach(element => {
-                    $('#prodi-1').append(`<option value="${element.id}">${element.prodi}</option>`)
-                })
-                $('#prodi-1').removeAttr('disabled')
-            })
-            .fail(err => {
-                console.log(err)
-            })
-        })
-    })
-
-    $('#univ-2').on('change', function() {
-        kelompok = $('#kelompok').val()
-        let univ2 = $('#univ-2').val()
-        new Promise((resolve, reject) => {
-            $.ajax({
-                url: `${URL_GET}/${kelompok}/${univ2}`,
-                method: 'GET',
-                dataType: 'JSON'
-            })
-            .done(res => {
-                console.log(res)
-                let data = res.data
-                $('#prodi-2').empty()
-                data.forEach(element => {
-                    $('#prodi-2').append(`<option value="${element.id}">${element.prodi}</option>`)
-                })
-                $('#prodi-2').removeAttr('disabled')
-            })
-            .fail(err => {
-                console.log(err)
-            })
-        })
-    })
+    $("#prodi-1").select2();
+    $("#prodi-2").select2();
 
     // Grafik Riwayat Nilai
     let ctx = document.getElementById("myRiwayatNilai")

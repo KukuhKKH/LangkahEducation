@@ -36,9 +36,6 @@ class PageController extends Controller
         try {
             $data = LandingPage::findOrFail(1);
             if($request->hasFile('raw_foto_hero')) {
-                // if(file_exists(public_path('landing-page/foto/'.$data->foto_hero))){
-                //     unlink(public_path('landing-page/foto/'.$data->foto_hero));
-                // }
                 $foto_name_hero = time().'.'.$request->raw_foto_hero->extension();
                 $request->foto_hero = $foto_name_hero;
                 $request->raw_foto_hero->move(public_path('landing-page/foto/'), $foto_name_hero);
@@ -46,10 +43,7 @@ class PageController extends Controller
                 $request->foto_hero = $data->foto_hero ?? '';
             }
             if($request->hasFile('raw_foto_tentang_kami')) {
-                // if(file_exists(public_path('landing-page/foto/'.$data->foto_tentang_kami))){
-                //     unlink(public_path('landing-page/foto/'.$data->foto_tentang_kami));
-                // }
-                $foto_name_tentang_kami = time().'.'.$request->raw_foto_tentang_kami->extension();  
+                $foto_name_tentang_kami = time().'-about'.'.'.$request->raw_foto_tentang_kami->extension();  
                 $request->foto_tentang_kami = $foto_name_tentang_kami;
                 $request->raw_foto_tentang_kami->move(public_path('landing-page/foto/'), $foto_name_tentang_kami);
             } else {
