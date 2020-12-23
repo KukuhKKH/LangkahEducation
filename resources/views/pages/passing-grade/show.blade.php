@@ -151,7 +151,9 @@
                         <select name="kelompok_id" class="form-control @error('kelompok_id') is-invalid @enderror">
                            <option value="" selected disabled>-- Pilih --</option>
                            @foreach ($kelompok as $value)
-                              <option value="{{ $value->id }}">{{$value->nama}}</option>
+                                @if ($value->nama != 'campuran')
+                                    <option value="{{ $value->id }}">{{$value->nama}}</option>
+                                @endif
                            @endforeach
                         </select>
                         @error('kelompok_id')

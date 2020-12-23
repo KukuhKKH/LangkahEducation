@@ -78,12 +78,7 @@ class SoalImportBatch implements ToModel, WithStartRow
         }
 
         if(empty($row[9])){
-            $errMessage = 'Mohon pastikan kolom Nilai Benar tidak kosong.';
-            throw new \Exception($errMessage);
-        }
-
-        if(empty($row[10])){
-            $errMessage = 'Mohon pastikan kolom Nilai Salah tidak kosong.';
+            $errMessage = 'Mohon pastikan kolom Nilai salah tidak kosong.';
             throw new \Exception($errMessage);
         }
         
@@ -93,8 +88,8 @@ class SoalImportBatch implements ToModel, WithStartRow
             'tryout_kategori_soal_id' => $row[0],
             'soal' => $row[1],
             'pembahasan' => $row[2],
-            'benar' => $row[9],
-            'salah' => $row[10],
+            'benar' => 4,
+            'salah' => $row[9],
         ]);
 
         $soal->jawaban()->updateOrCreate([

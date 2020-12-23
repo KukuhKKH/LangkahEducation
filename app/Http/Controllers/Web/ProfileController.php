@@ -98,6 +98,7 @@ class ProfileController extends Controller
             DB::beginTransaction();
             $user = auth()->user();
             $sekolah = Sekolah::where('kode_referal', $request->kode_referal)->first();
+            if($sekolah == null) return redirect()->back()->with(['error' => 'Kode Referal tidak ditemukan']);
             $cek = NisnSekolah::where('nisn', $user->siswa->nisn)->get();
             if(count($cek) > 0) {
                 $user->siswa()->update([

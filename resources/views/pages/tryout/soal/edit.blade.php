@@ -130,7 +130,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-xl-12">
+                        {{-- <div class="col-xl-12">
                             <div class="form-group">
                                 <label for="">Benar</label>
                                 <input type="number" class="form-control @error('nilai_benar') is-invalid @enderror"
@@ -142,7 +142,7 @@
                                 </span>
                                 @enderror
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="col-xl-12">
                             <div class="form-group">
                                 <label for="">Salah <span class="text-danger">Tidak perlu menggunakan tanda minus
