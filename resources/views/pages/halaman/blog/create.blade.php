@@ -98,7 +98,7 @@
                 <div class="col-12 mt-4">
                     <div class="form-group">
                         <textarea type="text" class="form-control @error('isi') is-invalid @enderror" id="isi"
-                            name="isi" placeholder="Pembahaasan">{{ old('isi') }}</textarea>
+                            name="isi" placeholder="Tulis Artikel">{{ old('isi') }}</textarea>
                         @error('isi')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -130,9 +130,9 @@
     });
     const option = {
         filebrowserImageBrowseUrl: '/filemanager?type=Images',
-        filebrowserImageUploadUrl: '/filemanager/upload?type=Images&_token=',
+        filebrowserImageUploadUrl: '/filemanager/upload?type=Images&_token=' + $('meta[name="csrf-token"]').attr('content'),
         filebrowserBrowseUrl: '/filemanager?type=Files',
-        filebrowserUploadUrl: '/filemanager/upload?type=Files&_token='
+        filebrowserUploadUrl: '/filemanager/upload?type=Files&_token=' + $('meta[name="csrf-token"]').attr('content')
     }
     CKEDITOR.replace('isi', option)
     CKEDITOR.config.height = 500;

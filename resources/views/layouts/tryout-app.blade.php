@@ -60,7 +60,7 @@
     @yield('css')
 </head>
 
-<body>
+<body id="page-top">
     @yield('content')
 
     <!-- Bootstrap core JavaScript-->

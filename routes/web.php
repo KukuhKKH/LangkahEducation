@@ -162,7 +162,7 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                 Route::get('daftar/gelombang', 'PembayaranController@daftar_gelombang')->name('gelombang.siswa');
                 Route::get('daftar-gelombang/{id}', 'PembayaranController@daftar_gelombang_store');
 
-                Route::get('rowayat-tryout', 'Siswa\TryoutController@riwayat_tryout')->name('tryout.history');
+                Route::get('riwayat-tryout', 'Siswa\TryoutController@riwayat_tryout')->name('tryout.history');
             });
             
             Route::group(['namespace' => 'Siswa'], function () {

@@ -222,6 +222,7 @@ class TryoutController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function tryout_baru(Request $request, $gelombang_id, $token, $slug) {
+        $yt = "";
         try {
             $gelombang_id = $gelombang_id;
             $cek_token = Crypt::decrypt($token);
@@ -288,7 +289,14 @@ class TryoutController extends Controller
                         if(empty($request->get('lanjut'))) {
                             $waktu = 5;
                             $user_token = $token;
-                            return view('tryout.jeda', compact('gelombang_id', 'paket', 'waktu', 'user_token'));
+                            if($kategori_satu == 'saintek') {
+                                // $yt = "https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1";
+                                $yt = $paket->url_youtube_saintek;
+                            } else {
+                                // $yt = "https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1";
+                                $yt = $paket->url_youtube_soshum;
+                            }
+                            return view('tryout.jeda', compact('gelombang_id', 'paket', 'waktu', 'user_token', 'yt'));
                         }
                     }
                 }

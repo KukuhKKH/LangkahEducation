@@ -59,6 +59,9 @@
                   <div class="card-body">
                      <div class="row">
                         <h1>Iki Vidio Youtube Bwang</h1>
+                        @if ($kelompok->nama == 'saintek')
+                            
+                        @endif
                      </div>
                   </div>
                   <div class="card-footer">

@@ -18,7 +18,7 @@ class ValidasiEmail
     {
         if(Auth::user()->email_verified_at) return $next($request);
         Auth::logout();
-        $request->session()->flash('error', 'Silahkan activasi akun lewat email');
+        $request->session()->flash('error', 'Silahkan aktivasi akun lewat akun email kamu');
         return redirect()->route('login')->withInput();
     }
 }
