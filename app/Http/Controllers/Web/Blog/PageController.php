@@ -24,6 +24,7 @@ class PageController extends Controller
         $cari = $request->get('keyword');
         $popular = $request->get('pop');
         $time = $request->get('time');
+        $artikel_like = Blog::withCount('like')->with('like')->where('status', 1)->orderBy('like_count', 'DESC')->limit(3)->get();
         if($popular != '' || $time != '') {
             $artikel = Blog::when($time, function($query) use ($time) {
                 $query->withCount('like')->with('like')->where('status', 1)->orderBy('created_at', $time);
@@ -41,7 +42,7 @@ class PageController extends Controller
             })->where('status', 1)->latest()->paginate(10);
         }
         $data = $request->all();
-        return view('pages.blog.list', compact('artikel', 'data'));
+        return view('pages.blog.list', compact('artikel', 'data', 'artikel_like'));
     }
 
     public function detail($slug) {
@@ -52,6 +53,7 @@ class PageController extends Controller
             Blog::wherehas('kategori', function($q) use($kategori) {
                 $q->whereIn('nama', $kategori);
             })->where('id', '!=', $artikel->id)->latest()->limit(5)->get();
+            $artikel_like = Blog::withCount('like')->with('like')->where('status', 1)->orderBy('like_count', 'DESC')->limit(3)->get();
             $lainnya = $this->artikel_lainnya($artikel->user_id, $artikel->id);
             $terkait = $this->artikel_terkait($kategori, $artikel->id);
             $btn_like = 0;
@@ -63,7 +65,7 @@ class PageController extends Controller
                     $btn_like = 1;
                 }
             }
-            return view('pages.blog.detail', compact('artikel', 'lainnya', 'terkait', 'komentar', 'btn_like'));
+            return view('pages.blog.detail', compact('artikel', 'lainnya', 'terkait', 'komentar', 'btn_like', 'artikel_like'));
         } catch(\Exception $e) {
             dd($e);
             return redirect()->back()->with(['error' => $e->getMessage()])->withInput();
@@ -73,9 +75,10 @@ class PageController extends Controller
     public function detail_author($kode) {
         try {
             $user = User::where('api_token', $kode)->first();
+            $artikel_like = Blog::withCount('like')->with('like')->where('status', 1)->orderBy('like_count', 'DESC')->limit(3)->get();
             $artikel = Blog::where('user_id', $user->id)->where('status', 1)->latest()->get();
             $lainnya = $this->artikel_lainnya($user->id);
-            return view('pages.blog.author-profile', compact('artikel', 'user'));
+            return view('pages.blog.author-profile', compact('artikel', 'user', 'artikel_like'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()])->withInput();
         }
@@ -86,7 +89,11 @@ class PageController extends Controller
             $artikel = Blog::whereHas('kategori', function($q) use($kategori) {
                 $q->where('nama', 'LIKE', "%$kategori%");
             })->where('status', 1)->latest()->paginate(10);
-            return view('pages.blog.kategori', compact('artikel'));
+        $artikel_like = Blog::whereHas('kategori', function($q) use($kategori) {
+            $q->where('nama', 'LIKE', "%$kategori%");
+        })->withCount('like')->with('like')->where('status', 1)->orderBy('like_count', 'DESC')->limit(3)->get();
+
+            return view('pages.blog.kategori', compact('artikel', 'artikel_like'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()])->withInput();
         }

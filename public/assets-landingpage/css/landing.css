@@ -1164,7 +1164,7 @@ section {
 }
 
 .blog .sidebar .sidebar-item {
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
 .blog .sidebar .search-form form {
@@ -1688,3 +1688,10 @@ section {
     text-decoration: none;
   }
   
+  
+
+  @media (max-width: 992px) {
+    #searchBlog .input-group{
+      padding: 10px;
+    }
+}

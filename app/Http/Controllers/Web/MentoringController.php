@@ -132,6 +132,7 @@ class MentoringController extends Controller
                                     'user', 'paket', 'tryout_hasil_jawaban', 'tryout_hasil_detail'
                                 ])
                                 ->where('user_id', $tryout->user_id)->get();
+            $siswaID = Siswa::find($tryout->user_id);
             $nilai_grafik = [];
             $nama_paket = [];
             foreach ($nilai_by_user as $key => $value) {
@@ -164,7 +165,8 @@ class MentoringController extends Controller
             }
             $kelompok_all = KelompokPassingGrade::all();
             $universitas = Universitas::all();
-            return view('pages.mentoring.analisis_mentor', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket' ,'komentar', 'nil_pg1', 'nil_pg2', 'kelompok', 'kelompok_all', 'universitas'));
+            return view('pages.mentoring.analisis_mentor', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket' ,'komentar', 'nil_pg1', 'nil_pg2', 'kelompok', 'kelompok_all', 'universitas', 'siswaID'));
+            // return view('pages.mentoring.analisis_mentor', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket' ,'komentar', 'nil_pg1', 'nil_pg2', 'kelompok', 'siswaID'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }

@@ -204,7 +204,7 @@ class TryoutController extends Controller
                                 'nilai_maksimal_new' => $nilai_maksimal[$index_nilai_max]
                             ]);
         }
-        return response()->json(['error' => false, 'status' => 'iso cuakkkkk'], 200);
+        return response()->json(['error' => false, 'status' => 'Berhasil'], 200);
     }
 
     public function soal(Request $request) {

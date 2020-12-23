@@ -56,10 +56,9 @@
                <form action="{{ route('tryout.soal.store', ['gelombang_id' => $gelombang_id, 'paket' => $paket->slug]) }}" method="post" id="form-data">
                @csrf
                   <div class="card-body">
-                     <h4>
-                        <span class="badge badge-dark mt-2 p-2">Soal :
+                     <h4 class="mb-2 font-weight-bold">
+                        Soal :
                            <span id="posisi-soal">0/0</span>
-                        </span>
                      </h4>
                      <div class="row">
                         <div class="col-9">
@@ -68,7 +67,7 @@
                            <?php $k = 0; ?>
                            @foreach ($soal as $value)
                               <div id="question{{ $k }}" class="{{ $k == 0 ? 'show' : '' }} soal" data-jawaban="{{ $value->id }}" data-kategori="{{ $value->kategori_soal->nama }}" data-kode="{{ $value->kategori_soal->kode }}">
-                                 <h1>Kategori {{ $value->kategori_soal->nama }}</h1>
+                                 <div class="badge badge-success"><h6 class="font-weight-bold">Kategori {{ $value->kategori_soal->nama }}</h6></div>
                                  <h3 id="pertanyaan" class="h4 mt-3 mb-2 text-gray-800 font-weight-bold">
                                     {{-- {{ $i }}.  --}}
                                     {!! $value->soal !!}
@@ -100,13 +99,13 @@
                   </div>
                   <div class="card-footer">
                      <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-6">
                            <button id="btn-kembali" type="button" class="btn btn-dark">Kembali</button>
 
                            <button id="btn-lanjut" type="button" class="btn btn-success">Lanjut</button>
                            <button id="btn-reset" type="button" class="btn btn-light text-danger">Reset</button>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-6 text-right">
                            <button id="btn-kumpulkan" type="button" class="btn btn-danger" disabled>Kumpulkan</button>
                         </div>
                      </div>

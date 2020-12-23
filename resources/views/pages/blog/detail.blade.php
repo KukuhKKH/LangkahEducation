@@ -6,7 +6,7 @@
     <section id="blog" class="blog">
         <div class="container">
             <div class="row">
-                <div class="col-xl-8">
+                <div class="col-xl-8 mb-3">
                     <div class="card shadow mb-2">
                         <div class="card-img-top">
                             @if ($artikel->foto)
@@ -111,9 +111,27 @@
                     <div class="card shadow">
                         <div class="sidebar">
                             <div id="other-post">
-                                <h4 class="sidebar-title">Artikel Lainnya</h4>
+                                <h4 class="sidebar-title">Recent Post</h4>
                                 <div class="sidebar-item recent-posts">
                                     @forelse ($lainnya as $value)
+                                        <div class="post-item clearfix">
+                                            <img src="{{asset("upload/blog/$value->foto")}}" alt="">
+                                            <h4>
+                                                <a href="{{ route('page.blog.detail', $value->slug) }}">{{ $value->judul }}</a>
+                                            </h4>
+                                            <time datetime="2020-01-01">{{ Carbon\Carbon::parse($value->updated_at)->format('F d, Y') }}</time>
+                                        </div>
+                                    @empty
+                                        <h6>Belum ada artikel</h6>
+                                    @endforelse
+    
+                                    <hr>
+                                </div>
+                            </div>
+                            <div id="populer-post">
+                                <h4 class="sidebar-title">Populer Post</h4>
+                                <div class="sidebar-item recent-posts">
+                                    @forelse ($artikel_like as $value)
                                         <div class="post-item clearfix">
                                             <img src="{{asset("upload/blog/$value->foto")}}" alt="">
                                             <h4>

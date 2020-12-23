@@ -29,7 +29,7 @@
             </div>
             <div class="col-xl-12">
                <div class="form-group">
-                  <label for="name">Deskripsi Layanan</label>
+                  <label for="name">Deskripsi Layanan <small>(85)</small></label>
                   <textarea name="deskripsi" class="form-control" maxlength="85"id="deskripsi">{{ $layanan->deskripsi }}</textarea>
                   @error('nama')
                   <span class="invalid-feedback" role="alert">

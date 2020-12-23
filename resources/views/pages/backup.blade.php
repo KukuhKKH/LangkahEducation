@@ -3,31 +3,6 @@
 
 @section('content')
 <h1 class="h3 mb-4 text-gray-800">Dashboard</h1>
-@hasanyrole('mentor|superadmin|admin')
-<div class="text-center" id="loading" style="display: none">
-    <div class="spinner-border text-primary spinner-border-lg" role="status">
-        <span class="sr-only">Loading...</span>
-    </div>
-</div>
-<form action="" method="GET">
-    <div class="row">
-        <div class="col-6">
-            <select name="gelombang" id="gelombang" class="form-control" autocomplete="off">
-                <option value="" selected disabled>-- Pilih Gelombang --</option>
-                @foreach ($gelombang as $value)
-                    <option value="{{ $value->id }}">{{ $value->nama }}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="col-6">
-            <select name="paket" id="paket" class="form-control" autocomplete="off">
-                <option value="" selected disabled>-- Pilih Paket --</option>
-            </select>
-        </div>
-    </div>
-    <button type="submit" class="btn btn-primary mt-2 mb-2">Cari</button>
-</form>
-@endhasanyrole
 @hasanyrole('superadmin|admin')
     <div class="row">
 
@@ -134,7 +109,7 @@
 @hasanyrole('siswa')
     <div class="row">
         <!-- Area Chart -->
-        <div class="col-xl-12 col-lg-12">
+        <div class="col-xl-8 col-lg-8">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-dark">Riwayat Nilai</h6>
@@ -146,7 +121,7 @@
                 </div>
             </div>
         </div>
-        {{-- @if ($kelompok)
+        @if ($kelompok)
             <div class="col-xl-4">
                 <div class="card">
                     <div class="card-body">
@@ -187,7 +162,7 @@
                     </div>
                 </div>
             </div>
-        @endif --}}
+        @endif
     </div>
 @endhasanyrole
 
@@ -241,40 +216,6 @@
                 </div>
             </div>
         </div>
-        @if (request()->get('gelombang'))
-            <div class="col-xl-6 col-md-6 mb-4">
-                <div class="card border-left-warning shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                    Total Siswa Lolos PG1</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $data['total_lolos_1'] ?? 0 }} / {{ $data['total_siswa'] ?? 0 }}</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-rocket fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-6 col-md-6 mb-4">
-                <div class="card border-left-warning shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                    Total Siswa Lolos PG2</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $data['total_lolos_2'] ?? 0 }} / {{ $data['total_siswa'] ?? 0 }}</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-rocket fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endif
     </div>
     <div class="row mb-4">
         <div class="col-xl-8">
@@ -287,18 +228,19 @@
                         <div class="col-xl-12">
                             <div class="row justify-content-end">
                                 <div class="col-xl-6">
-                                    {{-- <form action="">
+                                    <form action="">
                                         <div class="input-group mb-3">
-                                            <select class="custom-select custom-select-sm" id="inputGroupSelect01" name="paket">
+                                            <select class="custom-select custom-select-sm" id="inputGroupSelect01">
+                                                {{-- Default e Paket Try Out 1 --}}
                                               <option value="2">Paket Try Out 1</option>
                                               <option value="2">Paket Try Out 2</option>
                                               <option value="2">Paket Try Out 2</option>
                                             </select>
                                             <div class="input-group-append">
-                                                <button class="btn btn-sm btn-outline-secondary" type="submit">Tampilkan</button>
+                                                <button class="btn btn-sm btn-outline-secondary" type="button">Tampilkan</button>
                                               </div>
                                           </div>
-                                    </form> --}}
+                                    </form>
                                 </div>
                                 <div class="col-xl-12" style="height: 275px">
                                     <canvas id="myAreaChart"></canvas>
@@ -638,7 +580,7 @@
         <script>
             let ctx = document.getElementById("myRiwayatNilai")
             let data_riwayat = {
-                labels: {!! json_encode($nama_paket ?? []) !!}  ,
+                labels: {!! json_encode($nama_paket ?? []) !!},
                 datasets: [{
                     label: "Nilai",
                     lineTension: 0.3,
@@ -719,30 +661,4 @@
 
     @hasanyrole('author')
     @endhasanyrole
-    
-    <script>
-        const URL = `{{ url('api/v1/paket-tryout') }}`
-        $('#gelombang').on('change', function() {
-            $("#loading").show()
-            let gelombang_id = $(this).val()
-            new Promise((resolve, reject) => {
-                $.ajax({
-                    url: `${URL}/${gelombang_id}`,
-                    method: 'GET',
-                    dataType: 'JSON'
-                })
-                .done(res => {
-                    $("#loading").hide()
-                    $("#paket").html(`<option value="" selected disabled>-- Pilih Paket --</option>`)
-                    res.data.tryout.forEach(el => {
-                        $("#paket").append(`<option value="${el.id}">${el.nama}</option>`)
-                    })
-                })
-                .fail(err => {
-                    $("#loading").hide()
-                    console.log(err)
-                })
-            })
-        })
-    </script>
 @endsection

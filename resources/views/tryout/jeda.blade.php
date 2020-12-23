@@ -58,7 +58,12 @@
                <input type="hidden" name="lanjut" value="woks bruh">
                   <div class="card-body">
                      <div class="row">
-                        <h1>Iki Vidio Youtube Bwang</h1>
+                        <div class="row d-flex justify-content-center">
+                           @php
+                               $embedYt = str_replace('watch?v=', 'embed/', $yt);
+                           @endphp
+                           <iframe width="800" height="400" src="{{$embedYt}}?autoplay=1" allow="autoplay" frameborder="0">
+                        </div>
                      </div>
                   </div>
                   <div class="card-footer">

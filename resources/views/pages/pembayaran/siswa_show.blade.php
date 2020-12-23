@@ -7,7 +7,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="d-flex justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Upload Pembayaran - Gelombang {{ $pembayaran->gelombang->nama }}</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Upload Pembayaran - {{ $pembayaran->gelombang->nama }}</h6>
              </div>
         </div>
         <div class="card-body">

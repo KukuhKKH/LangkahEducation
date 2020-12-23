@@ -14,9 +14,24 @@
             @else
                <img class="card-img-top img-cover" src="{{asset('assets/img/default-tryout.svg')}}" alt="Try Out">
             @endif
+            @php
+            $prodi = App\Models\TempProdi::where('paket_id', $value->paket->id)->get();
+            @endphp
             <div class="card-body">
                <h5 class="card-text">{{ $value->paket->nama }}</h5>
                <div class="row">
+                  @php
+                     $valKelompok ="";
+                     if ($prodi[0]->kelompok_passing_grade_id == 1) {
+                        $valKelompok = "Saintek";
+                     }else if($prodi[0]->kelompok_passing_grade_id == 2){
+                        $valKelompok = "Soshum";
+                     }
+                  @endphp
+                  <div class="col-xl-12">
+                     <strong>Kelompok</strong>
+                     <h6>{{ $valKelompok }}</h6>
+                  </div>
                   <div class="col-xl-12">
                      <strong>Produk</strong>
                      <h6>{{ $value->paket->nama }}</h6>
@@ -32,9 +47,7 @@
                      <h6>Jam : {{ Carbon\Carbon::parse($value->paket->tgl_akhir)->format('H:i') }} WIB</h6>
                   </div>
                </div>
-                  @php
-                     $prodi = App\Models\TempProdi::where('paket_id', $value->paket->id)->get();
-                  @endphp
+                 
                   @if (count($prodi) > 0)
                      <a class="btn btn-light btn-block mt-4"
                         href="{{ route('tryout.hasil', [

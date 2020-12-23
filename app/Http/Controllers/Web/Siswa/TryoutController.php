@@ -222,6 +222,7 @@ class TryoutController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function tryout_baru(Request $request, $gelombang_id, $token, $slug) {
+        $yt = "";
         try {
             $gelombang_id = $gelombang_id;
             $cek_token = Crypt::decrypt($token);
@@ -288,7 +289,14 @@ class TryoutController extends Controller
                         if(empty($request->get('lanjut'))) {
                             $waktu = 5;
                             $user_token = $token;
-                            return view('tryout.jeda', compact('gelombang_id', 'paket', 'waktu', 'user_token'));
+                            if($kategori_satu == 'saintek') {
+                                // $yt = "https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1";
+                                $yt = $paket->url_youtube_saintek;
+                            } else {
+                                // $yt = "https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1";
+                                $yt = $paket->url_youtube_soshum;
+                            }
+                            return view('tryout.jeda', compact('gelombang_id', 'paket', 'waktu', 'user_token', 'yt'));
                         }
                     }
                 }
@@ -460,7 +468,7 @@ class TryoutController extends Controller
                 $universitas = Universitas::all();
                 return view('pages.tryout.hasil-analisis.index', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket', 'komentar', 'nil_pg1', 'nil_pg2', 'kelompok', 'kelompok_all', 'universitas'));
             } else {
-                return redirect()->back()->with(['error' => 'Hasil belum dikoreksi oleh sistem']);
+                return redirect()->back()->with(['Mohon Maaf' => 'Try Out Belum Selesai']);
             }
         } catch(\Exception $e) {
             dd($e);
@@ -488,7 +496,7 @@ class TryoutController extends Controller
         $i = 0;
         
         foreach ($detail as $key => $value) {
-            $kategori_to = TempProdi::where('gelombang_id', 8)->where('paket_id', 1)->where('user_id', $value->first()->hasil->user_id)->first()->kelompok_passing_grade_id;
+            $kategori_to = TempProdi::where('gelombang_id', $gelombang_id)->where('paket_id', $paket_id)->where('user_id', $value->first()->hasil->user_id)->first()->kelompok_passing_grade_id;
             $nama_kategori_to = KelompokPassingGrade::find($kategori_to)->nama;
             if($nama_kategori_to == 'saintek') {
                 $total_jawaban = count($id_soal_saintek);
