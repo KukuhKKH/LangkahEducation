@@ -75,7 +75,8 @@
                                  <input type="hidden" name="soal[{{ $i }}]" value="{{ $value->id }}">
                                  <ol type="A">
                                     <?php $j = 1; ?>
-                                    @foreach($value->jawaban()->inRandomOrder()->get() as $option)
+                                    {{-- @foreach($value->jawaban()->inRandomOrder()->get() as $option) --}}
+                                    @foreach($value->jawaban()->get() as $option)
                                        <li>
                                           <input class="mt-4 mr-1" type="radio" name="jawaban[{{ $value->id }}]" value="{{ $option->id }}" id="option{{ $i }}ke{{ $j }}">
                                           <label for="option{{ $i }}ke{{ $j }}">{!! $option->jawaban !!}</label>

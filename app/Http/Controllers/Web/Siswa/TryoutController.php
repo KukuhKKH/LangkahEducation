@@ -307,7 +307,7 @@ class TryoutController extends Controller
                 //     return redirect()->back()->with(['error' => 'Anda sudah mengerjakan tryout ini']);
                 // } else {
                     $soal = TryoutSoal::where('tryout_paket_id', $paket->id)
-                                        ->inRandomOrder()
+                                        // ->inRandomOrder()
                                         ->where('tryout_kategori_soal_id', $kategori_id[$index])
                                         ->get();
                     $waktu = TryoutKategoriSoal::where('id', $kategori_id[$index])->first()->waktu;
@@ -468,7 +468,7 @@ class TryoutController extends Controller
                 $universitas = Universitas::all();
                 return view('pages.tryout.hasil-analisis.index', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket', 'komentar', 'nil_pg1', 'nil_pg2', 'kelompok', 'kelompok_all', 'universitas'));
             } else {
-                return redirect()->back()->with(['Mohon Maaf' => 'Try Out Belum Selesai']);
+                return redirect()->back()->with(['error' => 'Try Out Belum Dikoreksi Sistem']);
             }
         } catch(\Exception $e) {
             dd($e);

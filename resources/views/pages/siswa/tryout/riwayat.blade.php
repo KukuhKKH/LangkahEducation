@@ -47,21 +47,32 @@
                      <h6>Jam : {{ Carbon\Carbon::parse($value->paket->tgl_akhir)->format('H:i') }} WIB</h6>
                   </div>
                </div>
+
+               @php
+                  $koreksi = $value->paket->koreksi;
+               @endphp
                  
                   @if (count($prodi) > 0)
-                     <a class="btn btn-light btn-block mt-4"
-                        href="{{ route('tryout.hasil', [
-                           'gelombang_id' => $value->gelombang->id,
-                           'kelompok' => $prodi[0]->kelompok_passing_grade_id,
-                           'slug' => $value->paket->slug,
-                           'prodi-1' => $prodi[0]->passing_grade_id,
-                           'prodi-2' => $prodi[1]->passing_grade_id
-                        ]) }}">
-                           Hasil Analisis
-                        </a>
+                  @if ($koreksi)
+                     <a class="btn btn-light btn-block mt-4 {{ ($koreksi) ? '' : 'disabled not-allowed' }}"
+                     href="{{ route('tryout.hasil', [
+                        'gelombang_id' => $value->gelombang->id,
+                        'kelompok' => $prodi[0]->kelompok_passing_grade_id,
+                        'slug' => $value->paket->slug,
+                        'prodi-1' => $prodi[0]->passing_grade_id,
+                        'prodi-2' => $prodi[1]->passing_grade_id
+                     ]) }}" {{ ($koreksi) ? '' : 'disabled' }}>
+                        Hasil Analisis
+                     </a>
+                  @else
+                     <a class="btn btn-light btn-block mt-4 {{ ($koreksi) ? '' : 'disabled not-allowed' }}"
+                     href="javascript:void(0)" {{ ($koreksi) ? '' : 'disabled' }}>
+                        Hasil Analisis
+                     </a>
+                  @endif
                   @else
                      <a class="btn btn-light btn-block mt-4"
-                        href="{{ route('tryout.hasil', ['gelombang_id' => $value->gelombang->id, 'slug' => $value->paket->slug]) }}">Hasil
+                        href="{{ route('tryout.hasil', ['gelombang_id' => $value->gelombang->id, 'slug' => $value->paket->slug]) }}" {{ ($disable) ? '' : 'disabled not-allowed' }}>Hasil
                         Analisis</a>
                   @endif
             </div>
@@ -74,4 +85,13 @@
          <a class="btn btn-langkah mt-3" href="{{ route('gelombang.siswa') }}">Daftar Try Out</a>
       </div>
       @endforelse
+@endsection
+
+@section('css')
+   <style>
+      .not-allowed {
+         pointer-events: auto! important;
+         cursor: not-allowed! important;
+      }
+   </style>
 @endsection

@@ -152,7 +152,7 @@ class PembayaranController extends Controller
         try {
             $user = auth()->user();
             $gelombang = Gelombang::find($id);
-            $gelombang->siswa()->sync($user->siswa->id);
+            $gelombang->siswa()->attach($user->siswa->id);
             $pembayaran = Pembayaran::create([
                 'user_id' => $user->id,
                 'gelombang_id' => $gelombang->id,

@@ -63,7 +63,8 @@
                                $embedYt = str_replace('watch?v=', 'embed/', $yt);
                            @endphp
                            <iframe width="800" height="400" src="{{$embedYt}}?autoplay=1" allow="autoplay" frameborder="0">
-                        </div>
+                        </iframe>
+                     </div>
                      </div>
                   </div>
                   <div class="card-footer">
@@ -124,6 +125,7 @@
 @section('js')
 <script src="{{ asset('assets/vendor/moment.js') }}"></script>
 <script>
+   // const total_soal = 1
    // window.onbeforeunload = function () {return false;}
    const paket_slug = `{{ $paket->slug }}`
    const user = `{{ auth()->user()->name }}`
