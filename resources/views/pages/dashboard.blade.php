@@ -3,31 +3,6 @@
 
 @section('content')
 <h1 class="h3 mb-4 text-gray-800">Dashboard</h1>
-@hasanyrole('mentor|superadmin|admin')
-<div class="text-center" id="loading" style="display: none">
-    <div class="spinner-border text-primary spinner-border-lg" role="status">
-        <span class="sr-only">Loading...</span>
-    </div>
-</div>
-<form action="" method="GET">
-    <div class="row">
-        <div class="col-6">
-            <select name="gelombang" id="gelombang" class="form-control" autocomplete="off">
-                <option value="" selected disabled>-- Pilih Gelombang --</option>
-                @foreach ($gelombang as $value)
-                    <option value="{{ $value->id }}">{{ $value->nama }}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="col-6">
-            <select name="paket" id="paket" class="form-control" autocomplete="off">
-                <option value="" selected disabled>-- Pilih Paket --</option>
-            </select>
-        </div>
-    </div>
-    <button type="submit" class="btn btn-primary mt-2 mb-2">Cari</button>
-</form>
-@endhasanyrole
 @hasanyrole('superadmin|admin')
     <div class="row">
 
@@ -101,40 +76,6 @@
                 </div>
             </div>
 
-            @if (request()->get('gelombang'))
-            <div class="col-xl-6 col-md-6 mb-4">
-                <div class="card border-left-warning shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                    Total Siswa Lolos PG1</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $data['total_lolos_1'] ?? 0 }} / {{ $data['total_siswa'] ?? 0 }}</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-rocket fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-6 col-md-6 mb-4">
-                <div class="card border-left-warning shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                    Total Siswa Lolos PG2</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $data['total_lolos_2'] ?? 0 }} / {{ $data['total_siswa'] ?? 0 }}</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-rocket fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endif
     </div>
 
     <div class="row">
@@ -155,16 +96,110 @@
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="text-center" id="loading" style="display: none">
+                <div class="spinner-border text-primary spinner-border-lg" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+            <form action="" method="GET">
+                <div class="row align-items-center mb-4">
+                    <div class="col-xl-5">
+                        <select name="gelombang" id="gelombang" class="form-control" autocomplete="off">
+                            <option value="" selected disabled>-- Pilih Gelombang --</option>
+                            @foreach ($gelombang as $value)
+                                <option value="{{ $value->id }}">{{ $value->nama }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-xl-5">
+                        <select name="paket" id="paket" class="form-control i" autocomplete="off">
+                            <option value="" selected disabled>-- Pilih Paket --</option>
+                        </select>
+                    </div>
+                    <div class="col-xl-auto">
+                        <button type="submit" class="btn btn-primary mt-2 mb-2">Cari</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-xl-3 col-md-3 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Sudah Dikomentari</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">XX</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-user-circle fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-3 mb-4">
+            <div class="card border-left-danger shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                Belum Dikomentari</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">XX</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-user-circle fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Total Siswa Lolos Prodi 1</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $data['total_lolos_1'] ?? 0 }} / {{ $data['total_siswa'] ?? 0 }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-rocket fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Total Siswa Lolos Prodi 2</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $data['total_lolos_2'] ?? 0 }} / {{ $data['total_siswa'] ?? 0 }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-rocket fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endhasanyrole
 
-{{-- @hasanyrole('sekolah|siswa|mentor|author')
+@hasanyrole('sekolah')
     <div class="row">
         <div class="col-xl-12 text-center">
             <img class="img-fluid" src="{{asset('assets/img/welcome-illustration.svg')}}" alt="">
             <h3 class="mt-3">Selamat Datang <span class="font-weight-bold">{{ auth()->user()->name }}</span></h3>
         </div>
     </div>
-@endhasanyrole --}}
+@endhasanyrole
 
 @hasanyrole('siswa')
     <div class="row">
@@ -228,7 +263,34 @@
 
 @hasanyrole('mentor')
     <div class="row">
-        <div class="col-xl-4 col-md-4 mb-4">
+        <div class="col-xl-12">
+            <div class="text-center" id="loading" style="display: none">
+                <div class="spinner-border text-primary spinner-border-lg" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+            <form action="" method="GET">
+                <div class="row align-items-center mb-4">
+                    <div class="col-xl-5">
+                        <select name="gelombang" id="gelombang" class="form-control" autocomplete="off">
+                            <option value="" selected disabled>-- Pilih Gelombang --</option>
+                            @foreach ($gelombang as $value)
+                                <option value="{{ $value->id }}">{{ $value->nama }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-xl-5">
+                        <select name="paket" id="paket" class="form-control i" autocomplete="off">
+                            <option value="" selected disabled>-- Pilih Paket --</option>
+                        </select>
+                    </div>
+                    <div class="col-xl-auto">
+                        <button type="submit" class="btn btn-primary mt-2 mb-2">Cari</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-xl-3 col-md-3 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -244,7 +306,39 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-4 col-md-4 mb-4">
+        <div class="col-xl-3 col-md-3 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Sudah Dikomentari</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">XX</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-user-circle fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-3 mb-4">
+            <div class="card border-left-danger shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                Belum Dikomentari</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">XX</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-user-circle fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-3 mb-4">
             <div class="card border-left-success shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -260,7 +354,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-4 col-md-4 mb-4">
+        <div class="col-xl-4 col-md-3 mb-4">
             <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -276,40 +370,38 @@
                 </div>
             </div>
         </div>
-        @if (request()->get('gelombang'))
-            <div class="col-xl-6 col-md-6 mb-4">
-                <div class="card border-left-warning shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                    Total Siswa Lolos PG1</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $data['total_lolos_1'] ?? 0 }} / {{ $data['total_siswa'] ?? 0 }}</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-rocket fa-2x text-gray-300"></i>
-                            </div>
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Total Siswa Lolos Prodi 1</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $data['total_lolos_1'] ?? 0 }} / {{ $data['total_siswa'] ?? 0 }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-rocket fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-6 col-md-6 mb-4">
-                <div class="card border-left-warning shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                    Total Siswa Lolos PG2</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $data['total_lolos_2'] ?? 0 }} / {{ $data['total_siswa'] ?? 0 }}</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-rocket fa-2x text-gray-300"></i>
-                            </div>
+        </div>
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Total Siswa Lolos Prodi 2</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $data['total_lolos_2'] ?? 0 }} / {{ $data['total_siswa'] ?? 0 }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-rocket fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
             </div>
-        @endif
+        </div>
     </div>
     <div class="row mb-4">
         <div class="col-xl-8">
@@ -321,20 +413,6 @@
                     <div class="row">
                         <div class="col-xl-12">
                             <div class="row justify-content-end">
-                                <div class="col-xl-6">
-                                    {{-- <form action="">
-                                        <div class="input-group mb-3">
-                                            <select class="custom-select custom-select-sm" id="inputGroupSelect01" name="paket">
-                                              <option value="2">Paket Try Out 1</option>
-                                              <option value="2">Paket Try Out 2</option>
-                                              <option value="2">Paket Try Out 2</option>
-                                            </select>
-                                            <div class="input-group-append">
-                                                <button class="btn btn-sm btn-outline-secondary" type="submit">Tampilkan</button>
-                                              </div>
-                                          </div>
-                                    </form> --}}
-                                </div>
                                 <div class="col-xl-12" style="height: 275px">
                                     <canvas id="myAreaChart"></canvas>
                                 </div>
@@ -366,7 +444,6 @@
         </div>
     </div>
 @endhasanyrole
-
 @hasanyrole('author|superadmin|mentor|admin')
     <div class="row">
         <div class="col-xl-4 col-md-4 mb-4">
