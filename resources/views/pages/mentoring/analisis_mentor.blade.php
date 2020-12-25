@@ -127,6 +127,9 @@
 
                 @php
                 $prodi1=($nilai_user/$pg1->passing_grade)*100;
+                if ($prodi1 > 100) {
+                    $prodi1 = 100;
+                }
                 @endphp
                 <div class="progress">
                     <div class="progress-bar bg-success" role="progressbar" style="width: {{ $prodi1 }}%"
@@ -143,6 +146,9 @@
                         {{ $pg2->prodi }}<span class="float-right">{{ $nilai_user }}%</span></h4>
                     @php
                     $prodi2=($nilai_user/$pg2->passing_grade)*100;
+                    if ($prodi2 > 100) {
+                         $prodi2 = 100;
+                    }
                     @endphp
                     <div class="progress ">
                         <div class="progress-bar bg-primary" role="progressbar" style="width: {{ $prodi2 }}%"

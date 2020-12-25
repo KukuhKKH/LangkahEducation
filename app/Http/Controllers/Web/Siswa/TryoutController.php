@@ -440,7 +440,7 @@ class TryoutController extends Controller
                 $nilai_grafik = [];
                 $nama_paket = [];
                 foreach ($nilai_by_user as $key => $value) {
-                    $nilai_grafik[] = $value->nilai_sekarang;
+                    $nilai_grafik[] = round(($value->nilai_sekarang/$value->nilai_maksimal_new)*100, 2);
                     $nama_paket[] = $value->paket->nama;
                 }
     
@@ -458,8 +458,10 @@ class TryoutController extends Controller
                     $nilai_awal = $tryout->nilai_sekarang;
                     $nilai_max = $tryout->nilai_maksimal_new;
                     $nilai_user = round($nilai_awal/$nilai_max * 100, 2);
-                    $nil_pg1 = ($pg1->passing_grade/100)*$nilai_max;
-                    $nil_pg2 = ($pg2->passing_grade/100)*$nilai_max;
+                    $nil_pg2 = ($pg2->passing_grade );
+                    $nil_pg1 = ($pg1->passing_grade);
+                    // $nil_pg2 = ($pg2->passing_grade/100)*$nilai_max;
+                    // $nil_pg1 = ($pg1->passing_grade/100)*$nilai_max;
                 } else {
                     $pg1 = $pg2 = $nilai_user = $nil_pg1 = $nil_pg2 = 0;
                 }

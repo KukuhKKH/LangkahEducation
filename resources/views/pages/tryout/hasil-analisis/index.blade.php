@@ -122,16 +122,24 @@
                 <h6 class="m-0 font-weight-bold text-dark">Passing Grade</h6>
             </div>
             <div class="card-body">
-                <h4 class="small font-weight-bold">({{ $pg1->passing_grade }}%) {{ $pg1->universitas->nama }} -
-                    {{ $pg1->prodi }} <span class="float-right">{{ $nilai_user }}%</span></h4>
+                
 
-                @php
-                $prodi1=($nilai_user/$pg1->passing_grade)*100;
-                @endphp
-                <div class="progress">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ $prodi1 }}%"
-                        aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
+                <h4 class="small font-weight-bold">({{ $pg1->passing_grade }}%) {{ $pg1->universitas->nama }} -
+                    {{ $pg1->prodi }} <span class="float-right">Nilai : {{ $nilai_user }}%</span></h4>
+
+                    @php
+                    $prodi1=($nilai_user/$pg1->passing_grade)*100;
+                    if ($prodi1 > 100) {
+                        $prodi1 = 100;
+                    }
+                    @endphp
+                    <div class="barwrapp">
+                        <div class="progress">
+                          <div class="progress-bar bg-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{ $nilai_user }}%">
+                          </div>
+                        </div>
+                        <div style="width: 3px; height: 100%; position: absolute; background: black; top: 0; left: {{ $pg1->passing_grade}}%;" title="{{$pg1->universitas->nama}}"></div>
+                      </div>
 
                 @if ($pg1->passing_grade < $nilai_user) <p class="mb-4 mt-2">Status : <span
                         class="text-success">LULUS</span></p>
@@ -140,14 +148,21 @@
                     @endif
 
                     <h4 class="small font-weight-bold">({{ $pg2->passing_grade }}%) {{ $pg2->universitas->nama }} -
-                        {{ $pg2->prodi }}<span class="float-right">{{ $nilai_user }}%</span></h4>
+                        {{ $pg2->prodi }}<span class="float-right">Nilai : {{ $nilai_user }}%</span></h4>
                     @php
                     $prodi2=($nilai_user/$pg2->passing_grade)*100;
+                    if ($prodi2 > 100) {
+                         $prodi2 = 100;
+                    }
                     @endphp
-                    <div class="progress ">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: {{ $prodi2 }}%"
-                            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
+                    <div class="barwrapp">
+                        <div class="progress">
+                          <div class="progress-bar bg-primary progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{ $nilai_user }}%">
+                          </div>
+                        </div>
+                        <div style="width: 3px; height: 100%; position: absolute; background: black; top: 0; left: {{ $pg2->passing_grade}}%;" title="{{$pg2->universitas->nama}}"></div>
+                      </div>
+
                     @if ($pg2->passing_grade < $nilai_user) <p class="mb-4 mt-2">Status : <span
                             class="text-success">LULUS</span></p>
                         @else
@@ -168,35 +183,37 @@
                 <h6 class="m-0 font-weight-bold text-dark">Hasil Try Out</h6>
             </div>
             <div class="card-body">
-                <table class="table table-bordered" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th class="w-50">Kategori</th>
-                            <th>Benar</th>
-                            <th>Salah</th>
-                            <th>Kosong</th>
-                            <th>Nilai</th>
-                            <th>Pembahasan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($tryout->tryout_hasil_detail as $value)
-                        <tr>
-                            <td>{{ $value->kategori_soal->nama }}({{ $value->kategori_soal->kode }})</td>
-                            <td>{{ $value->benar }}</td>
-                            <td>{{ $value->salah }}</td>
-                            <td>{{ $value->kosong }}</td>
-                            <td>{{ $value->nilai }}</td>
-                            <td><a href="{{ route('mentoring.pembahasan',['paket_id' => $value->tryout_paket_id, 'kategori_id' =>  $value->tryout_kategori_soal_id, 'hasil_id' => $value->tryout_hasil_id]) }}"
-                                    class="btn btn-primary">Lihat</a></td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td colspan="6">Tidak ada data</td>
-                        </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th class="w-50">Kategori</th>
+                                <th>Benar</th>
+                                <th>Salah</th>
+                                <th>Kosong</th>
+                                <th>Nilai</th>
+                                <th>Pembahasan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($tryout->tryout_hasil_detail as $value)
+                            <tr>
+                                <td>{{ $value->kategori_soal->nama }}({{ $value->kategori_soal->kode }})</td>
+                                <td>{{ $value->benar }}</td>
+                                <td>{{ $value->salah }}</td>
+                                <td>{{ $value->kosong }}</td>
+                                <td>{{ $value->nilai }}</td>
+                                <td><a href="{{ route('mentoring.pembahasan',['paket_id' => $value->tryout_paket_id, 'kategori_id' =>  $value->tryout_kategori_soal_id, 'hasil_id' => $value->tryout_hasil_id]) }}"
+                                        class="btn btn-primary">Lihat</a></td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="6">Tidak ada data</td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -260,9 +277,9 @@
                 @php
                     $interpretasi = "";
                     //$prodi 1 dan 2 wes onok ng duwur 
-                    if ($prodi1 < 100 && $prodi2 < 100) {
+                    if ($prodi1 <= 100 && $prodi2 <= 100) {
                         $interpretasi = $paket->interpretasi_1;
-                    }else if($prodi2 < 100){
+                    }else if($prodi1 <= 100 | $prodi2 <= 100 ){
                         $interpretasi = $paket->interpretasi_2;
                     }else{
                         $interpretasi = $paket->intrepretasi_3;
@@ -418,4 +435,12 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets/vendor/select2/dist/css/select2.min.css') }}">
+<style>
+.progress {
+  width: 100%;
+}
+.barwrapp {
+  position: relative;
+}
+</style>
 @endsection
