@@ -185,7 +185,7 @@
                                     <tr>
                                         <td bgcolor="#ffffff" width="100" align="center"><a
                                                 href="https://langkaheducation.com/" target="_blank"><img alt="Logo"
-                                                    src="https://www.dev.langkaheducation.com/assets/img/logo-primary.png" width="50%"
+                                                    src="https://www.langkaheducation.com/assets/img/logo-primary.png" width="50%"
                                                     style="display: block; font-family: Helvetica, Arial, sans-serif; color: #666666; font-size: 16px;"
                                                     border="0"></a></td>
                                     </tr>
@@ -220,7 +220,7 @@
                                                             <tr>
                                                                 <td>
                                                                     
-                                                                    <img src="https://dev.langkaheducation.com/assets/img/email-verification.png"
+                                                                    <img src="https://langkaheducation.com/assets/img/email-verification.png"
                                                                         border="0"
                                                                         alt="illustration"
                                                                         style="display: block; padding: 0; color: #666666; text-decoration: none; font-family: Helvetica, arial, sans-serif; font-size: 16px; width: 500px;"
