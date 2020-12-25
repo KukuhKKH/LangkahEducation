@@ -67,7 +67,7 @@
                            <?php $k = 0; ?>
                            @foreach ($soal as $value)
                               <div id="question{{ $k }}" class="{{ $k == 0 ? 'show' : '' }} soal" data-jawaban="{{ $value->id }}" data-kategori="{{ $value->kategori_soal->nama }}" data-kode="{{ $value->kategori_soal->kode }}">
-                                 <div class="badge badge-success"><h6 class="font-weight-bold">Kategori {{ $value->kategori_soal->nama }}</h6></div>
+                                 <div class="badge badge-success"><small class="font-weight-bold">Kategori {{ $value->kategori_soal->nama }}</small></div>
                                  <h5 id="pertanyaan" class="h5 mt-3 mb-2 text-gray-800">
                                     {{-- {{ $i }}.  --}}
                                     {!! $value->soal !!}
