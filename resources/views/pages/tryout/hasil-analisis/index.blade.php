@@ -245,21 +245,6 @@
                         <button class="btn btn-langkah btn-block" type="submit">Kirim Komentar</button>
                         @endhasanyrole
                     </form>
-
-                    {{-- IF SISWA UMUM (INTERPRETASI) --}}
-
-                    {{-- @php
-                        $interpretasi = "";
-                        //$prodi 1 dan 2 wes onok ng duwur 
-                        if ($prodi1 < 100 && $prodi2 < 100) {
-                            $interpretasi = $interpretasi_1;
-                        }else if($prodi2 < 100){
-                            $interpretasi = $interpretasi_2;
-                        }else{
-                            $interpretasi = $intrepretasi_3;
-                        }
-                    @endphp
-                    <p>{{$interpretasi}}</p> --}}
                 </div>
             </div>
         </div>

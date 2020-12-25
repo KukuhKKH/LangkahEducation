@@ -1,4 +1,6 @@
 @extends('layouts.app')
+
+@section('title', 'Kategori Blog - Langkah Education')
     @section('content')
     <!-- ======= Header ======= -->
     @include('partials.landingpage.header-blog')

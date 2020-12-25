@@ -9,8 +9,7 @@
                     <a href="index.html" class="logo">
                         <img src="/assets/img/logo-primary.svg" alt="" class="img-fluid w-50 mb-4"></a>
                         @php
-                            $deskripsi = $data->deskripsi ?? 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nemo, nisi eligendi eum facere officiis
-                        fugiat aliquid laudantium repellendus amet cum?'
+                            $deskripsi = $data->deskripsi ?? 'Langkah Education adalah website belajar untuk persiapan tes seleksi masuk PTN'
                         @endphp
                     <p>{{ $deskripsi }}</p>
                 </div>

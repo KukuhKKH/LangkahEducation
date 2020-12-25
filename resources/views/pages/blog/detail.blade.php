@@ -1,4 +1,6 @@
 @extends('layouts.app')
+@section('title', 'Detail Blog - Langkah Education')
+@section('keyword'){{str_replace(' ', ',', $artikel->judul)}}@endsection
 @section('content')
 <!-- ======= Header ======= -->
 @include('partials.landingpage.header-blog')
