@@ -39,7 +39,7 @@
                                     </span>
                                     @enderror
                                 </div>
-                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                <div class="col-sm-6 mb-sm-0">
                                     <input name="asal_sekolah" type="text" class="form-control form-control-user @error('asal_sekolah') is-invalid @enderror" placeholder="Asal Sekolah/Instansi" value="{{ old('asal_sekolah') }}">
                                     @error('asal_sekolah')
                                     <span class="invalid-feedback" role="alert">
@@ -57,7 +57,7 @@
                                     </span>
                                     @enderror
                                 </div>
-                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                <div class="col-sm-6 mb-sm-0">
                                     <input name="tanggal_lahir" type="text" class="datepicker form-control form-control-user @error('tanggal_lahir') is-invalid @enderror" placeholder="Tanggal Lahir" value="{{ old('tanggal_lahir') }}">
                                     @error('tanggal_lahir')
                                     <span class="invalid-feedback" role="alert">
@@ -67,13 +67,13 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                <div class="col-sm-6 mb-2 mb-sm-0">
                                     <div class="input-group" id="show_hide_password">
                                         <input name="password" type="password" class="form-control form-control-user @error('password') is-invalid @enderror" id="exampleInputPassword" placeholder="Kata Sandi">
                                         <div class="input-group-addon d-flex align-items-center">
                                             <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
                                           </div>
-                                        <small class="ml-3 text-secondary">Kata sandi minimal 8 karakter</small>
+                                        <small class="ml-3 mt-2 text-secondary">Kata sandi minimal 8 karakter</small>
 
                                           @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -134,4 +134,14 @@
         });
     });
     </script>
+@endsection
+
+@section('css')
+    <style>
+        @media (max-width: 1000px) {
+            .input-group-addon a{
+                padding : 5px;
+            }
+        }
+    </style>
 @endsection

@@ -60,7 +60,7 @@
                         @elseif($today < $item->tgl_awal)
                         <a href="#" class="btn btn-light text-dark btn-block mt-4 disabled" disabled>Belum Waktunya</a>
                         @else
-                        <a href="#" class="btn btn-secondary btn-blok mt-4 disabled" disabled>Tryout Telah Selesai</a>
+                        <a href="#" class="btn btn-secondary btn-block mt-4 disabled" disabled>Tryout Telah Selesai</a>
                         @endif
                     </div>
                 </div>
@@ -124,7 +124,7 @@
                         @elseif($today < $item->tgl_awal)
                         <a href="#" class="btn btn-light text-dark btn-block mt-4 disabled" disabled>Belum Waktunya</a>
                         @else
-                        <a href="#" class="btn btn-secondary btn-blok mt-4 disabled" disabled>Tryout Telah Selesai</a>
+                        <a href="#" class="btn btn-secondary btn-block mt-4 disabled" disabled>Tryout Telah Selesai</a>
                         @endif
                     </div>
                 </div>

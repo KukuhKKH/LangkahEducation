@@ -45,7 +45,7 @@
 
                 <form action="#" class="mt-4">
                     <label for="kelompok">Pilihan Kelompok</label><br>
-                    <select name="kelompok" id="kelompok" class="form-control" required autocomplete="off">
+                    <select name="kelompok" id="kelompok" class="form-control" disabled required autocomplete="off">
                         <option value="" selected disabled>== Kelompok Pilihan ==</option>
                         @foreach ($kelompok_all as $value)
                             @if ($value->id == request()->get('kelompok'))
@@ -174,35 +174,37 @@
                 <h6 class="m-0 font-weight-bold text-dark">Hasil Try Out</h6>
             </div>
             <div class="card-body">
-                <table class="table table-bordered" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th class="w-50">Kategori</th>
-                            <th>Benar</th>
-                            <th>Salah</th>
-                            <th>Kosong</th>
-                            <th>Nilai</th>
-                            <th>Pembahasan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($tryout->tryout_hasil_detail as $value)
-                        <tr>
-                            <td>{{ $value->kategori_soal->nama }}({{ $value->kategori_soal->kode }})</td>
-                            <td>{{ $value->benar }}</td>
-                            <td>{{ $value->salah }}</td>
-                            <td>{{ $value->kosong }}</td>
-                            <td>{{ $value->nilai }}</td>
-                            <td><a href="{{ route('mentoring.pembahasan',['paket_id' => $value->tryout_paket_id, 'kategori_id' =>  $value->tryout_kategori_soal_id, 'hasil_id' => $value->tryout_hasil_id]) }}"
-                                    class="btn btn-primary">Lihat</a></td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td colspan="6">Tidak ada data</td>
-                        </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th class="w-50">Kategori</th>
+                                <th>Benar</th>
+                                <th>Salah</th>
+                                <th>Kosong</th>
+                                <th>Nilai</th>
+                                <th>Pembahasan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($tryout->tryout_hasil_detail as $value)
+                            <tr>
+                                <td>{{ $value->kategori_soal->nama }}({{ $value->kategori_soal->kode }})</td>
+                                <td>{{ $value->benar }}</td>
+                                <td>{{ $value->salah }}</td>
+                                <td>{{ $value->kosong }}</td>
+                                <td>{{ $value->nilai }}</td>
+                                <td><a href="{{ route('mentoring.pembahasan',['paket_id' => $value->tryout_paket_id, 'kategori_id' =>  $value->tryout_kategori_soal_id, 'hasil_id' => $value->tryout_hasil_id]) }}"
+                                        class="btn btn-primary">Lihat</a></td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="6">Tidak ada data</td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

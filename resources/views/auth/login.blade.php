@@ -103,3 +103,13 @@
 </script>
     
 @endsection
+
+@section('css')
+    <style>
+        @media (max-width: 1000px) {
+            .input-group-addon a{
+                padding : 5px;
+            }
+        }
+    </style>
+@endsection
