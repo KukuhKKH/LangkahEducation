@@ -274,14 +274,15 @@
                 {{-- IF SISWA UMUM (INTERPRETASI) --}}
 
                 @php
-                    $interpretasi = "";
-                    //$prodi 1 dan 2 wes onok ng duwur 
-                    if ($prodi1 <= 100 && $prodi2 <= 100) {
-                        $interpretasi = $paket->interpretasi_1;
-                    }else if($prodi1 <= 100 | $prodi2 <= 100 ){
+                $prodi1=100;
+                $prodi2=100;
+                    $interpretasi = "-";
+                    if ($prodi1 < 100 && $prodi2 < 100) {
+                        $interpretasi = $paket->interpretasi_3;
+                    }elseif($prodi1 < 100 || $prodi2 < 100){
                         $interpretasi = $paket->interpretasi_2;
-                    }else{
-                        $interpretasi = $paket->intrepretasi_3;
+                    }elseif($prodi1 == 100 && $prodi2 == 100){
+                        $interpretasi = $paket->interpretasi_1;
                     }
                 @endphp
                 <p>{{ $interpretasi }}</p>
