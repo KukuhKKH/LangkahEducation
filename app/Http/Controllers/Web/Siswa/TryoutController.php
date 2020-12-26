@@ -53,7 +53,7 @@ class TryoutController extends Controller
             if(count($cek_gelombang) > 0) {
                 $produk_gelombang = $cek_gelombang;
                 // INI TIDAK JADI BRUH
-                // SEPAK EMANG
+                // 
                 // $gelombang = $user->siswa->gelombang()->get()->pluck('id');
                 // $id_gelombang = [];
                 // foreach ($gelombang as $key => $value) {

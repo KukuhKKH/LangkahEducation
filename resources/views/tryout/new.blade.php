@@ -78,7 +78,7 @@
                                     {{-- @foreach($value->jawaban()->inRandomOrder()->get() as $option) --}}
                                     @foreach($value->jawaban()->get() as $option)
                                        <li>
-                                          <input class="mt-4 mr-1" type="radio" name="jawaban[{{ $value->id }}]" value="{{ $option->id }}" id="option{{ $i }}ke{{ $j }}">
+                                          <input class="mt-1 mr-1" type="radio" name="jawaban[{{ $value->id }}]" value="{{ $option->id }}" id="option{{ $i }}ke{{ $j }}">
                                           <label for="option{{ $i }}ke{{ $j }}">{!! $option->jawaban !!}</label>
                                        </li>
                                        <?php $j++; ?>
