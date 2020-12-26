@@ -165,8 +165,9 @@
                     }],
                     yAxes: [{
                         ticks: {
+                            max: 100,
                             scaleBeginAtZero: true,
-                            maxTicksLimit: 5,
+                            maxTicksLimit: 10,
                             padding: 10,
                         },
                         gridLines: {

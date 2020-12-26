@@ -247,18 +247,17 @@
                 data.forEach(element => {
                     $('#prodi-1').append(`<option value="${element.id}">${element.prodi}</option>`)
                 })
-                $('#prodi-1').removeAttr('disabled')
             })
             .fail(err => {
                 console.log(err)
             })
         })
+        $('#prodi-1').removeAttr('disabled')
     })
 
     $('#univ-2').on('change', function() {
         kelompok = $('#kelompok').val()
         let univ2 = $('#univ-2').val()
-        $("#prodi-1").val('')
         new Promise((resolve, reject) => {
             $.ajax({
                 url: `${URL_GET}/${kelompok}/${univ2}`,
@@ -273,12 +272,12 @@
                 data.forEach(element => {
                     $('#prodi-2').append(`<option value="${element.id}">${element.prodi}</option>`)
                 })
-                $('#prodi-2').removeAttr('disabled')
             })
             .fail(err => {
                 console.log(err)
             })
         })
+        $('#prodi-2').removeAttr('disabled')
     })
 </script>
 <script>

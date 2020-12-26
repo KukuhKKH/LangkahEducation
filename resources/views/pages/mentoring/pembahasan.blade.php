@@ -52,16 +52,16 @@
                      </span>
                   </h4>
                   <div class="row">
-                     <div class="col-9">
+                     <div class="col-lg-9 pr-5">
                         <?php $i = 1; ?>
                         <?php $k = 0; ?>
                         @foreach ($paket as $value)
                         <div id="question{{ $k }}" class="{{ $k == 0 ? 'show' : '' }} soal"
                            data-kategori="{{ $value->kategori_soal->nama }}"
                            data-kode="{{ $value->kategori_soal->kode }}">
-                           <h3 id="pertanyaan" class="h4 mt-3 mb-2 text-gray-800 font-weight-bold">
+                           <h5 id="pertanyaan" class="h5 mt-3 mb-2 text-gray-800">
                               {!! $value->soal !!}
-                           </h3>
+                           </h5>
                            <input type="hidden" name="soal[{{ $i }}]" value="{{ $value->id }}">
                                  <ol type="A">
                                     <?php $j = 1; ?>
@@ -96,7 +96,7 @@
                         @endforeach
                      </div>
 
-                     <div class="col-3" id="menu-soal">
+                     <div class="col-lg-3" id="menu-soal">
                         <h5 class="h5 mt-3 mb-2 font-weight-bold">Daftar Soal</h5>
                         <div class="row" id="daftar-soal">
                         </div>
@@ -106,13 +106,13 @@
                </div>
                <div class="card-footer">
                   <div class="row">
-                     <div class="col-lg-6">
+                     <div class="col-6">
                         <button id="btn-kembali" class="btn btn-dark">Kembali</button>
 
                         <button id="btn-lanjut" class="btn btn-success">Lanjut</button>
                      </div>
-                     <div class="col-lg-6">
-                        <a href="{{ url()->previous() }}" class="btn btn-danger">Kembali</a>
+                     <div class="col-6 mt-2">
+                        <a href="{{ url()->previous() }}" class="btn btn-dark">Lihat Hasil Analisis</a>
                      </div>
                   </div>
                </div>

@@ -58,7 +58,7 @@
                <input type="hidden" name="lanjut" value="woks bruh">
                   <div class="card-body">
                      <div class="row">
-                        <div class="row d-flex justify-content-center">
+                        <div class="d-flex justify-content-center">
                            @php
                                $embedYt = str_replace('watch?v=', 'embed/', $yt);
                            @endphp
@@ -164,7 +164,7 @@
    $('#btn-kumpulkan').on('click', function() {
       Swal.fire({
          title: 'Yakin?',
-         text: "Waktu istirahat masuh tersisa!",
+         text: "Waktu istirahat masih tersisa!",
          icon: 'warning',
          showCancelButton: true,
          confirmButtonColor: '#3085d6',

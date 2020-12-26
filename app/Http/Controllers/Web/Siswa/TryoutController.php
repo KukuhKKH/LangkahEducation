@@ -53,7 +53,7 @@ class TryoutController extends Controller
             if(count($cek_gelombang) > 0) {
                 $produk_gelombang = $cek_gelombang;
                 // INI TIDAK JADI BRUH
-                // SEPAK EMANG
+                // 
                 // $gelombang = $user->siswa->gelombang()->get()->pluck('id');
                 // $id_gelombang = [];
                 // foreach ($gelombang as $key => $value) {
@@ -450,7 +450,7 @@ class TryoutController extends Controller
                 $nilai_grafik = [];
                 $nama_paket = [];
                 foreach ($nilai_by_user as $key => $value) {
-                    $nilai_grafik[] = $value->nilai_sekarang;
+                    $nilai_grafik[] = round(($value->nilai_sekarang/$value->nilai_maksimal_new)*100, 2);
                     $nama_paket[] = $value->paket->nama;
                 }
     

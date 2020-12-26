@@ -1,9 +1,11 @@
 @extends('layouts.app')
+@section('title', 'Langkah Education')
+@section('deskripsi'){{ $data->deskripsi}}@endsection
+
 @section('content')
 <!-- ======= Header ======= -->
 <header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center justify-content-between">
-
         <!-- Uncomment below if you prefer to use an image logo -->
         <a href="{{ url('/') }}" class="logo"><img id="navLogo" src="assets/img/logo-secondary.svg" alt=""
                 class="img-fluid"></a>

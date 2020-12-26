@@ -46,6 +46,18 @@
             @enderror
          </div>
          <div class="form-group">
+            <label for="bayar">Jenis Pembayaran</label>
+            <select name="bayar" class="form-control form-control-user @error('bayar') is-invalid @enderror" id="exampleFormControlSelect1">
+               <option value="1" {{ ($bank->bayar == 1) ? 'selected' : '' }}>Berbayar</option>
+               <option value="0" {{ ($bank->bayar == 0) ? 'selected' : '' }}>Gratis</option>
+              </select>
+              @error('bayar')
+              <span class="invalid-feedback" role="alert">
+                 <strong>{{ $message }}</strong>
+              </span>
+              @enderror
+        </div>
+         <div class="form-group">
             <label for="name">Logo <small>Ukuran Maksimal 500Kb</small></label>
                <div class="input-group">
                   <div class="custom-file">

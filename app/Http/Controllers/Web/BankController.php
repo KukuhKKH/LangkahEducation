@@ -37,6 +37,7 @@ class BankController extends Controller
             'nama' => 'required',
             'nomer_rekening' => 'required',
             'alias' => 'required',
+            'bayar' => 'required',
             'file' => 'nullable|mimes:jpg,jpeg,gif,png|max:2024'
         ]);
         try {
@@ -51,6 +52,7 @@ class BankController extends Controller
                 'nama' => $request->nama,
                 'nomer_rekening' => $request->nomer_rekening,
                 'alias' => $request->alias,
+                'bayar' => $request->bayar,
                 'logo' => $request->file
             ]);
             return redirect()->back()->with(['success' => 'Berhasil tambah rekening']);
@@ -88,6 +90,7 @@ class BankController extends Controller
             'nama' => 'required',
             'nomer_rekening' => 'required',
             'alias' => 'required',
+            'bayar' => 'required',
             'file' => 'nullable|mimes:jpg,jpeg,gif,png|max:2024'
         ]);
         try {
@@ -101,6 +104,7 @@ class BankController extends Controller
                 'nama' => $request->nama,
                 'nomer_rekening' => $request->nomer_rekening,
                 'alias' => $request->alias,
+                'bayar' => $request->bayar,
                 'logo' => $request->file ?? $bank->logo
             ]);
             $bank->save();

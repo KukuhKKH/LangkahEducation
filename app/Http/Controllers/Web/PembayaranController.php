@@ -58,18 +58,18 @@ class PembayaranController extends Controller
                     $pembayaran = Pembayaran::whereHas('user', function($q) use($request) {
                         $nama = $request->get('keyword');
                         $q->where('name', 'LIKE', "%$nama%");
-                    })->where('status', 1)->orWhere('status', 2)->paginate(10);
+                    })->where('status', 1)->orWhere('status', 2)->orderBy('id', 'DESC')->paginate(10);
                 } else {
-                    $pembayaran = Pembayaran::where('status', 1)->orWhere('status', 2)->paginate(10);
+                    $pembayaran = Pembayaran::where('status', 1)->orWhere('status', 2)->orderBy('id', 'DESC')->paginate(10);
                 }
             } else if($status == 'belum-bayar'){
                 if($request->get('keyword') != '') {
                     $pembayaran = Pembayaran::whereHas('user', function($q) use($request) {
                         $nama = $request->get('keyword');
                         $q->where('name', 'LIKE', "%$nama%");
-                    })->where('status', 0)->paginate(10);
+                    })->where('status', 0)->orderBy('id', 'DESC')->paginate(10);
                 } else {
-                    $pembayaran = Pembayaran::where('status', 0)->paginate(10);
+                    $pembayaran = Pembayaran::where('status', 0)->orderBy('id', 'DESC')->paginate(10);
                 }
             }
             else if($status == 'ditolak'){
@@ -77,9 +77,9 @@ class PembayaranController extends Controller
                     $pembayaran = Pembayaran::whereHas('user', function($q) use($request) {
                         $nama = $request->get('keyword');
                         $q->where('name', 'LIKE', "%$nama%");
-                    })->where('status', 3)->paginate(10);
+                    })->where('status', 3)->orderBy('id', 'DESC')->paginate(10);
                 } else {
-                    $pembayaran = Pembayaran::where('status', 3)->paginate(10);
+                    $pembayaran = Pembayaran::where('status', 3)->orderBy('id', 'DESC')->paginate(10);
                 }
             }
             $data = $request->all();
@@ -168,7 +168,12 @@ class PembayaranController extends Controller
     public function detail_pembayaran($id) {
         try {
             $pembayaran = Pembayaran::find($id);
-            $rekening = Bank::all();
+            if($pembayaran->gelombang->harga == 0){
+                $rekening = Bank::where('bayar', 0)->orderBy('id', 'DESC')->limit(1)->get();
+            }else{
+                $rekening = Bank::where('bayar', 1)->get();
+            }
+            // $rekening = Bank::where('bayar', $bayar);
             return view('pages.pembayaran.pembayaran', compact('pembayaran', 'rekening'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);

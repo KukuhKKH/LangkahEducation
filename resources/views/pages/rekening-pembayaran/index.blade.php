@@ -4,7 +4,7 @@
 @section('content')
     <div class="row">
         <div class="col-10">
-            <h1 class="h3 mb-4 text-gray-800">Rekening Pembayaran</h1>
+            <h1 class="h3 mb-4 text-gray-800">Metode Pembayaran</h1>
         </div>
     </div>
     <div class="card shadow mb-4">
@@ -43,6 +43,7 @@
                         <th>Instansi Asal</th>
                         <th>No. Rekening</th>
                         <th>Alias</th>
+                        <th>Status</th>
                         <th>Aksi</th>
                     </tr>
                     </thead>
@@ -52,6 +53,7 @@
                         <th>Instansi Asal</th>
                         <th>No. Rekening</th>
                         <th>Alias</th>
+                        <th>Status</th>
                         <th>Aksi</th>
                     </tr>
                     </tfoot>
@@ -62,6 +64,13 @@
                                 <td>{{ $value->nama }}</td>
                                 <td>{{ $value->nomer_rekening }}</td>
                                 <td>{{ $value->alias }}</td>
+                                <td>
+                                    @if ($value->bayar == 1)
+                                        {{ "Berbayar" }}
+                                    @else
+                                        {{ "Gratis" }}
+                                    @endif
+                                </td>
                                 <td>
                                     <form action="{{ route('rekening.destroy', $value->id) }}" method="POST" id="form-{{ $value->id }}">
                                         @csrf
@@ -92,7 +101,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tambah Rekening Pembayaran</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Metode Pembayaran</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -126,6 +135,13 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="bayar">Jenis Pembayaran</label>
+                            <select name="bayar" class="form-control" id="exampleFormControlSelect1">
+                                <option value="1">Berbayar</option>
+                                <option value="0">Gratis</option>
+                              </select>
                         </div>
                         <div class="form-group">
                             <label for="name">Logo <small>Maksimal 500 Kb</small></label>

@@ -21,7 +21,7 @@
                                 <label for="">Import Data Excel</label>
                                 <div class="input-group">
                                     <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="inputGroupFile02">
+                                    <input type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" class="custom-file-input" id="inputGroupFile02">
                                     <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
                                     </div>
                                     <div class="input-group-append">

@@ -44,6 +44,7 @@ class AuthorController extends Controller
         try {
             $request->merge([
                 'is_active' => 1,
+                'password' => 123456,
                 'email_verified_at' => date('Y-m-d')
             ]);
             if($request->hasFile('foto')) {
