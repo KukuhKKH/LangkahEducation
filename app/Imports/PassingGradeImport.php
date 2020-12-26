@@ -45,7 +45,7 @@ class PassingGradeImport implements ToModel, WithStartRow
             'prodi' => $row[0],
         ], [
             'universitas_id' => $this->univ_id,
-            'passing_grade' => $row[1]
+            'passing_grade' => trim($row[1])
         ]);
     }
 

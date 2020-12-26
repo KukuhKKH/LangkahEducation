@@ -15,7 +15,9 @@
                <img class="card-img-top img-cover" src="{{asset('assets/img/default-tryout.svg')}}" alt="Try Out">
             @endif
             @php
-            $prodi = App\Models\TempProdi::where('paket_id', $value->paket->id)->get();
+            $prodi = App\Models\TempProdi::where('paket_id', $value->paket->id)
+                                       ->where('user_id', auth()->user()->id)
+                                       ->where('gelombang_id', $value->gelombang_id)->get();
             @endphp
             <div class="card-body">
                <h5 class="card-text">{{ $value->paket->nama }}</h5>
