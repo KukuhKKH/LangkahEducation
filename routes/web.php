@@ -195,4 +195,18 @@ Route::group(['prefix' => 'dev'], function() {
     Route::get('to', 'Dev\TryoutController@index');
     Route::get('soal', 'Dev\TryoutController@soal');
     Route::get('siap', 'HomeController@total_siswa_pg');
+    Route::get('awdawd', function() {
+        $jwb = [ 0 => 9, 1 => 10, 2 => 11, 3 => 12, 4 => 13, 5 => 14, 6 => 23, 7 => 24, 8 => 43, 9 => 44, 10 => 45, 11 => 46,];
+        $soal = [ 0 => 9, 1 => 10, 2 => 11, 3 => 12, 4 => 13, 5 => 14, 6 => 23, 7 => 24, 8 => 43, 9 => 44, 10 => 45, 11 => 46, 12 => 58, ];
+        dd($jwb, $soal);
+         
+        $total = count($soal);
+        for($i = 0; $i < $total; $i++) {
+            if($jwb[$i] != $soal[$i]) {
+               array_splice($jwb, $i, 0, 'kosong');
+            }
+        }
+        echo '<hr>';
+        dd($jwb);
+    });
 });

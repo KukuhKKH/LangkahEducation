@@ -427,25 +427,26 @@ class TryoutController extends Controller
                     $kelompok = '';
                     $passing_grade = PassingGrade::with('universitas')->latest()->get();
                 }
-                $saingan = TryoutHasil::where('tryout_paket_id', $paket->id)->with(['user'])->orderBy('nilai_awal', 'ASC')->get();
+                // $saingan = TryoutHasil::where('tryout_paket_id', $paket->id)->with(['user'])->orderBy('nilai_awal', 'ASC')->get();
     
                 // Data Grafik User
                 $nilai_by_user = TryoutHasil::with(['user', 'paket', 'tryout_hasil_jawaban', 'tryout_hasil_detail'])->where('user_id', auth()->user()->id)->get();
                 if($raw_kelompok) {
                     if($raw_kelompok != 3) {
                         $nilai_by_user = TryoutHasil::with([
-                            'user', 'tryout_hasil_jawaban', 'tryout_hasil_detail', 'paket.temp'
-                            ])
+                                    'user', 'tryout_hasil_jawaban', 'tryout_hasil_detail', 'paket.temp'
+                                    ])
                                     ->whereHas('paket.temp', function($q) use($raw_kelompok, $user) {
                                         $q->where('kelompok_passing_grade_id', $raw_kelompok)->where('user_id', $user->id);
                                     })->where('user_id', auth()->user()->id)->get();
                         // dd($raw_kelompok, $nilai_by_user);
 
-                        $saingan = TryoutHasil::whereHas('paket.temp', function($q) use($raw_kelompok, $user) {
-                            $q->where('kelompok_passing_grade_id', $raw_kelompok)->where('user_id', $user->id);
+                        $saingan = TryoutHasil::whereHas('paket.temp', function($q) use($raw_kelompok) {
+                            $q->where('kelompok_passing_grade_id', $raw_kelompok);
                         })->where('tryout_paket_id', $paket->id)->with(['user'])->orderBy('nilai_awal', 'ASC')->get();
                     }
                 }
+                // dd($saingan);
                 
                 $nilai_grafik = [];
                 $nama_paket = [];
@@ -507,6 +508,7 @@ class TryoutController extends Controller
         $data = [];
         $i = 0;
 
+        $indeks_detail = 0;
         foreach ($detail as $key => $value) {
             $kategori_to = TempProdi::where('gelombang_id', $gelombang_id)->where('paket_id', $paket_id)->where('user_id', $value->first()->hasil->user_id)->first()->kelompok_passing_grade_id;
             $nama_kategori_to = KelompokPassingGrade::find($kategori_to)->nama;
@@ -519,18 +521,33 @@ class TryoutController extends Controller
             } else {
                 $total_jawaban = count($id_soal);
             }
+            // $value->splice(9, 0, 'awdawd');
+            // $detail[0]->splice(12, 0, 'awdawd');
+            // dd($detail[1], $id_soal_soshum, $id_soal);
+            // dd($detail[1]->pluck('tryout_soal_id'), $id_soal_soshum, $id_soal);
             
 
-            for ($i=0; $i < $total_jawaban; $i++) { 
-                if($id_soal[$i] != $value[$i]->tryout_soal_id) {
+            for ($i=0; $i < $total_jawaban; $i++) {
+                if(isset($value[$i])) {
+                    if($id_soal[$i] != $value[$i]->tryout_soal_id) {
+                        $temp_raw = [
+                            'status' => 'kosong',
+                            'user_id' => $value[$i]->hasil->user_id
+                        ];
+                        $raw_splice = (object) $temp_raw;
+                        // array_splice($detail[$indeks_detail], $i, 0, [$raw_splice]);
+                        $detail[$indeks_detail]->splice($i, 0, [$raw_splice]);
+                    }
+                } else {
                     $temp_raw = [
                         'status' => 'kosong',
-                        'user_id' => $value[$i]->hasil->user_id
+                        'user_id' => $value[$i-1]->hasil->user_id
                     ];
                     $raw_splice = (object) $temp_raw;
-                    $value->splice($i, 0, [$raw_splice]);
+                    $detail[$indeks_detail]->splice($i, 0, [$raw_splice]);
                 }
             }
+            $indeks_detail++;
         }
 
         $raw_jumlah = [];
