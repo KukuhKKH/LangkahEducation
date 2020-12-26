@@ -168,7 +168,12 @@ class PembayaranController extends Controller
     public function detail_pembayaran($id) {
         try {
             $pembayaran = Pembayaran::find($id);
-            $rekening = Bank::all();
+            if($pembayaran->gelombang->harga == 0){
+                $rekening = Bank::where('bayar', 0)->orderBy('id', 'DESC')->limit(1)->get();
+            }else{
+                $rekening = Bank::where('bayar', 1)->get();
+            }
+            // $rekening = Bank::where('bayar', $bayar);
             return view('pages.pembayaran.pembayaran', compact('pembayaran', 'rekening'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);

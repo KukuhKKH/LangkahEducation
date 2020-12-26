@@ -38,7 +38,13 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $value->gelombang->nama }}</td>
-                            <td>Rp. {{ number_format($value->gelombang->harga + $value->kode_transfer) }}</td>
+                            <td>
+                                @if ($value->gelombang->harga == 0)
+                                {{"GRATIS"}}
+                                @else
+                                Rp. {{ number_format($value->gelombang->harga + $value->kode_transfer) }}
+                                @endif
+                            </td>
                             <td>{{ Carbon\Carbon::parse($value->created_at)->format('d F Y H:i') }}</td>
                             <td>
                                 @if (count($value->pembayaran_bukti) > 0)
@@ -53,7 +59,7 @@
                                     @if($value->status == 3)
                                         <span class="badge badge-danger p-2">Transfer ditolak</span>
                                     @else
-                                        <span class="badge badge-danger p-2">Belum Upload Bukti Pembayaran</span>
+                                        <span class="badge badge-danger p-2">Belum Upload Bukti Pembelian</span>
                                     @endif
                                 @endif
                             </td>
