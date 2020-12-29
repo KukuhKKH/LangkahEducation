@@ -125,70 +125,72 @@
                 </div>
             </form>
         </div>
-        <div class="col-xl-3 col-md-3 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Sudah Dikomentari</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">XX</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-user-circle fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-md-3 mb-4">
-            <div class="card border-left-danger shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
-                                Belum Dikomentari</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">XX</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-user-circle fa-2x text-gray-300"></i>
+        @if (request()->get('gelombang') && request()->get('paket'))
+            <div class="col-xl-3 col-md-3 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Sudah Dikomentari</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $sudah_komentar ?? 0 }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-user-circle fa-2x text-gray-300"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                Total Siswa Lolos Prodi 1</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $data['total_lolos_1'] ?? 0 }} / {{ $data['total_siswa'] ?? 0 }}</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-rocket fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Total Siswa Lolos Prodi 2</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $data['total_lolos_2'] ?? 0 }} / {{ $data['total_siswa'] ?? 0 }}</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-rocket fa-2x text-gray-300"></i>
+            <div class="col-xl-3 col-md-3 mb-4">
+                <div class="card border-left-danger shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                    Belum Dikomentari</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $belum_komentar ?? 0 }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-user-circle fa-2x text-gray-300"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                    Total Siswa Lolos Prodi 1</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $total_siswa_pg['total_lolos_1'] ?? 0 }} / {{ $total_siswa_pg['total_siswa'] ?? 0 }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-rocket fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Total Siswa Lolos Prodi 2</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $total_siswa_pg['total_lolos_2'] ?? 0 }} / {{ $total_siswa_pg['total_siswa'] ?? 0 }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-rocket fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
 @endhasanyrole
 
@@ -290,7 +292,7 @@
                 </div>
             </form>
         </div>
-        <div class="col-xl-3 col-md-3 mb-4">
+        <div class="col-xl-4 col-md-4 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -306,39 +308,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-md-3 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Sudah Dikomentari</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">XX</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-user-circle fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-md-3 mb-4">
-            <div class="card border-left-danger shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
-                                Belum Dikomentari</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">XX</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-user-circle fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-md-3 mb-4">
+        <div class="col-xl-4 col-md-4 mb-4">
             <div class="card border-left-success shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -370,38 +340,72 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-4 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                Total Siswa Lolos Prodi 1</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $data['total_lolos_1'] ?? 0 }} / {{ $data['total_siswa'] ?? 0 }}</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-rocket fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-4 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Total Siswa Lolos Prodi 2</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $data['total_lolos_2'] ?? 0 }} / {{ $data['total_siswa'] ?? 0 }}</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-rocket fa-2x text-gray-300"></i>
+        @if (request()->get('gelombang') && request()->get('paket'))
+            <div class="col-xl-3 col-md-3 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Sudah Dikomentari</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $sudah_komentar ?? 0 }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-user-circle fa-2x text-gray-300"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <div class="col-xl-3 col-md-3 mb-4">
+                <div class="card border-left-danger shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                    Belum Dikomentari</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $belum_komentar ?? 0 }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-user-circle fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-3 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                    Total Siswa Lolos Prodi 1</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $data['total_lolos_1'] ?? 0 }} / {{ $data['total_siswa'] ?? 0 }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-rocket fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-3 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Total Siswa Lolos Prodi 2</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $data['total_lolos_2'] ?? 0 }} / {{ $data['total_siswa'] ?? 0 }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-rocket fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
     <div class="row mb-4">
         <div class="col-xl-8">

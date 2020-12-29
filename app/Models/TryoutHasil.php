@@ -28,4 +28,8 @@ class TryoutHasil extends Model
     public function tryout_hasil_detail() {
         return $this->hasMany('App\Models\TryoutHasilDetail');
     }
+
+    public function komentar() {
+        return $this->hasOne('App\Models\Komentar', 'tryout_hasil_id');
+    }
 }

@@ -68,7 +68,26 @@ class HomeController extends Controller
             $artikel_like = Blog::withCount('like')->with('like')->where('status', 1)->orderBy('like_count', 'DESC')->limit(3)->get();
             $artikel_komentar = Blog::withCount('komentar')->with('komentar')->where('status', 1)->orderBy('komentar_count', 'DESC')->limit(3)->get();
 
-            return view('pages.dashboard', compact('sekolah', 'siswa', 'belum_bayar', 'pengunjung', 'label', 'total', 'artikel_publish', 'artikel_draft', 'total_artikel', 'artikelmu_like', 'artikelmu_komentar', 'artikel_like', 'artikel_komentar', 'gelombang'));
+            $sudah_komentar = 0;
+            $belum_komentar = 0;
+            $total_siswa_pg = [];
+            if(request()->get('gelombang') && request()->get('paket')) {
+                $gelombang_id = request()->get('gelombang');
+                $paket_id = request()->get('paket');
+                $tyrout_hasil = TryoutHasil::where('gelombang_id', $gelombang_id)
+                                    ->where('tryout_paket_id', $paket_id)
+                                    ->with('komentar')->get();
+                foreach ($tyrout_hasil as $key => $value) {
+                    if($value->komentar) {
+                        $sudah_komentar++;
+                    } else {
+                        $belum_komentar++;
+                    }
+                }
+                $total_siswa_pg = $this->total_siswa_pg(request()->get('gelombang'), request()->get('paket'));
+            }
+
+            return view('pages.dashboard', compact('sekolah', 'siswa', 'belum_bayar', 'pengunjung', 'label', 'total', 'artikel_publish', 'artikel_draft', 'total_artikel', 'artikelmu_like', 'artikelmu_komentar', 'artikel_like', 'artikel_komentar', 'gelombang', 'sudah_komentar', 'belum_komentar', 'total_siswa_pg'));
 
         } elseif($user->getRoleNames()->first() == 'siswa') {
             $pg1 = $pg2 = $nilai_user = $nil_pg1 = $nil_pg2 = 0;
@@ -105,8 +124,23 @@ class HomeController extends Controller
                 $id_siswa[] = $value->user_id;
             }
             $data = [];
+            $sudah_komentar = 0;
+            $belum_komentar = 0;
             if(request()->get('gelombang')) {
-                $data = $this->total_siswa_pg(request()->get('gelombang'), request()->get('paket'), $id_siswa);
+                $gelombang_id = request()->get('gelombang');
+                $paket_id = request()->get('paket');
+                $tyrout_hasil = TryoutHasil::where('gelombang_id', $gelombang_id)
+                                    ->where('tryout_paket_id', $paket_id)
+                                    ->whereIn('user_id', $id_siswa)
+                                    ->with('komentar')->get();
+                foreach ($tyrout_hasil as $key => $value) {
+                    if($value->komentar) {
+                        $sudah_komentar++;
+                    } else {
+                        $belum_komentar++;
+                    }
+                }
+                $data = $this->total_siswa_pg($gelombang_id, $paket_id, $id_siswa);
             }
             $grafik =  DB::table('temp_prodi_tryout')
                             ->selectRaw("COUNT(temp_prodi_tryout.id) AS total, kelompok_passing_grade.nama")
@@ -141,7 +175,7 @@ class HomeController extends Controller
             $artikel_like = Blog::withCount('like')->with('like')->where('status', 1)->orderBy('like_count', 'DESC')->limit(3)->get();
             $artikel_komentar = Blog::withCount('komentar')->with('komentar')->where('status', 1)->orderBy('komentar_count', 'DESC')->limit(3)->get();
 
-            return view('pages.dashboard', compact('total_siswa', 'rata', 'nilai_tertinggi', 'label', 'val', 'label2', 'val2', 'artikel_publish', 'artikel_draft', 'total_artikel', 'artikelmu_like', 'artikelmu_komentar', 'artikel_like', 'artikel_komentar', 'data', 'gelombang'));
+            return view('pages.dashboard', compact('total_siswa', 'rata', 'nilai_tertinggi', 'label', 'val', 'label2', 'val2', 'artikel_publish', 'artikel_draft', 'total_artikel', 'artikelmu_like', 'artikelmu_komentar', 'artikel_like', 'artikel_komentar', 'data', 'gelombang', 'sudah_komentar', 'belum_komentar'));
             
         } elseif($user->getRoleNames()->first() == 'author') {
             $user = auth()->user();
