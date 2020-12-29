@@ -135,7 +135,7 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
             Route::get('mentoring/virtual','MentoringController@siswa')->name('mentorig.siswa');
             Route::get('hasiltryout/siswa/{id}', 'MentoringController@hasil_tryout');
             Route::post('mentoring/kirim/{siswa_id}/{mentor_id}', 'MentoringController@kirim_pesan')->name('kirim_pesan');
-            Route::get('hasiltryout/siswa/{id}/{slug}/detail', 'MentoringController@hasil_tryout_detail')->name('hasil_tryout.detail');
+            Route::get('hasiltryout/siswa/{id}/{slug}/{user_id?}/detail', 'MentoringController@hasil_tryout_detail')->name('hasil_tryout.detail');
             Route::post('mentoring/komentar/{hasil_id}', 'MentoringController@komentar_store')->name('mentoring.komentar');
             Route::get('mentoring/pembahasan/{paket_id}/{kategori_id}/{hasil_id}', 'MentoringController@pembahasan')->name('mentoring.pembahasan');
             Route::get('mentoring/sekolah', 'MentoringController@mentoring_sekolah')->name('mentoring.sekolah');

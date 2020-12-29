@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use App\Models\TryoutHasilJawaban;
 use App\Http\Controllers\Controller;
 use App\Models\KelompokPassingGrade;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class MentoringController extends Controller
@@ -103,7 +104,7 @@ class MentoringController extends Controller
         }
     }
 
-    public function hasil_tryout_detail(Request $request, $id, $slug) {
+    public function hasil_tryout_detail(Request $request, $id, $slug, $user_id) {
         try {
             $paket = TryoutPaket::findSlug($slug);
             if($this->isFuture($paket->tgl_akhir)) {
@@ -112,7 +113,7 @@ class MentoringController extends Controller
             $tryout = TryoutHasil::with([
                                     'user', 'paket', 'tryout_hasil_jawaban', 'tryout_hasil_detail'
                                 ])
-                                // ->where('user_id', $id)
+                                ->where('user_id', $user_id)
                                 ->where('tryout_paket_id', $paket->id)
                                 ->find($id);
             // $passing_grade = PassingGrade::with('universitas')->latest()->get();
@@ -132,7 +133,7 @@ class MentoringController extends Controller
                                     'user', 'paket', 'tryout_hasil_jawaban', 'tryout_hasil_detail'
                                 ])
                                 ->where('user_id', $tryout->user_id)->get();
-            $siswaID = Siswa::find($tryout->user_id);
+            $user_siswa = User::find($tryout->user_id);
             $nilai_grafik = [];
             $nama_paket = [];
             foreach ($nilai_by_user as $key => $value) {
@@ -165,7 +166,7 @@ class MentoringController extends Controller
             }
             $kelompok_all = KelompokPassingGrade::all();
             $universitas = Universitas::all();
-            return view('pages.mentoring.analisis_mentor', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket' ,'komentar', 'nil_pg1', 'nil_pg2', 'kelompok', 'kelompok_all', 'universitas', 'siswaID'));
+            return view('pages.mentoring.analisis_mentor', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket' ,'komentar', 'nil_pg1', 'nil_pg2', 'kelompok', 'kelompok_all', 'universitas', 'user_siswa'));
             // return view('pages.mentoring.analisis_mentor', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket' ,'komentar', 'nil_pg1', 'nil_pg2', 'kelompok', 'siswaID'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
