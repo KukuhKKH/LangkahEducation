@@ -131,7 +131,7 @@
                 .then((res) => {
                     $('#loading').hide()
                     let data = res.data
-                    console.log(data)
+                    // console.log(data)
                     if (data.length > 0) {
                         let html = ``
                         data.forEach(element => {
@@ -143,7 +143,7 @@
                               <td>${element.nilai_sekarang}</td>
                               <td>${tgl}</td>
                               <td>${tgl2}</td>
-                              <td><a href="${URL}/${element.id}/${element.paket.slug}/detail?kelompok=${element.paket.temp[0].kelompok_passing_grade_id}&prodi-1=${element.paket.temp[0].passing_grade_id}&prodi-2=${element.paket.temp[1].passing_grade_id}"><i class="fas fa-eye"></i></a></td>
+                              <td><a href="${URL}/${element.id}/${element.paket.slug}/${element.user_id}/detail?kelompok=${element.paket.temp[0].kelompok_passing_grade_id}&prodi-1=${element.paket.temp[0].passing_grade_id}&prodi-2=${element.paket.temp[1].passing_grade_id}"><i class="fas fa-eye"></i></a></td>
                            </tr>`
                         })
                         $('#body_table').html(html)

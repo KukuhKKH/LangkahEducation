@@ -244,7 +244,7 @@
                     @endif --}}
                     {{-- <img class="my-3" src="{{asset('assets/img/undraw_profile.svg')}}" alt="profil-mentor"
                     style="height:100px"> --}}
-                    <img id="img-profile" class="img-cover rounded-circle" src="{{ ($siswaID->foto) ? asset("upload/users/". $siswaID->foto) : asset('assets/img/default_avatar.svg') }}">
+                    <img id="img-profile" class="img-cover rounded-circle" src="{{ ($user_siswa->foto) ? asset("upload/users/". $user_siswa->foto) : asset('assets/img/default_avatar.svg') }}">
                     
                     <div class="form-group">
                         <textarea class="form-control mt-4" name="komentar" id="komentarMentor" rows="5" placeholder="Komentar Mentor">{{ $komentar->komentar ?? '' }}</textarea>
