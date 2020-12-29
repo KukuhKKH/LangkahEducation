@@ -1,10 +1,8 @@
 <!-- ======= Footer ======= -->
 <footer id="contact">
-
     <div class="footer-top">
         <div class="container">
             <div class="row">
-
                 <div class="col-lg-4 col-md-6 footer-contact">
                     <a href="index.html" class="logo">
                         <img src="/assets/img/logo-primary.svg" alt="" class="img-fluid w-50 mb-4"></a>
@@ -13,18 +11,11 @@
                         @endphp
                     <p>{{ $deskripsi }}</p>
                 </div>
-
                 <div class="col-lg-4 col-md-6 footer-links">
                     <h4>Hubungi Kami</h4>
-                   {{ $data->alamat ?? '' }}
-                   <br>
-                    {{-- <p>
-                        <span>JL. Gajayana No.50</span><br>
-                        <span>Kota Malang</span><br>
-                        Jawa Timur, 65114</p>
-                    <br> --}}
-                    <strong>No. HP/WA :</strong> {{ $data->noHP ?? '' }}<br>
-                    <strong>Email :</strong> {{ $data->email ?? '' }}<br>
+                    <strong><i class="fa fa-home font-weight-bold mr-2"></i></strong>  {{ $data->alamat ?? '' }}<br>
+                    <strong><i class="fab fa-whatsapp font-weight-bold mr-2"></i></strong> {{ $data->noHP ?? '' }}<br>
+                    <strong><i class="fa fa-envelope font-weight-bold mr-2"></i></strong> {{ $data->email ?? '' }}<br>
                     </p>
                 </div>
 

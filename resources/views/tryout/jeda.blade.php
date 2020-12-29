@@ -57,16 +57,19 @@
                @csrf
                <input type="hidden" name="lanjut" value="woks bruh">
                   <div class="card-body">
-                     <div class="row">
-                        <div class="d-flex justify-content-center">
+                      <div class="text-center mb-3">
+                          <h4 class="h4 font-weight-bold text-success">Kamu Telah Selesai Mengerjakan Soal Tes Potensi Akademik</h4>
+                            <h5 class="h5 font-weight-bold">Silahkan Istirahat Sebentar, atau kamu bisa mengerjakan tes berikutnya</h4>
+                      </div>
+                     <div class="row justify-content-center">
                            @php
                                $embedYt = str_replace('watch?v=', 'embed/', $yt);
                            @endphp
-                           <iframe width="800" height="400" src="{{$embedYt}}?autoplay=1" allow="autoplay" frameborder="0"></iframe>
-                        </div>
+                           <iframe width="800" height="400" src="{{$embedYt}}?autoplay=1" allow="autoplay" frameborder="0">
+                        </iframe>
                      </div>
                   </div>
-                  <div class="card-footer">
+                  <div class="card-footer text-right">
                      <button id="btn-kumpulkan" type="button" class="btn btn-danger">Lanjut</button>
                   </div>
                </form>
