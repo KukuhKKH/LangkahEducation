@@ -81,6 +81,11 @@ class SoalImportBatch implements ToModel, WithStartRow
             $errMessage = 'Mohon pastikan kolom Nilai salah tidak kosong.';
             throw new \Exception($errMessage);
         }
+
+        if($row[9] < 0) {
+            $errMessage = 'Pastikan nilai salah tidak boleh bernilai negatif.';
+            throw new \Exception($errMessage);
+        }
         
         $soal = TryoutSoal::updateOrCreate([
             'user_id' => Auth::user()->id,
