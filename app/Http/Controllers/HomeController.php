@@ -137,8 +137,9 @@ class HomeController extends Controller
             
             $label = [];
             $val = [];
+            $idSiswa = [];
             
-            $grafik2 = TryoutHasil::selectRaw("count(id) as total, nilai_sekarang")->whereIn('user_id', $id_siswa)->groupBy('nilai_sekarang')->get();
+            $grafik2 = TryoutHasil::selectRaw("count(id) as total, user_id, nilai_sekarang")->whereIn('user_id', $id_siswa)->groupBy('nilai_sekarang')->get();
 
             $label2 = [];
             $val2 = [];
@@ -150,6 +151,7 @@ class HomeController extends Controller
             if(request()->get('gelombang')) {
                 $gelombang_id = request()->get('gelombang');
                 $paket_id = request()->get('paket');
+                // $kategori = request()->get('paket');
                 $tyrout_hasil = TryoutHasil::where('gelombang_id', $gelombang_id)
                                     ->where('tryout_paket_id', $paket_id)
                                     ->whereIn('user_id', $id_siswa)
@@ -164,14 +166,22 @@ class HomeController extends Controller
                 $nilai_tertinggi = TryoutHasil::where('gelombang_id', $gelombang_id)->where('tryout_paket_id', $paket_id)->whereIn('user_id', $id_siswa)->max('nilai_sekarang');
                 $rata = TryoutHasil::where('gelombang_id', $gelombang_id)->where('tryout_paket_id', $paket_id)->whereIn('user_id', $id_siswa)->avg('nilai_sekarang');
                 $grafik =  DB::table('temp_prodi_tryout')
-                            ->selectRaw("COUNT(temp_prodi_tryout.id) AS total, kelompok_passing_grade.nama")
+                            ->selectRaw("COUNT(temp_prodi_tryout.id) AS total,  kelompok_passing_grade.nama")
                             ->join('kelompok_passing_grade', 'temp_prodi_tryout.kelompok_passing_grade_id', '=', 'kelompok_passing_grade.id', 'LEFT')->where('temp_prodi_tryout.gelombang_id', $gelombang_id)->where('temp_prodi_tryout.paket_id', $paket_id)
                             ->whereIn('user_id', $id_siswa)
                             ->groupBy('kelompok_passing_grade_id')
                             ->get();
-                $grafik2 = TryoutHasil::selectRaw("count(id) as total, nilai_sekarang")->where('gelombang_id', $gelombang_id)->where('tryout_paket_id', $paket_id)->whereIn('user_id', $id_siswa)->groupBy('nilai_sekarang')->get();
+                $grafik2 = TryoutHasil::selectRaw("count(id) as total, user_id, nilai_sekarang")->where('gelombang_id', $gelombang_id)->where('tryout_paket_id', $paket_id)->whereIn('user_id', $id_siswa)->groupBy('nilai_sekarang')->get();
                 
                 $data = $this->total_siswa_pg($gelombang_id, $paket_id, $id_siswa);
+                
+
+                // $grafik =  DB::table('temp_prodi_tryout')
+                // ->selectRaw("COUNT(temp_prodi_tryout.id) AS total, kelompok_passing_grade.nama")
+                // ->join('kelompok_passing_grade', 'temp_prodi_tryout.kelompok_passing_grade_id', '=', 'kelompok_passing_grade.id', 'LEFT')->where('temp_prodi_tryout.gelombang_id', $gelombang_id)->where('temp_prodi_tryout.paket_id', $paket_id)->where('temp_prodi_tryout.kelompok_passing_grade_id', $kategori)
+                // ->whereIn('user_id', $id_siswa)
+                // ->groupBy('kelompok_passing_grade_id')
+                // ->get();
             }
             
             foreach ($grafik as $key => $value) {
@@ -181,6 +191,7 @@ class HomeController extends Controller
             foreach ($grafik2 as $key => $value) {
                 $label2[] = $value->nilai_sekarang;
                 $val2[] = $value->total;
+                $idSiswa[] = $value->user_id;
             }
             // $rata = TryoutHasil::whereIn('user_id', $id_siswa)->avg('nilai_sekarang');
 
@@ -194,7 +205,7 @@ class HomeController extends Controller
             $artikel_like = Blog::withCount('like')->with('like')->where('status', 1)->orderBy('like_count', 'DESC')->limit(3)->get();
             $artikel_komentar = Blog::withCount('komentar')->with('komentar')->where('status', 1)->orderBy('komentar_count', 'DESC')->limit(3)->get();
 
-            return view('pages.dashboard', compact('total_siswa', 'nilai_tertinggi', 'label', 'val', 'label2', 'val2', 'artikel_publish', 'artikel_draft', 'total_artikel', 'artikelmu_like', 'artikelmu_komentar', 'artikel_like', 'artikel_komentar', 'data', 'gelombang', 'sudah_komentar', 'belum_komentar', 'gelSekolah', 'rata'));
+            return view('pages.dashboard', compact('total_siswa', 'nilai_tertinggi', 'label', 'val', 'label2', 'val2', 'artikel_publish', 'artikel_draft', 'total_artikel', 'artikelmu_like', 'artikelmu_komentar', 'artikel_like', 'artikel_komentar', 'data', 'gelombang', 'sudah_komentar', 'belum_komentar', 'gelSekolah', 'rata', 'idSiswa'));
             
         } elseif($user->getRoleNames()->first() == 'author') {
             $user = auth()->user();

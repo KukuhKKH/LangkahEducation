@@ -780,6 +780,15 @@
     @endhasanyrole
 
     @hasanyrole('mentor')
+        @php
+            $nmSiswa=[];
+        @endphp
+        @foreach ($idSiswa as $item)
+            @php
+               $nmSiswa[] =  App\Models\User::find($item)->name;
+            @endphp
+        @endforeach
+            
         <script>
             var ctx = document.getElementById("myPersaingan");
             var myPieChart = new Chart(ctx, {
@@ -811,16 +820,18 @@
                     cutoutPercentage: 50,
                 },
             });
-
+            
             // Grafik Persaingan
             let ctx2 = document.getElementById("myAreaChart");
             let data_saingan = {
-                labels: {!! json_encode($label2 ?? []) !!},
+                // labels: {!! json_encode($label2 ?? []) !!},
+                labels: {!! json_encode($nmSiswa ?? []) !!},
                 datasets: [{
                     backgroundColor: "#4e73df",
                     hoverBackgroundColor: "#2e59d9",
                     borderColor: "#4e73df",
-                    data: {!! json_encode($val2 ?? []) !!},
+                    data: {!! json_encode($label2 ?? []) !!},
+                    // data: {!! json_encode($val2 ?? []) !!},
                 }],
             }
             new Chart(ctx2, {
