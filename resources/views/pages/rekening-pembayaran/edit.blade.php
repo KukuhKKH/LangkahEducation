@@ -2,12 +2,12 @@
 @section('title', 'Edit '.$bank->nama)
 
 @section('content')
-<h1 class="h3 mb-2 text-gray-800">Rekening</h1>
+<h1 class="h3 mb-2 text-gray-800">Edit - Metode Pembayaran</h1>
 
 <div class="card shadow mb-4">
    <div class="card-header py-3">
       <div class="d-flex justify-content-between">
-         <h6 class="m-0 font-weight-bold text-primary">Rekening - {{ $bank->nama }}</h6>
+         <h6 class="m-0 font-weight-bold text-primary">Metode Pembayaran - {{ $bank->nama }}</h6>
       </div>
    </div>
    <div class="card-body">
@@ -25,7 +25,7 @@
             @enderror
          </div>
          <div class="form-group">
-            <label for="nomer_rekening">Nomor Rekening</label>
+            <label for="nomer_rekening">Nomor Rekening <small data-toggle="tooltip" title="Beri Nilai 0 Jika Pembayaran Upload Story" data-placement="right" ><i class="fa fa-info-circle"></i></small></label>
             <input name="nomer_rekening" type="text"
                class="form-control form-control-user @error('nomer_rekening') is-invalid @enderror" id="nomorRekening"
                placeholder="Nomor Rekening" value="{{ $bank->nomer_rekening }}" required>
@@ -36,7 +36,7 @@
             @enderror
          </div>
          <div class="form-group">
-            <label for="alias">Nama Pemilik (a/n)</label>
+            <label for="alias">Nama Pemilik (a/n) <small data-toggle="tooltip" title="Tulis Nama Akun Jika Pembayaran Upload Story" data-placement="right" ><i class="fa fa-info-circle"></i></small></label>
             <input name="alias" type="text" class="form-control form-control-user @error('alias') is-invalid @enderror"
                id="nomorRekening" placeholder="Nama Pemilik (a/n)" value="{{ $bank->alias }}" required>
             @error('alias')

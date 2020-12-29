@@ -34,7 +34,7 @@
                </div>
                <div class="col-xl-4 text-right">
                   <div class="btn-group btn-group-md">
-                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalData"><i class="fas fa-fw fa-plus-circle"></i> Tambah Passing Grade</button>
+                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalData"><i class="fas fa-fw fa-plus"></i> Tambah Passing Grade</button>
                   </div>
                </div>
             </div>
@@ -148,7 +148,7 @@
                        </div>
                        <div class="form-group">
                         <label for="">Kelompok Prodi</label>
-                        <select name="kelompok_id" class="form-control @error('kelompok_id') is-invalid @enderror">
+                        <select name="kelompok_id" class="form-control @error('kelompok_id') is-invalid @enderror" style="text-transform: uppercase">
                            <option value="" selected disabled>-- Pilih --</option>
                            @foreach ($kelompok as $value)
                                 @if ($value->nama != 'campuran')

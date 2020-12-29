@@ -62,9 +62,8 @@
                            @php
                                $embedYt = str_replace('watch?v=', 'embed/', $yt);
                            @endphp
-                           <iframe width="800" height="400" src="{{$embedYt}}?autoplay=1" allow="autoplay" frameborder="0">
-                        </iframe>
-                     </div>
+                           <iframe width="800" height="400" src="{{$embedYt}}?autoplay=1" allow="autoplay" frameborder="0"></iframe>
+                        </div>
                      </div>
                   </div>
                   <div class="card-footer">

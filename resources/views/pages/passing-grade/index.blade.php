@@ -14,8 +14,8 @@
 
 <div class="card shadow mb-4">
     <div class="card-header">
-        <div class="row">
-            <div class="col-md-8">
+        <div class="row align-items-center">
+            <div class="col-xl-6">
                 <form action="{{ route('universitas.import_batch') }}" method="POST" id="form-import"
                     enctype="multipart/form-data">
                     @csrf
@@ -34,6 +34,11 @@
                         </div>
                     </div>
                 </form>
+            </div>
+            <div class="col-xl-6 text-right">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalData">
+                    <i class="fa fa-plus"></i> Tambah Universitas
+                </button>
             </div>
         </div>
     </div>
@@ -88,11 +93,15 @@
                                 </a> --}}
                                 <a href="{{ route('passing-grade.show', $value->id) }}" class="btn btn-primary my-1">Lihat Prodi
                                     </a>
+                                <a href="" class="btn btn-success my-1" data-toggle="tooltip" data-placement="top" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                     </a>
                                 <button type="button" class="btn btn-danger my-1 hapus" data-id="{{ $value->id }}"
                                     data-toggle="tooltip" data-placement="top" title="Hapus">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
+                            
                         </td>
                     </tr>
                     @empty

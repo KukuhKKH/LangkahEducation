@@ -276,7 +276,7 @@
                     <div class="col-xl-5">
                         <select name="gelombang" id="gelombang" class="form-control" autocomplete="off">
                             <option value="" selected disabled>-- Pilih Gelombang --</option>
-                            @foreach ($gelombang as $value)
+                            @foreach ($gelSekolah as $value)
                                 <option value="{{ $value->id }}">{{ $value->nama }}</option>
                             @endforeach
                         </select>
@@ -503,7 +503,7 @@
         <div class="col-xl-6">
             <div class="card shadow mb-4">
                 <div class="card-header">
-                    <h6 class="m-0 font-weight-bold text-primary">Like Terbanyak</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Artikel Saya dengan Like Terbanyak</h6>
                 </div>
                 <div class="card-body">
                     {{-- CUMA 3 ARTIKEL --}}
@@ -539,7 +539,7 @@
         <div class="col-xl-6">
             <div class="card shadow mb-4">
                 <div class="card-header">
-                    <h6 class="m-0 font-weight-bold text-primary">Komentar Terbanyak</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Artikel Saya dengan Komentar Terbanyak</h6>
                 </div>
                 <div class="card-body">
                     {{-- CUMA 3 ARTIKEL --}}
@@ -578,7 +578,7 @@
         <div class="col-xl-6">
             <div class="card shadow mb-4">
                 <div class="card-header">
-                    <h6 class="m-0 font-weight-bold text-primary">Artikel dengan Like Terbanyak</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Semua Artikel dengan Like Terbanyak</h6>
                 </div>
                 <div class="card-body">
                     {{-- CUMA 3 ARTIKEL --}}
@@ -614,7 +614,7 @@
         <div class="col-xl-6">
             <div class="card shadow mb-4">
                 <div class="card-header">
-                    <h6 class="m-0 font-weight-bold text-primary">Artikel dengan Komentar Terbanyak</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Semua Artikel dengan Komentar Terbanyak</h6>
                 </div>
                 <div class="card-body">
                     {{-- CUMA 3 ARTIKEL --}}

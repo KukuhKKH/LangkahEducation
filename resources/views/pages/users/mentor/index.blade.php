@@ -15,17 +15,17 @@
             @hasanyrole('admin|superadmin')
                 <div class="row align-items-center">
                     <div class="col-xl-8">
-                        <form action="" method="POST" enctype="multipart/form-data">
+                        <form action="{{route('mentor.import')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                             <div class="form-group">
                                 <label for="">Import Data Excel</label>
                                 <div class="input-group">
                                     <div class="custom-file">
-                                    <input type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" class="custom-file-input" id="inputGroupFile02">
+                                    <input name="file" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" class="custom-file-input" id="inputGroupFile02">
                                     <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
                                     </div>
                                     <div class="input-group-append">
-                                    <span class="input-group-text" id="">Upload</span>
+                                        <button type="submit" class="input-group-text" id="">Upload</button>
                                     </div>
                                 </div>
                             </div>

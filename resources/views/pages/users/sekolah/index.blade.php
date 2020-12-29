@@ -8,9 +8,9 @@
     </div>
     <div class="col-xl-6 text-right">
         <a href="{{ asset('template/TemplateSekolah.xlsx') }}" download="" class="btn btn-success my-1"><i
-                class="fas fa-fw fa-file-excel"></i> Template Excel</a>
+                class="fas fa-fw fa-file-excel"></i> Template Sekolah</a>
         <a href="{{ asset('template/TemplateNISNSiswa.xlsx') }}" download="" class="btn btn-success my-1"><i
-                class="fas fa-fw fa-file-excel"></i> Template Excel NISN Siswa</a>
+                class="fas fa-fw fa-file-excel"></i> Template NISN</a>
     </div>
 </div>
 <div class="card shadow mb-4">
@@ -224,7 +224,7 @@
                                 <label for="">Logo Sekolah <small>Opsional</small></label>
                                 <div class="input-group mb-3">
                                     <div class="custom-file">
-                                      <input type="file" id="fileLogo"  name="foto" class="form-control custom-file-input form-control" name="nisn">
+                                      <input type="file" id="fileLogo"  name="foto" class="form-control custom-file-input form-control" accept="image/*">
                                       <label id="labelLogo" class="custom-file-label" for="fileNISN">Choose file</label>
                                     </div>
                                   </div>
