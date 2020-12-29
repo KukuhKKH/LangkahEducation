@@ -274,7 +274,7 @@
                     <div class="col-xl-5">
                         <select name="gelombang" id="gelombang" class="form-control" autocomplete="off">
                             <option value="" selected disabled>-- Pilih Gelombang --</option>
-                            @foreach ($gelombang as $value)
+                            @foreach ($gelSekolah as $value)
                                 <option value="{{ $value->id }}">{{ $value->nama }}</option>
                             @endforeach
                         </select>

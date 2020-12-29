@@ -67,7 +67,8 @@ class PageController extends Controller
             }
             return view('pages.blog.detail', compact('artikel', 'lainnya', 'terkait', 'komentar', 'btn_like', 'artikel_like'));
         } catch(\Exception $e) {
-            dd($e);
+            // dd($e);
+            abort(404);
             return redirect()->back()->with(['error' => $e->getMessage()])->withInput();
         }
     }
@@ -92,7 +93,6 @@ class PageController extends Controller
         $artikel_like = Blog::whereHas('kategori', function($q) use($kategori) {
             $q->where('nama', 'LIKE', "%$kategori%");
         })->withCount('like')->with('like')->where('status', 1)->orderBy('like_count', 'DESC')->limit(3)->get();
-
             return view('pages.blog.kategori', compact('artikel', 'artikel_like'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()])->withInput();

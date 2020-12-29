@@ -39,7 +39,15 @@ class UniversitasController extends Controller
     public function store(Request $request)
     {
         try {
-            Universitas::create($request->all());
+            $isExist = Universitas::select("*")
+            ->where("nama", $request['nama'])
+            ->exists();
+            if ($isExist) {
+                return redirect()->back()->with(['error' => 'Universitas Sudah Ada']);
+                // dd('Record is available.');
+            }else{
+                Universitas::create($request->all());
+            }
             return redirect()->back()->with(['success' => 'Berhasil tambah universitas']);
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
