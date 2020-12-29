@@ -56,18 +56,22 @@
 <main id="main">
 
     <!-- ======= About Section ======= -->
-    <section id="about" class="about">
+    <section id="about" class="about my-5">
         <div class="container">
+            <div class="section-title">
+                <h2>Tentang Kami</h2>
+            </div>
             <div class="row content align-items-center">
-                <div class="col-lg-6 order-2 order-lg-1 hero-img text-center">
+                <div class="col-lg-6 order-1 order-lg-1 hero-img text-center">
                     @if ($data->foto_tentang_kami)
-                    <img src="{{asset("landing-page/foto/$data->foto_tentang_kami")}}" class="img-fluid w-75" alt=""
+                    <img src="{{asset("landing-page/foto/$data->foto_tentang_kami")}}" class="img-fluid w-75 mb-3" alt=""
                         width="955" height="1024">
                     @else
                     <img src="{{asset('assets-landingpage/img/hero-img.png')}}" class="img-fluid" alt="">
                     @endif
                 </div>
-                <div class="col-lg-6 pt-2 pt-lg-0 order-1 order-lg-2">
+                <div class="col-lg-6 pt-2 pt-lg-0 order-1 order-lg-2 mb-4">
+                    
                     {!! $data->tentang_kami !!}
                 </div>
             </div>
@@ -76,7 +80,7 @@
     </section><!-- End About Section -->
 
     <!-- ======= Why Us Section ======= -->
-    <section id="products" class="products">
+    <section id="products" class="products mt-3">
         <div class="container">
             <div class="section-title">
                 <h2>Produk</h2>
@@ -125,20 +129,15 @@
     </section>
 
     <!-- ======= Testimonials Section ======= -->
-    <section id="testimoni" class="testimonials">
+    <section id="testimoni" class="testimonials mb-4">
         <div class="container">
 
             <div class="section-title">
                 <h2>Testimonial</h2>
                 {!! $data->headline_testimoni !!}
-                {{-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
-                    consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
-                    fugiat sit
-                    in iste officiis commodi quidem hic quas.</p> --}}
             </div>
 
             <div class="owl-carousel testimonials-carousel">
-
                 @forelse ($testimoni as $value)
                 <div class="testimonial-item">
                     <p>
@@ -155,9 +154,7 @@
                     <h4>{{ $value->role }}</h4>
                 </div>
                 @empty
-
                 @endforelse
-
             </div>
 
         </div>

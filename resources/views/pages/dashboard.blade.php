@@ -324,7 +324,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-4 col-md-3 mb-4">
+        <div class="col-xl-4 col-md-4 mb-4">
             <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -817,12 +817,10 @@
             let data_saingan = {
                 labels: {!! json_encode($label2 ?? []) !!},
                 datasets: [{
-                    label: "Nilai",
                     backgroundColor: "#4e73df",
                     hoverBackgroundColor: "#2e59d9",
                     borderColor: "#4e73df",
                     data: {!! json_encode($val2 ?? []) !!},
-                    // data : jumlah nilai yg sama
                 }],
             }
             new Chart(ctx2, {
