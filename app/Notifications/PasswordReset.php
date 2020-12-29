@@ -78,7 +78,7 @@ class PasswordReset extends Notification
 
         return (new MailMessage)
             ->subject(Lang::get('Reset Password Langkah Education'))
-            ->line(Lang::get('Anda telah melupakan kata sandi kamu.. Silahkan unutk melakukan reset'))
+            ->line(Lang::get('Anda telah melupakan kata sandi.. Silahkan untuk melakukan reset password'))
             ->action(Lang::get('Reset Password'), $url)
             ->line(Lang::get('Link reset password akan kedaluarsa dalam :count menit.', ['count' => config('auth.passwords.'.config('auth.defaults.passwords').'.expire')]));
     }

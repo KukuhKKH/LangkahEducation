@@ -44,6 +44,9 @@
                                 <div class="text-center">
                                     <a class="small" href="{{ route('login') }}">Sudah punya akun? Masuk!</a>
                                 </div>
+                                <div class="text-center mt-3">
+                                    <a class="small text-langkah" href="{{ url('/') }}">Kembali Ke Beranda</a>
+                                </div>
                             </div>
                         </div>
                     </div>

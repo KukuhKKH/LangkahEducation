@@ -15,7 +15,7 @@
             @hasanyrole('admin|superadmin')
                 <div class="row align-items-center">
                     <div class="col-xl-8">
-                        <form action="" method="POST" enctype="multipart/form-data">
+                        <form action="{{route('mentor.import')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                             <div class="form-group">
                                 <label for="">Import Data Excel</label>
@@ -25,7 +25,7 @@
                                     <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
                                     </div>
                                     <div class="input-group-append">
-                                    <span class="input-group-text" id="">Upload</span>
+                                        <button type="submit" class="input-group-text" id="">Upload</button>
                                     </div>
                                 </div>
                             </div>
