@@ -90,6 +90,15 @@
                     </tr>
                     @endforelse
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <th>No</th>
+                        <th>Judul</th>
+                        <th>Status</th>
+                        <th>Tanggal Upload</th>
+                        <th>Aksi</th>
+                    </tr>
+                </tfoot>
             </table>
             {{ $artikel->links() }}
         </div>

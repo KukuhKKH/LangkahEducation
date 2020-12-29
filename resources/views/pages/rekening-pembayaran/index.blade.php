@@ -110,8 +110,8 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="nama">Bank/Instansi Asal</label>
-                            <input name="nama" type="text" class="form-control form-control-user @error('nama') is-invalid @enderror" id="namaBank" placeholder="Nama Bank/Instansi" value="{{ old('nama') }}" required>
+                            <label for="nama">Bank/Instansi Asal/Jenis Pembayaran</label>
+                            <input name="nama" type="text" class="form-control form-control-user @error('nama') is-invalid @enderror" id="namaBank" placeholder="Nama Bank/Instansi/Jenis Pembayaran" value="{{ old('nama') }}" required>
                             @error('nama')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -119,7 +119,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="nomer_rekening">Nomor Rekening</label>
+                            <label for="nomer_rekening">Nomor Rekening <small data-toggle="tooltip" title="Beri Nilai 0 Jika Pembayaran Upload Story" data-placement="right" ><i class="fa fa-info-circle"></i></small></label>
                             <input name="nomer_rekening" type="text" class="form-control form-control-user @error('nomer_rekening') is-invalid @enderror" id="nomorRekening" placeholder="Nomor Rekening" value="{{ old('nomer_rekening') }}" required>
                             @error('nomer_rekening')
                                 <span class="invalid-feedback" role="alert">
@@ -128,7 +128,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="alias">Nama Pemilik (a/n)</label>
+                            <label for="alias">Nama Pemilik (a/n) <small data-toggle="tooltip" title="Tulis Nama Akun Jika Pembayaran Upload Story" data-placement="right" ><i class="fa fa-info-circle"></i></small></label>
                             <input name="alias" type="text" class="form-control form-control-user @error('alias') is-invalid @enderror" id="nomorRekening" placeholder="Nama Pemilik (a/n)" value="{{ old('alias') }}" required>
                             @error('alias')
                                 <span class="invalid-feedback" role="alert">
@@ -144,7 +144,8 @@
                               </select>
                         </div>
                         <div class="form-group">
-                            <label for="name">Logo <small>Maksimal 500 Kb</small></label>
+                            <label for="name">Logo <small>Maksimal 500 Kb</small>
+                            </label>
 
                             <div class="input-group">
                                 <div class="custom-file">
@@ -197,5 +198,8 @@
              $("#labelFile").text('Choose file');
          }
      });
+     $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();   
+    });
  </script>
 @endsection

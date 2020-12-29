@@ -42,7 +42,7 @@
                         <th>No</th>
                         <th>Nama Siswa</th>
                         <th>Gelombang</th>
-                        <th>status</th>
+                        <th>Status</th>
                         <th width="25%">Aksi</th>
                     </tr>
                     </tfoot>

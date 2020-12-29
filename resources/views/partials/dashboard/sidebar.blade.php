@@ -277,7 +277,7 @@
     <li class="nav-item {{ request()->segment(2) == 'rekening' ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('rekening.index') }}">
             <i class="fas fa-fw fa-credit-card"></i>
-            <span>Rekening Pembayaran</span>
+            <span>Metode Pembayaran</span>
         </a>
     </li>
     @endhasanyrole

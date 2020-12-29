@@ -188,7 +188,7 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="poin_1">Point 1</label>
+                                <label for="poin_1">Point 1 </label>
                                 <input name="poin_1" type="number"
                                     class="form-control form-control-user @error('poin_1') is-invalid @enderror"
                                     placeholder="Nilai Point 1" value="{{ old('poin_1') }}" required>
@@ -272,7 +272,7 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="interpretasi_1">Interpretasi 1</label>
+                                <label for="interpretasi_1">Interpretasi 1 <small data-toggle="tooltip" title="Untuk lolos kedua prodi" data-placement="right" ><i class="fa fa-info-circle"></i></small></label>
                                 <input name="interpretasi_1" type="text"
                                     class="form-control form-control-user @error('interpretasi_1') is-invalid @enderror"
                                     placeholder="Interpretasi 1" value="{{ old('interpretasi_1') }}" required>
@@ -286,7 +286,7 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="interpretasi_2">Interpretasi 2</label>
+                                <label for="interpretasi_2">Interpretasi 2 <small data-toggle="tooltip" title="Untuk lolos salah satu prodi" data-placement="right" ><i class="fa fa-info-circle"></i></small></label>
                                 <input name="interpretasi_2" type="text"
                                     class="form-control form-control-user @error('interpretasi_2') is-invalid @enderror"
                                     placeholder="Interpretasi 2" value="{{ old('interpretasi_2') }}" required>
@@ -300,7 +300,7 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="interpretasi_3">Interpretasi 3</label>
+                                <label for="interpretasi_3">Interpretasi 3 <small data-toggle="tooltip" title="Untuk tidak ada yang lolos" data-placement="right" ><i class="fa fa-info-circle"></i></small></label>
                                 <input name="interpretasi_3" type="text"
                                     class="form-control form-control-user @error('interpretasi_3') is-invalid @enderror"
                                     placeholder="Interpretasi 3" value="{{ old('interpretasi_3') }}" required>
