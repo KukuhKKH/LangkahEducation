@@ -781,14 +781,22 @@
 
     @hasanyrole('mentor')
         @php
-            $nmSiswa=[];
+            $nmKelompok= [];
         @endphp
-        @foreach ($idSiswa as $item)
+        @foreach ($idKelompok as $item)
             @php
-               $nmSiswa[] =  App\Models\User::find($item)->name;
+                $nmKelompok[]= App\Models\KelompokPassingGrade::find($item->idKel)->nama;
+
             @endphp
         @endforeach
-            
+        @php
+            $siswaKategori = [];
+            for ($i=0; $i <count($nmKelompok) ; $i++) { 
+                $siswa = $nmSiswa[$i];
+                $kategori = $nmKelompok[$i];
+                $siswaKategori[]=$siswa." (".$kategori.")";
+            }
+        @endphp
         <script>
             var ctx = document.getElementById("myPersaingan");
             var myPieChart = new Chart(ctx, {
@@ -825,13 +833,12 @@
             let ctx2 = document.getElementById("myAreaChart");
             let data_saingan = {
                 // labels: {!! json_encode($label2 ?? []) !!},
-                labels: {!! json_encode($nmSiswa ?? []) !!},
+                labels: {!! json_encode($siswaKategori ?? []) !!},
                 datasets: [{
                     backgroundColor: "#4e73df",
                     hoverBackgroundColor: "#2e59d9",
                     borderColor: "#4e73df",
                     data: {!! json_encode($label2 ?? []) !!},
-                    // data: {!! json_encode($val2 ?? []) !!},
                 }],
             }
             new Chart(ctx2, {
