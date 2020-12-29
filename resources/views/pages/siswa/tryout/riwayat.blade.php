@@ -69,7 +69,7 @@
                   @else
                      <a class="btn btn-light btn-block mt-4 {{ ($koreksi) ? '' : 'disabled not-allowed' }}"
                      href="javascript:void(0)" {{ ($koreksi) ? '' : 'disabled' }}>
-                        Hasil Analisis
+                        Tryout Belum dikoreksi
                      </a>
                   @endif
                   @else

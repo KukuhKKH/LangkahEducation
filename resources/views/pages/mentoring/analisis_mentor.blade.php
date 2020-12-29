@@ -44,9 +44,9 @@
                 </table>
 
                 <form action="#" class="mt-4">
+                    <input type="hidden" name="kelompok" value="{{ request()->get('kelompok') }}">
                     <label for="kelompok">Pilihan Kelompok</label><br>
-                    <select name="kelompok" id="kelompok" class="form-control" disabled required autocomplete="off">
-                        <option value="" selected disabled>== Kelompok Pilihan ==</option>
+                    <select disabled name="kelompok" id="kelompok" class="form-control" required autocomplete="off">
                         @foreach ($kelompok_all as $value)
                             @if ($value->id == request()->get('kelompok'))
                             <option value="{{ $value->id }}" selected>{{ strtoupper($value->nama) }}</option>
@@ -68,7 +68,7 @@
                                             <option value="{{ $value->id }}">{{ $value->nama }}</option>
                                         @endif
                                     @else
-                                    <option value="{{ $value->id }}">{{ $value->nama }}</option>
+                                    <option value="{{ $value->id }}" {{ ($value->id == App\Models\PassingGrade::find(request()->get('prodi-1'))->universitas->id) ? 'selected' : '' }}>{{ $value->nama }}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -95,7 +95,7 @@
                                             <option value="{{ $value->id }}">{{ $value->nama }}</option>
                                         @endif
                                     @else
-                                    <option value="{{ $value->id }}">{{ $value->nama }}</option>
+                                    <option value="{{ $value->id }}" {{ ($value->id == App\Models\PassingGrade::find(request()->get('prodi-2'))->universitas->id) ? 'selected' : '' }}>{{ $value->nama }}</option>
                                     @endif
                                 @endforeach
                             </select>

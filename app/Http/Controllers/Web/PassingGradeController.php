@@ -42,14 +42,11 @@ class PassingGradeController extends Controller
     public function store(PassingGradeStore $request)
     {
         try {
-            $isExist = PassingGrade::select("*")
-            ->where("universitas_id", $request['universitas_id'])->where("prodi", $request['prodi'])
-            ->exists();
-            if ($isExist) {
-                return redirect()->back()->with(['error' => 'Prodi Sudah Ada']);
-            }else{
-                PassingGrade::create($request->all());
+            $cek = PassingGrade::where('prodi', $request->prodi)->where('universitas_id', $request->universitas_id)->first();
+            if($cek) {
+                return redirect()->back()->with(['error' => "Prodi di universitas ini sudah ada"]);    
             }
+            PassingGrade::create($request->all());
             return redirect()->back()->with(['success' => "Berhasil menambah passing grade"]);
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);

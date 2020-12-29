@@ -31,6 +31,42 @@
                 </form>
             </div>
         </li>
+        @hasanyrole('siswa')
+        <li class="nav-item dropdown no-arrow mx-1">
+            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-bell fa-fw"></i>
+                <!-- Counter - Messages -->
+                <span class="badge badge-danger badge-counter">{{ count($komentar_mentor) }}</span>
+            </a>
+            <!-- Dropdown - Messages -->
+            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                aria-labelledby="messagesDropdown">
+                <h6 class="dropdown-header">
+                    Komentar
+                </h6>
+                @foreach ($komentar_mentor as $value)
+                @php
+                $prodi = App\Models\TempProdi::where('paket_id', $value->hasil->paket->id)
+                                        ->where('user_id', auth()->user()->id)
+                                        ->where('gelombang_id', $value->hasil->gelombang_id)->get();
+                @endphp
+                <a class="dropdown-item d-flex align-items-center" href="{{ route('tryout.hasil', [
+                    'gelombang_id' => $value->hasil->gelombang_id, 
+                    'kelompok' => $prodi[0]->kelompok_passing_grade_id, 
+                    'slug' => $value->hasil->paket->slug, 
+                    'prodi-1' => $prodi[0]->passing_grade_id, 
+                    'prodi-2' => $prodi[1]->passing_grade_id]) }}">
+                    <div class="font-weight-bold">
+                        <div class="text-truncate">{{ (strlen($value->komentar) > 30) ? substr($value->komentar, 0, 30). "...." : $value->komentar }}</div>
+                        <div class="small text-gray-500">{{ $value->mentor->user->name }}</div>
+                    </div>
+                </a>
+                @endforeach
+            </div>
+        </li>
+        @endhasanyrole
+        
         @hasanyrole('mentor|siswa')
         <li class="nav-item dropdown no-arrow mx-1">
             <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"

@@ -38,16 +38,19 @@ class UniversitasController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'nama' => 'unique:universitas'
+        ]);
         try {
-            $isExist = Universitas::select("*")
-            ->where("nama", $request['nama'])
-            ->exists();
-            if ($isExist) {
-                return redirect()->back()->with(['error' => 'Universitas Sudah Ada']);
-                // dd('Record is available.');
-            }else{
-                Universitas::create($request->all());
-            }
+            // $isExist = Universitas::select("*")
+            // ->where("nama", $request['nama'])
+            // ->exists();
+            // if ($isExist) {
+            //     return redirect()->back()->with(['error' => 'Universitas Sudah Ada']);
+            //     // dd('Record is available.');
+            // }else{
+            // }
+            Universitas::create($request->all());
             return redirect()->back()->with(['success' => 'Berhasil tambah universitas']);
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
@@ -78,7 +81,12 @@ class UniversitasController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $universitas = Universitas::find($id);
+            return view('pages.passing-grade.edit_univ', compact('universitas'));
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -90,7 +98,18 @@ class UniversitasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'nama' => 'unique:universitas,nama,'.$id
+        ]);
+        try {
+            $universitas = Universitas::find($id);
+            $universitas->update([
+                'nama' => $request->nama
+            ]);
+            return redirect()->route('universitas.index')->with(['success' => 'Berhasil update universitas']);
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
     }
 
     /**

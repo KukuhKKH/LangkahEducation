@@ -93,7 +93,7 @@
                                 </a> --}}
                                 <a href="{{ route('passing-grade.show', $value->id) }}" class="btn btn-primary my-1">Lihat Prodi
                                     </a>
-                                <a href="" class="btn btn-success my-1" data-toggle="tooltip" data-placement="top" title="Edit">
+                                <a href="{{ route('universitas.edit', $value->id) }}" class="btn btn-success my-1" data-toggle="tooltip" data-placement="top" title="Edit">
                                         <i class="fas fa-edit"></i>
                                      </a>
                                 <button type="button" class="btn btn-danger my-1 hapus" data-id="{{ $value->id }}"

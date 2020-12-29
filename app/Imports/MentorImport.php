@@ -7,7 +7,7 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Events\BeforeImport;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 
-class MentorImport implements ToCollection, WithStartRow
+class MentorImport implements ToModel, WithStartRow
 {
     public static function beforeImport(BeforeImport $event) {
         $worksheet = $event->reader->getActiveSheet();

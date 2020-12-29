@@ -120,7 +120,7 @@
                               <td>${element.paket.nama}</td>
                               <td>${element.nilai_awal}</td>
                               <td>${tgl}</td>
-                              <td><a href="${URL}/${element.id}/${element.paket.slug}/detail?prodi-1=${element.paket.temp[0].passing_grade_id}&prodi-2=${element.paket.temp[1].passing_grade_id}"><i class="fas fa-eye"></i></a></td>
+                              <td><a href="${URL}/${element.id}/${element.paket.slug}/detail?kelompok=${element.paket.temp[0].kelompok_passing_grade_id}&prodi-1=${element.paket.temp[0].passing_grade_id}&prodi-2=${element.paket.temp[1].passing_grade_id}"><i class="fas fa-eye"></i></a></td>
                            </tr>`
                   })
                   $('#body_table').html(html)

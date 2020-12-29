@@ -26,8 +26,8 @@ class SoalUpdate extends FormRequest
         return [
             'soal' => 'required',
             'pembahasan' => 'required',
-            'nilai_benar' => 'required',
-            'nilai_salah' => 'required',
+            // 'nilai_benar' => 'required',
+            'nilai_salah' => 'required|integer',
 
             'pilihan1' => 'required',
             'pilihan2' => 'required',

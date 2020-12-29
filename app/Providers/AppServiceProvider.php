@@ -6,9 +6,11 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use App\Http\Controllers\HelperController;
+use App\Models\Komentar;
 use App\Models\LandingPage;
 use App\Models\Mentoring;
 use App\Models\Pembayaran;
+use App\Models\TryoutHasil;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -36,7 +38,9 @@ class AppServiceProvider extends ServiceProvider
             if($role == 'siswa') {
                 $total_pembayaran = Pembayaran::where('user_id', $user->id)->where('status', 0)->count();
                 $chat_masuk = Mentoring::where('siswa_id', $user->siswa->id)->where('status', 0)->where('pengirim', 'mentor')->get();
-                // dd($chat_masuk);
+                $to_id = TryoutHasil::where('user_id', $user->id)->get()->pluck('id');
+                $komentar_mentor = Komentar::with(['hasil'])->whereIn('tryout_hasil_id', $to_id)->where('status', 0)->get();
+                $view->with('komentar_mentor', $komentar_mentor);
                 $view->with('total_pembayaran', $total_pembayaran);
                 $view->with('chat_masuk', $chat_masuk);
             } elseif($role == 'superadmin' || $role == 'admin') {

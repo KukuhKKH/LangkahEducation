@@ -148,8 +148,7 @@
                                 <label for="">Salah <span class="text-danger">Tidak perlu menggunakan tanda minus
                                         (-)</span></label>
                                 <input type="number" class="form-control @error('nilai_salah') is-invalid @enderror"
-                                    name="nilai_salah" placeholder="Nilai Ketika salah" value="1"
-                                    value="{{ $soal->salah }}" required>
+                                    name="nilai_salah" placeholder="Nilai Ketika salah" value="{{ $soal->salah }}" required>
                                 @error('nilai_salah')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

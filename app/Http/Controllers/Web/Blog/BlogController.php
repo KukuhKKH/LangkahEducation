@@ -152,11 +152,13 @@ class BlogController extends Controller
     {
         try {
             $artikel = Blog::find($id);
-            if(file_exists(public_path('upload/blog/'.$artikel->foto))){
-                unlink(public_path('upload/blog/'.$artikel->foto));
+            if($artikel->foto) {
+                if(file_exists(public_path('upload/blog/'.$artikel->foto))){
+                    unlink(public_path('upload/blog/'.$artikel->foto));
+                }
             }
             $artikel->delete();
-            return redirect()->back()->with(['error' => "Berhasil hapus artikel"]);
+            return redirect()->back()->with(['success' => "Berhasil hapus artikel"]);
         } catch(\Exception $e) {
             return redirect()->back()->withInput()->with(['error' => $e->getMessage()]);
         }

@@ -48,6 +48,9 @@ class TryoutController extends Controller
      */
     public function store(SoalCreate $request)
     {
+        if($request->nilai_salah < 0) {
+            return redirect()->back()->with(['error' => 'Nilai salah tidak boleh negatif'])->withInput();
+        }
         try {
             DB::beginTransaction();
             $soal = Auth::user()->soal()->create([
@@ -127,6 +130,9 @@ class TryoutController extends Controller
      */
     public function update(SoalUpdate $request, $id)
     {
+        if($request->nilai_salah < 0) {
+            return redirect()->back()->with(['error' => 'Nilai salah tidak boleh negatif'])->withInput();
+        }
         try {
             DB::beginTransaction();
             $soal = TryoutSoal::findOrFail($id);

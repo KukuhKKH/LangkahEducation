@@ -29,6 +29,13 @@ class TryoutController extends Controller
         $kosong = true;
         $produk_gelombang = [];
         $produk_sekolah = [];
+        $raw_to_id_selesai = TryoutHasil::where('user_id', $user->id)->get();
+        $paket_id_selesai = [];
+        $gelombang_id_selesai = [];
+        foreach ($raw_to_id_selesai as $key => $value) {
+            $paket_id_selesai[] = $value->tryout_paket_id;
+            $gelombang_id_selesai[] = $value->gelombang_id;
+        }
         if($user->siswa->batch == 1) {
             $produk_sekolah = $user->siswa->sekolah->first()->gelombang;
             $cek_gelombang = Gelombang::wherehas('siswa', function($query) use($user) {
@@ -85,7 +92,7 @@ class TryoutController extends Controller
             }
         }
         $user_token = Crypt::encrypt($user->api_token);
-        return view('pages.siswa.tryout.index',compact('produk_sekolah', 'produk_gelombang', 'kosong', 'status_bayar', 'user_token'));
+        return view('pages.siswa.tryout.index',compact('produk_sekolah', 'produk_gelombang', 'kosong', 'status_bayar', 'user_token', 'paket_id_selesai', 'gelombang_id_selesai'));
     }
 
     /**
@@ -417,6 +424,16 @@ class TryoutController extends Controller
                                     ->where('user_id', auth()->user()->id)
                                     ->where('tryout_paket_id', $paket->id)
                                     ->where('gelombang_id', $gelombang_id)->first();
+                if($user->siswa->mentor) {
+                    $komentar = Komentar::where('tryout_hasil_id', $tryout->id)
+                                        ->where('mentor_id', $user->siswa->mentor()->first()->id)
+                                        ->first();
+                    if($komentar) {
+                        $komentar->update([
+                            'status' => 1
+                        ]);
+                    }
+                }
                 $raw_kelompok = $request->get('kelompok');
                 if($raw_kelompok) {
                     $kelompok = KelompokPassingGrade::find($raw_kelompok);

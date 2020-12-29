@@ -22,16 +22,6 @@
                     @csrf
                     @hasanyrole('superadmin|admin')
                     <div class="row">
-                        <div class="col-xl-3">
-                            <div class="form-group">
-                                <label for="">Sekolah</label>
-                                <select name="sekolah" id="sekolah-select" class="form-control" required>
-                                    @foreach ($sekolah as $item)
-                                    <option value="{{ $item->nama }}">{{ $item->nama }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
                         <div class="col-xl-6">
                             <div class="form-group">
                                 <label for="">Import Data Excel</label>

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Komentar extends Model
 {
     protected $table = 'komentar_mentor';
-    protected $fillable = ['mentor_id', 'tryout_hasil_id', 'komentar'];
+    protected $fillable = ['mentor_id', 'tryout_hasil_id', 'komentar', 'status'];
     protected $with = ['mentor'];
 
     public function mentor() {

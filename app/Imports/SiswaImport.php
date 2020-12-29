@@ -6,15 +6,10 @@ use App\Models\User;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 use Maatwebsite\Excel\Events\BeforeImport;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class SiswaImport implements ToModel, WithStartRow
 {
-    private $asal_sekolah;
-
-    function __construct($asal_sekolah){
-        $this->asal_sekolah = $asal_sekolah;
-    }
-
     public static function beforeImport(BeforeImport $event) {
         $worksheet = $event->reader->getActiveSheet();
         $highestRow = $worksheet->getHighestRow(); // e.g. 10
@@ -51,8 +46,14 @@ class SiswaImport implements ToModel, WithStartRow
             $errMessage = 'Mohon pastikan kolom Nomer HP tidak kosong.';
             throw new \Exception($errMessage);
         }
-        $tgl = explode('/',$row[3]);
-        $tgl_lahir = "$tgl[1]/$tgl[0]/$tgl[2]";
+        if(empty($row[5])){
+            $errMessage = 'Mohon pastikan kolom Asal Sekolah tidak kosong.';
+            throw new \Exception($errMessage);
+        }
+        $tgl_lahir = Date::excelToDateTimeObject($row[3])->format('m/d/Y');
+        // $tgl = explode('/',$row[3]);
+        // dd($tgl);
+        // $tgl_lahir = "$tgl[1]/$tgl[0]/$tgl[2]";
         $user = User::create([
             'name' => $row[0],
             'email' => $row[1],
@@ -62,10 +63,10 @@ class SiswaImport implements ToModel, WithStartRow
         ]);
         $user->siswa()->create([
             'nisn' => $row[2],
-            'asal_sekolah' => $this->asal_sekolah,
+            'asal_sekolah' => $row[5],
             'tanggal_lahir' => $tgl_lahir,
             'nomor_hp' => $row[4],
-            'batch' => 1
+            'batch' => 0
         ]);
     }
 

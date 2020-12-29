@@ -15,7 +15,7 @@
             @hasanyrole('admin|superadmin')
                 <div class="row align-items-center">
                     <div class="col-xl-8">
-                        <form action="{{route('mentor.import')}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('mentor.import') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                             <div class="form-group">
                                 <label for="">Import Data Excel</label>

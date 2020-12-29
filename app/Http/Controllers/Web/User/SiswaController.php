@@ -178,12 +178,7 @@ class SiswaController extends Controller
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             try {
-                if(auth()->user()->getRoleNames()->first() != 'sekolah') {
-                    $asal_sekolah = $request->sekolah;
-                } else {
-                    $asal_sekolah = auth()->user()->sekolah()->nama;
-                }
-                Excel::import(new SiswaImport($asal_sekolah), $file);
+                Excel::import(new SiswaImport(), $file);
                 return \redirect()->back()->with(['success' => 'Import siswa berhasil']);
                 return redirect(route('siswa.index'));
             } catch (\Exception $e) {
