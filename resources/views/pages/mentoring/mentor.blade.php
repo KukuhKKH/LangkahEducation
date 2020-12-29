@@ -140,7 +140,7 @@
                             html += `<tr>
                               <td>${element.user.name}</td>
                               <td>${element.paket.nama}</td>
-                              <td>${element.nilai_awal}</td>
+                              <td>${element.nilai_sekarang}</td>
                               <td>${tgl}</td>
                               <td>${tgl2}</td>
                               <td><a href="${URL}/${element.id}/${element.paket.slug}/detail?kelompok=${element.paket.temp[0].kelompok_passing_grade_id}&prodi-1=${element.paket.temp[0].passing_grade_id}&prodi-2=${element.paket.temp[1].passing_grade_id}"><i class="fas fa-eye"></i></a></td>
