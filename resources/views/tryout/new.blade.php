@@ -78,7 +78,7 @@
                                     {{-- @foreach($value->jawaban()->inRandomOrder()->get() as $option) --}}
                                     @foreach($value->jawaban()->get() as $option)
                                        <li>
-                                          <input class="mt-1 mr-1" type="radio" name="jawaban[{{ $value->id }}]" value="{{ $option->id }}" id="option{{ $i }}ke{{ $j }}">
+                                          <input class="mt-1 mr-1 radio" type="radio" name="jawaban[{{ $value->id }}]" value="{{ $option->id }}" id="option{{ $i }}ke{{ $j }}">
                                           <label for="option{{ $i }}ke{{ $j }}">{!! $option->jawaban !!}</label>
                                        </li>
                                        <?php $j++; ?>
@@ -169,15 +169,16 @@
    // window.onbeforeunload = function () {return false;}
    const total_soal = {{ count($soal) }}
    const paket_slug = `{{ $paket->slug }}`
+   const gelombang_id = `{{ request()->segment(2) }}`
    const user = `{{ auth()->user()->name }}`
    $(document).ready(function() {
-      let waktu = localStorage.getItem(`waktu-${user}-${paket_slug}`)
+      let waktu = localStorage.getItem(`waktu-${gelombang_id}-${user}-${paket_slug}`)
       let compSiswaWaktu = document.querySelector('.sisawaktu')
       if(waktu != null) {
          compSiswaWaktu.setAttribute('data-time', waktu)
       } else {
          const waktu_sekarang = moment().add('{{ $waktu }}', 'minutes').format('YYYY-MM-D H:mm:ss')
-         localStorage.setItem(`waktu-${user}-${paket_slug}`, waktu_sekarang)
+         localStorage.setItem(`waktu-${gelombang_id}-${user}-${paket_slug}`, waktu_sekarang)
          compSiswaWaktu.setAttribute('data-time', waktu_sekarang)
       }
 
@@ -194,6 +195,21 @@
             com_option[index].checked = false;
          }
       })
+
+      // Deklarasi variabel jika kosong isi dengan object kosong
+      let radioGroups = JSON.parse(localStorage.getItem('selected') || '{}')
+
+      // Pilih jawaban yang sudah tersimpan
+      Object.values(radioGroups).forEach(function(radioId){
+         document.getElementById(radioId).checked = true;
+      })
+
+      $('.radio').on('click', function(){
+         // inisialisasi index dan value
+         radioGroups[this.name] = this.id;
+         // Set value bersamaan dengan name
+         localStorage.setItem("selected", JSON.stringify(radioGroups));
+      })
    })
 
    function waktuHabis() {
@@ -205,7 +221,7 @@
       }).then(function (val) {
          if(val) {
             // window.location.reload()
-            localStorage.removeItem(`waktu-${user}-${paket_slug}`)
+            localStorage.removeItem(`waktu-${gelombang_id}-${user}-${paket_slug}`)
             $('#form-data').submit()
          }
       })
@@ -223,7 +239,7 @@
          confirmButtonText: 'Ya!'
       }).then((result) => {
          if (result.isConfirmed) {
-            localStorage.removeItem(`waktu-${user}-${paket_slug}`)
+            localStorage.removeItem(`waktu-${gelombang_id}-${user}-${paket_slug}`)
             $('#form-data').submit()
          }
       })

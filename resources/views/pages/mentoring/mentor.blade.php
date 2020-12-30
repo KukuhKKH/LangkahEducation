@@ -98,6 +98,7 @@
                     <thead>
                         <tr>
                             <th>Nama Siswa</th>
+                            <th>Gelombang</th>
                             <th>Paket Tryout</th>
                             <th>Nilai</th>
                             <th>Tanggal Tryout</th>
@@ -131,7 +132,7 @@
                 .then((res) => {
                     $('#loading').hide()
                     let data = res.data
-                    // console.log(data)
+                    console.log(data)
                     if (data.length > 0) {
                         let html = ``
                         data.forEach(element => {
@@ -139,6 +140,7 @@
                             let tgl2 = moment(element.paket.tgl_akhir).format('D MMMM YYYY')
                             html += `<tr>
                               <td>${element.user.name}</td>
+                              <td>${element.gelombang.nama}</td>
                               <td>${element.paket.nama}</td>
                               <td>${element.nilai_sekarang}</td>
                               <td>${tgl}</td>

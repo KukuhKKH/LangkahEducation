@@ -97,7 +97,7 @@ class MentoringController extends Controller
 
     public function hasil_tryout($id) {
         try {
-            $hasil = TryoutHasil::with(['paket.temp', 'user.siswa'])->where('user_id', $id)->get();
+            $hasil = TryoutHasil::with(['gelombang', 'paket.temp', 'user.siswa'])->where('user_id', $id)->get();
             return response()->json(['error' => false, 'data' => $hasil], 200);
         } catch(\Exception $e) {
             return response()->json(['error' => true, 'message' => $e->getMessage()], 500);

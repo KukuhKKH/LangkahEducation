@@ -264,12 +264,12 @@ class TryoutController extends Controller
                     ]);
                 }
                 $index = 0;
-                if($request->session()->has('index_kategori')) {
-                    $index = $request->session()->get('index_kategori');
+                if($request->session()->has($gelombang_id.'-'.$slug.'-'."index_kategori")) {
+                    $index = $request->session()->get($gelombang_id.'-'.$slug.'-'."index_kategori");
                 } else {
-                    $request->session()->put('index_kategori', $index);
+                    $request->session()->put($gelombang_id.'-'.$slug.'-'."index_kategori", $index);
                 }
-                if(!$request->session()->has('kategori_id')) {
+                if(!$request->session()->has($gelombang_id.'-'.$slug.'-'.'kategori_id')) {
                     $kelompok = KelompokPassingGrade::find($request->get('kelompok'));
                     if($kelompok->nama == 'saintek') {
                         $kategori_soal_id = TryoutKategoriSoal::where('tipe', 'umum')->orWhere('tipe', 'saintek')->get()->pluck('id');
@@ -284,9 +284,9 @@ class TryoutController extends Controller
                                         ->whereIn('tryout_kategori_soal_id', $kategori_soal_id)
                                         ->get()->pluck('tryout_kategori_soal_id')
                                         ->toArray();
-                    $request->session()->put('kategori_id', $kategori_id);
+                    $request->session()->put($gelombang_id.'-'.$slug.'-'.'kategori_id', $kategori_id);
                 } else {
-                    $kategori_id = $request->session()->get('kategori_id');
+                    $kategori_id = $request->session()->get($gelombang_id.'-'.$slug.'-'.'kategori_id');
                 }
                 if($index > 0) {
                     $temp_index = $index;
@@ -394,15 +394,15 @@ class TryoutController extends Controller
             'nilai_sekarang' => 0,
             'nilai_maksimal' => $nilai_maksimal
         ]);
-        $index_kategori = $request->session()->get('index_kategori');
-        $kategori_id = $request->session()->get('kategori_id');
+        $index_kategori = $request->session()->get($gelombang_id.'-'.$paket_slug.'-'."index_kategori");
+        $kategori_id = $request->session()->get($gelombang_id.'-'.$paket_slug.'-'.'kategori_id');
         if($index_kategori == (count($kategori_id) - 1)) {
-            $request->session()->forget('kategori_id');
-            $request->session()->forget('index_kategori');
+            $request->session()->forget($gelombang_id.'-'.$paket_slug.'-'.'kategori_id');
+            $request->session()->forget($gelombang_id.'-'.$paket_slug.'-'."index_kategori");
             return redirect()->route('siswa.tryout.index')->with(['success' => "Termikasih telah melaksanakan tryout"]);
         } else {
             $index_sekarang = $index_kategori + 1;
-            $request->session()->put('index_kategori', $index_sekarang);
+            $request->session()->put($gelombang_id.'-'.$paket_slug.'-'."index_kategori", $index_sekarang);
         }
         $user_token = Crypt::encrypt(Auth::user()->api_token);
         return redirect()->route('tryout.mulai', ['gelombang_id' => $gelombang_id, 'slug' => $paket_slug, 'token' => $user_token])->withInput();
