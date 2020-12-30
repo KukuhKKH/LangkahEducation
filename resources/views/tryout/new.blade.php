@@ -222,6 +222,7 @@
          if(val) {
             // window.location.reload()
             localStorage.removeItem(`waktu-${gelombang_id}-${user}-${paket_slug}`)
+            localStorage.removeItem(`selected`)
             $('#form-data').submit()
          }
       })
@@ -240,6 +241,7 @@
       }).then((result) => {
          if (result.isConfirmed) {
             localStorage.removeItem(`waktu-${gelombang_id}-${user}-${paket_slug}`)
+            localStorage.removeItem(`selected`)
             $('#form-data').submit()
          }
       })
