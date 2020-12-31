@@ -95,13 +95,16 @@ class HomeController extends Controller
             $nama_paket = [];
             $kelompok = TempProdi::where('user_id', $user->id)->first();
             $passing_grade = [];
+            $idKelompok = [];
             $nilai_by_user = TryoutHasil::with(['user', 'paket', 'tryout_hasil_jawaban', 'tryout_hasil_detail'])->where('user_id', auth()->user()->id)->get();
             if(count($nilai_by_user) > 0) {
                 foreach ($nilai_by_user as $key => $value) {
                     $nilai_grafik[] = $value->nilai_sekarang;
                     $nama_paket[] = $value->paket->nama;
+                    $idKelompok[] = TempProdi::selectRaw('kelompok_passing_grade_id AS idKel')->where('gelombang_id', $value->gelombang_id)->where('paket_id', $value->tryout_paket_id)->where('user_id', $value->user_id)->groupBy('kelompok_passing_grade_id')->first();
                 }
             }
+
             if($kelompok) {
                 $passing_grade = PassingGrade::where('kelompok_id', $kelompok->kelompok_passing_grade_id)->get();
                 if($request->get('prodi-1') && $request->get('prodi-2')) {
@@ -114,7 +117,7 @@ class HomeController extends Controller
                     $nil_pg2 = ($pg2->passing_grade/100)*$nilai_max;
                 }
             }
-            return view('pages.dashboard', compact('kelompok', 'passing_grade', 'nilai_grafik', 'nama_paket', 'pg1', 'pg2', 'nilai_user', 'nil_pg1', 'nil_pg2'));
+            return view('pages.dashboard', compact('kelompok', 'passing_grade', 'nilai_grafik', 'nama_paket', 'pg1', 'pg2', 'nilai_user', 'nil_pg1', 'nil_pg2', 'idKelompok'));
         } elseif($user->getRoleNames()->first() == 'mentor') {
             $gelSekolah = Gelombang::where('jenis', 2)->get();
             $user = auth()->user();

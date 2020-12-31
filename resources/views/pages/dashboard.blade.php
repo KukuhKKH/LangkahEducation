@@ -747,6 +747,23 @@
     @endhasanyrole
 
     @hasanyrole('siswa')
+        @php
+            $nmKelompok= [];
+        @endphp
+        @foreach ($idKelompok as $item)
+            @php
+                $nmKelompok[]= App\Models\KelompokPassingGrade::find($item->idKel)->nama;
+
+            @endphp
+        @endforeach
+        @php
+            $siswaKategori = [];
+            for ($i=0; $i <count($nama_paket) ; $i++) { 
+                $paket = $nama_paket[$i];
+                $kategori = $nmKelompok[$i];
+                $siswaKategori[]=$paket."\n(".$kategori.")";
+            }
+        @endphp
         <script>
                 $("#prodi-1").select2();
                 $("#prodi-2").select2();
@@ -754,7 +771,7 @@
         <script>
             let ctx = document.getElementById("myRiwayatNilai")
             let data_riwayat = {
-                labels: {!! json_encode($nama_paket ?? []) !!}  ,
+                labels: {!! json_encode($siswaKategori ?? []) !!}  ,
                 datasets: [{
                     label: "Nilai",
                     lineTension: 0.3,

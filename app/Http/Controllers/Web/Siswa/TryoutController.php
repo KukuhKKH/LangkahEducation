@@ -493,6 +493,8 @@ class TryoutController extends Controller
                     $nilai_user = round($nilai_awal/$nilai_max * 100, 2);
                     $nilai_pg1 = (double)trim($pg1->passing_grade);
                     $nilai_pg2 = (double)trim($pg2->passing_grade);
+                    // $nil_pg1 = ($nilai_pg1/100)*$nilai_max;
+                    // $nil_pg2 = ($nilai_pg2/100)*$nilai_max;
                     $nil_pg1 = $nilai_pg1;
                     $nil_pg2 = $nilai_pg2;
                     $raw_temp = TempProdi::where('gelombang_id', $gelombang_id)->where('paket_id', $paket->id)->where('user_id', $user->id)->get();

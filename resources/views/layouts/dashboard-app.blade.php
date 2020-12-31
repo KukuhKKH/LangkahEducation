@@ -165,6 +165,7 @@
                     }],
                     yAxes: [{
                         ticks: {
+                            min:0,
                             max: 100,
                             scaleBeginAtZero: true,
                             maxTicksLimit: 10,
@@ -177,7 +178,7 @@
                             borderDash: [2],
                             zeroLineBorderDash: [2]
                         }
-                    }],
+                    }], 
                 },
                 legend: {
                     display: false
@@ -219,7 +220,7 @@
                         right: 25,
                         top: 25,
                         bottom: 0
-                    }
+                    },
                 },
                 scales: {
                     xAxes: [{
@@ -238,6 +239,8 @@
                     yAxes: [{
                         ticks: {
                             scaleBeginAtZero: true,
+                            min:0,
+                            // max:100,
                             maxTicksLimit: 5,
                             padding: 10,
                         },
