@@ -260,7 +260,7 @@
         $hasMentor = auth()->user()->siswa->mentor;
     @endphp
     {{-- <div class="{{ ($hasMentor != '') ? 'col-xl-6 col-lg-6' : 'col-xl-12 col-lg-12' }}"> --}}
-    <div class="col-xl-6 col-lg-6">
+    <div class="col-xl-8 col-lg-8">
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-dark">Riwayat Nilai (Presentase Nilai)</h6>
@@ -273,7 +273,7 @@
         </div>
     </div>
     @if (count($hasMentor) > 0)
-        <div class="col-xl-6 col-lg-6">
+        <div class="col-xl-4 col-lg-4">
             <div class="card shadow mb-4 text-center">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-dark">Komentar Mentor</h6>
@@ -301,7 +301,7 @@
             </div>
         </div>
     @else
-    <div class="col-xl-6 col-lg-6">
+    <div class="col-xl-4 col-lg-4">
         <div class="card shadow mb-4 text-center">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-dark">Interpretasi Hasil</h6>
@@ -481,7 +481,7 @@
     let data_riwayat = {
         labels: {!! json_encode($nama_paket) !!},
         datasets: [{
-            label: "Nilai ({{ Str::upper($kelompok->nama) }})",
+            label: "Presentase Nilai ({{ Str::upper($kelompok->nama) }})",
             lineTension: 0.3,
             backgroundColor: "rgba(236, 184, 17, 0.05)",
             borderColor: "rgba(236, 184, 17, 1)",
