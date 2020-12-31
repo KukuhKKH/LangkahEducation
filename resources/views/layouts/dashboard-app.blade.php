@@ -165,6 +165,7 @@
                     }],
                     yAxes: [{
                         ticks: {
+                            min:0,
                             max: 100,
                             scaleBeginAtZero: true,
                             maxTicksLimit: 10,
@@ -239,6 +240,7 @@
                         ticks: {
                             scaleBeginAtZero: true,
                             min:0,
+                            // max:100,
                             maxTicksLimit: 5,
                             padding: 10,
                         },
