@@ -119,7 +119,7 @@
     <div class="col-xl-6">
         <div class="card shadow mb-4" height="100%">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-dark">Passing Grade</h6>
+                <h6 class="m-0 font-weight-bold text-dark">Presentase Nilai</h6>
             </div>
             <div class="card-body">               
 
@@ -186,7 +186,7 @@
                     <table class="table table-bordered" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th class="w-50">Kategori</th>
+                                <th class="w-25">Kategori</th>
                                 <th>Benar</th>
                                 <th>Salah</th>
                                 <th>Kosong</th>
@@ -195,6 +195,12 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                                $totalBenar = 0;    
+                                $totalSalah = 0;    
+                                $totalKosong = 0;    
+                                $totalNilai = 0;    
+                            @endphp
                             @forelse ($tryout->tryout_hasil_detail as $value)
                             <tr>
                                 <td>{{ $value->kategori_soal->nama }}({{ $value->kategori_soal->kode }})</td>
@@ -205,11 +211,41 @@
                                 <td><a href="{{ route('mentoring.pembahasan',['paket_id' => $value->tryout_paket_id, 'kategori_id' =>  $value->tryout_kategori_soal_id, 'hasil_id' => $value->tryout_hasil_id]) }}"
                                         class="btn btn-primary">Lihat</a></td>
                             </tr>
+                            @php
+                                $totalBenar += $value->benar ;    
+                                $totalSalah += $value->salah;    
+                                $totalKosong += $value->kosong ;    
+                                $totalNilai += $value->nilai ;    
+                            @endphp
                             @empty
                             <tr>
                                 <td colspan="6">Tidak ada data</td>
                             </tr>
                             @endforelse
+                            <tr>
+                                <td class="font-weight-bold">
+                                    Total
+                                </td>
+                                <td class="font-weight-bold">
+                                    {{$totalBenar}}
+                                    {{-- TOTAL BENAR --}}
+                                </td>
+                                <td  class="font-weight-bold">
+                                    {{$totalSalah}}
+                                    {{-- TOTAL SALAH --}}
+                                </td>
+                                <td class="font-weight-bold">
+                                    {{$totalKosong}}
+                                    {{-- TOTAL KOSONG --}}
+                                </td>
+                                <td class="font-weight-bold">
+                                    {{$totalNilai}}
+                                    {{-- TOTAL NILAI --}}
+                                </td>
+                                <td>
+                                    
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -227,7 +263,7 @@
     <div class="col-xl-6 col-lg-6">
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-dark">Riwayat Nilai</h6>
+                <h6 class="m-0 font-weight-bold text-dark">Riwayat Nilai (Presentase Nilai)</h6>
             </div>
             <div class="card-body">
                 <div class="chart-area">
@@ -321,7 +357,6 @@
 <script src="{{ asset('assets/js/hasil-persaingan-nilai.js') }}"></script> --}}
 {{-- <script src="{{ asset('assets/js/hasil-pg-prodi1.js') }}"></script>
 <script src="{{ asset('assets/js/hasil-pg-prodi2.js') }}"></script> --}}
-
 <script>
     const URL_GET = `{{ url('api/v1/get-prodi') }}`
     $("#univ-1").select2();
@@ -446,7 +481,7 @@
     let data_riwayat = {
         labels: {!! json_encode($nama_paket) !!},
         datasets: [{
-            label: "Nilai",
+            label: "Nilai ({{ Str::upper($kelompok->nama) }})",
             lineTension: 0.3,
             backgroundColor: "rgba(236, 184, 17, 0.05)",
             borderColor: "rgba(236, 184, 17, 1)",
