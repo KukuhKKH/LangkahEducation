@@ -424,7 +424,10 @@ class TryoutController extends Controller
                                     ->where('user_id', auth()->user()->id)
                                     ->where('tryout_paket_id', $paket->id)
                                     ->where('gelombang_id', $gelombang_id)->first();
-                if($user->siswa->mentor) {
+                if($tryout->nilai_maksimal_new == 0) {
+                    return redirect()->back()->with(['error' => 'Tryout Belum Dikoreksi sistem']);
+                }
+                if(count($user->siswa->mentor) > 0) {
                     $komentar = Komentar::where('tryout_hasil_id', $tryout->id)
                                         ->where('mentor_id', $user->siswa->mentor()->first()->id)
                                         ->first();
@@ -468,8 +471,10 @@ class TryoutController extends Controller
                 $nilai_grafik = [];
                 $nama_paket = [];
                 foreach ($nilai_by_user as $key => $value) {
-                    $nilai_grafik[] = round(($value->nilai_sekarang/$value->nilai_maksimal_new)*100, 2);
-                    $nama_paket[] = $value->paket->nama;
+                    if($value->nilai_maksimal_new > 0) {
+                        $nilai_grafik[] = round(($value->nilai_sekarang/$value->nilai_maksimal_new)*100, 2);
+                        $nama_paket[] = $value->paket->nama;
+                    }
                 }
     
                 // Data Grafik Saingan
@@ -488,8 +493,15 @@ class TryoutController extends Controller
                     $nilai_user = round($nilai_awal/$nilai_max * 100, 2);
                     $nilai_pg1 = (double)trim($pg1->passing_grade);
                     $nilai_pg2 = (double)trim($pg2->passing_grade);
-                    $nil_pg1 = ($nilai_pg1/100)*$nilai_max;
-                    $nil_pg2 = ($nilai_pg2/100)*$nilai_max;
+                    $nil_pg1 = $nilai_pg1;
+                    $nil_pg2 = $nilai_pg2;
+                    $raw_temp = TempProdi::where('gelombang_id', $gelombang_id)->where('paket_id', $paket->id)->where('user_id', $user->id)->get();
+                    $raw_temp[0]->update([
+                        'passing_grade_id' => $request->get('prodi-1')
+                    ]);
+                    $raw_temp[1]->update([
+                        'passing_grade_id' => $request->get('prodi-2')
+                    ]);
                 } else {
                     $pg1 = $pg2 = $nilai_user = $nil_pg1 = $nil_pg2 = 0;
                 }
@@ -526,6 +538,7 @@ class TryoutController extends Controller
         $i = 0;
 
         $indeks_detail = 0;
+        $user_id = 0;
         foreach ($detail as $key => $value) {
             $kategori_to = TempProdi::where('gelombang_id', $gelombang_id)->where('paket_id', $paket_id)->where('user_id', $value->first()->hasil->user_id)->first()->kelompok_passing_grade_id;
             $nama_kategori_to = KelompokPassingGrade::find($kategori_to)->nama;
@@ -546,24 +559,38 @@ class TryoutController extends Controller
 
             for ($i=0; $i < $total_jawaban; $i++) {
                 if(isset($value[$i])) {
+                    $user_id = $value[$i]->hasil->user_id;
                     if($id_soal[$i] != $value[$i]->tryout_soal_id) {
                         $temp_raw = [
                             'status' => 'kosong',
-                            'user_id' => $value[$i]->hasil->user_id
+                            'user_id' => $user_id
                         ];
                         $raw_splice = (object) $temp_raw;
                         // array_splice($detail[$indeks_detail], $i, 0, [$raw_splice]);
                         $detail[$indeks_detail]->splice($i, 0, [$raw_splice]);
                     }
                 } else {
-                    $temp_raw = [
-                        'status' => 'kosong',
-                        'user_id' => $value[$i-1]->hasil->user_id
-                    ];
-                    $raw_splice = (object) $temp_raw;
-                    $detail[$indeks_detail]->splice($i, 0, [$raw_splice]);
+                    // if($user_id == 0) {
+                    //     $user_id = $value[$i+1]->hasil->user_id;
+                    // }
+                    if(isset($value[$i-1]->hasil)) {
+                        $temp_raw = [
+                            'status' => 'kosong',
+                            'user_id' => $user_id
+                        ];
+                        $raw_splice = (object) $temp_raw;
+                        $detail[$indeks_detail]->splice($i, 0, [$raw_splice]);
+                    } else {
+                        $temp_raw = [
+                            'status' => 'kosong',
+                            'user_id' => $user_id
+                        ];
+                        $raw_splice = (object) $temp_raw;
+                        $detail[$indeks_detail]->splice($i, 0, [$raw_splice]);
+                    }
                 }
             }
+            $user_id = 0;
             $indeks_detail++;
         }
 
@@ -643,13 +670,13 @@ class TryoutController extends Controller
         
         // Menghitung Poin setiap soal bwang
         foreach ($raw_presentase as $key => $value) {
-            if($value >= 0 && $value < $paket->poin_4) {
+            if($value >= 0 && $value <= $paket->poin_4) {
                 $raw_poin[$key] = 4;
-            } elseif($value >= $paket->poin_4 && $value < $paket->poin_3) {
+            } elseif($value > $paket->poin_4 && $value <= $paket->poin_3) {
                 $raw_poin[$key] = 3;
-            } elseif($value >= $paket->poin_3 && $value < $paket->poin_2) {
+            } elseif($value > $paket->poin_3 && $value <= $paket->poin_2) {
                 $raw_poin[$key] = 2;
-            } elseif($value >= $paket->poin_2) {
+            } elseif($value > $paket->poin_2) {
                 $raw_poin[$key] = 1;
             }
         }
