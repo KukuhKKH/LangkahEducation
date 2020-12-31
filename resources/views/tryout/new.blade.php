@@ -197,7 +197,7 @@
       })
 
       // Deklarasi variabel jika kosong isi dengan object kosong
-      let radioGroups = JSON.parse(localStorage.getItem('selected') || '{}')
+      let radioGroups = JSON.parse(localStorage.getItem(`selected-${gelombang_id}-${user}-${paket_slug}`) || '{}')
 
       // Pilih jawaban yang sudah tersimpan
       Object.values(radioGroups).forEach(function(radioId){
@@ -208,7 +208,7 @@
          // inisialisasi index dan value
          radioGroups[this.name] = this.id;
          // Set value bersamaan dengan name
-         localStorage.setItem("selected", JSON.stringify(radioGroups));
+         localStorage.setItem(`selected-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(radioGroups));
       })
    })
 
@@ -222,7 +222,7 @@
          if(val) {
             // window.location.reload()
             localStorage.removeItem(`waktu-${gelombang_id}-${user}-${paket_slug}`)
-            localStorage.removeItem(`selected`)
+            localStorage.removeItem(`selected-${gelombang_id}-${user}-${paket_slug}`)
             $('#form-data').submit()
          }
       })
@@ -241,7 +241,7 @@
       }).then((result) => {
          if (result.isConfirmed) {
             localStorage.removeItem(`waktu-${gelombang_id}-${user}-${paket_slug}`)
-            localStorage.removeItem(`selected`)
+            localStorage.removeItem(`selected-${gelombang_id}-${user}-${paket_slug}`)
             $('#form-data').submit()
          }
       })
