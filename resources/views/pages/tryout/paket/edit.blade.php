@@ -40,7 +40,7 @@
                         <label for="tgl_awal">Tanggal Awal</label>
                         <input name="tgl_awal" id="tgl_awal" type="text"
                             class="datepicker form-control form-control-user @error('tgl_awal') is-invalid @enderror"
-                            placeholder="Tanggal Awal" value="{{ date('d/m/Y', strtotime($tgl_awal[0])) }}" required>
+                            placeholder="Tanggal Awal" value="{{ date('d/m/Y', strtotime($tgl_awal[0])) }}" autocomplete="off" required>
                         @error('tgl_awal')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -53,7 +53,7 @@
                         <label for="tgl_akhir">Tanggal Akhir</label>
                         <input name="tgl_akhir" id="tgl_akhir" type="text"
                             class="datepicker form-control form-control-user @error('tgl_akhir') is-invalid @enderror"
-                            placeholder="Tanggal Akhir" value="{{ date('d/m/Y', strtotime($tgl_akhir[0])) }}" required>
+                            placeholder="Tanggal Akhir" value="{{ date('d/m/Y', strtotime($tgl_akhir[0])) }}" autocomplete="off" required>
                         @error('tgl_akhir')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -66,7 +66,7 @@
                         <label for="jam_awal">Jam Awal</label>
                         <input name="jam_awal" id="jam-awal" type="text"
                             class="datepicker form-control form-control-user @error('jam_awal') is-invalid @enderror"
-                            placeholder="Jam Awal" value="{{ $tgl_awal[1] }}" required>
+                            placeholder="Jam Awal" value="{{ $tgl_awal[1] }}" autocomplete="off" required>
                         @error('jam_awal')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -79,7 +79,7 @@
                         <label for="jam_akhir">Jam Akhir</label>
                         <input name="jam_akhir" id="jam-akhir" type="text"
                             class="datepicker form-control form-control-user @error('jam_akhir') is-invalid @enderror"
-                            placeholder="Jam Akhir" value="{{ $tgl_akhir[1] }}" required>
+                            placeholder="Jam Akhir" value="{{ $tgl_akhir[1] }}" autocomplete="off" required>
                         @error('jam_akhir')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
