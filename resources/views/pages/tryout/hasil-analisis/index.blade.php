@@ -201,22 +201,50 @@
                                 $totalKosong = 0;    
                                 $totalNilai = 0;    
                             @endphp
-                            @forelse ($tryout->tryout_hasil_detail as $value)
-                            <tr>
-                                <td>{{ $value->kategori_soal->nama }}({{ $value->kategori_soal->kode }})</td>
-                                <td>{{ $value->benar }}</td>
-                                <td>{{ $value->salah }}</td>
-                                <td>{{ $value->kosong }}</td>
-                                <td>{{ $value->nilai }}</td>
-                                <td><a href="{{ route('mentoring.pembahasan',['paket_id' => $value->tryout_paket_id, 'kategori_id' =>  $value->tryout_kategori_soal_id, 'hasil_id' => $value->tryout_hasil_id]) }}"
-                                        class="btn btn-primary">Lihat</a></td>
-                            </tr>
-                            @php
-                                $totalBenar += $value->benar ;    
-                                $totalSalah += $value->salah;    
-                                $totalKosong += $value->kosong ;    
-                                $totalNilai += $value->nilai ;    
-                            @endphp
+                            @forelse ($tryout_kategori_soal as $value)
+                            @if (in_array($value->id, $hasil_to_kategori_id))
+                                @php
+                                    $to_detail = App\Models\TryoutHasilDetail::where('tryout_hasil_id', $tryout->id)
+                                                                ->where('tryout_kategori_soal_id', $value->id)
+                                                                ->first();
+                                @endphp
+                                <tr>
+                                    <td>{{ $to_detail->kategori_soal->nama }}({{ $to_detail->kategori_soal->kode }})</td>
+                                    <td>{{ $to_detail->benar }}</td>
+                                    <td>{{ $to_detail->salah }}</td>
+                                    <td>{{ $to_detail->kosong }}</td>
+                                    <td>{{ $to_detail->nilai }}</td>
+                                    <td><a href="{{ route('mentoring.pembahasan',['paket_id' => $to_detail->tryout_paket_id, 'kategori_id' =>  $to_detail->tryout_kategori_soal_id, 'hasil_id' => $to_detail->tryout_hasil_id]) }}"
+                                            class="btn btn-primary">Lihat</a></td>
+                                </tr>
+                                @php
+                                    $totalBenar += $to_detail->benar;
+                                    $totalSalah += $to_detail->salah;
+                                    $totalKosong += $to_detail->kosong;
+                                    $totalNilai += $to_detail->nilai;
+                                @endphp
+                            @else
+                                @php
+                                    $to_detail = App\Models\TryoutKategoriSoal::find($value)->first();
+                                    $total_soal_kategori = App\Models\TryoutSoal::where('tryout_paket_id', $paket->id)
+                                                                ->where('tryout_kategori_soal_id', $value->id)
+                                                                ->count();
+                                @endphp
+                                <tr>
+                                    <td>{{ $to_detail->nama }}({{ $to_detail->kode }})</td>
+                                    <td>{{ 0 }}</td>
+                                    <td>{{ 0 }}</td>
+                                    <td>{{ $total_soal_kategori }}</td>
+                                    <td>{{ 0 }}</td>
+                                    <td><a href="{{ route('mentoring.pembahasan',['paket_id' => $paket->id, 'kategori_id' =>  $value->id, 'hasil_id' => $tryout->id]) }}" class="btn btn-primary">Lihat</a></td>
+                                </tr>
+                                @php
+                                    $totalBenar += 0;
+                                    $totalSalah += 0;
+                                    $totalKosong += $total_soal_kategori;
+                                    $totalNilai += 0;
+                                @endphp
+                            @endif
                             @empty
                             <tr>
                                 <td colspan="6">Tidak ada data</td>

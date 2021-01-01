@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class TryoutHasil extends Model
 {
     protected $table = "tryout_hasil";
-    protected $fillable = ['user_id', 'gelombang_id', 'tryout_paket_id', 'nilai_awal', 'nilai_sekarang', 'nilai_maksimal'];
+    protected $fillable = ['user_id', 'gelombang_id', 'tryout_paket_id', 'nilai_awal', 'nilai_sekarang', 'nilai_maksimal', 'kelompok_passing_grade_id'];
 
     public function user() {
         return $this->belongsTo('App\Models\User');
