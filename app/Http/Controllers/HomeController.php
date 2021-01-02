@@ -52,11 +52,11 @@ class HomeController extends Controller
             $raw_grafik = StatistikPengunjung::selectRaw("count(id) as total, DAY(created_at) as tanggal")
             ->whereMonth('created_at', date('m'))->groupByRaw("DAY(created_at)")->get()->toArray();
             $bulan = date('F');
-            $label = [];
-            $total = [];
+            $label3 = [];
+            $totals = [];
             foreach ($raw_grafik as $key => $value) {
-                $label[] = $value['tanggal']. " $bulan";
-                $total[] = $value['total'];
+                $label3[] = $value['tanggal']. " $bulan";
+                $totals[] = $value['total'];
             }
             $artikel_publish = Blog::where('user_id', $user->id)->where('status', 1)->count();
             $artikel_draft = Blog::where('user_id', $user->id)->where('status', 0)->count();
@@ -71,6 +71,24 @@ class HomeController extends Controller
             $sudah_komentar = 0;
             $belum_komentar = 0;
             $total_siswa_pg = [];
+
+            $siswaAll = Siswa::all();
+
+            $grafik = [];
+            $label = [];
+            $val = [];
+
+            $grafik2 = [];
+            $label2 = [];
+            $val2 = [];
+            
+            $idKelompok = [];
+            $nmSiswa = [];
+            $id_siswa = [];
+            foreach($siswaAll as $key => $value) {
+                $id_siswa[] = $value->user_id;
+            }
+
             if(request()->get('gelombang') && request()->get('paket')) {
                 $gelombang_id = request()->get('gelombang');
                 $paket_id = request()->get('paket');
@@ -84,10 +102,29 @@ class HomeController extends Controller
                         $belum_komentar++;
                     }
                 }
+                $grafik =  DB::table('temp_prodi_tryout')
+                            ->selectRaw("COUNT(temp_prodi_tryout.id) AS total,  kelompok_passing_grade.nama")
+                            ->join('kelompok_passing_grade', 'temp_prodi_tryout.kelompok_passing_grade_id', '=', 'kelompok_passing_grade.id', 'LEFT')->where('temp_prodi_tryout.gelombang_id', $gelombang_id)->where('temp_prodi_tryout.paket_id', $paket_id)
+                            ->groupBy('kelompok_passing_grade_id')
+                            ->get();
+                $grafik2 = TryoutHasil::selectRaw("count(id) as total, user_id, nilai_sekarang, gelombang_id, tryout_paket_id")->where('gelombang_id', $gelombang_id)->where('tryout_paket_id', $paket_id)->groupBy('nilai_sekarang')->get();
+
                 $total_siswa_pg = $this->total_siswa_pg(request()->get('gelombang'), request()->get('paket'));
             }
 
-            return view('pages.dashboard', compact('sekolah', 'siswa', 'belum_bayar', 'pengunjung', 'label', 'total', 'artikel_publish', 'artikel_draft', 'total_artikel', 'artikelmu_like', 'artikelmu_komentar', 'artikel_like', 'artikel_komentar', 'gelombang', 'sudah_komentar', 'belum_komentar', 'total_siswa_pg'));
+            foreach ($grafik as $key => $value) {
+                $label[] = $value->nama;
+                $val[] = $value->total / 2;
+            }
+            foreach ($grafik2 as $key => $value) {
+                $label2[] = $value->nilai_sekarang;
+                $val2[] = $value->total;
+
+                $nmSiswa[] = User::find($value->user_id)->name;
+                $idKelompok[] = TempProdi::selectRaw('kelompok_passing_grade_id AS idKel')->where('gelombang_id', $value->gelombang_id)->where('paket_id', $value->tryout_paket_id)->where('user_id', $value->user_id)->groupBy('kelompok_passing_grade_id')->first();
+            }
+
+            return view('pages.dashboard', compact('sekolah', 'siswa', 'belum_bayar', 'pengunjung', 'label3', 'totals', 'artikel_publish', 'artikel_draft', 'total_artikel', 'artikelmu_like', 'artikelmu_komentar', 'artikel_like', 'artikel_komentar', 'gelombang', 'sudah_komentar', 'belum_komentar', 'total_siswa_pg', 'idKelompok', 'nmSiswa', 'label', 'val', 'label2', 'val2'));
 
         } elseif($user->getRoleNames()->first() == 'siswa') {
             $pg1 = $pg2 = $nilai_user = $nil_pg1 = $nil_pg2 = 0;

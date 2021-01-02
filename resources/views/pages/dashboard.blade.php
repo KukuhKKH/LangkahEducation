@@ -90,7 +90,7 @@
                 <!-- Card Body -->
                 <div class="card-body">
                     <div class="chart-area">
-                        <canvas id="myAreaChart"></canvas>
+                        <canvas id="myPengunjung"></canvas>
                     </div>
                 </div>
             </div>
@@ -115,7 +115,7 @@
                         </select>
                     </div>
                     <div class="col-xl-5">
-                        <select name="paket" id="paket" class="form-control i" autocomplete="off">
+                        <select name="paket" id="paket" class="form-control" autocomplete="off">
                             <option value="" selected disabled>-- Pilih Paket --</option>
                         </select>
                     </div>
@@ -186,6 +186,46 @@
                             <div class="col-auto">
                                 <i class="fas fa-rocket fa-2x text-gray-300"></i>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-8">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                                <h6 class="m-0 font-weight-bold text-primary">Grafik Nilai Siswa</h6>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="row justify-content-end">
+                                    <div class="col-xl-12" style="height: 275px">
+                                        <canvas id="myAreaChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h6 class="m-0 font-weight-bold text-primary">Penyebaran Kelompok</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-pie pt-4 pb-2">
+                            <canvas id="myPersaingan"></canvas>
+                        </div>
+                        <div class="mt-4 text-center small">
+                            <span class="mr-2">
+                                <i class="fas fa-circle text-primary"></i> SAINTEK
+                            </span>
+                            <span class="mr-2">
+                                <i class="fas fa-circle text-success"></i> SOSHUM
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -665,11 +705,11 @@
     {{-- <script src="{{ asset('assets/js/chart-pengunjung-harian.js') }}"></script> --}}
     @hasanyrole('superadmin|admin')
         <script>
-            var ctx = document.getElementById("myAreaChart");
-            var myLineChart = new Chart(ctx, {
+            var ctx3 = document.getElementById("myPengunjung");
+            var myLineChart = new Chart(ctx3, {
             type: 'line',
             data: {
-                labels: {!!     json_encode($label ?? []) !!},
+                labels: {!!     json_encode($label3 ?? []) !!},
                 datasets: [{
                 label: "Total Pengunjung",
                 lineTension: 0.3,
@@ -683,7 +723,7 @@
                 pointHoverBorderColor: "rgba(51, 51, 51, 1)",
                 pointHitRadius: 10,
                 pointBorderWidth: 2,
-                data: {!! json_encode($total ?? []) !!},
+                data: {!! json_encode($totals ?? []) !!},
                 }],
             },
             options: {
@@ -744,6 +784,7 @@
             }
             });
         </script>
+
     @endhasanyrole
 
     @hasanyrole('siswa')
@@ -760,7 +801,7 @@
             $siswaKategori = [];
             for ($i=0; $i <count($nama_paket) ; $i++) { 
                 $paket = $nama_paket[$i];
-                $kategori = $nmKelompok[$i];
+                $kategori = strtoupper($nmKelompok[$i]);
                 $siswaKategori[]=$paket."\n(".$kategori.")";
             }
         @endphp
@@ -796,7 +837,7 @@
         </script>
     @endhasanyrole
 
-    @hasanyrole('mentor')
+    @hasanyrole('mentor|superadmin|admin')
         @php
             $nmKelompok= [];
         @endphp
@@ -810,8 +851,8 @@
             $siswaKategori = [];
             for ($i=0; $i <count($nmKelompok) ; $i++) { 
                 $siswa = $nmSiswa[$i];
-                $kategori = $nmKelompok[$i];
-                $siswaKategori[]=$siswa." (".$kategori.")";
+                $kategori = strtoupper($nmKelompok[$i]);
+                $siswaKategori[]=$siswa."\n(".$kategori.")";
             }
         @endphp
         <script>

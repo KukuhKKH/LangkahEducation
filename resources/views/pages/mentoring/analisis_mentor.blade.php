@@ -359,7 +359,7 @@
     let data_riwayat = {
         labels: {!! json_encode($nama_paket) !!},
         datasets: [{
-            label: "Nilai",
+            label: "Presentase Nilai ({{ Str::upper($kelompok->nama) }})",
             lineTension: 0.3,
             backgroundColor: "rgba(236, 184, 17, 0.05)",
             borderColor: "rgba(236, 184, 17, 1)",
