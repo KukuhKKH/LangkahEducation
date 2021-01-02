@@ -116,15 +116,33 @@ class MentoringController extends Controller
                                 ->where('user_id', $user_id)
                                 ->where('tryout_paket_id', $paket->id)
                                 ->find($id);
-            // $passing_grade = PassingGrade::with('universitas')->latest()->get();
-            if($request->get('kelompok')) {
-                $kelompok = KelompokPassingGrade::find($request->get('kelompok'));
+            if($tryout->nilai_maksimal_new == 0) {
+                return redirect()->back()->with(['error' => 'Tryout Belum Dikoreksi sistem']);
+            }
+            $raw_kelompok = $request->get('kelompok');
+            if($raw_kelompok) {
+                $kelompok = KelompokPassingGrade::find($raw_kelompok);
                 $passing_grade = PassingGrade::with('universitas')->whereHas('kelompok', function($q) use($kelompok) {
                     $q->where('id', $kelompok->id);
                 })->latest()->get();
             } else {
                 $kelompok = '';
                 $passing_grade = PassingGrade::with('universitas')->latest()->get();
+            }
+            $nilai_by_user = TryoutHasil::with(['user', 'paket', 'tryout_hasil_jawaban', 'tryout_hasil_detail'])->where('user_id', $user_id)->get();
+            if($raw_kelompok) {
+                if($raw_kelompok != 3) {
+                    $nilai_by_user = TryoutHasil::with([
+                                'user', 'tryout_hasil_jawaban', 'tryout_hasil_detail', 'paket.temp'
+                                ])
+                                ->whereHas('paket.temp', function($q) use($raw_kelompok, $user_id) {
+                                    $q->where('kelompok_passing_grade_id', $raw_kelompok)->where('user_id', $user_id);
+                                })->where('user_id', auth()->user()->id)->get();
+
+                    $saingan = TryoutHasil::whereHas('paket.temp', function($q) use($raw_kelompok) {
+                        $q->where('kelompok_passing_grade_id', $raw_kelompok);
+                    })->where('tryout_paket_id', $paket->id)->with(['user'])->orderBy('nilai_awal', 'ASC')->get();
+                }
             }
             $saingan = TryoutHasil::where('tryout_paket_id', $paket->id)->with(['user'])->get();
 
@@ -137,8 +155,10 @@ class MentoringController extends Controller
             $nilai_grafik = [];
             $nama_paket = [];
             foreach ($nilai_by_user as $key => $value) {
-                $nilai_grafik[] = $value->nilai_awal;
-                $nama_paket[] = $value->paket->nama;
+                if($value->nilai_maksimal_new > 0) {
+                    $nilai_grafik[] = round(($value->nilai_sekarang/$value->nilai_maksimal_new)*100, 2);
+                    $nama_paket[] = $value->paket->nama;
+                }
             }
 
             // Data Grafik Saingan
@@ -146,17 +166,21 @@ class MentoringController extends Controller
             $nilai_saingan = [];
             foreach ($saingan as $key => $value) {
                 $nama_saingan[] = $value->user->name;
-                $nilai_saingan[] = $value->nilai_awal;
+                $nilai_saingan[] = $value->nilai_sekarang;
             }
 
             if($request->get('prodi-1') && $request->get('prodi-2')) {
                 $pg1 = PassingGrade::find($request->get('prodi-1'));
                 $pg2 = PassingGrade::find($request->get('prodi-2'));
-                $nilai_awal = $tryout->nilai_awal;
-                $nilai_max = $tryout->nilai_maksimal;
+                $nilai_awal = (int)$tryout->nilai_sekarang;
+                $nilai_max = (int)$tryout->nilai_maksimal_new;
                 $nilai_user = round($nilai_awal/$nilai_max * 100, 2);
-                $nil_pg1 = ($pg1->passing_grade/100)*$nilai_max;
-                $nil_pg2 = ($pg2->passing_grade/100)*$nilai_max;
+                $nilai_pg1 = (double)trim($pg1->passing_grade);
+                $nilai_pg2 = (double)trim($pg2->passing_grade);
+                // $nil_pg1 = ($nilai_pg1/100)*$nilai_max;
+                // $nil_pg2 = ($nilai_pg2/100)*$nilai_max;
+                $nil_pg1 = $nilai_pg1;
+                $nil_pg2 = $nilai_pg2;
             } else {
                 $pg1 = $pg2 = $nilai_user = $nil_pg1 = $nil_pg2 = 0;
             }
@@ -167,7 +191,6 @@ class MentoringController extends Controller
             $kelompok_all = KelompokPassingGrade::all();
             $universitas = Universitas::all();
             return view('pages.mentoring.analisis_mentor', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket' ,'komentar', 'nil_pg1', 'nil_pg2', 'kelompok', 'kelompok_all', 'universitas', 'user_siswa'));
-            // return view('pages.mentoring.analisis_mentor', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket' ,'komentar', 'nil_pg1', 'nil_pg2', 'kelompok', 'siswaID'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }

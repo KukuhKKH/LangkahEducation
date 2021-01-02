@@ -3,9 +3,14 @@
 
 @section('content')
 <div class="row">
+@php
+$kosong = false
+@endphp
 @forelse($gelombang as $value)
-
     @if ($today > $value->tgl_awal && $today < $value->tgl_akhir)
+    @php
+        $kosong = false
+    @endphp
         <div class="col-xl-6">
             <div class="card shadow mb-4">
                 <div class="card-body p-4">
@@ -34,8 +39,12 @@
                 </div>
             </div>
         </div>
+    @else
+    @php
+        $kosong = true
+    @endphp
     @endif
-    @empty
+@empty
     <div class="col-xl-12">
         <div class="text-center">
             <img class="img-fluid w-25 my-4" src="{{asset('assets/img/empty-illustration.svg')}}" alt="">
@@ -43,6 +52,14 @@
         </div>
     </div>
 @endforelse
+@if($kosong)
+<div class="col-xl-12">
+        <div class="text-center">
+            <img class="img-fluid w-25 my-4" src="{{asset('assets/img/empty-illustration.svg')}}" alt="">
+            <h3>Yahh.. Saat ini belum ada dibuka Pendaftaran</h3>
+        </div>
+    </div>
+@endif
 </div>
 
 <!-- <div class="card shadow mb-4">
