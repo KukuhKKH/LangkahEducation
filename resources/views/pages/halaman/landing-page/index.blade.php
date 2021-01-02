@@ -370,22 +370,75 @@
 
 @endsection
 @section('js')
-<script src="{{ asset('assets/vendor/ckeditor/ckeditor.js') }}"></script>
+{{-- <script src="{{ asset('assets/vendor/ckeditor/ckeditor.js') }}"></script> --}}
+<script src="{{ asset('assets/vendor/tinymce/tinymce.min.js') }}"></script>
 <script>
-    const option = {
-        filebrowserImageBrowseUrl: '/filemanager?type=Images',
-        filebrowserImageUploadUrl: '/filemanager/upload?type=Images&_token=',
-        filebrowserBrowseUrl: '/filemanager?type=Files',
-        filebrowserUploadUrl: '/filemanager/upload?type=Files&_token='
-    }
+    // const option = {
+    //     filebrowserImageBrowseUrl: '/filemanager?type=Images',
+    //     filebrowserImageUploadUrl: '/filemanager/upload?type=Images&_token=',
+    //     filebrowserBrowseUrl: '/filemanager?type=Files',
+    //     filebrowserUploadUrl: '/filemanager/upload?type=Files&_token='
+    // }
 
-    CKEDITOR.replace('tentang_kami', option)
+    // CKEDITOR.replace('tentang_kami', option)
     // CKEDITOR.replace('headline_produk', option)
     // CKEDITOR.replace('headline_blog', option)
     // CKEDITOR.replace('headline_testimoni', option)
     // CKEDITOR.replace('headline_biaya', option)
     // CKEDITOR.replace('biaya_individu', option)
     // CKEDITOR.replace('biaya_sekolah', option)
+
+    const editor_config = {
+        selector: '#tentang_kami',
+        directionality: document.dir,
+        path_absolute: "/",
+        menubar: 'edit insert view format table',
+        plugins: [
+            "advlist autolink lists link image charmap preview hr anchor pagebreak",
+            "searchreplace wordcount visualblocks visualchars code fullscreen",
+            "insertdatetime media save table contextmenu directionality",
+            "paste textcolor colorpicker textpattern"
+        ],
+        toolbar: "insertfile undo redo | formatselect styleselect | bold italic strikethrough forecolor backcolor permanentpen formatpainter | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media | fullscreen code",
+        relative_urls: false,
+        language: document.documentElement.lang,
+        height: 200,
+        paste_data_images: true,
+        // images_upload_url: "/filemanager/upload?type=Images&_token=" + $('meta[name="csrf-token"]').attr('content'),
+        file_browser_callback : function (field_name, url, type, win) {
+            var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body').clientWidth;
+            var y = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body').clientHeight;
+
+            var cmsURL = editor_config.path_absolute + 'filemanager?field_name=' + field_name;
+            if (type == 'image') {
+                cmsURL = cmsURL + "&type=Images&_token=" + $('meta[name="csrf-token"]').attr('content')
+            } else {
+                cmsURL = cmsURL + "&type=Files&_token=" + $('meta[name="csrf-token"]').attr('content')
+            }
+
+            tinyMCE.activeEditor.windowManager.open({
+                file: cmsURL,
+                title: 'Filemanager',
+                width: x * 0.8,
+                height: y * 0.8,
+                resizable: "yes",
+                close_previous: "no"
+            });
+        },
+        paste_preprocess: async function(plugin, args) {
+            let editor = tinyMCE.activeEditor
+            editor.selection.collapse()
+            let url_blob = args.content
+            let match_string = url_blob.match(/"([^']+)"/)[1]
+            let size_blob = await fetch(match_string).then(r => r.blob())
+            if(size_blob.size > 1000000) {
+                Swal.fire('Error!','Maaf Gambar Harus Kurang dari 1 MB','error')
+                $(editor.dom.doc).find('img[src^="'+match_string+'"]').remove()
+            }
+        }
+    }
+
+    tinymce.init(editor_config)
 
     $('#inputFileHero').on('change', function (e) {
         var fileName = e.target.files[0].name;

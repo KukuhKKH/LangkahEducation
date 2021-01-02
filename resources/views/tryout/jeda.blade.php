@@ -55,7 +55,7 @@
             <div class="card p-3">
                <form action="{{ route('tryout.mulai', ['gelombang_id' => $gelombang_id, 'slug' => $paket->slug, 'token' => $user_token]) }}" method="get" id="form-data">
                @csrf
-               <input type="hidden" name="lanjut" value="woks bruh">
+               <input type="hidden" name="lanjut" value="sg apik tulisane">
                   <div class="card-body">
                       <div class="text-center mb-3">
                           <h4 class="h4 font-weight-bold text-success">Kamu Telah Selesai Mengerjakan Soal Tes Potensi Akademik</h4>

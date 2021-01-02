@@ -170,6 +170,7 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        // Spatie\Csp\CspServiceProvider::class,
 
         /*
          * Application Service Providers...
