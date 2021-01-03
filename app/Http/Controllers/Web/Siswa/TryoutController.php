@@ -789,7 +789,7 @@ class TryoutController extends Controller
 
     public function riwayat_tryout() {
         $user = auth()->user();
-        $riwayat = TryoutHasil::with(['user', 'paket', 'gelombang'])->where('user_id', $user->id)->latest()->get();
+        $riwayat = TryoutHasil::with(['user', 'paket', 'gelombang'])->where('user_id', $user->id)->latest()->paginate(9);
         return view('pages.siswa.tryout.riwayat', compact('riwayat'));
     }
 

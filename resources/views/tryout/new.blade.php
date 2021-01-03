@@ -164,6 +164,8 @@
 @endsection
 
 @section('js')
+{{-- <script src="{{ asset('assets/vendor/jquery-cookie/jquery.cookie.js') }}"></script> --}}
+<script src="{{ asset('assets/vendor/js.cookie-2.2.1.min.js') }}"></script>
 <script src="{{ asset('assets/vendor/moment.js') }}"></script>
 <script>
    // window.onbeforeunload = function () {return false;}
@@ -171,14 +173,27 @@
    const paket_slug = `{{ $paket->slug }}`
    const gelombang_id = `{{ request()->segment(2) }}`
    const user = `{{ auth()->user()->name }}`
+   let radioGroups
+   let waktu
    $(document).ready(function() {
-      let waktu = localStorage.getItem(`waktu-${gelombang_id}-${user}-${paket_slug}`)
+      if(isSafari) {
+         waktu = Cookies.get(`waktu-${gelombang_id}-${user}-${paket_slug}`)  
+      } else {
+         waktu = localStorage.getItem(`waktu-${gelombang_id}-${user}-${paket_slug}`)
+      }
       let compSiswaWaktu = document.querySelector('.sisawaktu')
       if(waktu != null) {
          compSiswaWaktu.setAttribute('data-time', waktu)
       } else {
          const waktu_sekarang = moment().add('{{ $waktu }}', 'minutes').format('YYYY-MM-D H:mm:ss')
-         localStorage.setItem(`waktu-${gelombang_id}-${user}-${paket_slug}`, waktu_sekarang)
+         if(isSafari) {
+            // 6 Jam
+            Cookies.set(`waktu-${gelombang_id}-${user}-${paket_slug}`, waktu_sekarang, {
+               expires: 12/48
+            })
+         } else {
+            localStorage.setItem(`waktu-${gelombang_id}-${user}-${paket_slug}`, waktu_sekarang)
+         }
          compSiswaWaktu.setAttribute('data-time', waktu_sekarang)
       }
 
@@ -197,7 +212,11 @@
       })
 
       // Deklarasi variabel jika kosong isi dengan object kosong
-      let radioGroups = JSON.parse(localStorage.getItem(`selected-${gelombang_id}-${user}-${paket_slug}`) || '{}')
+      if(isSafari) {
+         radioGroups = JSON.parse(Cookies.get(`selected-${gelombang_id}-${user}-${paket_slug}`) || '{}')
+      } else {
+         radioGroups = JSON.parse(localStorage.getItem(`selected-${gelombang_id}-${user}-${paket_slug}`) || '{}')
+      }
 
       // Pilih jawaban yang sudah tersimpan
       Object.values(radioGroups).forEach(function(radioId){
@@ -208,7 +227,13 @@
          // inisialisasi index dan value
          radioGroups[this.name] = this.id;
          // Set value bersamaan dengan name
-         localStorage.setItem(`selected-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(radioGroups));
+         if(isSafari) {
+            Cookies.set(`selected-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(radioGroups), {
+               expires: 12/48
+            })
+         } else {
+            localStorage.setItem(`selected-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(radioGroups));
+         }
       })
    })
 
@@ -221,8 +246,13 @@
       }).then(function (val) {
          if(val) {
             // window.location.reload()
-            localStorage.removeItem(`waktu-${gelombang_id}-${user}-${paket_slug}`)
-            localStorage.removeItem(`selected-${gelombang_id}-${user}-${paket_slug}`)
+            if(isSafari) {
+               Cookies.remove(`waktu-${gelombang_id}-${user}-${paket_slug}`)
+               Cookies.remove(`selected-${gelombang_id}-${user}-${paket_slug}`)
+            } else {
+               localStorage.removeItem(`waktu-${gelombang_id}-${user}-${paket_slug}`)
+               localStorage.removeItem(`selected-${gelombang_id}-${user}-${paket_slug}`)
+            }
             $('#form-data').submit()
          }
       })
@@ -240,8 +270,13 @@
          confirmButtonText: 'Ya!'
       }).then((result) => {
          if (result.isConfirmed) {
-            localStorage.removeItem(`waktu-${gelombang_id}-${user}-${paket_slug}`)
-            localStorage.removeItem(`selected-${gelombang_id}-${user}-${paket_slug}`)
+            if(isSafari) {
+               Cookies.remove(`waktu-${gelombang_id}-${user}-${paket_slug}`)
+               Cookies.remove(`selected-${gelombang_id}-${user}-${paket_slug}`)
+            } else {
+               localStorage.removeItem(`waktu-${gelombang_id}-${user}-${paket_slug}`)
+               localStorage.removeItem(`selected-${gelombang_id}-${user}-${paket_slug}`)
+            }
             $('#form-data').submit()
          }
       })

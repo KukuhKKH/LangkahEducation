@@ -152,7 +152,7 @@
       // selesai();
       swal.fire({
          icon: 'error',
-         text: 'Waktu Ujian telah habis',
+         text: 'Waktu Jeda telah habis',
          type: 'warning'
       }).then(function (val) {
          if(val) {

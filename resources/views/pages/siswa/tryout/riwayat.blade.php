@@ -79,6 +79,7 @@
                   @endif
             </div>
          </div>
+         {{ $riwayat->links() }}
       </div>
       @empty
       <div class="col-xl-12 text-center p-5">
