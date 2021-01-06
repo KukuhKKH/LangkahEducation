@@ -85,7 +85,9 @@
                   <th>Nama Siswa</th>
                   <th>Gelombang</th>
                   <th>Biaya</th>
+                  @if (request()->segment(3) != 'belum-bayar')
                   <th>Bank</th>
+                  @endif
                   <th>Status</th>
                   <th width="25%">Aksi</th>
                </tr>
@@ -97,7 +99,9 @@
                   <th>Nama Siswa</th>
                   <th>Gelombang</th>
                   <th>Biaya</th>
+                  @if (request()->segment(3) != 'belum-bayar')
                   <th>Bank</th>
+                  @endif
                   <th>Status</th>
                   <th width="25%">Aksi</th>
                </tr>
@@ -110,7 +114,9 @@
                   <td>{{ $value->user->name }}</td>
                   <td>{{ $value->gelombang->nama }}</td>
                   <td>Ini Diisi Biaya</td>
+                  @if ($value->status != 0)
                   <td>Ini Diisi Nama Bank</td>
+                  @endif
                   
                   <td>
                      @if (count($value->pembayaran_bukti) > 0)
@@ -183,7 +189,7 @@
                </tr>
                @empty
                <tr>
-                  <td colspan="5">
+                  <td colspan="8">
                      <div class="text-center mb-3 p-5 bg-light">
                         <img class="mb-3" height="50px" src="{{asset('assets/img/null-icon.svg')}}" alt="">
                         <h6>Tidak Ada Pembayaran</h6>
