@@ -54,35 +54,38 @@ class PembayaranController extends Controller
     public function show(Request $request, $status)
     {
         try {
+            $user = Auth::user();
+            $role = $user->getRoleNames()->first();
+            $query = Pembayaran::query();
+            $keyword = $request->get('keyword');
+            $admin = "";
+            if($role == 'admin') {
+                $admin = DB::table('admin_pembayaran')->select('pembayaran_id')->where('user_id', '=', $user->id)->get()->pluck('pembayaran_id')->toArray();
+                if(empty($admin)) {
+                    $admin = [0];
+                }
+            }
             if($status == 'sudah-bayar') {
-                if($request->get('keyword') != '') {
-                    $pembayaran = Pembayaran::whereHas('user', function($q) use($request) {
-                        $nama = $request->get('keyword');
-                        $q->where('name', 'LIKE', "%$nama%");
-                    })->where('status', 1)->orWhere('status', 2)->orderBy('id', 'DESC')->paginate(10);
-                } else {
-                    $pembayaran = Pembayaran::where('status', 1)->orWhere('status', 2)->orderBy('id', 'DESC')->paginate(10);
-                }
+                $query->when($keyword, function($q) use($keyword) {
+                    $q->where('name', 'LIKE', "%$keyword%");
+                })->when($admin, function($q) use($admin) {
+                    $q->whereIn('id', $admin);
+                })->where('status', 1)->orWhere('status', 2)->orderBy('id', 'DESC');
             } else if($status == 'belum-bayar'){
-                if($request->get('keyword') != '') {
-                    $pembayaran = Pembayaran::whereHas('user', function($q) use($request) {
-                        $nama = $request->get('keyword');
-                        $q->where('name', 'LIKE', "%$nama%");
-                    })->where('status', 0)->orderBy('id', 'DESC')->paginate(10);
-                } else {
-                    $pembayaran = Pembayaran::where('status', 0)->orderBy('id', 'DESC')->paginate(10);
-                }
+                $query->when($keyword, function($q) use($keyword) {
+                    $q->where('name', 'LIKE', "%$keyword%");
+                })->when($admin, function($q) use($admin) {
+                    $q->whereIn('id', $admin);
+                })->where('status', 0)->orderBy('id', 'DESC');
             }
             else if($status == 'ditolak'){
-                if($request->get('keyword') != '') {
-                    $pembayaran = Pembayaran::whereHas('user', function($q) use($request) {
-                        $nama = $request->get('keyword');
-                        $q->where('name', 'LIKE', "%$nama%");
-                    })->where('status', 3)->orderBy('id', 'DESC')->paginate(10);
-                } else {
-                    $pembayaran = Pembayaran::where('status', 3)->orderBy('id', 'DESC')->paginate(10);
-                }
+                $query->when($keyword, function($q) use($keyword) {
+                    $q->where('name', 'LIKE', "%$keyword%");
+                })->when($admin, function($q) use($admin) {
+                    $q->whereIn('id', $admin);
+                })->where('status', 3)->orderBy('id', 'DESC');
             }
+            $pembayaran = $query->paginate(10);
             $data = $request->all();
             return view('pages.pembayaran.show', compact('pembayaran', 'data'));
         } catch(\Exception $e) {

@@ -11,6 +11,7 @@ use App\Models\LandingPage;
 use App\Models\Mentoring;
 use App\Models\Pembayaran;
 use App\Models\TryoutHasil;
+use Illuminate\Support\Facades\DB;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -44,7 +45,17 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('total_pembayaran', $total_pembayaran);
                 $view->with('chat_masuk', $chat_masuk);
             } elseif($role == 'superadmin' || $role == 'admin') {
-                $pembayaran_notif = Pembayaran::selectRaw("COALESCE(count(CASE WHEN status = 0 THEN id END), 0) as total_belum, COALESCE(count(CASE WHEN status = 1 THEN id END), 0) as total_sudah, COALESCE(count(CASE WHEN status = 3 THEN id END), 0) as total_tolak")->first();
+                $query = Pembayaran::query();
+                $query->selectRaw("COALESCE(count(CASE WHEN status = 0 THEN id END), 0) as total_belum, COALESCE(count(CASE WHEN status = 1 THEN id END), 0) as total_sudah, COALESCE(count(CASE WHEN status = 3 THEN id END), 0) as total_tolak");
+                if($role == 'admin') {
+                    $admin_id = DB::table('admin_pembayaran')
+                            ->select('pembayaran_id')
+                            ->where('user_id', '=', $user->id)
+                            ->get()
+                            ->pluck('pembayaran_id')->toArray();
+                    $query->whereIn('id', $admin_id);
+                }
+                $pembayaran_notif = $query->first();
                 $view->with('pembayaran_notif', $pembayaran_notif);
             } elseif($role == 'mentor') {
                 $chat_masuk = Mentoring::where('mentor_id', $user->mentor->id)->where('status', 0)->where('pengirim', 'siswa')->get();

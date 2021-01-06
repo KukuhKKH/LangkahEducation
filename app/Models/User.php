@@ -97,4 +97,8 @@ class User extends Authenticatable
     public function like() {
         return $this->belongsToMany('App\Models\Blog', 'blog_like');
     }
+
+    public function admin_bayar() {
+        return $this->belongsToMany('App\Models\Pembayaran', 'admin_pembayaran', 'user_id', 'pembayaran_id');
+    }
 }

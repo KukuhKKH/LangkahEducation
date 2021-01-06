@@ -67,6 +67,9 @@
                            <a href="{{ route('admin.edit', $value->id) }}" class="btn btn-success my-1" data-toggle="tooltip" data-placement="top" title="Edit">
                               <i class="fas fa-edit"></i>
                            </a>
+                           <a href="{{ route('admin.show', $value->id) }}" class="btn btn-warning my-1" data-toggle="tooltip" data-placement="top" title="Integrasi Pembayaran">
+                              <i class="fas fa-fw fa-money-bill"></i>
+                           </a>
                            <button type="button" data-id="{{ $value->id }}" class="btn btn-danger my-1 hapus" data-toggle="tooltip" data-placement="top" title="Hapus">
                               <i class="fas fa-trash"></i>
                            </button>

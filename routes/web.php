@@ -81,7 +81,7 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                 Route::group(['namespace' => 'User'], function () {
                     Route::resource('mentor', 'MentorController');
                     Route::resource('sekolah', 'SekolahController')->except(['create']);
-                    Route::resource('admin', 'AdminController')->except(['create', 'show']);
+                    Route::resource('admin', 'AdminController')->except(['create']);
                     Route::resource('superadmin', 'SuperadminController')->except(['create', 'show']);
                     Route::resource('siswa', 'SiswaController')->except(['create', 'show']);
                     Route::resource('author', 'AuthorController')->except(['create', 'show']);
@@ -96,6 +96,10 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                     Route::get('sekolah/produk/{id}', 'SekolahController@integrasi_produk')->name('sekolah.produk');
                     Route::post('sekolah/tryout/{id}', 'SekolahController@integrasi_tryout_store')->name('sekolah.tryout.store');
                     Route::post('sekolah/produk/{id}', 'SekolahController@integrasi_produk_store')->name('sekolah.produk.store');
+
+                    Route::get('admin-pembayaran-integrasi/{id}', 'AdminController@integrasi_pembayaran')->name('admin.pembayaran');
+                    Route::post('admin-pembayaran-integrasi/{id}', 'AdminController@store_integrasi')->name('store.admin.pembayaran');
+                    Route::get('admin-pembayaran-integrasi/hapus/{id?}', 'AdminController@hapus_integrasi')->name('admin.pembayaran.hapus');
                 });
             });
 

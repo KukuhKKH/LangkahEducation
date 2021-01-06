@@ -20,4 +20,8 @@ class Pembayaran extends Model
     public function gelombang() {
         return $this->belongsTo('App\Models\Gelombang');
     }
+
+    public function admin_bayar() {
+        return $this->belongsToMany('App\Models\Pembayaran', 'admin_pembayaran', 'user_id', 'pembayaran_id');
+    }
 }

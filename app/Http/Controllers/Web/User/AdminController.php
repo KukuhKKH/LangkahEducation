@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Web\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AdminCreateRequest;
 use App\Http\Requests\Admin\AdminUpdateRequest;
+use App\Models\Pembayaran;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -42,6 +45,58 @@ class AdminController extends Controller
             })->latest()->paginate(10);
         }
         return view('pages.users.admin.index', compact("admin", "data"));
+    }
+
+    /**
+     * Show halaman integrasi admin ke pembayaran
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id) {
+        try {
+            $user = User::find($id);
+            $pembayaran = $user->admin_bayar()->paginate(10);
+            return view('pages.users.admin.bayar', compact('user', 'pembayaran'));
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
+    }
+
+    /**
+     * Show halaman integrasi admin ke pembayaran
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function integrasi_pembayaran($id) {
+        try {
+            $user = User::find($id);
+            $id_bayar = DB::table('admin_pembayaran')->select('pembayaran_id')->get()->pluck('pembayaran_id')->toArray();
+            $pembayaran = Pembayaran::with(['user', 'gelombang'])->whereNotIn('id', $id_bayar)->paginate(10);
+            return view('pages.users.admin.integrasi_pembayaran', compact('user', 'pembayaran'));
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function store_integrasi(Request $request, $id) {
+        try {
+            $user = User::find($id);
+            $user->admin_bayar()->attach($request->pembayaran_id);
+            return redirect()->route('admin.show', $id)->with(['success' => 'Berhasil integrasi pembayaran ke admin']);
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function hapus_integrasi($id) {
+        try {
+            DB::table('admin_pembayaran')->where('pembayaran_id', '=', $id)->delete();
+            return redirect()->back()->with(['success' => 'Berhasil hapus integrasi pembayaran ke admin']);
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -136,6 +191,9 @@ class AdminController extends Controller
     public function destroy($id)
     {
         try {
+            DB::table('admin_pembayaran')
+                    ->where('user_id', '=', $id)
+                    ->delete();
             User::find($id)->delete();
             return \redirect()->back()->with(['success' => "Berhasil hapus admin"]);
         } catch(\Exception $e) {
