@@ -42,10 +42,10 @@ class SoalImportBatch implements ToModel, WithStartRow
             throw new \Exception($errMessage);
         }
         
-        if(empty($row[2])){
-            $errMessage = 'Mohon pastikan kolom Pembahasan tidak kosong.';
-            throw new \Exception($errMessage);
-        }
+        // if(empty($row[2])){
+        //     $errMessage = 'Mohon pastikan kolom Pembahasan tidak kosong.';
+        //     throw new \Exception($errMessage);
+        // }
 
         if(empty($row[3])){
             $errMessage = 'Mohon pastikan kolom Jawaban A tidak kosong.';
@@ -93,7 +93,7 @@ class SoalImportBatch implements ToModel, WithStartRow
             'soal' => $row[1],
         ],[
             'user_id' => Auth::user()->id,
-            'pembahasan' => $row[2],
+            'pembahasan' => $row[2] ?? '',
             'benar' => 4,
             'salah' => $row[9],
         ]);

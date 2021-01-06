@@ -59,6 +59,7 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                 Route::resource('universitas/passing-grade', 'PassingGradeController');
                 Route::resource('pendaftaran', 'PendaftaranController')->except(['create', 'show']);
                 Route::resource('pembayaran', 'PembayaranController')->except(['create']);
+                Route::get('pembayaran/{id_pembayaran}/detail-admin', 'PembayaranController@get_detail')->name('pembayaran-admin-detail');
                 // Route::get('pembayaran/{status}', 'PembayaranController@index')->name('pembayaran.index');
                 Route::get('pembayaran-siswa/status/{id}/{status}', 'PembayaranController@set_status');
                 Route::resource('gambar', 'GambarController')->except(['create', 'show']);
@@ -106,6 +107,7 @@ Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function
                 route::post('universitas/import', 'UniversitasController@import')->name('universitas.import');
                 route::post('passing-grade/import', 'PassingGradeController@import')->name('passing-grade.import');
                 Route::post('sekolah/nisn/import', 'User\SekolahNisnController@import')->name('sekolah.nisn.import');
+                Route::post('pembayaran/export', 'PembayaranController@export_all')->name('pembayaran.export');
 
                 // Tryout Route
                 Route::group(['namespace' => 'Tryout', 'prefix' => 'tryout'], function () {

@@ -25,7 +25,7 @@ class SoalCreate extends FormRequest
     {
         return [
             'soal' => 'required',
-            'pembahasan' => 'required',
+            'pembahasan' => 'nullable',
             // 'nilai_benar' => 'required',
             'nilai_salah' => 'required|integer',
 

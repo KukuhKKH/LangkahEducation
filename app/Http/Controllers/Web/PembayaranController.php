@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Exports\PembayaranExport;
 use App\Http\Controllers\Controller;
 use App\Models\Bank;
 use App\Models\Gelombang;
@@ -123,6 +124,21 @@ class PembayaranController extends Controller
         //
     }
 
+    public function get_detail($id) {
+        try {
+            $pembayaran = PembayaranBukti::with('pembayaran.user')->where('pembayaran_id', $id)->first();
+            return view('pages.pembayaran.pembayaran-detail', compact('pembayaran'));
+        } catch(\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function export_all(Request $request) {
+        $data = Pembayaran::with(['user.siswa', 'pembayaran_bukti.bank', 'gelombang'])
+                            ->whereBetween('created_at', [$request->tgl_awal, $request->tgl_akhir])->get();
+        return (new PembayaranExport($data))->download(date('d-M-Y')."-pembyaran.xlsx");
+    }
+
     public function siswa(Request $request) {
         try {
             $pembayaran = Auth::user()->pembayaran()->latest()->paginate(10);
@@ -176,14 +192,16 @@ class PembayaranController extends Controller
             // $rekening = Bank::where('bayar', $bayar);
             return view('pages.pembayaran.pembayaran', compact('pembayaran', 'rekening'));
         } catch(\Exception $e) {
+            dd($e);
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
     }
 
     public function siswa_show($pembayaran_id, $slug) {
         try {
+            $bank = Bank::all();
             $pembayaran = Auth::user()->pembayaran()->with(['user', 'gelombang'])->find($pembayaran_id);
-            return view('pages.pembayaran.siswa_show', compact('pembayaran'));
+            return view('pages.pembayaran.siswa_show', compact('pembayaran', 'bank'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
@@ -202,7 +220,8 @@ class PembayaranController extends Controller
             DB::beginTransaction();
             PembayaranBukti::create([
                 'pembayaran_id' => $id,
-                'bukti' => $request->bukti
+                'bukti' => $request->bukti,
+                'bank_id' => $request->bank_id ?? 0
             ]);
             $pembayaran = Pembayaran::find($id);
             $pembayaran->update([

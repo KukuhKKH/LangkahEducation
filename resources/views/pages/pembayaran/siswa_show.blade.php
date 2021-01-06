@@ -17,6 +17,14 @@
                  <form action="{{ route('pembayaran.siswa.bayar', $pembayaran->id) }}" method="post" enctype="multipart/form-data">
                   @csrf
                      <div class="form-group">
+                        <label for="">Bank</label>
+                        <select name="bank_id" id="bank_id" class="form-control">
+                           @foreach ($bank as $value)
+                               <option value="{{ $value->id }}">{{ $value->nama }}</option>
+                           @endforeach
+                        </select>
+                     </div>
+                     <div class="form-group">
                         <label for="">Bukti Transfer</label>
                         <div class="input-group mb-3">
                            <div class="custom-file">

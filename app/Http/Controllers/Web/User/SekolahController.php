@@ -173,12 +173,31 @@ class SekolahController extends Controller
     public function destroy($id)
     {
         try {
+            // Cascade harus di hapus dahulu
             $sekolah = Sekolah::find($id);
-            $sekolah->siswa()->delete();
+            foreach ($sekolah->siswa as $key => $value) {
+                $siswa = Siswa::find($value->id);
+                $siswa->update([
+                    'batch' => 0
+                ]);
+                DB::table('siswa_has_sekolah')
+                        ->where('siswa_id', '=', $value->id)
+                        ->delete();
+                DB::table('siswa_has_mentor')
+                        ->where('siswa_id', '=', $value->id)
+                        ->delete();
+            }
+            DB::table('sekolah_tryout')
+                        ->where('sekolah_id', '=', $sekolah->id)
+                        ->delete();
+            DB::table('sekolah_has_gelombang')
+                        ->where('sekolah_id', '=', $sekolah->id)
+                        ->delete();
             $sekolah->delete();
             $sekolah->user()->delete();
             return \redirect()->back()->with(['success' => "Berhasil hapus sekolah"]);
         } catch(\Exception $e) {
+            dd($e);
             return \redirect()->back()->with(['error' => $e->getMessage()]);
         }
     }
