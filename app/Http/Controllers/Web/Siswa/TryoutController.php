@@ -534,7 +534,8 @@ class TryoutController extends Controller
                 $komentar = Komentar::where('tryout_hasil_id', $tryout->id)->first();
                 $kelompok_all = KelompokPassingGrade::all();
                 $universitas = Universitas::all();
-                return view('pages.tryout.hasil-analisis.index', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket', 'komentar', 'nil_pg1', 'nil_pg2', 'kelompok', 'kelompok_all', 'universitas', 'tryout_kategori_soal', 'hasil_to_kategori_id'));
+                $gelombang = Gelombang::find($gelombang_id);
+                return view('pages.tryout.hasil-analisis.index', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket', 'komentar', 'nil_pg1', 'nil_pg2', 'kelompok', 'kelompok_all', 'universitas', 'tryout_kategori_soal', 'hasil_to_kategori_id', 'gelombang'));
             } else {
                 return redirect()->back()->with(['error' => 'Try Out Belum Dikoreksi Sistem']);
             }
