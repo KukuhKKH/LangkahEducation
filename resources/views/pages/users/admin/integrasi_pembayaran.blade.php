@@ -7,12 +7,12 @@
 <div class="card shadow mb-4">
    <div class="card-header py-3">
       <div class="d-flex justify-content-between mb-1">
-         <h6 class="m-0 font-weight-bold text-primary">Admin - Pembayaran ke User {{ $user->name }}</h6>
+         <h6 class="m-0 font-weight-bold text-primary">Admin - Pembayaran ke {{ $user->name }}</h6>
       </div>
    </div>
    <div class="card-body">
-      <button class="btn btn-success mb-4" id="ceklist-semua">Ceklist Semua</button>
-      <button class="btn btn-danger mb-4" id="unceklist-semua">Unceklist Semua</button>
+      <button class="btn btn-success mb-4" id="ceklist-semua">Check All</button>
+      <button class="btn btn-light text-danger mb-4" id="unceklist-semua">Reset</button>
       <form action="{{ route('store.admin.pembayaran', $user->id) }}" method="post">
          @csrf
          @forelse ($pembayaran as $value)

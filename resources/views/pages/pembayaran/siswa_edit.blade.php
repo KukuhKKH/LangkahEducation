@@ -12,12 +12,19 @@
         </div>
         <div class="card-body">
            <div class="row">
-              <div class="col-md-6">
+              <div class="col-xl-12">
                  <form action="{{ route('pembayaran.siswa.update', $pembayaran->id) }}" method="post" enctype="multipart/form-data">
                      @csrf
                      @method('PUt')
-                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="form-group">
+                           <label for="">Ubah Bank Tujuan</label>
+                           <select name="bank_id" id="bank_id" class="form-control">
+                              <option value="" disabled selected>== Ubah Bank Tujuan ==</option>
+                              @foreach ($bank as $value)
+                                  <option value="{{ $value->id }}">{{ $value->nama }}</option>
+                              @endforeach
+                           </select>
+                        </div>
                            <div class="form-group">
                               <label for="">Bukti Transfer</label>
                               <div class="custom-file">
@@ -30,8 +37,6 @@
                                  <label id="labelBukti" class="custom-file-label " for="inputGroupFile02">Choose file</label>
                                </div>
                            </div>
-                        </div>
-                     </div>
                      <a href="{{ route('pembayaran.siswa') }}" class="btn btn-dark">Kembali</a>
                      <button class="btn btn-primary">Kirim</button>
                  </form>

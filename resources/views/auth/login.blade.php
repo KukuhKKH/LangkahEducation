@@ -71,7 +71,7 @@
                                     <a class="small" href="{{ route('register') }}">Saya Belum Punya Akun, Daftar!</a>
                                 </div>
                                 @endif
-                                <div class="text-center mt-4">
+                                <div class="text-center mt-2">
                                     <a class="small text-langkah" href="{{ url('/') }}">Kembali Ke Beranda</a>
                                 </div>
                             </div>

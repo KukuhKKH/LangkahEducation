@@ -1,25 +1,30 @@
 @extends('layouts.dashboard-app')
-@section('title', 'Pembayaran '.strtoupper(request()->segment(3)))
+{{-- @section('title', 'Pembayaran '.strtoupper(request()->segment(3))) --}}
+@section('title', 'Pembayaran - '.ucwords(str_replace('-', ' ', request()->segment(3))))
 
 @section('content')
-<h1 class="h3 mb-2 text-gray-800">Pembayaran {{ strtoupper(request()->segment(3)) }}</h1>
-
 <div class="card shadow mb-4">
-   <div class="card-header py-3">
-      <div class="d-flex justify-content-between mb-1">
-         <h6 class="m-0 font-weight-bold text-primary">Pembayaran {{ strtoupper(request()->segment(3)) }}</h6>
+   <div class="card-header ">
+      <div class="row align-items-center">
+         <div class="col-6">
+            <h6 class="m-0 font-weight-bold text-primary">Pembayaran - {{ ucwords(str_replace('-', ' ', request()->segment(3))) }}</h6>
+         </div>
+         <div class="col-6 text-right">
+               <a href="{{ route('pembayaran.show', request()->segment(3)) }}"
+                  class="btn btn-lght text-danger">Refresh</a>
+         </div>
       </div>
    </div>
    <div class="card-body">
-      @if (strtoupper(request()->segment(3)) == "SUDAH-BAYAR")
+      @if (strtoupper(request()->segment(3)) == "SUDAH-DIVERIFIKASI")
       <form action="{{ route('pembayaran.export') }}" method="POST" class="mb-4">
          @csrf
          <div class="row">
             <div class="col-md-5">
-               <input type="text" placeholder="Tanggal Awal" class="form-control datepicker" id="tgl_awal" name="tgl_awal">
+               <input type="text" placeholder="Tanggal Awal" class="form-control datepicker" id="tgl_awal" name="tgl_awal" autocomplete="off">
             </div>
             <div class="col-md-5">
-               <input type="text" placeholder="Tanggal Akhir" class="form-control datepicker" id="tgl_akhir" name="tgl_akhir">
+               <input type="text" placeholder="Tanggal Akhir" class="form-control datepicker" id="tgl_akhir" name="tgl_akhir" autocomplete="off">
             </div>
             <div class="col-md-2">
                <button class="btn btn-success">Export</button>
@@ -27,9 +32,32 @@
          </div>
       </form>
       @endif
+      
       <form action="" method="GET">
          <div class="row mb-4 justify-content-end align-items-center">
-            <div class="col-xl-5">
+            <div class="col-xl-3">
+               <select name="gelombang" id="gelombang" class="form-control">
+                  <option value="0" disabled selected>== Semua Gelombang ==</option>
+                  @foreach ($gelombang as $value)
+                      <option value="{{ $value->id }}">{{ $value->nama }}</option>
+                  @endforeach
+               </select>
+            </div>
+            <div class="col-xl-3">
+               <select name="bank_id" id="bank_id" class="form-control">
+                  <option value="0" disabled selected>== Semua Bank ==</option>
+                  @foreach ($bank as $value)
+                      <option value="{{ $value->id }}">{{ $value->nama }}</option>
+                  @endforeach
+               </select>
+            </div>
+            <div class="col-xl-3">
+               <select name="time" id="time" class="form-control">
+                  <option value="0" selected>Terbaru</option>
+                  <option value="1">Terlama</option>
+               </select>
+            </div>
+            <div class="col-xl-3">
                <div class="input-group">
                   <input type="text" name="keyword" class="form-control" placeholder="Masukkan Nama Siswa"
                      aria-label="Masukkan Nama Siswa" aria-describedby="basic-addon2">
@@ -38,10 +66,6 @@
                   </div>
                </div>
             </div>
-            <div class="col-xl-auto">
-               <a href="{{ route('pembayaran.show', request()->segment(3)) }}"
-                  class="btn btn-lght text-danger my-1">Refresh</a>
-            </div>
          </div>
       </form>
       <div class="table-responsive">
@@ -49,8 +73,11 @@
             <thead>
                <tr>
                   <th>No</th>
+                  <th>Tgl</th>
                   <th>Nama Siswa</th>
                   <th>Gelombang</th>
+                  <th>Biaya</th>
+                  <th>Bank</th>
                   <th>Status</th>
                   <th width="25%">Aksi</th>
                </tr>
@@ -58,8 +85,11 @@
             <tfoot>
                <tr>
                   <th>No</th>
+                  <th>Tgl</th>
                   <th>Nama Siswa</th>
                   <th>Gelombang</th>
+                  <th>Biaya</th>
+                  <th>Bank</th>
                   <th>Status</th>
                   <th width="25%">Aksi</th>
                </tr>
@@ -68,19 +98,23 @@
                @forelse($pembayaran as $value)
                <tr>
                   <td>{{ $loop->iteration }}</td>
+                  <td>Ini Diisi Tanggal</td>
                   <td>{{ $value->user->name }}</td>
                   <td>{{ $value->gelombang->nama }}</td>
+                  <td>Ini Diisi Biaya</td>
+                  <td>Ini Diisi Nama Bank</td>
+                  
                   <td>
                      @if (count($value->pembayaran_bukti) > 0)
                      @if ($value->status == 1)
-                     <span class="badge badge-success p-2">Sudah Upload Bukti Pembayaran</span>
+                     <span class="badge badge-success p-2">Sudah Upload</span>
                      @elseif($value->status == 2)
-                     <span class="badge badge-success p-2">Pembayaran Telah Diverifikasi</span>
+                     <span class="badge badge-success p-2">Telah Diverifikasi</span>
                      @elseif($value->status == 3)
-                     <span class="badge badge-danger p-2">Pembayaran Ditolak</span>
+                     <span class="badge badge-danger p-2">Ditolak</span>
                      @endif
                      @else
-                     <span class="badge badge-danger p-2">Balum Upload Bukti Pembayaran</span>
+                     <span class="badge badge-danger p-2">Belum Upload</span>
                      @endif
                   </td>
                   <td>

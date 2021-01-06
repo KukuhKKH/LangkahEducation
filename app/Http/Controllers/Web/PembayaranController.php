@@ -87,7 +87,10 @@ class PembayaranController extends Controller
             }
             $pembayaran = $query->paginate(10);
             $data = $request->all();
-            return view('pages.pembayaran.show', compact('pembayaran', 'data'));
+            $bank = Bank::where('bayar', 1)->get();
+            $gelombang = Gelombang::where('jenis', 1)->get();
+
+            return view('pages.pembayaran.show', compact('pembayaran', 'data',  'bank', 'gelombang'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
@@ -139,7 +142,7 @@ class PembayaranController extends Controller
     public function export_all(Request $request) {
         $data = Pembayaran::with(['user.siswa', 'pembayaran_bukti.bank', 'gelombang'])
                             ->whereBetween('created_at', [$request->tgl_awal, $request->tgl_akhir])->get();
-        return (new PembayaranExport($data))->download(date('d-M-Y')."-pembyaran.xlsx");
+        return (new PembayaranExport($data))->download(date('d-M-Y')."-pembayaran.xlsx");
     }
 
     public function siswa(Request $request) {
@@ -202,7 +205,7 @@ class PembayaranController extends Controller
 
     public function siswa_show($pembayaran_id, $slug) {
         try {
-            $bank = Bank::all();
+            $bank = Bank::where('bayar', 1)->get();
             $pembayaran = Auth::user()->pembayaran()->with(['user', 'gelombang'])->find($pembayaran_id);
             return view('pages.pembayaran.siswa_show', compact('pembayaran', 'bank'));
         } catch(\Exception $e) {
@@ -240,8 +243,9 @@ class PembayaranController extends Controller
 
     public function siswa_edit($id) {
         try {
+            $bank = Bank::where('bayar', 1)->get();
             $pembayaran = Pembayaran::with(['user', 'gelombang'])->find($id);
-            return view('pages.pembayaran.siswa_edit', compact('pembayaran'));
+            return view('pages.pembayaran.siswa_edit', compact('pembayaran', 'bank'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
@@ -261,7 +265,8 @@ class PembayaranController extends Controller
             DB::beginTransaction();
             $pembayaran_bukti = PembayaranBukti::where('pembayaran_id', $id)->first();
             $pembayaran_bukti->update([
-                'bukti' => $request->file
+                'bukti' => $request->file,
+                'bank_id' => $request->bank_id ?? 0
             ]);
             DB::commit();
             return redirect()->route('pembayaran.siswa')->with(['success' => 'Berhasil edit bukti transfer']);

@@ -17,8 +17,9 @@
                  <form action="{{ route('pembayaran.siswa.bayar', $pembayaran->id) }}" method="post" enctype="multipart/form-data">
                   @csrf
                      <div class="form-group">
-                        <label for="">Bank</label>
+                        <label for="">Bank Tujuan</label>
                         <select name="bank_id" id="bank_id" class="form-control">
+                           <option value="" disabled selected>== Pilih Bank Tujuan ==</option>
                            @foreach ($bank as $value)
                                <option value="{{ $value->id }}">{{ $value->nama }}</option>
                            @endforeach
