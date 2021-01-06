@@ -86,10 +86,10 @@
                                     @endforeach
                                  </ol>
 
-                           <div class="mt-4 bg-light p-4" id="pembahasan">
+                           {{-- <div class="mt-4 bg-light p-4" id="pembahasan">
                               <h6 class="font-weight-bold">Pembahasan :</h6>
                               {!! $value->pembahasan !!}
-                           </div>
+                           </div> --}}
                         </div>
                         <?php $i++; ?>
                         <?php $k++; ?>

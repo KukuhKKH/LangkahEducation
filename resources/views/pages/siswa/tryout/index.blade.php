@@ -132,11 +132,23 @@
                         </div>
                     </div>
                 </div>
+            @else
+                @php
+                    $kosong = true;
+                @endphp
             @endif
+        @else
+            @php
+                $kosong = true;
+            @endphp
         @endif
     @endforeach
 @empty
-    @if ($kosong)
+    @php
+        $kosong = true;
+    @endphp
+@endforelse
+@if ($kosong)
         <div class="col-xl-12 text-center p-5">
             <img class="img-fluid" src="{{asset('assets/img/empty-illustration.svg')}}" alt="">
             @if (auth()->user()->siswa->batch == 1)
@@ -147,6 +159,5 @@
             @endif
         </div>
     @endif
-@endforelse
 </div>
 @endsection

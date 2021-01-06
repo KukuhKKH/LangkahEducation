@@ -96,7 +96,7 @@
         </a>
     </li>
 
-    <li class="nav-item">
+    <li class="nav-item {{ request()->is('dashboard/riwayat-tryout') ? 'active' : "" }}">
         <a class="nav-link" href="{{ route('tryout.history') }}">
             <i class="fas fa-fw fa-history"></i>
             <span>Riwayat Try Out</span>

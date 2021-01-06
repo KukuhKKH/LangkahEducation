@@ -45,12 +45,9 @@ $kosong = false
     @endphp
     @endif
 @empty
-    <div class="col-xl-12">
-        <div class="text-center">
-            <img class="img-fluid w-25 my-4" src="{{asset('assets/img/empty-illustration.svg')}}" alt="">
-            <h3>Yahh.. Saat ini belum ada dibuka Pendaftaran</h3>
-        </div>
-    </div>
+    @php
+        $kosong = true
+    @endphp
 @endforelse
 @if($kosong)
 <div class="col-xl-12">
