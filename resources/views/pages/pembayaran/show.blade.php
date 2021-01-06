@@ -3,6 +3,30 @@
 @section('title', 'Pembayaran - '.ucwords(str_replace('-', ' ', request()->segment(3))))
 
 @section('content')
+@if (strtoupper(request()->segment(3)) == "SUDAH-BAYAR")
+<form action="{{ route('pembayaran.export') }}" method="POST" class="mb-4">
+   @csrf
+   <div class="row">
+      <div class="col-xl-3">
+         <select name="gelombang" id="gelombang" class="form-control">
+            <option value="0" disabled selected>== Semua Gelombang ==</option>
+            @foreach ($gelombang as $value)
+                <option value="{{ $value->id }}">{{ $value->nama }}</option>
+            @endforeach
+         </select>
+      </div>
+      <div class="col-xl-3">
+         <input type="text" placeholder="Tanggal Awal" class="form-control datepicker" id="tgl_awal" name="tgl_awal" autocomplete="off">
+      </div>
+      <div class="col-md-3">
+         <input type="text" placeholder="Tanggal Akhir" class="form-control datepicker" id="tgl_akhir" name="tgl_akhir" autocomplete="off">
+      </div>
+      <div class="col-md-2">
+         <button class="btn btn-success">Export</button>
+      </div>
+   </div>
+</form>
+@endif
 <div class="card shadow mb-4">
    <div class="card-header ">
       <div class="row align-items-center">
@@ -16,25 +40,9 @@
       </div>
    </div>
    <div class="card-body">
-      @if (strtoupper(request()->segment(3)) == "SUDAH-DIVERIFIKASI")
-      <form action="{{ route('pembayaran.export') }}" method="POST" class="mb-4">
-         @csrf
-         <div class="row">
-            <div class="col-md-5">
-               <input type="text" placeholder="Tanggal Awal" class="form-control datepicker" id="tgl_awal" name="tgl_awal" autocomplete="off">
-            </div>
-            <div class="col-md-5">
-               <input type="text" placeholder="Tanggal Akhir" class="form-control datepicker" id="tgl_akhir" name="tgl_akhir" autocomplete="off">
-            </div>
-            <div class="col-md-2">
-               <button class="btn btn-success">Export</button>
-            </div>
-         </div>
-      </form>
-      @endif
-      
+   
       <form action="" method="GET">
-         <div class="row mb-4 justify-content-end align-items-center">
+         <div class="row mb-4 align-items-center">
             <div class="col-xl-3">
                <select name="gelombang" id="gelombang" class="form-control">
                   <option value="0" disabled selected>== Semua Gelombang ==</option>
@@ -51,7 +59,7 @@
                   @endforeach
                </select>
             </div>
-            <div class="col-xl-3">
+            <div class="col-xl-2">
                <select name="time" id="time" class="form-control">
                   <option value="0" selected>Terbaru</option>
                   <option value="1">Terlama</option>
