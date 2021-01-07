@@ -158,7 +158,14 @@
                     },
                     ticks: {
                         scaleBeginAtZero: true,
-                        maxTicksLimit: 7
+                        maxTicksLimit: 7,
+                        callback: function(tick) {
+                            var characterLimit = 10;
+                            if ( tick.length >= characterLimit) {
+                                return tick.slice(0, tick.length).substring(0, characterLimit -1).trim() + '...';;
+                            } 
+                            return tick;
+                        }   
                     }
                 }],
                 yAxes: [{
@@ -261,7 +268,7 @@
             legend: {
                 display: false
             }
-        }
+        };
     </script>
 
     @yield('js')
