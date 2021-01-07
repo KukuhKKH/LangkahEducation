@@ -217,7 +217,7 @@
                     </div>
                     <div class="card-body">
                         <div class="chart-pie pt-4 pb-2">
-                            <canvas id="myPersaingan"></canvas>
+                            <canvas id="myPenyebaran"></canvas>
                         </div>
                         <div class="mt-4 text-center small">
                             <span class="mr-2">
@@ -527,7 +527,7 @@
                     </div>
                     <div class="card-body">
                         <div class="chart-pie pt-4 pb-2">
-                            <canvas id="myPersaingan"></canvas>
+                            <canvas id="myPenyebaran"></canvas>
                         </div>
                         <div class="mt-4 text-center small">
                             <span class="mr-2">
@@ -895,6 +895,10 @@
     @hasanyrole('mentor|superadmin|admin')
         @php
             $nmKelompok= [];
+            $labelSoshum = [];
+            $labelSaintek = [];
+            $valSoshum = [];
+            $valSaintek = [];
         @endphp
         @foreach ($idKelompok as $item)
             @php
@@ -907,14 +911,21 @@
                 $siswa = $nmSiswa[$i];
                 $kategori = strtoupper($nmKelompok[$i]);
                 $siswaKategori[]=$siswa."\n(".$kategori.")";
+                if($kategori == "SAINTEK"){
+                    $valSaintek[] = $label2[$i];
+                    $labelSaintek[] = $siswa."\n(".$kategori.")";
+                }else if($kategori == "SOSHUM"){
+                    $valSoshum[] = $label2[$i];
+                    $labelSoshum[] = $siswa."\n(".$kategori.")";
+                }
             }
         @endphp
         <script>
-            var ctx = document.getElementById("myPersaingan");
+            var ctx = document.getElementById("myPenyebaran");
             var myPieChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: {!! json_encode($label ?? []) !!},
+                    labels: ["SAINTEK", "SOSHUM"],
                     datasets: [{
                         data: {!! json_encode($val ?? []) !!},
                         backgroundColor: ['#4e73df', '#1cc88a'],
@@ -944,13 +955,13 @@
             // Grafik Persaingan Saintek
             let ctxSaintek = document.getElementById("mySaintekChart");
             let data_saingan = {
-                // labels: {!! json_encode($label2 ?? []) !!},
-                labels: {!! json_encode($siswaKategori ?? []) !!},
+                // labels: {!! json_encode($siswaKategori ?? []) !!},
+                labels: {!! json_encode($labelSaintek ?? []) !!},
                 datasets: [{
                     backgroundColor: "#4e73df",
                     hoverBackgroundColor: "#2e59d9",
                     borderColor: "#4e73df",
-                    data: {!! json_encode($label2 ?? []) !!},
+                    data: {!! json_encode($valSaintek ?? []) !!},
                 }],
             }
             new Chart(ctxSaintek, {
@@ -963,12 +974,12 @@
             let ctxSoshum = document.getElementById("mySoshumChart");
             let data_saingan2 = {
                 // labels: {!! json_encode($label2 ?? []) !!},
-                labels: {!! json_encode($siswaKategori ?? []) !!},
+                labels: {!! json_encode($labelSoshum ?? []) !!},
                 datasets: [{
                     backgroundColor: "#1cc88a",
                     hoverBackgroundColor: "#18b87e",
                     borderColor: "#1cc88a",
-                    data: {!! json_encode($label2 ?? []) !!},
+                    data: {!! json_encode($valSoshum ?? []) !!},
                 }],
             }
             new Chart(ctxSoshum, {

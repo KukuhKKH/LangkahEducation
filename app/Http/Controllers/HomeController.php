@@ -215,19 +215,20 @@ class HomeController extends Controller
                 
                 $data = $this->total_siswa_pg($gelombang_id, $paket_id, $id_siswa);
                 
+            }
+            $nSaintek = 0;
+            $nSoshum = 0;
 
-                // $grafik =  DB::table('temp_prodi_tryout')
-                // ->selectRaw("COUNT(temp_prodi_tryout.id) AS total, kelompok_passing_grade.nama")
-                // ->join('kelompok_passing_grade', 'temp_prodi_tryout.kelompok_passing_grade_id', '=', 'kelompok_passing_grade.id', 'LEFT')->where('temp_prodi_tryout.gelombang_id', $gelombang_id)->where('temp_prodi_tryout.paket_id', $paket_id)->where('temp_prodi_tryout.kelompok_passing_grade_id', $kategori)
-                // ->whereIn('user_id', $id_siswa)
-                // ->groupBy('kelompok_passing_grade_id')
-                // ->get();
-            }
-            
             foreach ($grafik as $key => $value) {
-                $label[] = $value->nama;
-                $val[] = $value->total / 2;
+                if(strtoupper($value->nama) == 'SAINTEK'){
+                    $nSaintek = $value->total / 2;
+                }else if(strtoupper($value->nama) == 'SOSHUM'){
+                    $nSoshum = $value->total / 2;
+                }
             }
+            $val[] = $nSaintek;
+            $val[] = $nSoshum;
+
             foreach ($grafik2 as $key => $value) {
                 $label2[] = $value->nilai_sekarang;
                 $val2[] = $value->total;
@@ -246,7 +247,7 @@ class HomeController extends Controller
             $artikel_like = Blog::withCount('like')->with('like')->where('status', 1)->orderBy('like_count', 'DESC')->limit(3)->get();
             $artikel_komentar = Blog::withCount('komentar')->with('komentar')->where('status', 1)->orderBy('komentar_count', 'DESC')->limit(3)->get();
 
-            return view('pages.dashboard', compact('total_siswa', 'nilai_tertinggi', 'label', 'val', 'label2', 'val2', 'artikel_publish', 'artikel_draft', 'total_artikel', 'artikelmu_like', 'artikelmu_komentar', 'artikel_like', 'artikel_komentar', 'data', 'gelombang', 'sudah_komentar', 'belum_komentar', 'gelSekolah', 'rata', 'nmSiswa', 'idKelompok'));
+            return view('pages.dashboard', compact('total_siswa', 'nilai_tertinggi', 'label', 'val', 'label2', 'val2', 'artikel_publish', 'artikel_draft', 'total_artikel', 'artikelmu_like', 'artikelmu_komentar', 'artikel_like', 'artikel_komentar', 'data', 'gelombang', 'sudah_komentar', 'belum_komentar', 'gelSekolah', 'rata', 'nmSiswa', 'idKelompok', 'nSaintek', 'nSoshum'));
             
         } elseif($user->getRoleNames()->first() == 'author') {
             $user = auth()->user();
