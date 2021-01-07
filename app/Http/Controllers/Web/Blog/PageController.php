@@ -46,8 +46,12 @@ class PageController extends Controller
     }
 
     public function detail($slug) {
+        $user = auth()->user();
         try {
             $artikel = Blog::with(['like', 'user'])->findSlug($slug);
+            if($artikel->status == 0 && $artikel->user_id != $user->id){
+                abort(404);
+            }
             $komentar = KomentarBlog::where('blog_id', $artikel->id)->latest()->get();
             $kategori = $artikel->kategori()->pluck('nama')->toArray();
             Blog::wherehas('kategori', function($q) use($kategori) {

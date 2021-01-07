@@ -20,12 +20,20 @@
     </div>
     <div class="card-body">
         <form action="" method="GET">
-            <div class="row mb-4 justify-content-end align-items-center">
+            <div class="row mb-4 align-items-center justify-content-between">
                 <div class="col-xl-5">
+                    @hasanyrole('superadmin|admin')
+                    <select class="form-control" name="show">
+                        <option value="me">Artikel Saya</option>
+                        <option value="all">Semua Artikel</option>
+                      </select>
+                    @endhasanyrole
+                </div>
+                <div class="col-xl-5 text-right mt-2">
                     <div class="input-group">
                         <input type="text" name="keyword" class="form-control" placeholder="Masukkan Judul Artikel" aria-label="Masukkan Judul Artikel" aria-describedby="basic-addon2">
                         <div class="input-group-append">
-                          <button class="btn btn-primary" type="submit">Cari</button>
+                          <button class="btn btn-primary" type="submit">Tampil</button>
                         </div>
                      </div>
                 </div>
@@ -39,10 +47,11 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Judul</th>
+                        <th width="25%">Judul</th>
+                        <th>Penulis</th>
                         <th>Status</th>
                         <th>Tanggal Upload</th>
-                        <th>Aksi</th>
+                        <th width="25%">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,6 +59,7 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $value->judul }}</td>
+                        <td>{{ $value->user->name }}</td>
                         <td>
                             @if ($value->status)
                                 <div class="badge badge-success">Publish</div>
@@ -80,7 +90,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="5">
+                        <td colspan="6">
                             <div class="text-center mb-3 p-5 bg-light">
                                 <img class="mb-3" height="50px" src="{{asset('assets/img/null-icon.svg')}}" alt="">
                                 <h6>Tidak Ada Artikel</h6>
@@ -93,10 +103,11 @@
                 <tfoot>
                     <tr>
                         <th>No</th>
-                        <th>Judul</th>
+                        <th width="25%">Judul</th>
+                        <th>Penulis</th>
                         <th>Status</th>
                         <th>Tanggal Upload</th>
-                        <th>Aksi</th>
+                        <th width="25%">Aksi</th>
                     </tr>
                 </tfoot>
             </table>
