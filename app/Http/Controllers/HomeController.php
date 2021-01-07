@@ -157,7 +157,7 @@ class HomeController extends Controller
             return view('pages.dashboard', compact('kelompok', 'passing_grade', 'nilai_grafik', 'nama_paket', 'pg1', 'pg2', 'nilai_user', 'nil_pg1', 'nil_pg2', 'idKelompok'));
         } elseif($user->getRoleNames()->first() == 'mentor') {
             $gelSekolah = Gelombang::where('jenis', 2)->get();
-            $user = auth()->user();
+            $user = auth()->user(); 
             $total_siswa = $user->mentor->siswa()->count();
             // Iki user_id tapi seng tergabung pada mentor
 
@@ -303,11 +303,13 @@ class HomeController extends Controller
             $pg1 = PassingGrade::find($temp[0]->passing_grade_id)->passing_grade;
             $pg2 = PassingGrade::find($temp[1]->passing_grade_id)->passing_grade;
             // skor siswa >= skormaksimal * PG_prodi1
-            $minimal_pg1 = $pg1*$value->nilai_maksimal_new;
-            $minimal_pg2 = $pg2*$value->nilai_maksimal_new;
+            $minimal_pg1 = $pg1*$value->nilai_maksimal_new/100;
+            $minimal_pg2 = $pg2*$value->nilai_maksimal_new/100;
+
             if($value->nilai_sekarang >= $minimal_pg1) {
                 $total_lolos_1++;
             }
+
             if($value->nilai_sekarang >= $minimal_pg2) {
                 $total_lolos_2++;
             }

@@ -445,47 +445,102 @@
                     </div>
                 </div>
             </div>
-        @endif
-    </div>
-    <div class="row mb-4">
-        <div class="col-xl-8">
-            <div class="card">
-                <div class="card-header">
-                    <h6 class="m-0 font-weight-bold text-primary">Grafik Nilai Siswa</h6>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-xl-12">
-                            <div class="row justify-content-end">
-                                <div class="col-xl-12" style="height: 275px">
-                                    <canvas id="myAreaChart"></canvas>
+
+            <div class="col-xl-8">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h6 class="m-0 font-weight-bold text-primary">Grafik Nilai Siswa - Saintek</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="row justify-content-end">
+                                    <div class="col-xl-12" style="height: 275px">
+                                        <canvas id="mySaintekChart"></canvas>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-xl-4">
-            <div class="card">
-                <div class="card-header">
-                    <h6 class="m-0 font-weight-bold text-primary">Penyebaran Kelompok</h6>
-                </div>
-                <div class="card-body">
-                    <div class="chart-pie pt-4 pb-2">
-                        <canvas id="myPersaingan"></canvas>
+    
+            <div class="col-xl-4">
+                <div class="row">
+                    <div class="col-xl-12 mb-4">
+                        <div class="card border-left-primary shadow h-100 py-2 ">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            Nilai Maksimal - Saintek</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $belum_komentar ?? 0 }}</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-user-circle fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mt-4 text-center small">
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-primary"></i> SAINTEK
-                        </span>
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-success"></i> SOSHUM
-                        </span>
+                    <div class="col-xl-12">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            Nilai Maksimal - Soshum</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $belum_komentar ?? 0 }}</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-user-circle fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+            
+            <div class="col-xl-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h6 class="m-0 font-weight-bold text-primary">Grafik Nilai Siswa - Soshum</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="row justify-content-end">
+                                    <div class="col-xl-12" style="height: 275px">
+                                        <canvas id="mySoshumChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h6 class="m-0 font-weight-bold text-primary">Penyebaran Kelompok</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-pie pt-4 pb-2">
+                            <canvas id="myPersaingan"></canvas>
+                        </div>
+                        <div class="mt-4 text-center small">
+                            <span class="mr-2">
+                                <i class="fas fa-circle text-primary"></i> SAINTEK
+                            </span>
+                            <span class="mr-2">
+                                <i class="fas fa-circle text-success"></i> SOSHUM
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
 @endhasanyrole
 @hasanyrole('author|superadmin|mentor|admin')
@@ -844,7 +899,6 @@
         @foreach ($idKelompok as $item)
             @php
                 $nmKelompok[]= App\Models\KelompokPassingGrade::find($item->idKel)->nama;
-
             @endphp
         @endforeach
         @php
@@ -887,8 +941,8 @@
                 },
             });
             
-            // Grafik Persaingan
-            let ctx2 = document.getElementById("myAreaChart");
+            // Grafik Persaingan Saintek
+            let ctxSaintek = document.getElementById("mySaintekChart");
             let data_saingan = {
                 // labels: {!! json_encode($label2 ?? []) !!},
                 labels: {!! json_encode($siswaKategori ?? []) !!},
@@ -899,9 +953,27 @@
                     data: {!! json_encode($label2 ?? []) !!},
                 }],
             }
-            new Chart(ctx2, {
+            new Chart(ctxSaintek, {
                 type: 'bar',
                 data: data_saingan,
+                options: barOption2
+            })
+
+            // Grafik Persaingan Soshum
+            let ctxSoshum = document.getElementById("mySoshumChart");
+            let data_saingan2 = {
+                // labels: {!! json_encode($label2 ?? []) !!},
+                labels: {!! json_encode($siswaKategori ?? []) !!},
+                datasets: [{
+                    backgroundColor: "#1cc88a",
+                    hoverBackgroundColor: "#18b87e",
+                    borderColor: "#1cc88a",
+                    data: {!! json_encode($label2 ?? []) !!},
+                }],
+            }
+            new Chart(ctxSoshum, {
+                type: 'bar',
+                data: data_saingan2,
                 options: barOption2
             })
         </script>
