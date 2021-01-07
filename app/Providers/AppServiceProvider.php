@@ -46,7 +46,7 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('chat_masuk', $chat_masuk);
             } elseif($role == 'superadmin' || $role == 'admin') {
                 $query = Pembayaran::query();
-                $query->selectRaw("COALESCE(count(CASE WHEN status = 0 THEN id END), 0) as total_belum, COALESCE(count(CASE WHEN status = 1 THEN id END), 0) as total_sudah, COALESCE(count(CASE WHEN status = 3 THEN id END), 0) as total_tolak");
+                $query->selectRaw("COALESCE(count(CASE WHEN status = 0 THEN id END), 0) as total_belum, COALESCE(count(CASE WHEN status = 1 THEN id END), 0) as total_sudah, COALESCE(count(CASE WHEN status = 3 THEN id END), 0) as total_tolak, COALESCE(count(CASE WHEN status = 2 THEN id END), 0) as total_verifikasi");
                 if($role == 'admin') {
                     $admin_id = DB::table('admin_pembayaran')
                             ->select('pembayaran_id')

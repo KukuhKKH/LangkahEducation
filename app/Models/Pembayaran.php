@@ -8,6 +8,7 @@ class Pembayaran extends Model
 {
     protected $table = 'pembayaran';
     protected $fillable = ['user_id', 'gelombang_id', 'kode_transfer', 'status'];
+    protected $with = ['pembayaran_bukti'];
 
     public function user() {
         return $this->belongsTo('App\Models\User');

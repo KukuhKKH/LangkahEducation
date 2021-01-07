@@ -3,13 +3,13 @@
 @section('title', 'Pembayaran - '.ucwords(str_replace('-', ' ', request()->segment(3))))
 
 @section('content')
-@if (strtoupper(request()->segment(3)) == "SUDAH-BAYAR")
+@if (request()->segment(3) == "sudah-verifikasi")
 <form action="{{ route('pembayaran.export') }}" method="POST" class="mb-4">
    @csrf
    <div class="row">
       <div class="col-xl-3">
          <select name="gelombang" id="gelombang" class="form-control">
-            <option value="0" disabled selected>== Semua Gelombang ==</option>
+            <option value="0" selected>== Semua Gelombang ==</option>
             @foreach ($gelombang as $value)
                 <option value="{{ $value->id }}">{{ $value->nama }}</option>
             @endforeach
@@ -45,20 +45,22 @@
          <div class="row mb-4 align-items-center">
             <div class="col-xl-3">
                <select name="gelombang" id="gelombang" class="form-control">
-                  <option value="0" disabled selected>== Semua Gelombang ==</option>
+                  <option value="0" selected>== Semua Gelombang ==</option>
                   @foreach ($gelombang as $value)
                       <option value="{{ $value->id }}">{{ $value->nama }}</option>
                   @endforeach
                </select>
             </div>
+            @if (request()->segment(3) != "belum-bayar")
             <div class="col-xl-3">
                <select name="bank_id" id="bank_id" class="form-control">
-                  <option value="0" disabled selected>== Semua Bank ==</option>
+                  <option value="0" selected>== Semua Bank ==</option>
                   @foreach ($bank as $value)
                       <option value="{{ $value->id }}">{{ $value->nama }}</option>
                   @endforeach
                </select>
             </div>
+            @endif
             <div class="col-xl-2">
                <select name="time" id="time" class="form-control">
                   <option value="0" selected>Terbaru</option>
@@ -110,12 +112,16 @@
                @forelse($pembayaran as $value)
                <tr>
                   <td>{{ $loop->iteration }}</td>
-                  <td>Ini Diisi Tanggal</td>
+                  <td>{{ date('d F Y', strtotime($value->created_at)) }}</td>
                   <td>{{ $value->user->name }}</td>
                   <td>{{ $value->gelombang->nama }}</td>
-                  <td>Ini Diisi Biaya</td>
+                  @php
+                     $biaya_gel = $value->gelombang->harga;
+                     $kode = $value->kode_transfer;
+                  @endphp
+                  <td>Rp. {{ number_format($biaya_gel+$kode) }}</td>
                   @if ($value->status != 0)
-                  <td>Ini Diisi Nama Bank</td>
+                  <td>{{ $value->pembayaran_bukti()->first()->bank->nama ?? 'Belum Bayar' }}</td>
                   @endif
                   
                   <td>

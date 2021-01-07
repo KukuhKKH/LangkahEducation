@@ -159,7 +159,7 @@
 
     @hasanyrole('superadmin|admin')
     @php
-    $aktif_bayar = (request()->is('dashboard/pembayaran/belum-bayar')|request()->is('dashboard/pembayaran/sudah-bayar')|request()->is('dashboard/pembayaran/ditolak')) ? true : false
+    $aktif_bayar = (request()->is('dashboard/pembayaran/belum-bayar')|request()->is('dashboard/pembayaran/sudah-bayar')|request()->is('dashboard/pembayaran/ditolak')|request()->is('dashboard/pembayaran/sudah-verifikasi')) ? true : false
     @endphp
     <li class="nav-item {{ ($aktif_bayar) ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePembayaran"
@@ -172,7 +172,7 @@
                 <h6 class="collapse-header">Pembayaran :</h6>
                 <a class="collapse-item {{ request()->is('dashboard/pembayaran/belum-bayar') || request()->is('dashboard/pembayaran/belum-bayar/*') ? 'active' : '' }}" href="{{ route('pembayaran.show', 'belum-bayar') }}">Belum Bayar <span class="badge badge-warning">{{ $pembayaran_notif->total_belum }}</span></a>
                 <a class="collapse-item {{ request()->is('dashboard/pembayaran/sudah-bayar') || request()->is('dashboard/pembayaran/sudah-bayar/*') ? 'active' : '' }}" href="{{ route('pembayaran.show', 'sudah-bayar') }}">Sudah Bayar <span class="badge badge-primary">{{ $pembayaran_notif->total_sudah }}</span></a>
-                <a class="collapse-item {{ request()->is('dashboard/pembayaran/sudah-verifikasi') || request()->is('dashboard/pembayaran/sudah-veritikasi/*') ? 'active' : '' }}" href="{{ route('pembayaran.show', 'sudah-bayar') }}">Sudah Diverifikasi <span class="badge badge-success">0</span></a>
+                <a class="collapse-item {{ request()->is('dashboard/pembayaran/sudah-verifikasi') || request()->is('dashboard/pembayaran/sudah-verifikasi/*') ? 'active' : '' }}" href="{{ route('pembayaran.show', 'sudah-verifikasi') }}">Sudah Diverifikasi <span class="badge badge-success">{{ $pembayaran_notif->total_verifikasi }}</span></a>
                 <a class="collapse-item {{ request()->is('dashboard/pembayaran/ditolak') || request()->is('dashboard/pembayaran/ditolak/*') ? 'active' : '' }}" href="{{ route('pembayaran.show', 'ditolak') }}">Ditolak <span class="badge badge-danger">{{ $pembayaran_notif->total_tolak }}</span></a>
             </div>
         </div>

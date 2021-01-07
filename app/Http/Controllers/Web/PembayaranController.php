@@ -57,8 +57,12 @@ class PembayaranController extends Controller
             $user = Auth::user();
             $role = $user->getRoleNames()->first();
             $query = Pembayaran::query();
-            $keyword = $request->get('keyword');
+            $nama = $request->get('keyword');
+            $bank_id = $request->get('bank_id');
+            $gelombang = $request->get('gelombang');
+            $time = $request->get('time');
             $admin = "";
+            $salah = false;
             if($role == 'admin') {
                 $admin = DB::table('admin_pembayaran')->select('pembayaran_id')->where('user_id', '=', $user->id)->get()->pluck('pembayaran_id')->toArray();
                 if(empty($admin)) {
@@ -66,32 +70,78 @@ class PembayaranController extends Controller
                 }
             }
             if($status == 'sudah-bayar') {
-                $query->when($keyword, function($q) use($keyword) {
-                    $q->where('name', 'LIKE', "%$keyword%");
+                $query->when($nama, function($q) use($nama) {
+                    $q->whereHas('user', function($child) use($nama) {
+                        $child->where('name', 'LIKE', "%$nama%");
+                    });
+                })->when($gelombang, function($q) use($gelombang){
+                    $q->where('gelombang_id', $gelombang);
+                })->when($bank_id, function($q) use ($bank_id) {
+                    $q->whereHas('pembayaran_bukti', function($query) use($bank_id) {
+                        $query->where('bank_id', $bank_id);
+                    });
                 })->when($admin, function($q) use($admin) {
                     $q->whereIn('id', $admin);
-                })->where('status', 1)->orWhere('status', 2)->orderBy('id', 'DESC');
+                })->where('status', 1);
             } else if($status == 'belum-bayar'){
-                $query->when($keyword, function($q) use($keyword) {
-                    $q->where('name', 'LIKE', "%$keyword%");
+                $query->when($nama, function($q) use($nama) {
+                    $q->whereHas('user', function($child) use($nama) {
+                        $child->where('name', 'LIKE', "%$nama%");
+                    });
+                })->when($gelombang, function($q) use($gelombang){
+                    $q->where('gelombang_id', $gelombang);
+                })->when($bank_id, function($q) use ($bank_id) {
+                    $q->whereHas('pembayaran_bukti', function($query) use($bank_id) {
+                        $query->where('bank_id', $bank_id);
+                    });
                 })->when($admin, function($q) use($admin) {
                     $q->whereIn('id', $admin);
-                })->where('status', 0)->orderBy('id', 'DESC');
+                })->where('status', 0);
+            } else if($status == 'ditolak'){
+                $query->when($nama, function($q) use($nama) {
+                    $q->whereHas('user', function($child) use($nama) {
+                        $child->where('name', 'LIKE', "%$nama%");
+                    });
+                })->when($gelombang, function($q) use($gelombang){
+                    $q->where('gelombang_id', $gelombang);
+                })->when($bank_id, function($q) use ($bank_id) {
+                    $q->whereHas('pembayaran_bukti', function($query) use($bank_id) {
+                        $query->where('bank_id', $bank_id);
+                    });
+                })->when($admin, function($q) use($admin) {
+                    $q->whereIn('id', $admin);
+                })->where('status', 3);
+            } else if($status == 'sudah-verifikasi') {
+                $query->when($nama, function($q) use($nama) {
+                    $q->whereHas('user', function($child) use($nama) {
+                        $child->where('name', 'LIKE', "%$nama%");
+                    });
+                })->when($gelombang, function($q) use($gelombang){
+                    $q->where('gelombang_id', $gelombang);
+                })->when($bank_id, function($q) use ($bank_id) {
+                    $q->whereHas('pembayaran_bukti', function($query) use($bank_id) {
+                        $query->where('bank_id', $bank_id);
+                    });
+                })->when($admin, function($q) use($admin) {
+                    $q->whereIn('id', $admin);
+                })->where('status', 2);
+            } else {
+               $salah = true;
             }
-            else if($status == 'ditolak'){
-                $query->when($keyword, function($q) use($keyword) {
-                    $q->where('name', 'LIKE', "%$keyword%");
-                })->when($admin, function($q) use($admin) {
-                    $q->whereIn('id', $admin);
-                })->where('status', 3)->orderBy('id', 'DESC');
+            if($time == 0) {
+                $query->orderBy('id', 'DESC');
+            } else {
+                $query->orderBy('id', 'ASC');
             }
             $pembayaran = $query->paginate(10);
+            if($salah) redirect('dashboard');
             $data = $request->all();
             $bank = Bank::where('bayar', 1)->get();
             $gelombang = Gelombang::where('jenis', 1)->get();
 
             return view('pages.pembayaran.show', compact('pembayaran', 'data',  'bank', 'gelombang'));
         } catch(\Exception $e) {
+            dd($e);
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
     }
@@ -140,8 +190,15 @@ class PembayaranController extends Controller
     }
 
     public function export_all(Request $request) {
-        $data = Pembayaran::with(['user.siswa', 'pembayaran_bukti.bank', 'gelombang'])
-                            ->whereBetween('created_at', [$request->tgl_awal, $request->tgl_akhir])->get();
+        $gelombang = $request->gelombang;
+        $query = Pembayaran::query();
+        $query->with(['user.siswa', 'pembayaran_bukti.bank', 'gelombang']);
+        if($gelombang != 0) {
+            $query->whereHas('gelombang', function($q) use($gelombang) {
+                $q->where('id', $gelombang);
+            });
+        }
+        $data = $query->where('status', 2)->whereBetween('created_at', [$request->tgl_awal, $request->tgl_akhir])->get();
         return (new PembayaranExport($data))->download(date('d-M-Y')."-pembayaran.xlsx");
     }
 

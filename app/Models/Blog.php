@@ -13,7 +13,7 @@ class Blog extends Model
     public static function boot() {
         parent::boot();
         static::saving(function ($model) {
-            $model->slug = Str::slug($model->judul);
+            $model->slug = Str::slug($model->judul).'-'.strtotime(now());
         });
     }
 

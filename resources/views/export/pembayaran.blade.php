@@ -12,6 +12,7 @@
       <thead>
          <tr>
             <th>No</th>
+            <th>Nama Gelombang</th>
             <th>Nama Siswa</th>
             <th>Bank</th>
             <th>Biaya</th>
@@ -22,6 +23,7 @@
          @forelse ($data as $value)
          <tr>
             <td>{{ $loop->iteration }}</td>
+            <td>{{ $value->gelombang->nama }}</td>
             <td>{{ $value->user->name }}</td>
             <td>{{ $value->pembayaran_bukti()->first()->bank->nama }}</td>
             @php
