@@ -69,7 +69,7 @@
             @endif
         @endif
     @endforeach
-    <?php $kosong = false; ?>
+    <?php $kosong = false;$sekolah = true; ?>
 @empty
     {{-- Biarkan kosong bruh --}}
 @endforelse
@@ -148,7 +148,7 @@
         $kosong = true;
     @endphp
 @endforelse
-@if ($kosong)
+@if ($kosong && $sekolah)
         <div class="col-xl-12 text-center p-5">
             <img class="img-fluid" src="{{asset('assets/img/empty-illustration.svg')}}" alt="">
             @if (auth()->user()->siswa->batch == 1)

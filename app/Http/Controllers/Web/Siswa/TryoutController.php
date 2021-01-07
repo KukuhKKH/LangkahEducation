@@ -27,6 +27,7 @@ class TryoutController extends Controller
         $user = Auth::user();
         $status_bayar = 0;
         $kosong = true;
+        $sekolah = false;
         $produk_gelombang = [];
         $produk_sekolah = [];
         $raw_to_id_selesai = TryoutHasil::where('user_id', $user->id)->get();
@@ -92,7 +93,7 @@ class TryoutController extends Controller
             }
         }
         $user_token = Crypt::encrypt($user->api_token);
-        return view('pages.siswa.tryout.index',compact('produk_sekolah', 'produk_gelombang', 'kosong', 'status_bayar', 'user_token', 'paket_id_selesai', 'gelombang_id_selesai'));
+        return view('pages.siswa.tryout.index',compact('produk_sekolah', 'produk_gelombang', 'kosong', 'status_bayar', 'user_token', 'paket_id_selesai', 'gelombang_id_selesai', 'sekolah'));
     }
 
     /**
