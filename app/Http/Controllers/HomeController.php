@@ -111,11 +111,21 @@ class HomeController extends Controller
 
                 $total_siswa_pg = $this->total_siswa_pg(request()->get('gelombang'), request()->get('paket'));
             }
+            $nSaintek = 0;
+            $nSoshum = 0;
+            $max_saintek = 0;
+            $max_soshum = 0;
 
             foreach ($grafik as $key => $value) {
-                $label[] = $value->nama;
-                $val[] = $value->total / 2;
+                if(strtoupper($value->nama) == 'SAINTEK'){
+                    $nSaintek = $value->total / 2;
+                }else if(strtoupper($value->nama) == 'SOSHUM'){
+                    $nSoshum = $value->total / 2;
+                }
             }
+            $val[] = $nSaintek;
+            $val[] = $nSoshum;
+
             foreach ($grafik2 as $key => $value) {
                 $label2[] = $value->nilai_sekarang;
                 $val2[] = $value->total;
@@ -214,7 +224,6 @@ class HomeController extends Controller
                 $grafik2 = TryoutHasil::selectRaw("count(id) as total, user_id, nilai_sekarang, gelombang_id, tryout_paket_id")->where('gelombang_id', $gelombang_id)->where('tryout_paket_id', $paket_id)->whereIn('user_id', $id_siswa)->groupBy('nilai_sekarang')->get();
                 
                 $data = $this->total_siswa_pg($gelombang_id, $paket_id, $id_siswa);
-                
             }
             $nSaintek = 0;
             $nSoshum = 0;
@@ -247,7 +256,7 @@ class HomeController extends Controller
             $artikel_like = Blog::withCount('like')->with('like')->where('status', 1)->orderBy('like_count', 'DESC')->limit(3)->get();
             $artikel_komentar = Blog::withCount('komentar')->with('komentar')->where('status', 1)->orderBy('komentar_count', 'DESC')->limit(3)->get();
 
-            return view('pages.dashboard', compact('total_siswa', 'nilai_tertinggi', 'label', 'val', 'label2', 'val2', 'artikel_publish', 'artikel_draft', 'total_artikel', 'artikelmu_like', 'artikelmu_komentar', 'artikel_like', 'artikel_komentar', 'data', 'gelombang', 'sudah_komentar', 'belum_komentar', 'gelSekolah', 'rata', 'nmSiswa', 'idKelompok', 'nSaintek', 'nSoshum'));
+            return view('pages.dashboard', compact('total_siswa', 'nilai_tertinggi', 'label', 'val', 'label2', 'val2', 'artikel_publish', 'artikel_draft', 'total_artikel', 'artikelmu_like', 'artikelmu_komentar', 'artikel_like', 'artikel_komentar', 'data', 'gelombang', 'sudah_komentar', 'belum_komentar', 'gelSekolah', 'rata', 'nmSiswa', 'idKelompok'));
             
         } elseif($user->getRoleNames()->first() == 'author') {
             $user = auth()->user();
@@ -298,14 +307,22 @@ class HomeController extends Controller
                                 ->where('tryout_paket_id', $paket_id)
                                 ->get();
         }
-
+        $maxSaintek = 0;
+        $maxSoshum = 0;
         foreach ($hasil as $key => $value) {
+           
             $temp = TempProdi::where('paket_id', $value->tryout_paket_id)->where('user_id', $value->user_id)->get();
             $pg1 = PassingGrade::find($temp[0]->passing_grade_id)->passing_grade;
             $pg2 = PassingGrade::find($temp[1]->passing_grade_id)->passing_grade;
             // skor siswa >= skormaksimal * PG_prodi1
             $minimal_pg1 = $pg1*$value->nilai_maksimal_new/100;
             $minimal_pg2 = $pg2*$value->nilai_maksimal_new/100;
+
+            if($temp[0]->kelompok_passing_grade_id == 1){
+                $maxSaintek = $value->nilai_maksimal_new;
+            }else if($temp[0]->kelompok_passing_grade_id == 2){
+                $maxSoshum = $value->nilai_maksimal_new;
+            }
 
             if($value->nilai_sekarang >= $minimal_pg1) {
                 $total_lolos_1++;
@@ -320,6 +337,8 @@ class HomeController extends Controller
             'total_lolos_1' => $total_lolos_1,
             'total_lolos_2' => $total_lolos_2,
             'total_siswa' => $total_siswa,
+            'maxSaintek' => $maxSaintek,
+            'maxSoshum' => $maxSoshum,
         ];
         return $data;
     }
