@@ -141,7 +141,7 @@ class PembayaranController extends Controller
 
             return view('pages.pembayaran.show', compact('pembayaran', 'data',  'bank', 'gelombang'));
         } catch(\Exception $e) {
-            dd($e);
+            return abort(404);
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
     }
