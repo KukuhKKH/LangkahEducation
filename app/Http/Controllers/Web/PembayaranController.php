@@ -69,62 +69,27 @@ class PembayaranController extends Controller
                     $admin = [0];
                 }
             }
+            $query->when($nama, function($q) use($nama) {
+                $q->whereHas('user', function($child) use($nama) {
+                    $child->where('name', 'LIKE', "%$nama%");
+                });
+            })->when($gelombang, function($q) use($gelombang){
+                $q->where('gelombang_id', $gelombang);
+            })->when($bank_id, function($q) use ($bank_id) {
+                $q->whereHas('pembayaran_bukti', function($query) use($bank_id) {
+                    $query->where('bank_id', $bank_id);
+                });
+            })->when($admin, function($q) use($admin) {
+                $q->whereIn('id', $admin);
+            });
             if($status == 'sudah-bayar') {
-                $query->when($nama, function($q) use($nama) {
-                    $q->whereHas('user', function($child) use($nama) {
-                        $child->where('name', 'LIKE', "%$nama%");
-                    });
-                })->when($gelombang, function($q) use($gelombang){
-                    $q->where('gelombang_id', $gelombang);
-                })->when($bank_id, function($q) use ($bank_id) {
-                    $q->whereHas('pembayaran_bukti', function($query) use($bank_id) {
-                        $query->where('bank_id', $bank_id);
-                    });
-                })->when($admin, function($q) use($admin) {
-                    $q->whereIn('id', $admin);
-                })->where('status', 1);
+                $query->where('status', 1);
             } else if($status == 'belum-bayar'){
-                $query->when($nama, function($q) use($nama) {
-                    $q->whereHas('user', function($child) use($nama) {
-                        $child->where('name', 'LIKE', "%$nama%");
-                    });
-                })->when($gelombang, function($q) use($gelombang){
-                    $q->where('gelombang_id', $gelombang);
-                })->when($bank_id, function($q) use ($bank_id) {
-                    $q->whereHas('pembayaran_bukti', function($query) use($bank_id) {
-                        $query->where('bank_id', $bank_id);
-                    });
-                })->when($admin, function($q) use($admin) {
-                    $q->whereIn('id', $admin);
-                })->where('status', 0);
+                $query->where('status', 0);
             } else if($status == 'ditolak'){
-                $query->when($nama, function($q) use($nama) {
-                    $q->whereHas('user', function($child) use($nama) {
-                        $child->where('name', 'LIKE', "%$nama%");
-                    });
-                })->when($gelombang, function($q) use($gelombang){
-                    $q->where('gelombang_id', $gelombang);
-                })->when($bank_id, function($q) use ($bank_id) {
-                    $q->whereHas('pembayaran_bukti', function($query) use($bank_id) {
-                        $query->where('bank_id', $bank_id);
-                    });
-                })->when($admin, function($q) use($admin) {
-                    $q->whereIn('id', $admin);
-                })->where('status', 3);
+                $query->where('status', 3);
             } else if($status == 'sudah-verifikasi') {
-                $query->when($nama, function($q) use($nama) {
-                    $q->whereHas('user', function($child) use($nama) {
-                        $child->where('name', 'LIKE', "%$nama%");
-                    });
-                })->when($gelombang, function($q) use($gelombang){
-                    $q->where('gelombang_id', $gelombang);
-                })->when($bank_id, function($q) use ($bank_id) {
-                    $q->whereHas('pembayaran_bukti', function($query) use($bank_id) {
-                        $query->where('bank_id', $bank_id);
-                    });
-                })->when($admin, function($q) use($admin) {
-                    $q->whereIn('id', $admin);
-                })->where('status', 2);
+                $query->where('status', 2);
             } else {
                $salah = true;
             }
