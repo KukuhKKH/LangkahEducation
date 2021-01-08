@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Models\User;
 use App\Models\Siswa;
 use App\Models\Mentor;
 use App\Models\Komentar;
+use App\Models\Gelombang;
 use App\Models\Mentoring;
 use App\Models\TryoutSoal;
 use App\Models\TryoutHasil;
@@ -13,9 +15,9 @@ use App\Models\Universitas;
 use App\Models\PassingGrade;
 use Illuminate\Http\Request;
 use App\Models\TryoutHasilJawaban;
+use App\Models\TryoutKategoriSoal;
 use App\Http\Controllers\Controller;
 use App\Models\KelompokPassingGrade;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class MentoringController extends Controller
@@ -125,11 +127,22 @@ class MentoringController extends Controller
                 $passing_grade = PassingGrade::with('universitas')->whereHas('kelompok', function($q) use($kelompok) {
                     $q->where('id', $kelompok->id);
                 })->latest()->get();
+                if($kelompok->nama == 'saintek') {
+                    $kategori_soal_id = TryoutKategoriSoal::where('tipe', 'umum')->orWhere('tipe', 'saintek')->get()->pluck('id');
+                } elseif($kelompok->nama == 'soshum') {
+                    $kategori_soal_id = TryoutKategoriSoal::where('tipe', 'umum')->orWhere('tipe', 'soshum')->get()->pluck('id');
+                } else {
+                    $kategori_soal_id = TryoutKategoriSoal::all()->pluck('id');
+                }
             } else {
                 $kelompok = '';
                 $passing_grade = PassingGrade::with('universitas')->latest()->get();
             }
             $nilai_by_user = TryoutHasil::with(['user', 'paket', 'tryout_hasil_jawaban', 'tryout_hasil_detail'])->where('user_id', $user_id)->get();
+            $id_soal_kategori = TryoutSoal::where('tryout_paket_id', $paket->id)->distinct()->pluck('tryout_kategori_soal_id')->toArray();
+            $result_kategori_id = array_intersect($kategori_soal_id->toarray(), $id_soal_kategori);
+            $tryout_kategori_soal = TryoutKategoriSoal::whereIn('id', $result_kategori_id)->get();
+            $hasil_to_kategori_id = $tryout->tryout_hasil_detail()->pluck('tryout_kategori_soal_id')->toArray();
             if($raw_kelompok) {
                 if($raw_kelompok != 3) {
                     $nilai_by_user = TryoutHasil::with([
@@ -190,7 +203,8 @@ class MentoringController extends Controller
             }
             $kelompok_all = KelompokPassingGrade::all();
             $universitas = Universitas::all();
-            return view('pages.mentoring.analisis_mentor', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket' ,'komentar', 'nil_pg1', 'nil_pg2', 'kelompok', 'kelompok_all', 'universitas', 'user_siswa'));
+            $gelombang = Gelombang::find($tryout->gelombang_id);
+            return view('pages.mentoring.analisis_mentor', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket' ,'komentar', 'nil_pg1', 'nil_pg2', 'kelompok', 'kelompok_all', 'universitas', 'user_siswa', 'gelombang', 'tryout_kategori_soal', 'hasil_to_kategori_id'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }

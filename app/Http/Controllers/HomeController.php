@@ -46,7 +46,7 @@ class HomeController extends Controller
         if($user->getRoleNames()->first() == 'superadmin' || $user->getRoleNames()->first() == 'admin') {
             $sekolah = Sekolah::count();
             $siswa = Siswa::count();
-            $belum_bayar = Pembayaran::where('status', 0)->count();
+            $belum_bayar = Pembayaran::where('status', 1)->count();
             $pengunjung = StatistikPengunjung::whereDate('created_at', Carbon::today())->count();
             // ->whereMonth('created_at', date('m')) ->groupByRaw("MONTH(created_at)")
             $raw_grafik = StatistikPengunjung::selectRaw("count(id) as total, DAY(created_at) as tanggal")

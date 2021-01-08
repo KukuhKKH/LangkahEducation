@@ -8,6 +8,7 @@
       </div>
       <div class="col-2 text-right">
          <a href="{{ asset('template/TemplatePassingGrade.xlsx') }}" download="" class="btn btn-success"><i class="fas fa-fw fa-file-excel"></i> Template Excel</a>
+         <button data-toggle="modal" data-target="#modalKelompok" class="btn btn-info my-1"><i class="fa fa-eye"></i> Cek ID Kelompok Prodi</button>
       </div>
    </div>
 
@@ -168,6 +169,50 @@
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalKelompok" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modal-lg">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Kelompok Prodi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nama Kelompok</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nama Kelompok</th>
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            @foreach($kelompok as $value)
+                                @if ($value->nama != 'campuran')
+                                <tr>
+                                    <td>{{ $value->id }}</td>
+                                    <td>{{ Str::upper($value->nama) }}</td>
+                                </tr>
+                                @endif
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Tutup</button>
+                </div>
             </div>
         </div>
     </div>

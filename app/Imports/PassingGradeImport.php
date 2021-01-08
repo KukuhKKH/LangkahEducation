@@ -37,7 +37,12 @@ class PassingGradeImport implements ToModel, WithStartRow
         }
 
         if(empty($row[1])){
-            $errMessage = 'Mohon pastikan kolom Passwing Grade tidak kosong.';
+            $errMessage = 'Mohon pastikan kolom Kelompok Passing Grade tidak kosong.';
+            throw new \Exception($errMessage);
+        }
+
+        if(empty($row[2])){
+            $errMessage = 'Mohon pastikan kolom Passing Grade tidak kosong.';
             throw new \Exception($errMessage);
         }
 
@@ -45,7 +50,8 @@ class PassingGradeImport implements ToModel, WithStartRow
             'prodi' => $row[0],
         ], [
             'universitas_id' => $this->univ_id,
-            'passing_grade' => trim($row[1])
+            'kelompok_id' => $row[1],
+            'passing_grade' => trim($row[2])
         ]);
     }
 

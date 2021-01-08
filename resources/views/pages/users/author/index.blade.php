@@ -144,7 +144,7 @@
                   <label for="">Foto <small>Opsional</small></label>
                   <div class="input-group mb-3">
                      <div class="custom-file">
-                       <input type="file" class="custom-file-input" id="fotoUser" name="foto" accept="image/*">
+                       <input type="file" class="custom-file-input" id="fotoUser" name="image" accept="image/*">
                        <label class="custom-file-label" id="labelFoto" for="inputGroupFile02">Choose file</label>
                      </div>
                    </div>

@@ -50,7 +50,7 @@ class MentorController extends Controller
                 'email_verified_at' => date('Y-m-d')
             ]);
             if($request->hasFile('image')) {
-                $foto_name = time().'-'.$request->image->extension();  
+                $foto_name = time().'.'.$request->image->extension();  
                 $request->image->move(public_path('upload/users/'), $foto_name);
                 $request->merge([
                     'foto' => $foto_name
