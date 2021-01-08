@@ -37,9 +37,9 @@
                 @endif
             </div>
             <div class="col-lg-6 pt-2 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
-                <h1>{{ $data->headline }}</h1>
+                <h1 class="mt-3">{{ $data->headline }}</h1>
                 <h2>{{ $data->tagline}}</h2>
-                <div class="mt-5">
+                <div class="mt-4 mb-5">
                     @auth
                     <a href="{{ route('dashboard') }}" class="btn-outline-langkah">Buka Dashboard</a>
                     @else
@@ -100,7 +100,7 @@
                             <img class="img-cover img-circle "src="{{asset('assets/img/logo-circle-primary.svg')}}" alt="">
                             @endif
                         </div>
-                            <h4 class="mt-4 font-weight-bold">{{ $value->nama }}</h4>
+                            <h5 class="mt-4 font-weight-bold">{{ $value->nama }}</h5>
                             {!! $value->deskripsi !!}
                         </div>
                     </div>

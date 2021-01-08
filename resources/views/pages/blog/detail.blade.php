@@ -31,10 +31,10 @@
                             @php
                                 $string = preg_replace("/&#?[a-z0-9]+;/i", " ", $artikel->isi);
                             @endphp
-                            <div id="isi-artikel">
+                            <div id="isi-artikel" class="table-responsive">
                                 {!! $string !!}
                             </div>
-                            <div class="text-right">
+                            <div class="text-right mt-3">
                                 <div class="d-flex justify-content-end align-items-center">
                                     <small id="textLike" class="mr-2"><span id="totalLike">{{ count($artikel->like) }}</span> Suka</small>
                                     @auth

@@ -644,7 +644,7 @@ section {
 .products .card{
   border: none;
   padding: 20px;
-  max-height: 40vh;
+  height: 300px;
 }
 
 .products .img-circle{
@@ -1694,4 +1694,9 @@ section {
     #searchBlog .input-group{
       padding: 10px;
     }
+}
+
+#isi-artikel p img{
+  max-width: 100%;
+  height: auto;
 }
