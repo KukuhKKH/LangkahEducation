@@ -69,7 +69,6 @@
             @endif
         @endif
     @endforeach
-    <?php $kosong = false;$sekolah = true; ?>
 @empty
 <?php $sekolah = true; ?>
     {{-- Biarkan kosong bruh --}}
