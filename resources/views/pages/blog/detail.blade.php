@@ -117,7 +117,11 @@
                                 <div class="sidebar-item recent-posts">
                                     @forelse ($lainnya as $value)
                                         <div class="post-item clearfix">
-                                            <img src="{{asset("upload/blog/$value->foto")}}" alt="">
+                                            @if ($value->foto)
+                                                <img src="{{asset("upload/blog/$value->foto")}}" alt="">
+                                            @else
+                                                <img src="{{asset('assets-landingpage/img/blog/default-blog.jpg')}}" alt="">
+                                            @endif
                                             <h4>
                                                 <a href="{{ route('page.blog.detail', $value->slug) }}">{{ $value->judul }}</a>
                                             </h4>
@@ -135,7 +139,11 @@
                                 <div class="sidebar-item recent-posts">
                                     @forelse ($artikel_like as $value)
                                         <div class="post-item clearfix">
-                                            <img src="{{asset("upload/blog/$value->foto")}}" alt="">
+                                            @if ($value->foto)
+                                                <img src="{{asset("upload/blog/$value->foto")}}" alt="">
+                                            @else
+                                                <img src="{{asset('assets-landingpage/img/blog/default-blog.jpg')}}" alt="">
+                                            @endif
                                             <h4>
                                                 <a href="{{ route('page.blog.detail', $value->slug) }}">{{ $value->judul }}</a>
                                             </h4>
@@ -153,7 +161,11 @@
                                 <div class="sidebar-item recent-posts">
                                     @forelse ($terkait as $value)
                                         <div class="post-item clearfix">
-                                            <img src="{{asset("upload/blog/$value->foto")}}" alt="">
+                                            @if ($value->foto)
+                                                <img src="{{asset("upload/blog/$value->foto")}}" alt="">
+                                            @else
+                                                <img src="{{asset('assets-landingpage/img/blog/default-blog.jpg')}}" alt="">
+                                            @endif
                                             <h4><a href="{{ route('page.blog.detail', $value->slug) }}">{{ $value->judul }}</a></h4>
                                             <time>{{ Carbon\Carbon::parse($value->updated_at)->format('F d, Y') }}</time>
                                         </div>

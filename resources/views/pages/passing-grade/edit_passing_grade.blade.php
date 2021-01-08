@@ -25,7 +25,7 @@
          </div>
          <div class="form-group">
             <label for="">Passing Grade</label>
-            <input type="number" class="form-control @error('passing_grade') is-invalid @enderror" name="passing_grade" placeholder="Masukkan Passing grade" value="{{ $passing_grade->passing_grade }}">
+            <input type="number" class="form-control @error('passing_grade') is-invalid @enderror" name="passing_grade" step="0.01"  placeholder="Masukkan Passing grade" value="{{ $passing_grade->passing_grade }}">
             @error('passing_grade')
                   <span class="invalid-feedback" role="alert">
                      <strong>{{ $message }}</strong>
@@ -51,7 +51,7 @@
          @enderror
          <div class="mt-3 text-right">
             <a href="{{ url()->previous() }}" class="btn btn-dark ml-1">Kembali</a>
-            <button type="submit" class="btn btn-success">Edit</button>
+            <button type="submit" class="btn btn-success">Simpan</button>
          </div>
       </form>
    </div>

@@ -112,7 +112,10 @@
                </div>
                <div class="form-group">
                   <label for="">Foto</label>
-                  <input type="file" class="form-control @error('foto') is-invalid @enderror" name="foto" accept="image/*">
+                  <div class="custom-file">
+                     <input type="file" class="custom-file-input form-control @error('gambar') is-invalid @enderror" name="foto" accept="image/*">
+                     <label class="custom-file-label" for="customFile">Choose file</label>
+                   </div>
                   @error('foto')
                      <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -155,5 +158,11 @@
          }
       })
    })
+</script>
+<script>
+   $('input[type="file"]').change(function(e){
+   var fileName = e.target.files[0].name;
+   $('.custom-file-label').html(fileName);
+});
 </script>
 @endsection

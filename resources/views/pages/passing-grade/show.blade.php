@@ -139,7 +139,7 @@
                         </div>
                         <div class="form-group">
                            <label for="">Passing Grade</label>
-                           <input type="number" class="form-control @error('passing_grade') is-invalid @enderror" name="passing_grade" placeholder="Masukkan Passing grade">
+                           <input type="number" class="form-control @error('passing_grade') is-invalid @enderror" name="passing_grade" step="0.01"  placeholder="Masukkan Passing grade">
                            @error('passing_grade')
                                <span class="invalid-feedback" role="alert">
                                    <strong>{{ $message }}</strong>
@@ -193,5 +193,13 @@
          }
       })
    })
+
+   $('.custom-file input').change(function (e) {
+            var files = [];
+            for (var i = 0; i < $(this)[0].files.length; i++) {
+                files.push($(this)[0].files[i].name);
+            }
+            $(this).next('.custom-file-label').html(files.join(', '));
+    });
 </script>
 @endsection
