@@ -17,9 +17,9 @@
          <div class="row">
             <div class="col-xl-12">
                <div class="form-group">
-                  <label for="">Nama layanan</label>
+                  <label for="">Nama layanan <small>(25)</small></label>
                   <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror"
-                     value="{{ $layanan->nama }}" placeholder="Nama layanan">
+                     value="{{ $layanan->nama }}" maxlength="25" placeholder="Nama layanan">
                   @error('nama')
                   <span class="invalid-feedback" role="alert">
                      <strong>{{ $message }}</strong>

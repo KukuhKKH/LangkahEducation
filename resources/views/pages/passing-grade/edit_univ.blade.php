@@ -25,7 +25,7 @@
          </div>
          <div class="mt-3 text-right">
             <a href="{{ url()->previous() }}" class="btn btn-dark ml-1">Kembali</a>
-            <button type="submit" class="btn btn-success">Edit</button>
+            <button type="submit" class="btn btn-success">Simpan</button>
          </div>
       </form>
    </div>

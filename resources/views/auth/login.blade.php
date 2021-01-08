@@ -13,17 +13,17 @@
                         <div class="col-lg-6 d-none d-lg-block bg-login-image">
                         </div>
                         <div class="col-lg-6 ">
-                            <div class="p-5">
+                            <div class="p-4">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Selamat Datang!</h1>
+                                    <h1 class="h4 text-gray-900 mt-2 mb-4">Selamat Datang!</h1>
                                     @if(Session::has('error'))
                                     <div class="alert alert-danger" role="alert">
-                                        {{ Session::get('error') }}
+                                        <small>{{ Session::get('error') }}</small>
                                     </div>
                                     @endif
                                     @if(Session::has('info'))
                                     <div class="alert alert-warning" role="alert">
-                                        {{ Session::get('info') }}
+                                        <small>{{ Session::get('info') }}</small>
                                     </div>
                                     @endif
                                 </div>

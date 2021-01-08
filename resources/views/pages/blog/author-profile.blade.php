@@ -11,7 +11,7 @@
                             <div class="card-body text-align-center">
                                 @if ($user->foto)
                                 <?php $foto = $user->foto ?>
-                                <img src="{{asset("upload/>user/$foto") }}" class="avatar " alt="Avatar">    
+                                <img src="{{asset("upload/users/$foto") }}" class="avatar " alt="Avatar">    
                                 @else
                                 <img src="{{asset('assets/img/undraw_profile.svg') }}" class="avatar " alt="Avatar">    
                                 @endif
@@ -76,7 +76,11 @@
                                     <div class="sidebar-item recent-posts">
                                         @forelse ($artikel_like as $value)
                                             <div class="post-item clearfix">
-                                                <img src="{{asset("upload/blog/$value->foto")}}" alt="">
+                                                @if ($value->foto)
+                                                    <img src="{{asset("upload/blog/$value->foto")}}" alt="">
+                                                @else
+                                                    <img src="{{asset('assets-landingpage/img/blog/default-blog.jpg')}}" alt="">
+                                                @endif
                                                 <h4 class="text-dark">
                                                     <a href="{{ route('page.blog.detail', $value->slug) }}">{{ $value->judul }}</a>
                                                 </h4>

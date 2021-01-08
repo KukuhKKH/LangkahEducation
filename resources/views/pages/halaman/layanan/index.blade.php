@@ -102,10 +102,10 @@
                 @csrf
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="name">Nama Layanan</label>
+                        <label for="name">Nama Layanan <small>(25)</small></label>
                         <input name="nama" type="text"
                             class="form-control form-control-user @error('nama') is-invalid @enderror"
-                            id="exampleFirstName" placeholder="Nama Layanan" value="{{ old('nama') }}">
+                            id="exampleFirstName" placeholder="Nama Layanan" maxlength="25" value="{{ old('nama') }}">
                         @error('nama')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

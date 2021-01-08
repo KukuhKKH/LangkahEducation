@@ -47,7 +47,11 @@
                                     </button>
                                 </form>
                             </div>
+                            <div class="text-center mt-2">
+                                <a class="small text-langkah" href="{{ url('/') }}">Kembali Ke Beranda</a>
+                            </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>

@@ -31,10 +31,10 @@
                             @php
                                 $string = preg_replace("/&#?[a-z0-9]+;/i", " ", $artikel->isi);
                             @endphp
-                            <div id="isi-artikel">
+                            <div id="isi-artikel" class="table-responsive">
                                 {!! $string !!}
                             </div>
-                            <div class="text-right">
+                            <div class="text-right mt-3">
                                 <div class="d-flex justify-content-end align-items-center">
                                     <small id="textLike" class="mr-2"><span id="totalLike">{{ count($artikel->like) }}</span> Suka</small>
                                     @auth
@@ -117,7 +117,11 @@
                                 <div class="sidebar-item recent-posts">
                                     @forelse ($lainnya as $value)
                                         <div class="post-item clearfix">
-                                            <img src="{{asset("upload/blog/$value->foto")}}" alt="">
+                                            @if ($value->foto)
+                                                <img src="{{asset("upload/blog/$value->foto")}}" alt="">
+                                            @else
+                                                <img src="{{asset('assets-landingpage/img/blog/default-blog.jpg')}}" alt="">
+                                            @endif
                                             <h4>
                                                 <a href="{{ route('page.blog.detail', $value->slug) }}">{{ $value->judul }}</a>
                                             </h4>
@@ -135,7 +139,11 @@
                                 <div class="sidebar-item recent-posts">
                                     @forelse ($artikel_like as $value)
                                         <div class="post-item clearfix">
-                                            <img src="{{asset("upload/blog/$value->foto")}}" alt="">
+                                            @if ($value->foto)
+                                                <img src="{{asset("upload/blog/$value->foto")}}" alt="">
+                                            @else
+                                                <img src="{{asset('assets-landingpage/img/blog/default-blog.jpg')}}" alt="">
+                                            @endif
                                             <h4>
                                                 <a href="{{ route('page.blog.detail', $value->slug) }}">{{ $value->judul }}</a>
                                             </h4>
@@ -153,7 +161,11 @@
                                 <div class="sidebar-item recent-posts">
                                     @forelse ($terkait as $value)
                                         <div class="post-item clearfix">
-                                            <img src="{{asset("upload/blog/$value->foto")}}" alt="">
+                                            @if ($value->foto)
+                                                <img src="{{asset("upload/blog/$value->foto")}}" alt="">
+                                            @else
+                                                <img src="{{asset('assets-landingpage/img/blog/default-blog.jpg')}}" alt="">
+                                            @endif
                                             <h4><a href="{{ route('page.blog.detail', $value->slug) }}">{{ $value->judul }}</a></h4>
                                             <time>{{ Carbon\Carbon::parse($value->updated_at)->format('F d, Y') }}</time>
                                         </div>

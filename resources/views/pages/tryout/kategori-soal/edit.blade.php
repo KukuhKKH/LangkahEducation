@@ -15,6 +15,31 @@
             @csrf
             @method('PUT')
             <div class="form-group">
+                <label for="jenis">Jenis Kategori</label>
+                <select name="jenis" class="form-control @error('jenis') is-invalid @enderror" autocomplete="off">
+                    <option value="tpa" {{ $kategori->jenis == 'tpa' ? 'selected' : '' }}>TPA</option>
+                    <option value="tka" {{ $kategori->jenis == 'tka' ? 'selected' : '' }}>TKA</option>
+                </select>
+                @error('nama')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="tipe">Tipe Kategori</label>
+                <select name="tipe" class="form-control @error('tipe') is-invalid @enderror" autocomplete="off">
+                    <option value="umum" {{ $kategori->tipe == 'umum' ? 'selected' : '' }}>UMUM</option>
+                    <option value="saintek" {{ $kategori->tipe  == 'saintek' ? 'selected' : '' }}>SAINTEK</option>
+                    <option value="soshum" {{ $kategori->tipe == 'soshum' ? 'selected' : '' }}>SOSHUM</option>
+                </select>
+                @error('nama')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            </div>
+            <div class="form-group">
                <label for="nama">Nama Kategori</label>
                <input name="nama" type="text" class="form-control form-control-user @error('nama') is-invalid @enderror" id="namaKategori" placeholder="Nama Kategori" value="{{ $kategori->nama }}" required>
                @error('nama')
@@ -43,8 +68,10 @@
                </span>
                @enderror
            </div>
-            <a href="{{ url()->previous() }}" type="button" class="btn btn-secondary" >Kembali</a>
-            <button type="submit" class="btn btn-primary">Simpan</button>
+            <div class="text-right">
+                <a href="{{ url()->previous() }}" type="button" class="btn btn-secondary" >Kembali</a>
+            <button type="submit" class="btn btn-success">Simpan</button>
+            </div>
         </form>
       </div>
    </div>
