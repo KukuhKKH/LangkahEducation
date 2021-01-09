@@ -94,7 +94,10 @@
                             Simpan struk pembayaran sebagai bukti transfer
                         </li>
                     </ol>
-                    <a class="btn btn-success btn-block btn-radius my-1" href="{{ route('pembayaran.siswa.show', ['pembayaran_id' => $pembayaran->id, 'slug' => $pembayaran->gelombang->slug]) }}">Upload Bukti Pembayaran</a>
+                    <form action="{{ route('pembayaran.siswa.show', ['pembayaran_id' => $pembayaran->id, 'slug' => $pembayaran->gelombang->slug]) }}">
+                        <input name="bank" type="text" hidden>
+                        <button type="submit" id="btnBukti"class="btn btn-success btn-block btn-radius my-1" disabled>Upload Bukti Pembayaran</button>
+                    </form>
                     <form action="{{ route('pembayaran.siswa.destroy', $pembayaran->id) }}" id="form-{{ $pembayaran->id }}">
                         <button type="button" class="btn btn-outline-danger btn-block btn-radius batal my-1" data-toggle="tooltip" data-placement="top" title="Batal Beli Produk" data-id="{{ $pembayaran->id }}">
                             Batal Beli Produk Ini
@@ -236,5 +239,15 @@
             }
         })
     })
+
+    $('input[type="radio"]').on('change', function(e) {
+        var idbank = $('input[name=listBank]:checked').val();
+        if(idbank == null){
+            $("#btnBukti").attr("disabled", true);
+        }else{
+            $("#btnBukti").removeAttr("disabled");
+            $('input[name=bank]').val(idbank)
+        }
+    });
 </script>
 @endsection

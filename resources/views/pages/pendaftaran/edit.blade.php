@@ -80,7 +80,7 @@
                    <label for="jam_akhir">Jam Akhir</label>
                    <input name="jam_akhir" id="jam-akhir" type="text"
                        class="datepicker form-control form-control-user @error('jam_akhir') is-invalid @enderror"
-                       placeholder="Jam Awal" value="{{ date('H:i', strtotime($pendaftaran->tgl_akhir)) }}" autocomplete="off" required>
+                       placeholder="Jam Akhir" value="{{ date('H:i', strtotime($pendaftaran->tgl_akhir)) }}" autocomplete="off" required>
                    @error('jam_akhir')
                    <span class="invalid-feedback" role="alert">
                        <strong>{{ $message }}</strong>

@@ -3,10 +3,10 @@
 
 @section('content')
    <div class="row">
-      <div class="col-10">
+      <div class="col-xl-6">
          <h1 class="h3 mb-2 text-gray-800">Passing Grade - Universitas {{ $universitas->nama }}</h1>
       </div>
-      <div class="col-2 text-right">
+      <div class="col-xl-6 text-right">
          <a href="{{ asset('template/TemplatePassingGrade.xlsx') }}" download="" class="btn btn-success"><i class="fas fa-fw fa-file-excel"></i> Template Excel</a>
          <button data-toggle="modal" data-target="#modalKelompok" class="btn btn-info my-1"><i class="fa fa-eye"></i> Cek ID Kelompok Prodi</button>
       </div>

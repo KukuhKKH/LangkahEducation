@@ -122,16 +122,12 @@
                 <h6 class="m-0 font-weight-bold text-dark">Presentase Nilai</h6>
             </div>
             <div class="card-body">               
+                    <div class="row">
+                        <div class="col-md-8"><h4 class="small font-weight-bold">({{ trim($pg1->passing_grade) }}%) {{ $pg1->universitas->nama }} - {{ $pg1->prodi }}</h4></div>
+                        <div class="col-md-4"> <h4 class="small font-weight-bold"><span class="float-right">Nilai : {{ $nilai_user }}%</span></h4></div>
+                    </div>
+                    
 
-                <h4 class="small font-weight-bold">({{ trim($pg1->passing_grade) }}%) {{ $pg1->universitas->nama }} -
-                    {{ $pg1->prodi }} <span class="float-right">Nilai : {{ $nilai_user }}%</span></h4>
-
-                    @php
-                    $prodi1=($nilai_user/((double)trim($pg1->passing_grade)))*100;
-                    if ($prodi1 > 100) {
-                        $prodi1 = 100;
-                    }
-                    @endphp
                     <div class="barwrapp">
                         <div class="progress">
                           <div class="progress-bar bg-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{ $nilai_user }}%">
@@ -140,20 +136,25 @@
                         <div style="width: 3px; height: 100%; position: absolute; background: black; top: 0; left: {{ $pg1->passing_grade}}%;" title="{{$pg1->universitas->nama}}"></div>
                       </div>
 
+                    
+
                     @if ((double)trim($pg1->passing_grade) < $nilai_user) <p class="mb-4 mt-2">Status : <span
                         class="text-success">LULUS</span></p>
+                        @php
+                            $prodi1 = true;
+                        @endphp
                     @else
                     <p class="mb-4 mt-2">Status : <span class="text-danger">BELUM LULUS</span></p>
+                        @php
+                            $prodi1 = false;
+                        @endphp
                     @endif
 
-                    <h4 class="small font-weight-bold">({{ (double)trim($pg2->passing_grade) }}%) {{ $pg2->universitas->nama }} -
-                        {{ $pg2->prodi }}<span class="float-right">Nilai : {{ $nilai_user }}%</span></h4>
-                    @php
-                    $prodi2=($nilai_user/((double)trim($pg2->passing_grade)))*100;
-                    if ($prodi2 > 100) {
-                         $prodi2 = 100;
-                    }
-                    @endphp
+                    <div class="row">
+                        <div class="col-md-8"><h4 class="small font-weight-bold">({{ trim($pg2->passing_grade) }}%) {{ $pg2->universitas->nama }} - {{ $pg2->prodi }}</h4></div>
+                        <div class="col-md-4"> <h4 class="small font-weight-bold"><span class="float-right">Nilai : {{ $nilai_user }}%</span></h4></div>
+                    </div>
+
                     <div class="barwrapp">
                         <div class="progress">
                           <div class="progress-bar bg-primary progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{ $nilai_user }}%">
@@ -164,9 +165,15 @@
 
                     @if ($pg2->passing_grade < $nilai_user) <p class="mb-4 mt-2">Status : <span
                             class="text-success">LULUS</span></p>
-                        @else
+                        @php
+                            $prodi2 = true;
+                        @endphp
+                    @else
                         <p class="mb-4 mt-2">Status : <span class="text-danger">BELUM LULUS</span></p>
-                        @endif
+                        @php
+                            $prodi2 = false;
+                        @endphp
+                    @endif
             </div>
         </div>
     </div>
@@ -338,15 +345,15 @@
                 {{-- IF SISWA UMUM (INTERPRETASI) --}}
 
                 @php
-                $prodi1=100;
-                $prodi2=100;
                     $interpretasi = "-";
-                    if ($prodi1 < 100 && $prodi2 < 100) {
-                        $interpretasi = $paket->interpretasi_3;
-                    }elseif($prodi1 < 100 || $prodi2 < 100){
-                        $interpretasi = $paket->interpretasi_2;
-                    }elseif($prodi1 == 100 && $prodi2 == 100){
+                    if ($prodi1 && $prodi2 ) {
                         $interpretasi = $paket->interpretasi_1;
+                    }elseif($prodi1 || $prodi2 ){
+                        $interpretasi = $paket->interpretasi_2;
+                    }elseif(!$prodi1 && !$prodi2){
+                        $interpretasi = $paket->interpretasi_3;
+                    }else{
+                         $interpretasi = "ERROR";
                     }
                 @endphp
                 <p>{{ $interpretasi }}</p>

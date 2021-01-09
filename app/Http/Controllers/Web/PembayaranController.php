@@ -225,11 +225,12 @@ class PembayaranController extends Controller
         }
     }
 
-    public function siswa_show($pembayaran_id, $slug) {
+    public function siswa_show($pembayaran_id, $slug, Request $request) {
+        $pilihBank = $request->get('bank');
         try {
             $bank = Bank::where('bayar', 1)->get();
             $pembayaran = Auth::user()->pembayaran()->with(['user', 'gelombang'])->find($pembayaran_id);
-            return view('pages.pembayaran.siswa_show', compact('pembayaran', 'bank'));
+            return view('pages.pembayaran.siswa_show', compact('pembayaran', 'bank', 'pilihBank'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }

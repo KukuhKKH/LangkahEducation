@@ -17,7 +17,7 @@
             <div class="form-group">
                 <label for="jenis">Jenis Kategori</label>
                 <select name="jenis" class="form-control @error('jenis') is-invalid @enderror" autocomplete="off">
-                    <option value="tpa" {{ $kategori->jenis == 'tpa' ? 'selected' : '' }}>TPA</option>
+                    <option value="tps" {{ $kategori->jenis == 'tps' ? 'selected' : '' }}>TPS</option>
                     <option value="tka" {{ $kategori->jenis == 'tka' ? 'selected' : '' }}>TKA</option>
                 </select>
                 @error('nama')
