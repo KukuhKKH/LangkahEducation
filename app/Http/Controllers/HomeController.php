@@ -77,10 +77,6 @@ class HomeController extends Controller
             $grafik = [];
             $label = [];
             $val = [];
-
-            $grafik2 = [];
-            $label2 = [];
-            $val2 = [];
             
             $idKelompok = [];
             $nmSiswa = [];
@@ -88,6 +84,11 @@ class HomeController extends Controller
             foreach($siswaAll as $key => $value) {
                 $id_siswa[] = $value->user_id;
             }
+
+            $labelSaintek = [];
+            $valSaintek = [];
+            $labelSoshum = [];
+            $valSoshum = [];
 
             if(request()->get('gelombang') && request()->get('paket')) {
                 $gelombang_id = request()->get('gelombang');
@@ -107,9 +108,19 @@ class HomeController extends Controller
                             ->join('kelompok_passing_grade', 'temp_prodi_tryout.kelompok_passing_grade_id', '=', 'kelompok_passing_grade.id', 'LEFT')->where('temp_prodi_tryout.gelombang_id', $gelombang_id)->where('temp_prodi_tryout.paket_id', $paket_id)
                             ->groupBy('kelompok_passing_grade_id')
                             ->get();
-                $grafik2 = TryoutHasil::selectRaw("count(id) as total, user_id, nilai_sekarang, gelombang_id, tryout_paket_id")->where('gelombang_id', $gelombang_id)->where('tryout_paket_id', $paket_id)->groupBy('nilai_sekarang')->get();
 
                 $total_siswa_pg = $this->total_siswa_pg(request()->get('gelombang'), request()->get('paket'));
+
+                $raw_data_grafik = TryoutHasil::with(['user'])->where('gelombang_id', $gelombang_id)->where('tryout_paket_id', $paket_id)->get();
+                foreach ($raw_data_grafik as $key => $value) {
+                    if($value->kelompok_passing_grade_id == 1) {
+                        $valSaintek[] = $value->nilai_sekarang;
+                        $labelSaintek[] = $value->user->name."\n(SAINTEK)";
+                    } elseif($value->kelompok_passing_grade_id == 2) {
+                        $valSoshum[] = $value->nilai_sekarang;
+                        $labelSoshum[] = $value->user->name."\n(SOSHUM)";
+                    }
+                }
             }
             $nSaintek = 0;
             $nSoshum = 0;
@@ -126,15 +137,7 @@ class HomeController extends Controller
             $val[] = $nSaintek;
             $val[] = $nSoshum;
 
-            foreach ($grafik2 as $key => $value) {
-                $label2[] = $value->nilai_sekarang;
-                $val2[] = $value->total;
-
-                $nmSiswa[] = User::find($value->user_id)->name;
-                $idKelompok[] = TempProdi::selectRaw('kelompok_passing_grade_id AS idKel')->where('gelombang_id', $value->gelombang_id)->where('paket_id', $value->tryout_paket_id)->where('user_id', $value->user_id)->groupBy('kelompok_passing_grade_id')->first();
-            }
-
-            return view('pages.dashboard', compact('sekolah', 'siswa', 'belum_bayar', 'pengunjung', 'label3', 'totals', 'artikel_publish', 'artikel_draft', 'total_artikel', 'artikelmu_like', 'artikelmu_komentar', 'artikel_like', 'artikel_komentar', 'gelombang', 'sudah_komentar', 'belum_komentar', 'total_siswa_pg', 'idKelompok', 'nmSiswa', 'label', 'val', 'label2', 'val2'));
+            return view('pages.dashboard', compact('sekolah', 'siswa', 'belum_bayar', 'pengunjung', 'label3', 'totals', 'artikel_publish', 'artikel_draft', 'total_artikel', 'artikelmu_like', 'artikelmu_komentar', 'artikel_like', 'artikel_komentar', 'gelombang', 'sudah_komentar', 'belum_komentar', 'total_siswa_pg', 'nmSiswa', 'label', 'val', 'labelSoshum', 'labelSaintek', 'valSaintek', 'valSoshum'));
 
         } elseif($user->getRoleNames()->first() == 'siswa') {
             $pg1 = $pg2 = $nilai_user = $nil_pg1 = $nil_pg2 = 0;

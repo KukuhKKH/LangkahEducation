@@ -55,6 +55,7 @@ class SekolahImport implements ToModel, WithStartRow
             'alamat' => $row[2],
             'kode_referal' => $kode_referal
         ]);
+        $user->assignRole('sekolah');
     }
 
     public function startRow(): int {

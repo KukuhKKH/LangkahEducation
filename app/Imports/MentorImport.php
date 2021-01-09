@@ -47,6 +47,7 @@ class MentorImport implements ToModel, WithStartRow
         $user->mentor()->create([
             'pendidikan_terakhir' => $row[2]
         ]);
+        $user->assignRole('mentor');
     }
 
     public function startRow(): int {

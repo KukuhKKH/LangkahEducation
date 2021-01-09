@@ -948,33 +948,6 @@
     @endhasanyrole
 
     @hasanyrole('mentor|superadmin|admin')
-        @php
-            $nmKelompok= [];
-            $labelSoshum = [];
-            $labelSaintek = [];
-            $valSoshum = [];
-            $valSaintek = [];
-        @endphp
-        @foreach ($idKelompok as $item)
-            @php
-                $nmKelompok[]= App\Models\KelompokPassingGrade::find($item->idKel)->nama;
-            @endphp
-        @endforeach
-        @php
-            $siswaKategori = [];
-            for ($i=0; $i <count($nmKelompok) ; $i++) { 
-                $siswa = $nmSiswa[$i];
-                $kategori = strtoupper($nmKelompok[$i]);
-                $siswaKategori[]=$siswa."\n(".$kategori.")";
-                if($kategori == "SAINTEK"){
-                    $valSaintek[] = $label2[$i];
-                    $labelSaintek[] = $siswa."\n(".$kategori.")";
-                }else if($kategori == "SOSHUM"){
-                    $valSoshum[] = $label2[$i];
-                    $labelSoshum[] = $siswa."\n(".$kategori.")";
-                }
-            }
-        @endphp
         <script>
             var ctx = document.getElementById("myPenyebaran");
             var myPieChart = new Chart(ctx, {

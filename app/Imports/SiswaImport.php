@@ -68,6 +68,7 @@ class SiswaImport implements ToModel, WithStartRow
             'nomor_hp' => $row[4],
             'batch' => 0
         ]);
+        $user->assignRole('siswa');
     }
 
     public function startRow(): int {
