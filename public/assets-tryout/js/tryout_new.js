@@ -1,5 +1,5 @@
 var indexQuest = 0;
-
+// localStorage.removeItem(`answered-${gelombang_id}-${user}-${paket_slug}`)
 var currentQuest = 0;
 
 if(localStorage.getItem("indexQuest") != null){
@@ -44,9 +44,11 @@ function loadQuesList() {
         htmlSoal += '<div class="p-0 col-lg-2 mr-1 mb-1"><button name="shortcutSoal" id="listSoal'+i+'" type="button" name="btnList" onclick="goToIndex(' + i + ')" class="btn btn-outline-dark quiz-list">' + (i + 1) + '</button></div>'
     }
     questList.innerHTML = htmlSoal;
+    console.log(localStorage.getItem(`answered-${gelombang_id}-${user}-${paket_slug}`))
 
     $("#listSoal"+indexQuest).removeClass('btn-outline-dark');
     $("#listSoal"+indexQuest).addClass('btn-current');
+
 }
 
 function getChoice(currentQuest) {
@@ -61,8 +63,11 @@ function goToIndex(index){
 
     $("#listSoal"+currentQuest).removeClass('btn-current');
     $("#listSoal"+currentQuest).addClass('btn-outline-dark');
+
     indexQuest = index;
+    // loadQuesList()
     loadQuest(indexQuest);
+    updateShortcut()
 }
 
 $("#btn-lanjut").on('click', function () {
