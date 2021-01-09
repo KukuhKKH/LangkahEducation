@@ -186,7 +186,7 @@
          compSiswaWaktu.setAttribute('data-time', waktu)
       } else {
          let raw_waktu = moment().add('{{ $waktu }}', 'minutes').format('YYYY-MM-DD H:mm:ss')
-         const waktu_sekarang = woks.replace(' ', 'T') + 'Z'
+         const waktu_sekarang = raw_waktu.replace(' ', 'T') + '+07:00'
          if(isSafari) {
             // 6 Jam
             Cookies.set(`waktu-${gelombang_id}-${user}-${paket_slug}`, waktu_sekarang, {
