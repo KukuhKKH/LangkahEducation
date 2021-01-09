@@ -6,11 +6,17 @@
 
 <div class="row mb-4">
 
+@php
+    $ada = false;
+@endphp
 {{-- Produk dari sekolah --}}
 @forelse ($produk_sekolah as $value)
     @foreach ($value->tryout as $item)
         @if (!in_array($item->id, $paket_id_selesai) || !in_array($value->id, $gelombang_id_selesai))
             @if ($item->status == 1)
+            @php
+                $ada = true;
+            @endphp
                 <div class="col-xl-4">
                     <div class="card mb-4">
                         @if ($item->image)
@@ -67,10 +73,17 @@
                     </div>
                 </div>
             @endif
+        @else
+            @php
+                $sekolah = true;
+            @endphp
         @endif
+        
     @endforeach
 @empty
-<?php $sekolah = true; ?>
+@php
+    $sekolah = true;
+@endphp
     {{-- Biarkan kosong bruh --}}
 @endforelse
 
@@ -78,6 +91,9 @@
 @forelse ($produk_gelombang as $value)
     @foreach ($value->tryout as $item)
         @if (!in_array($item->id, $paket_id_selesai) || !in_array($value->id, $gelombang_id_selesai))
+            @php
+                $ada = true;
+            @endphp
             @if ($item->status == 1)
                 <div class="col-xl-4">
                     <div class="card mb-4">
@@ -133,9 +149,9 @@
                     </div>
                 </div>
             @else
-                @php
-                    $kosong = true;
-                @endphp
+             @php
+                $kosong = true;
+            @endphp
             @endif
         @else
             @php
@@ -148,15 +164,11 @@
         $kosong = true;
     @endphp
 @endforelse
-@if ($kosong && $sekolah)
+@if ($kosong && $sekolah && !$ada)
         <div class="col-xl-12 text-center p-5">
             <img class="img-fluid" src="{{asset('assets/img/empty-illustration.svg')}}" alt="">
-            @if (auth()->user()->siswa->batch == 1)
-                <h3 class="mt-3">Belum ada paket tryout dari sekolah</h3>
-            @else
                 <h3 class="mt-3">Wah Kamu Belum mengikuti Try Out Apapun</h3>
                 <a class="btn btn-langkah mt-3" href="{{ route('gelombang.siswa') }}">Daftar Try Out</a>
-            @endif
         </div>
     @endif
 </div>
