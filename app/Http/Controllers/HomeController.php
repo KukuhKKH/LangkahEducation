@@ -89,10 +89,15 @@ class HomeController extends Controller
             $valSaintek = [];
             $labelSoshum = [];
             $valSoshum = [];
+            $jenisGel = 1; //UMUM
 
             if(request()->get('gelombang') && request()->get('paket')) {
                 $gelombang_id = request()->get('gelombang');
                 $paket_id = request()->get('paket');
+
+                $selectGel = Gelombang::where('id', $gelombang_id)->first();
+                $jenisGel = $selectGel->jenis;
+
                 $tyrout_hasil = TryoutHasil::where('gelombang_id', $gelombang_id)
                                     ->where('tryout_paket_id', $paket_id)
                                     ->with('komentar')->get();
@@ -137,7 +142,7 @@ class HomeController extends Controller
             $val[] = $nSaintek;
             $val[] = $nSoshum;
 
-            return view('pages.dashboard', compact('sekolah', 'siswa', 'belum_bayar', 'pengunjung', 'label3', 'totals', 'artikel_publish', 'artikel_draft', 'total_artikel', 'artikelmu_like', 'artikelmu_komentar', 'artikel_like', 'artikel_komentar', 'gelombang', 'sudah_komentar', 'belum_komentar', 'total_siswa_pg', 'nmSiswa', 'label', 'val', 'labelSoshum', 'labelSaintek', 'valSaintek', 'valSoshum'));
+            return view('pages.dashboard', compact('sekolah', 'siswa', 'belum_bayar', 'pengunjung', 'label3', 'totals', 'artikel_publish', 'artikel_draft', 'total_artikel', 'artikelmu_like', 'artikelmu_komentar', 'artikel_like', 'artikel_komentar', 'gelombang', 'sudah_komentar', 'belum_komentar', 'total_siswa_pg', 'nmSiswa', 'label', 'val', 'labelSoshum', 'labelSaintek', 'valSaintek', 'valSoshum', 'jenisGel'));
 
         } elseif($user->getRoleNames()->first() == 'siswa') {
             $pg1 = $pg2 = $nilai_user = $nil_pg1 = $nil_pg2 = 0;
