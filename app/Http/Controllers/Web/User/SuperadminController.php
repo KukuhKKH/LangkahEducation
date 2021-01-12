@@ -136,7 +136,13 @@ class SuperadminController extends Controller
     public function destroy($id)
     {
         try {
-            User::find($id)->delete();
+            $admin = User::find($id);
+            if($admin->foto != '') {
+                if(file_exists(public_path('upload/users/'.$admin->foto))){
+                    unlink(public_path('upload/users/'.$admin->foto));
+                }
+            }
+            $admin->delete();
             return \redirect()->back()->with(['success' => "Berhasil hapus superadmin"]);
         } catch(\Exception $e) {
             return \redirect()->back()->with(['error' => $e->getMessage()]);

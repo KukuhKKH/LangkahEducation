@@ -86,11 +86,16 @@ class LayananController extends Controller
             'foto' => 'nullable|mimes:jpg,jpeg,gif,png|max:2024'
         ]);
         try {
+            $layanan = LayananProduk::find($id);
             if($request->hasFile('foto')) {
+                if($layanan->foto != '') {
+                    if(file_exists(public_path('upload/layanan/'.$layanan->foto))){
+                        unlink(public_path('upload/layanan/'.$layanan->foto));
+                    }
+                }
                 $foto_name = time().'.'.$request->foto->extension();  
                 $request->foto->move(public_path('upload/layanan/'), $foto_name);
             }
-            $layanan = LayananProduk::find($id);
             $layanan->update([
                 'nama' => $request->nama,
                 'deskripsi' => $request->deskripsi,
@@ -111,7 +116,13 @@ class LayananController extends Controller
     public function destroy($id)
     {
         try {
-            LayananProduk::find($id)->delete();
+            $layanan = LayananProduk::find($id);
+            if($layanan->foto != '') {
+                if(file_exists(public_path('upload/layanan/'.$layanan->foto))){
+                    unlink(public_path('upload/layanan/'.$layanan->foto));
+                }
+            }
+            $layanan->delete();
             return redirect()->back()->with(['success' => "Berhasil hapus layanan"]);
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);

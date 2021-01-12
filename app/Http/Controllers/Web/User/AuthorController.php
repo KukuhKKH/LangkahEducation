@@ -143,6 +143,11 @@ class AuthorController extends Controller
     {
         try {
             $author = Author::find($id);
+            if($author->user->foto != '') {
+                if(file_exists(public_path('upload/users/'.$author->user->foto))){
+                    unlink(public_path('upload/users/'.$author->user->foto));
+                }
+            }
             $author->delete();
             $author->user->delete();
             return \redirect()->back()->with(['success' => "Berhasil hapus author"]);

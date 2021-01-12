@@ -117,6 +117,11 @@ class MentorController extends Controller
                 }
             }
             if($request->hasFile('foto')) {
+                if($mentor->user->foto != '') {
+                    if(file_exists(public_path('upload/users/'.$mentor->user->foto))){
+                        unlink(public_path('upload/users/'.$mentor->user->foto));
+                    }
+                }
                 $foto_name = time().'.'.$request->foto->extension();  
                 $request->foto->move(public_path('upload/users/'), $foto_name);
                 $foto = $foto_name;
@@ -157,7 +162,13 @@ class MentorController extends Controller
     {
         try {
             $mentor = Mentor::find($id);
-            $mentor->siswa()->delete();
+            if($mentor->user->foto != '') {
+                if(file_exists(public_path('upload/users/'.$mentor->user->foto))){
+                    unlink(public_path('upload/users/'.$mentor->user->foto));
+                }
+            }
+            DB::table('siswa_has_mentor')->where('mentor_id', '=', $id)->delete();
+            DB::table('komentar_mentor')->where('mentor_id', '=', $id)->delete();
             $mentor->delete();
             $mentor->user()->delete();
             return \redirect()->back()->with(['success' => "Berhasil hapus mentor"]);

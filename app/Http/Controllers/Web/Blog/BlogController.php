@@ -141,8 +141,10 @@ class BlogController extends Controller
         try {
             $blog = Blog::find($id);
             if($request->hasFile('foto')) {
-                if(file_exists(public_path('upload/blog/'.$blog->foto))){
-                    if($blog->foto != "") unlink(public_path('upload/blog/'.$blog->foto));
+                if($blog->foto != '') {
+                    if(file_exists(public_path('upload/blog/'.$blog->foto))){
+                        if($blog->foto != "") unlink(public_path('upload/blog/'.$blog->foto));
+                    }
                 }
                 $foto_name = time().'.'.$request->foto->extension();  
                 $request->foto->move(public_path('upload/blog/'), $foto_name);
@@ -172,7 +174,7 @@ class BlogController extends Controller
     {
         try {
             $artikel = Blog::find($id);
-            if($artikel->foto) {
+            if($artikel->foto != '') {
                 if(file_exists(public_path('upload/blog/'.$artikel->foto))){
                     unlink(public_path('upload/blog/'.$artikel->foto));
                 }
