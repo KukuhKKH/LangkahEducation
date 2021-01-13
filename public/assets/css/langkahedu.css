@@ -230,3 +230,8 @@ input[type=number] {
   background-color: #0069d9 !important;
   border-color: #0062cc !important;
 }
+
+.notif{
+  height: 400px;
+  overflow-y: auto !important;
+}

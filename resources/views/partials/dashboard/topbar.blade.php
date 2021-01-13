@@ -40,7 +40,7 @@
                 <span class="badge badge-danger badge-counter">{{ count($komentar_mentor) }}</span>
             </a>
             <!-- Dropdown - Messages -->
-            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+            <div class="notif dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                 aria-labelledby="messagesDropdown">
                 <h6 class="dropdown-header">
                     Komentar
@@ -76,7 +76,7 @@
                 <span class="badge badge-danger badge-counter">{{ count($chat_masuk) }}</span>
             </a>
             <!-- Dropdown - Messages -->
-            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in notif"
                 aria-labelledby="messagesDropdown">
                 <h6 class="dropdown-header">
                     Chat
