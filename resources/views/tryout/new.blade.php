@@ -94,6 +94,7 @@
                         <div class="col-lg-3" id="menu-soal">
                            <h5 class="h5 mt-3 mb-2 font-weight-bold">Daftar Soal</h5>
                            <div class="row" id="daftar-soal">
+                              
                            </div>
                         </div>
                      </div>
@@ -187,6 +188,24 @@
    let markedGroups
    let waktu
    $(document).ready(function() {
+   // DISABLED RIGHT CLICK, COPY PASTE == KOMEN JIKA PROSES DEVELOPING
+      $(document).bind("contextmenu",function(e){
+         return false;
+      });
+
+      $('.soal').bind("copy",function(e) {
+         e.preventDefault();
+      });
+
+      $(document).keydown(function(e) { 
+         if (e.ctrlKey == true && (e.which == '67')) { 
+            e.preventDefault();
+         } 
+      }); 
+
+      //END
+
+
       if(isSafari) {
          waktu = Cookies.get(`waktu-${gelombang_id}-${user}-${paket_slug}`)  
       } else {
