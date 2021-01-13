@@ -96,6 +96,11 @@ class BankController extends Controller
         try {
             $bank = Bank::find($id);
             if($request->hasFile('file')) {
+                if($bank->logo != '') {
+                    if(file_exists(public_path('upload/bank/'.$bank->logo))){
+                        unlink(public_path('upload/bank/'.$bank->logo));
+                    }
+                }
                 $foto_name = time().'.'.$request->file->extension();  
                 $request->file->move(public_path('upload/bank/'), $foto_name);
                 $request->file = $foto_name;

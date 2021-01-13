@@ -186,17 +186,18 @@
       if(waktu != null) {
          compSiswaWaktu.setAttribute('data-time', waktu)
       } else {
-         let waktu_sekarang = moment().add('{{ $waktu }}', 'minutes').format('YYYY-MM-DD H:mm:ss')
-         // const waktu_sekarang = raw_waktu.replace(' ', 'T') + '+07:00'
+         let raw_waktu = moment().add('{{ $waktu }}', 'minutes').format('YYYY-MM-DD H:mm:ss')
          if(isSafari) {
             // 6 Jam
+            let waktu_sekarang = raw_waktu.replace(' ', 'T') + '+07:00'
             Cookies.set(`waktu-${gelombang_id}-${user}-${paket_slug}`, waktu_sekarang, {
                expires: 12/48
             })
+            compSiswaWaktu.setAttribute('data-time', waktu_sekarang)
          } else {
-            localStorage.setItem(`waktu-${gelombang_id}-${user}-${paket_slug}`, waktu_sekarang)
+            localStorage.setItem(`waktu-${gelombang_id}-${user}-${paket_slug}`, raw_waktu)
+            compSiswaWaktu.setAttribute('data-time', raw_waktu)
          }
-         compSiswaWaktu.setAttribute('data-time', waktu_sekarang)
       }
 
       let t = $('.sisawaktu');
@@ -210,6 +211,22 @@
          let com_option = document.getElementsByName(`jawaban[${jwb}]`)
          for (let index = 0; index < com_option.length; index++) {
             com_option[index].checked = false;
+         }
+         let data_old = JSON.parse(localStorage.getItem(`selected-${gelombang_id}-${user}-${paket_slug}`) || '{}')
+         let answered_old = JSON.parse(localStorage.getItem(`answered-${gelombang_id}-${user}-${paket_slug}`) || '{}')
+         let prop = `jawaban[${jwb}]`
+         delete data_old[prop]
+         delete answered_old[indexQuest]
+         if(isSafari) {
+            Cookies.set(`selected-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(data_old), {
+               expires: 12/48
+            })
+            Cookies.set(`answered-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(answered_old), {
+               expires: 12/48
+            })
+         } else {
+            localStorage.setItem(`selected-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(data_old));
+            localStorage.setItem(`answered-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(answered_old));
          }
       })
 
@@ -233,6 +250,9 @@
          // Set value bersamaan dengan name
          if(isSafari) {
             Cookies.set(`selected-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(radioGroups), {
+               expires: 12/48
+            })
+            Cookies.set(`answered-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(shortcutGroups), {
                expires: 12/48
             })
          } else {

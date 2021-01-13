@@ -134,6 +134,11 @@ class SekolahController extends Controller
             }
             $logo = $request->foto;
             if($request->hasFile('foto')) {
+                if($sekolah->user->foto != '') {
+                    if(file_exists(public_path('upload/users/'.$sekolah->user->foto))){
+                        unlink(public_path('upload/users/'.$sekolah->user->foto));
+                    }
+                }
                 $foto_name = time().'.'.$request->foto->extension();  
                 $request->foto->move(public_path('upload/users/'), $foto_name);
                 $logo = $foto_name;
@@ -193,6 +198,11 @@ class SekolahController extends Controller
             DB::table('sekolah_has_gelombang')
                         ->where('sekolah_id', '=', $sekolah->id)
                         ->delete();
+            if($sekolah->user->foto != '') {
+                if(file_exists(public_path('upload/users/'.$sekolah->user->foto))){
+                    unlink(public_path('upload/users/'.$sekolah->user->foto));
+                }
+            }
             $sekolah->delete();
             $sekolah->user()->delete();
             return \redirect()->back()->with(['success' => "Berhasil hapus sekolah"]);

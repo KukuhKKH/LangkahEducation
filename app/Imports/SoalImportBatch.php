@@ -87,38 +87,37 @@ class SoalImportBatch implements ToModel, WithStartRow
             throw new \Exception($errMessage);
         }
         
-        $soal = TryoutSoal::updateOrCreate([
+        $soal = TryoutSoal::create([
             'tryout_paket_id' => $this->paket_id,
             'tryout_kategori_soal_id' => $row[0],
             'soal' => $row[1],
-        ],[
             'user_id' => Auth::user()->id,
             'pembahasan' => $row[2] ?? '',
             'benar' => 4,
             'salah' => $row[9],
         ]);
 
-        $soal->jawaban()->updateOrCreate([
+        $soal->jawaban()->create([
             'jawaban' => $row[3],
             'benar' => (strtoupper(trim($row[8])) == "A") ? 1 : 0
         ]);
 
-        $soal->jawaban()->updateOrCreate([
+        $soal->jawaban()->create([
             'jawaban' => $row[4],
             'benar' => (strtoupper(trim($row[8])) == "B") ? 1 : 0
         ]);
 
-        $soal->jawaban()->updateOrCreate([
+        $soal->jawaban()->create([
             'jawaban' => $row[5],
             'benar' => (strtoupper(trim($row[8])) == "C") ? 1 : 0
         ]);
 
-        $soal->jawaban()->updateOrCreate([
+        $soal->jawaban()->create([
             'jawaban' => $row[6],
             'benar' => (strtoupper(trim($row[8])) == "D") ? 1 : 0
         ]);
 
-        $soal->jawaban()->updateOrCreate([
+        $soal->jawaban()->create([
             'jawaban' => $row[7],
             'benar' => (strtoupper(trim($row[8])) == "E") ? 1 : 0
         ]);

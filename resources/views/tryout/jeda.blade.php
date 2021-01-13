@@ -137,9 +137,17 @@
       if(waktu != null) {
          compSiswaWaktu.setAttribute('data-time', waktu)
       } else {
-         const waktu_sekarang = moment().add('{{ $waktu }}', 'minutes').format('YYYY-MM-D H:mm:ss')
-         localStorage.setItem(`waktu-${user}-${paket_slug}`, waktu_sekarang)
-         compSiswaWaktu.setAttribute('data-time', waktu_sekarang)
+         let raw_waktu = moment().add('{{ $waktu }}', 'minutes').format('YYYY-MM-D H:mm:ss')
+         if(isSafari) {
+             let waktu_sekarang = raw_waktu.replace(' ', 'T') + '+07:00'
+            Cookies.set(`waktu-${gelombang_id}-${user}-${paket_slug}`, waktu_sekarang, {
+               expires: 12/48
+            })
+            compSiswaWaktu.setAttribute('data-time', waktu_sekarang)
+         } else {
+             localStorage.setItem(`waktu-${user}-${paket_slug}`, raw_waktu)
+             compSiswaWaktu.setAttribute('data-time', raw_waktu)
+         }
       }
 
       let t = $('.sisawaktu');

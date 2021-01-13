@@ -107,12 +107,17 @@ class PaketController extends Controller
     public function update(PaketUpdate $request, $id)
     {
         try {
+            $paket = TryoutPaket::find($id);
             $foto_name = '';
             if($request->hasFile('foto')) {
+                if($paket->image != '') {
+                    if(file_exists(public_path('upload/paket-tryout/'.$paket->image))){
+                        unlink(public_path('upload/paket-tryout/'.$paket->image));
+                    }
+                }
                 $foto_name = time().'.'.$request->foto->extension();  
                 $request->foto->move(public_path('upload/paket-tryout/'), $foto_name);
             }
-            $paket = TryoutPaket::find($id);
             $raw_tgl_awal = \explode('/', $request->tgl_awal);
             $raw_tgl_akhir = \explode('/', $request->tgl_akhir);
             $tgl_awal = "$raw_tgl_awal[2]-$raw_tgl_awal[1]-$raw_tgl_awal[0] $request->jam_awal";
@@ -150,6 +155,11 @@ class PaketController extends Controller
     {
         try {
             $paket = TryoutPaket::find($id);
+            if($paket->image != '') {
+                if(file_exists(public_path('upload/paket-tryout/'.$paket->image))){
+                    unlink(public_path('upload/paket-tryout/'.$paket->image));
+                }
+            }
             $paket->delete();
             return redirect()->back()->with(['success' => 'Berhasil hapus paket tryout']);
         } catch(\Exception $e) {

@@ -161,6 +161,11 @@ class SiswaController extends Controller
         try {
             DB::beginTransaction();
             $siswa = Siswa::find($id);
+            if($siswa->user->foto != "") {
+                if(file_exists(public_path('upload/users/'.$siswa->user->foto))){
+                    unlink(public_path('upload/users/'.$siswa->user->foto));
+                }
+            }
             $siswa->delete();
             $siswa->user()->delete();
             DB::commit();
