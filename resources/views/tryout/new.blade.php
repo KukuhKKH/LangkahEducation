@@ -212,6 +212,16 @@
          for (let index = 0; index < com_option.length; index++) {
             com_option[index].checked = false;
          }
+         let data_old = JSON.parse(localStorage.getItem(`selected-${gelombang_id}-${user}-${paket_slug}`) || '{}')
+         let prop = `jawaban[${jwb}]`
+         delete data_old[prop]
+         if(isSafari) {
+            Cookies.set(`selected-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(data_old), {
+               expires: 12/48
+            })
+         } else {
+            localStorage.setItem(`selected-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(data_old));
+         }
       })
 
       // Deklarasi variabel jika kosong isi dengan object kosong
@@ -219,7 +229,7 @@
          radioGroups = JSON.parse(Cookies.get(`selected-${gelombang_id}-${user}-${paket_slug}`) || '{}')
       } else {
          radioGroups = JSON.parse(localStorage.getItem(`selected-${gelombang_id}-${user}-${paket_slug}`) || '{}')
-         shortcutGroups = JSON.parse(localStorage.getItem(`answered-${gelombang_id}-${user}-${paket_slug}`) || '{}')
+         // shortcutGroups = JSON.parse(localStorage.getItem(`answered-${gelombang_id}-${user}-${paket_slug}`) || '{}')
       }
 
       // Pilih jawaban yang sudah tersimpan
@@ -232,7 +242,7 @@
       $('.radio').on('click', function(){
          // inisialisasi index dan value
          radioGroups[this.name] = this.id;
-         shortcutGroups[indexQuest] = indexQuest;
+         // shortcutGroups[indexQuest] = indexQuest;
          // Set value bersamaan dengan name
          if(isSafari) {
             Cookies.set(`selected-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(radioGroups), {
@@ -240,7 +250,7 @@
             })
          } else {
             localStorage.setItem(`selected-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(radioGroups));
-            localStorage.setItem(`answered-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(shortcutGroups));
+            // localStorage.setItem(`answered-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(shortcutGroups));
          }
       })
    })
