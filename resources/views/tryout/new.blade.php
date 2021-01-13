@@ -186,8 +186,8 @@
       if(waktu != null) {
          compSiswaWaktu.setAttribute('data-time', waktu)
       } else {
-         let raw_waktu = moment().add('{{ $waktu }}', 'minutes').format('YYYY-MM-DD H:mm:ss')
-         const waktu_sekarang = raw_waktu.replace(' ', 'T') + '+07:00'
+         let waktu_sekarang = moment().add('{{ $waktu }}', 'minutes').format('YYYY-MM-DD H:mm:ss')
+         // const waktu_sekarang = raw_waktu.replace(' ', 'T') + '+07:00'
          if(isSafari) {
             // 6 Jam
             Cookies.set(`waktu-${gelombang_id}-${user}-${paket_slug}`, waktu_sekarang, {
@@ -226,8 +226,6 @@
          document.getElementById(radioId).checked = true;
       })
 
-      
-
       $('.radio').on('click', function(){
          // inisialisasi index dan value
          radioGroups[this.name] = this.id;
@@ -244,12 +242,6 @@
       })
    })
 
-   function updateShortcut(){
-      Object.values(shortcutGroups).forEach(function(listSoalId){
-         $("#listSoal"+listSoalId).addClass('btn-answered');
-      })
-   }
-
    function waktuHabis() {
       // selesai();
       swal.fire({
@@ -265,6 +257,7 @@
             } else {
                localStorage.removeItem(`waktu-${gelombang_id}-${user}-${paket_slug}`)
                localStorage.removeItem(`selected-${gelombang_id}-${user}-${paket_slug}`)
+               localStorage.removeItem(`answered-${gelombang_id}-${user}-${paket_slug}`);
             }
             $('#form-data').submit()
          }

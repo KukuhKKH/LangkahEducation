@@ -31,10 +31,10 @@ function loadQuest(indexQuest) {
     $("#listSoal"+indexQuest).removeClass('btn-outline-dark');
     $("#listSoal"+indexQuest).addClass('btn-current');
     
+    
     // Position
     position.textContent = indexQuest + 1 + "/" + lengthQuest;
     currentQuest = indexQuest;
-
     return;
 }
 
@@ -48,7 +48,6 @@ function loadQuesList() {
 
     $("#listSoal"+indexQuest).removeClass('btn-outline-dark');
     $("#listSoal"+indexQuest).addClass('btn-current');
-
 }
 
 function getChoice(currentQuest) {
@@ -82,5 +81,15 @@ $("#btn-kembali").on('click', function () {
     // loadQuest(indexQuest);
 });
 
-loadQuest(indexQuest);
-loadQuesList();
+function updateShortcut(){
+    Object.values(shortcutGroups).forEach(function(listSoalId){
+       $("#listSoal"+listSoalId).addClass('btn-answered');
+    })
+ }
+
+ $(document).ready(function() {
+    loadQuesList();
+    loadQuest(indexQuest);
+    
+    updateShortcut()
+ })
