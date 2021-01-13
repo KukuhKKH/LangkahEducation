@@ -213,14 +213,20 @@
             com_option[index].checked = false;
          }
          let data_old = JSON.parse(localStorage.getItem(`selected-${gelombang_id}-${user}-${paket_slug}`) || '{}')
+         let answered_old = JSON.parse(localStorage.getItem(`answered-${gelombang_id}-${user}-${paket_slug}`) || '{}')
          let prop = `jawaban[${jwb}]`
          delete data_old[prop]
+         delete answered_old[indexQuest]
          if(isSafari) {
             Cookies.set(`selected-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(data_old), {
                expires: 12/48
             })
+            Cookies.set(`answered-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(answered_old), {
+               expires: 12/48
+            })
          } else {
             localStorage.setItem(`selected-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(data_old));
+            localStorage.setItem(`answered-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(answered_old));
          }
       })
 
@@ -229,7 +235,7 @@
          radioGroups = JSON.parse(Cookies.get(`selected-${gelombang_id}-${user}-${paket_slug}`) || '{}')
       } else {
          radioGroups = JSON.parse(localStorage.getItem(`selected-${gelombang_id}-${user}-${paket_slug}`) || '{}')
-         // shortcutGroups = JSON.parse(localStorage.getItem(`answered-${gelombang_id}-${user}-${paket_slug}`) || '{}')
+         shortcutGroups = JSON.parse(localStorage.getItem(`answered-${gelombang_id}-${user}-${paket_slug}`) || '{}')
       }
 
       // Pilih jawaban yang sudah tersimpan
@@ -242,15 +248,18 @@
       $('.radio').on('click', function(){
          // inisialisasi index dan value
          radioGroups[this.name] = this.id;
-         // shortcutGroups[indexQuest] = indexQuest;
+         shortcutGroups[indexQuest] = indexQuest;
          // Set value bersamaan dengan name
          if(isSafari) {
             Cookies.set(`selected-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(radioGroups), {
                expires: 12/48
             })
+            Cookies.set(`answered-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(shortcutGroups), {
+               expires: 12/48
+            })
          } else {
             localStorage.setItem(`selected-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(radioGroups));
-            // localStorage.setItem(`answered-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(shortcutGroups));
+            localStorage.setItem(`answered-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(shortcutGroups));
          }
       })
    })

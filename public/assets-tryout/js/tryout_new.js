@@ -44,7 +44,7 @@ function loadQuesList() {
         htmlSoal += '<div class="p-0 col-lg-2 mr-1 mb-1"><button name="shortcutSoal" id="listSoal'+i+'" type="button" name="btnList" onclick="goToIndex(' + i + ')" class="btn btn-outline-dark quiz-list">' + (i + 1) + '</button></div>'
     }
     questList.innerHTML = htmlSoal;
-    console.log(localStorage.getItem(`answered-${gelombang_id}-${user}-${paket_slug}`))
+    // console.log(localStorage.getItem(`answered-${gelombang_id}-${user}-${paket_slug}`))
 
     $("#listSoal"+indexQuest).removeClass('btn-outline-dark');
     $("#listSoal"+indexQuest).addClass('btn-current');
