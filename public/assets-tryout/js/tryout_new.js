@@ -1,10 +1,11 @@
 var indexQuest = 0;
-// localStorage.removeItem(`answered-${gelombang_id}-${user}-${paket_slug}`)
 var currentQuest = 0;
 
 if(localStorage.getItem("indexQuest") != null){
     var indexQuest = parseInt(localStorage.getItem("indexQuest"));
 }
+
+// localStorage.removeItem(`marked-${gelombang_id}-${user}-${paket_slug}`)
 
 var answerArr = [];
 var lengthQuest = total_soal;
@@ -26,6 +27,7 @@ function loadQuest(indexQuest) {
         $("#btn-kembali").prop("disabled", false);
     }
     document.getElementById("question"+indexQuest).classList.add('show');
+    updateMarked(indexQuest)
 
     // Shortcut
     $("#listSoal"+indexQuest).removeClass('btn-outline-dark');
@@ -66,7 +68,6 @@ function goToIndex(index){
     indexQuest = index;
     // loadQuesList()
     loadQuest(indexQuest);
-    updateShortcut()
 }
 
 $("#btn-lanjut").on('click', function () {
@@ -85,11 +86,27 @@ function updateShortcut(){
     Object.values(shortcutGroups).forEach(function(listSoalId){
        $("#listSoal"+listSoalId).addClass('btn-answered');
     })
+
+    Object.values(markedGroups).forEach(function(listSoalId){
+        $("#listSoal"+listSoalId).addClass('btn-marked');
+     })
  }
+
+ function updateMarked(index){
+    if(markedGroups[index] != null){
+        $("#btn-marked").addClass('text-dark');
+        $("#btn-marked").html('<i class="fa fa-bookmark"></i> Hapus Tanda');
+    }else{
+        $("#btn-marked").removeClass('text-dark');
+        $("#btn-marked").html('<i class="fa fa-bookmark"></i> Tandai');
+    }
+ }
+
 
  $(document).ready(function() {
     loadQuesList();
     loadQuest(indexQuest);
     
     updateShortcut()
+    updateMarked(indexQuest)
  })

@@ -100,10 +100,19 @@
                   </div>
                   <div class="card-footer">
                      <div class="row">
-                        <div class="col-6">
-                           <button id="btn-kembali" type="button" class="btn btn-dark">Kembali</button>
+                        <div class="col-3">
+                           <button id="btn-kembali" type="button" class="btn btn-dark mr-4">
+                              <i class="fa fa-chevron-left"></i> Kembali
+                           </button>
 
-                           <button id="btn-lanjut" type="button" class="btn btn-success">Lanjut</button>
+                           <button id="btn-lanjut" type="button" class="btn btn-success">
+                              Lanjut <i class="fa fa-chevron-right"></i>
+                           </button>
+                        </div>
+                        <div class="col-3">
+                           <button id="btn-marked" type="button" class="btn btn-warning mr-4">
+                              <i class="fa fa-bookmark"></i> Tandai
+                           </button>
                            <button id="btn-reset" type="button" class="btn btn-light text-danger">Reset</button>
                         </div>
                         <div class="col-6 text-right">
@@ -175,6 +184,7 @@
    const user = `{{ auth()->user()->name }}`
    let radioGroups
    let shortcutGroups
+   let markedGroups
    let waktu
    $(document).ready(function() {
       if(isSafari) {
@@ -205,6 +215,25 @@
          sisawaktu(t.data('time'))
       }
 
+      $('#btn-marked').on('click', function() {
+         if(markedGroups[indexQuest]==null){
+            markedGroups[indexQuest] = indexQuest;
+            localStorage.setItem(`marked-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(markedGroups));
+            $("#listSoal"+currentQuest).addClass('btn-marked');
+            $("#btn-marked").addClass('text-dark');
+            $("#btn-marked").html('<i class="fa fa-bookmark"></i> Hapus Tanda');
+         }else{
+            let marked_old = JSON.parse(localStorage.getItem(`marked-${gelombang_id}-${user}-${paket_slug}`) || '{}')
+            delete marked_old[indexQuest]
+            delete markedGroups[indexQuest] 
+            localStorage.setItem(`marked-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(marked_old));
+            $("#listSoal"+currentQuest).removeClass('btn-marked');
+            $("#btn-marked").removeClass('text-dark');
+            $("#btn-marked").html('<i class="fa fa-bookmark"></i> Tandai');
+
+         }
+      })
+
       $('#btn-reset').on('click', function() {
          let soal = $('.show')[0]
          let jwb = soal.dataset.jawaban
@@ -214,6 +243,7 @@
          }
          let data_old = JSON.parse(localStorage.getItem(`selected-${gelombang_id}-${user}-${paket_slug}`) || '{}')
          let answered_old = JSON.parse(localStorage.getItem(`answered-${gelombang_id}-${user}-${paket_slug}`) || '{}')
+         
          let prop = `jawaban[${jwb}]`
          delete data_old[prop]
          delete answered_old[indexQuest]
@@ -228,6 +258,8 @@
             localStorage.setItem(`selected-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(data_old));
             localStorage.setItem(`answered-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(answered_old));
          }
+
+         $("#listSoal"+currentQuest).removeClass('btn-answered');
       })
 
       // Deklarasi variabel jika kosong isi dengan object kosong
@@ -236,6 +268,7 @@
       } else {
          radioGroups = JSON.parse(localStorage.getItem(`selected-${gelombang_id}-${user}-${paket_slug}`) || '{}')
          shortcutGroups = JSON.parse(localStorage.getItem(`answered-${gelombang_id}-${user}-${paket_slug}`) || '{}')
+         markedGroups = JSON.parse(localStorage.getItem(`marked-${gelombang_id}-${user}-${paket_slug}`) || '{}')
       }
 
       // Pilih jawaban yang sudah tersimpan
@@ -259,6 +292,7 @@
             localStorage.setItem(`selected-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(radioGroups));
             localStorage.setItem(`answered-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(shortcutGroups));
          }
+         updateShortcut()
       })
    })
 
@@ -279,6 +313,11 @@
                localStorage.removeItem(`selected-${gelombang_id}-${user}-${paket_slug}`)
                localStorage.removeItem(`answered-${gelombang_id}-${user}-${paket_slug}`);
             }
+            localStorage.removeItem("indexQuest")
+            localStorage.removeItem(`answered-${gelombang_id}-${user}-${paket_slug}`);
+            localStorage.removeItem(`marked-${gelombang_id}-${user}-${paket_slug}`);
+            shortcutGroups = [];
+            markedGroups = [];
             $('#form-data').submit()
          }
       })
@@ -303,7 +342,11 @@
                localStorage.removeItem(`waktu-${gelombang_id}-${user}-${paket_slug}`)
                localStorage.removeItem(`selected-${gelombang_id}-${user}-${paket_slug}`)
             }
-            localStorage.removeItem('answered');
+            localStorage.removeItem("indexQuest")
+            localStorage.removeItem(`answered-${gelombang_id}-${user}-${paket_slug}`);
+            localStorage.removeItem(`marked-${gelombang_id}-${user}-${paket_slug}`);
+            shortcutGroups = [];
+            markedGroups = [];
             $('#form-data').submit()
          }
       })
