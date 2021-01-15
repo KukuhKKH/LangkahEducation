@@ -178,7 +178,7 @@
    let waktu
    $(document).ready(function() {
       if(isSafari) {
-         waktu = Cookies.get(`waktu-${gelombang_id}-${user}-${paket_slug}`)  
+         waktu = Cookies.get(`waktu-${gelombang_id}-${user}-${paket_slug}`)
       } else {
          waktu = localStorage.getItem(`waktu-${gelombang_id}-${user}-${paket_slug}`)
       }
@@ -262,6 +262,7 @@
             localStorage.setItem(`answered-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(shortcutGroups));
          }
       })
+      updateShortcut()
    })
 
    function updateShortcut(){
@@ -282,9 +283,11 @@
             if(isSafari) {
                Cookies.remove(`waktu-${gelombang_id}-${user}-${paket_slug}`)
                Cookies.remove(`selected-${gelombang_id}-${user}-${paket_slug}`)
+               Cookies.remove(`answered-${gelombang_id}-${user}-${paket_slug}`)
             } else {
                localStorage.removeItem(`waktu-${gelombang_id}-${user}-${paket_slug}`)
                localStorage.removeItem(`selected-${gelombang_id}-${user}-${paket_slug}`)
+               localStorage.removeItem(`answered-${gelombang_id}-${user}-${paket_slug}`)
             }
             $('#form-data').submit()
          }
