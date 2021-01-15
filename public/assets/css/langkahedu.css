@@ -195,6 +195,30 @@ input[type=number] {
   font-weight: 600;
 }
 
+.btn-answered {
+  color: #fff;
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.btn-answered:hover {
+  color: #fff;
+  background-color: #218838;
+  border-color: #1e7e34;
+}
+
+.btn-marked {
+  color: #fff;
+  background-color: #ffc107 !important;
+  border-color: #ffc107 !important;
+}
+
+.btn-marked:hover {
+  color: #fff ;
+  background-color: #e0a800;
+  border-color: #d39e00;
+}
+
 .btn-current {
   color: #fff;
   background-color: #007bff !important;
@@ -207,14 +231,7 @@ input[type=number] {
   border-color: #0062cc !important;
 }
 
-.btn-answered {
-  color: #fff;
-  background-color: #28a745;
-  border-color: #28a745;
-}
-
-.btn-answered:hover {
-  color: #fff;
-  background-color: #218838;
-  border-color: #1e7e34;
+.notif{
+  height: 400px;
+  overflow-y: auto !important;
 }

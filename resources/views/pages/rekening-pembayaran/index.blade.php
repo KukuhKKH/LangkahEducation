@@ -137,14 +137,14 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="bayar">Jenis Pembayaran</label>
+                            <label for="bayar">Jenis Pembayaran  <small data-toggle="tooltip" title="Gratis jika Upload Story" data-placement="right" ><i class="fa fa-info-circle"></i></small></label>
                             <select name="bayar" class="form-control" id="exampleFormControlSelect1">
                                 <option value="1">Berbayar</option>
                                 <option value="0">Gratis</option>
                               </select>
                         </div>
                         <div class="form-group">
-                            <label for="name">Logo <small>Maksimal 500 Kb</small>
+                            <label for="name">Logo <small>Maksimal 500 Kb</small> <small data-toggle="tooltip" title="Ukuran Bank : 1600x80 Ukuran Poster : 1080x1080" data-placement="right" ><i class="fa fa-info-circle"></i></small>
                             </label>
 
                             <div class="input-group">

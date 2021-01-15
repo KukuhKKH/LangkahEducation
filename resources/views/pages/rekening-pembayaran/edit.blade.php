@@ -46,7 +46,7 @@
             @enderror
          </div>
          <div class="form-group">
-            <label for="bayar">Jenis Pembayaran</label>
+            <label for="bayar">Jenis Pembayaran <small data-toggle="tooltip" title="Gratis jika Upload Story" data-placement="right"><i class="fa fa-info-circle"></i></small></label>
             <select name="bayar" class="form-control form-control-user @error('bayar') is-invalid @enderror" id="exampleFormControlSelect1">
                <option value="1" {{ ($bank->bayar == 1) ? 'selected' : '' }}>Berbayar</option>
                <option value="0" {{ ($bank->bayar == 0) ? 'selected' : '' }}>Gratis</option>
@@ -58,7 +58,7 @@
               @enderror
         </div>
          <div class="form-group">
-            <label for="name">Logo <small>Ukuran Maksimal 500Kb</small></label>
+            <label for="name">Logo <small>Ukuran Maksimal 500Kb</small> <small data-toggle="tooltip" title="Ukuran Bank : 1600x80 Ukuran Poster : 1080x1080" data-placement="right" ><i class="fa fa-info-circle"></i></small></label>
                <div class="input-group">
                   <div class="custom-file">
                      <input type="file" name="file" class="custom-file-input" id="inputFile" accept="image/*">
