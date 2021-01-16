@@ -163,7 +163,7 @@ class PembayaranController extends Controller
                 $q->where('id', $gelombang);
             });
         }
-        $data = $query->where('status', 2)->whereBetween('created_at', [$request->tgl_awal, $request->tgl_akhir])->get();
+        $data = $query->where('status', $request->status)->whereBetween('created_at', [$request->tgl_awal, $request->tgl_akhir])->get();
         return (new PembayaranExport($data))->download(date('d-M-Y')."-pembayaran.xlsx");
     }
 

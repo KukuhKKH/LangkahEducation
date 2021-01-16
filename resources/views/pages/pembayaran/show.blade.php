@@ -3,9 +3,14 @@
 @section('title', 'Pembayaran - '.ucwords(str_replace('-', ' ', request()->segment(3))))
 
 @section('content')
-@if (request()->segment(3) == "sudah-verifikasi")
+@if (request()->segment(3) == "sudah-verifikasi" || request()->segment(3) == "sudah-bayar")
 <form action="{{ route('pembayaran.export') }}" method="POST" class="mb-4">
    @csrf
+   @if (request()->segment(3) == "sudah-verifikasi")
+      <input type="hidden" value="2" name="status">
+   @else
+      <input type="hidden" value="1" name="status">
+   @endif
    <div class="row">
       <div class="col-xl-3">
          <select name="gelombang" id="gelombang" class="form-control">

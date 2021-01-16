@@ -73,7 +73,7 @@ class AdminController extends Controller
         try {
             $user = User::find($id);
             $id_bayar = DB::table('admin_pembayaran')->select('pembayaran_id')->get()->pluck('pembayaran_id')->toArray();
-            $pembayaran = Pembayaran::with(['user', 'gelombang'])->whereNotIn('id', $id_bayar)->paginate(10);
+            $pembayaran = Pembayaran::with(['user', 'gelombang'])->whereNotIn('id', $id_bayar)->where('status', '0')->paginate(10);
             return view('pages.users.admin.integrasi_pembayaran', compact('user', 'pembayaran'));
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);

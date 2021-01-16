@@ -2,11 +2,12 @@
 
 namespace App\Imports;
 
+use App\Models\TryoutKategoriSoal;
 use App\Models\TryoutSoal;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Concerns\ToModel;
-use Maatwebsite\Excel\Concerns\WithStartRow;
 use Maatwebsite\Excel\Events\BeforeImport;
+use Maatwebsite\Excel\Concerns\WithStartRow;
 
 class SoalImportBatch implements ToModel, WithStartRow
 {
@@ -84,6 +85,12 @@ class SoalImportBatch implements ToModel, WithStartRow
 
         if($row[9] < 0 || trim($row[9]) == '') {
             $errMessage = 'Pastikan nilai salah tidak boleh bernilai negatif atau kosong.';
+            throw new \Exception($errMessage);
+        }
+
+        $kateogri = TryoutKategoriSoal::find($row[0]);
+        if($kateogri == null) {
+            $errMessage = 'Pastikan kategori tidak ada.';
             throw new \Exception($errMessage);
         }
         
