@@ -101,6 +101,57 @@
   color: #fff !important;
 }
 
+.sidebar-brand{
+  background: #000 !important;
+  border-radius: 20px;
+}
+
+.sidebar-dark .sidebar-heading {
+  color:  #fff !important;
+  margin-bottom: 5px;
+}
+.sidebar-dark .nav-item.active .nav-link i {
+  color:  #fff !important;
+}
+
+.sidebar-dark .nav-item .nav-link:hover {
+  color:  #fff !important;
+}
+
+.sidebar-dark .nav-item .nav-link a{
+  color:  #ffffff!important;
+}
+.sidebar-dark .nav-item.active{
+  background-color:  #fff!important;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.sidebar-dark .nav-item.active .nav-link {
+  color: #ECB811 !important;
+}
+
+.sidebar-dark .nav-item.active .nav-link i {
+  color: #ECB811 !important;
+}
+
+.sidebar-dark .nav-item.active .nav-link:hover i {
+  color: #ECB811 !important;
+}
+
+.sidebar-dark .nav-item .nav-link a:hover{
+  color:  #ffffff !important;
+}
+
+.sidebar-dark .nav-item:hover .nav-link i {
+  color:  #ffffff!important;
+}
+
+
+.sidebar-dark .nav-item.active .nav-link[data-toggle=collapse]::after {
+  color: #fff !important;
+}
+
 /* Text */
 .text-langkah{
     color: #D4A60F !important;
@@ -234,4 +285,13 @@ input[type=number] {
 .notif{
   height: 400px;
   overflow-y: auto !important;
+}
+@media only screen and (min-width: 768px) {
+  .sidebar{
+      margin: 0.5rem !important;
+  }
+}
+
+.toggled .sidebar-brand{
+  padding: 1.5rem !important;
 }

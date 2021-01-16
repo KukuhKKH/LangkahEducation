@@ -1,8 +1,8 @@
 <!-- Sidebar -->
-<ul class="navbar-nav bg-white sidebar sidebar-light accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-langkah sidebar sidebar-dark accordion" id="accordionSidebar" style="border-radius: 20px">
 
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/') }}">
-        <img id="logoDashboard" src="{{ asset('assets/img/logo-primary.svg') }}" class="img-fluid p-2" alt="" srcset="">
+        <img id="logoDashboard" src="{{ asset('assets/img/logo-primary-white.svg') }}" class="img-fluid p-2" alt="" srcset="">
     </a>
 
     <hr class="sidebar-divider my-0 mb-3">
