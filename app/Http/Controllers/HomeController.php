@@ -91,6 +91,9 @@ class HomeController extends Controller
             $valSoshum = [];
             $jenisGel = 1; //UMUM
 
+            $nSaintek = 0;
+            $nSoshum = 0;
+
             if(request()->get('gelombang') && request()->get('paket')) {
                 $gelombang_id = request()->get('gelombang');
                 $paket_id = request()->get('paket');
@@ -106,6 +109,12 @@ class HomeController extends Controller
                         $sudah_komentar++;
                     } else {
                         $belum_komentar++;
+                    }
+
+                    if($value->kelompok_passing_grade_id == 1) {
+                        $nSaintek++;
+                    } else {
+                        $nSoshum++;
                     }
                 }
                 $grafik =  DB::table('temp_prodi_tryout')
@@ -127,18 +136,16 @@ class HomeController extends Controller
                     }
                 }
             }
-            $nSaintek = 0;
-            $nSoshum = 0;
             $max_saintek = 0;
             $max_soshum = 0;
 
-            foreach ($grafik as $key => $value) {
-                if(strtoupper($value->nama) == 'SAINTEK'){
-                    $nSaintek = $value->total / 2;
-                }else if(strtoupper($value->nama) == 'SOSHUM'){
-                    $nSoshum = $value->total / 2;
-                }
-            }
+            // foreach ($grafik as $key => $value) {
+            //     if(strtoupper($value->nama) == 'SAINTEK'){
+            //         $nSaintek = $value->total / 2;
+            //     }else if(strtoupper($value->nama) == 'SOSHUM'){
+            //         $nSoshum = $value->total / 2;
+            //     }
+            // }
             $val[] = $nSaintek;
             $val[] = $nSoshum;
 
