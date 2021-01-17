@@ -139,12 +139,17 @@
           color: rgba(255,255,255,1) !important;
         }
         
-        .nav-item{
+        .sidebar .nav-item{
             margin: 3px;
         }
         
-        .nav-item:hover{
+        .sidebar .nav-item:hover{
             background-color: #5e480046;
+            border-radius: 10px;
+        }
+
+        .sidebar .nav-item:hover #userDropdown{
+            background-color: #ffffff00 !important;
             border-radius: 10px;
         }
         

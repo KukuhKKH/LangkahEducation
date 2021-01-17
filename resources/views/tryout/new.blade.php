@@ -92,7 +92,7 @@
                         </div>
 
                         <div class="col-lg-3" id="menu-soal">
-                           <h5 class="h5 mt-3 mb-2 font-weight-bold">Daftar Soal</h5>
+                           <h5 class="h5 mt-3 mb-2 font-weight-bold menu-soal">Daftar Soal</h5>
                            <div class="row" id="daftar-soal">
                               
                            </div>
@@ -101,7 +101,15 @@
                   </div>
                   <div class="card-footer">
                      <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-lg-3" id="menu-soal">
+                           <h5 class="h5 mt-3 mb-2 font-weight-bold">Daftar Soal</h5>
+                           <div class="row" id="daftar-soal">
+                              
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-3 mb-2">
                            <button id="btn-kembali" type="button" class="btn btn-dark mr-4">
                               <i class="fa fa-chevron-left"></i> Kembali
                            </button>
@@ -110,7 +118,7 @@
                               Lanjut <i class="fa fa-chevron-right"></i>
                            </button>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 mb-2">
                            <button id="btn-marked" type="button" class="btn btn-warning mr-4">
                               <i class="fa fa-bookmark"></i> Tandai
                            </button>
@@ -189,19 +197,19 @@
    let waktu
    $(document).ready(function() {
    // DISABLED RIGHT CLICK, COPY PASTE == KOMEN JIKA PROSES DEVELOPING
-      $(document).bind("contextmenu",function(e){
-         return false;
-      });
+      // $(document).bind("contextmenu",function(e){
+      //    return false;
+      // });
 
-      $('.soal').bind("copy",function(e) {
-         e.preventDefault();
-      });
+      // $('.soal').bind("copy",function(e) {
+      //    e.preventDefault();
+      // });
 
-      $(document).keydown(function(e) { 
-         if (e.ctrlKey == true && (e.which == '67')) { 
-            e.preventDefault();
-         } 
-      }); 
+      // $(document).keydown(function(e) { 
+      //    if (e.ctrlKey == true && (e.which == '67')) { 
+      //       e.preventDefault();
+      //    } 
+      // }); 
 
       //END
 
