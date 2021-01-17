@@ -159,7 +159,7 @@
 
 /* Background */
 .bg-langkah{
-  background-color: #ECB811!important;
+  background-color: #5e480046!important;
 }
 
 .sidebar .sidebar-card{
@@ -181,8 +181,6 @@
   font-size: 10pt;
   color : #fff !important;
 }
-
-
 
 .timepicker{
   z-index: 999;
@@ -294,4 +292,12 @@ input[type=number] {
 
 .toggled .sidebar-brand{
   padding: 1.5rem !important;
+}
+
+.sidebar-dark #sidebarToggle {
+  background-color: #000 !important;
+}
+
+.sidebar-dark #sidebarToggle::after {
+  color: rgba(255,255,255,1) !important;
 }

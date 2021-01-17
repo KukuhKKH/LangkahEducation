@@ -65,6 +65,92 @@
             width: 100% !important;
             padding: 0;
         }
+        .sidebar-brand{
+          background: #000 !important;
+          border-radius: 20px;
+        }
+        
+        
+        .sidebar-dark .sidebar-heading {
+          color:  #fff !important;
+          margin-bottom: 5px;
+        }
+        .sidebar-dark .nav-item.active .nav-link i {
+          color:  #fff !important;
+        }
+        
+        .sidebar-dark .nav-item .nav-link:hover {
+          color:  #fff !important;
+        }
+        
+        .sidebar-dark .nav-item .nav-link a{
+          color:  #ffffff!important;
+        }
+        .sidebar-dark .nav-item.active{
+          background-color:  #fff!important;
+          border-radius: 10px;
+          margin: 3px;
+        }
+        
+        .sidebar-dark .nav-item.active .nav-link {
+          color: #ECB811 !important;
+        }
+        
+        .sidebar-dark .nav-item.active .nav-link i {
+          color: #ECB811 !important;
+        }
+        
+        .sidebar-dark .nav-item.active .nav-link:hover i {
+          color: #ECB811 !important;
+        }
+        
+        .sidebar-dark .nav-item .nav-link a:hover{
+          color:  #ffffff !important;
+        }
+        
+        .sidebar-dark .nav-item:hover .nav-link i {
+          color:  #ffffff!important;
+        }
+        
+        
+        .sidebar-dark .nav-item.active .nav-link[data-toggle=collapse]::after {
+          color: #fff !important;
+        }
+        
+        @media only screen and (min-width: 768px) {
+          .sidebar{
+              margin: 0.5rem !important;
+          }
+        }
+        
+        .toggled .sidebar-brand{
+          padding: 1.5rem !important;
+        }
+        
+        .sidebar-dark #sidebarToggle {
+          background-color: #000 !important;
+        }
+        
+        .sidebar-dark #sidebarToggle:hover {
+          background-color: rgba(0, 0, 0, 0.75) !important;
+        }
+        
+        .sidebar-dark #sidebarToggle::after {
+          color: rgba(255,255,255,1) !important;
+        }
+        
+        .nav-item{
+            margin: 3px;
+        }
+        
+        .nav-item:hover{
+            background-color: #5e480046;
+            border-radius: 10px;
+        }
+        
+        .sidebar.toggled .nav-item .nav-link {
+            width:100% !important;
+        }
     </style>
     {{-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-EM1ZQM2LE7"></script>
     <script>
@@ -253,7 +339,7 @@
                         scaleBeginAtZero: true,
                         min:0,
                         // max:100,
-                        maxTicksLimit: 5,
+                        maxTicksLimit: 10,
                         padding: 10,
                     },
                     gridLines: {
