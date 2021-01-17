@@ -50,7 +50,11 @@ class SiswaImport implements ToModel, WithStartRow
             $errMessage = 'Mohon pastikan kolom Asal Sekolah tidak kosong.';
             throw new \Exception($errMessage);
         }
-        $tgl_lahir = Date::excelToDateTimeObject($row[3])->format('m/d/Y');
+        if(strpos($row[3], '/') > 0) {
+            $tgl_lahir = $row[3];
+        } else {
+            $tgl_lahir = Date::excelToDateTimeObject($row[3])->format('m/d/Y');
+        }
         // $tgl = explode('/',$row[3]);
         // dd($tgl);
         // $tgl_lahir = "$tgl[1]/$tgl[0]/$tgl[2]";
