@@ -49,37 +49,39 @@
                         <div class="card shadow p-4">
                             <div class="card-body d-flex flex-column align-items-center justify-content-center">
                                 <h4 class="font-weight-bold my-4">Try Out - {{ $paket->nama }}</h4>
-                                <table class="table w-50">
-                                    <thead>
-                                        <tr>
-                                            <td> Jenis Kategori </td>
-                                            <td> Nama Kategori </td>
-                                            <td> Jumlah Soal </td>
-                                            <td> Waktu Pengerjaan </td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                       @foreach ($detail as $value)
-                                            <tr class="jenis-{{ strtoupper($value->tipe) }}">
-                                                <td>
-                                                    {{ strtoupper($value->tipe) }}
-                                                </td>
-                                                <td>
-                                                    {{ $value->nama }}
-                                                </td>
-                                                <td>
-                                                    {{ $value->total }}
-                                                </td>
-                                                <td>
-                                                    {{ $value->waktu }} menit
-                                                </td>
+                                <div class="table-responsive">
+                                    <table class="table w-50">
+                                        <thead>
+                                            <tr>
+                                                <td> Jenis Kategori </td>
+                                                <td> Nama Kategori </td>
+                                                <td> Jumlah Soal </td>
+                                                <td> Waktu Pengerjaan </td>
                                             </tr>
-                                       @endforeach
-                                            <tr class="text-center warning-kelompok">
-                                                <td colspan="4" >Silahkan Pilih Kelompok Ujian</td>
-                                            </tr>
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                           @foreach ($detail as $value)
+                                                <tr class="jenis-{{ strtoupper($value->tipe) }}">
+                                                    <td>
+                                                        {{ strtoupper($value->tipe) }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $value->nama }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $value->total }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $value->waktu }} menit
+                                                    </td>
+                                                </tr>
+                                           @endforeach
+                                                <tr class="text-center warning-kelompok">
+                                                    <td colspan="4" >Silahkan Pilih Kelompok Ujian</td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                             <div class="d-flex justify-content-center">
                                 <form class="w-50" action="{{ route('tryout.mulai', ['gelombang_id' => $gelombang_id, 'slug' => $paket->slug, 'token' => $user_token]) }}" class="mt-4" method="get">

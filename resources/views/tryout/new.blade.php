@@ -101,7 +101,7 @@
                   </div>
                   <div class="card-footer">
                      <div class="row">
-                        <div class="col-3">
+                        <div class="col-md-3">
                            <button id="btn-kembali" type="button" class="btn btn-dark mr-4">
                               <i class="fa fa-chevron-left"></i> Kembali
                            </button>
@@ -110,13 +110,13 @@
                               Lanjut <i class="fa fa-chevron-right"></i>
                            </button>
                         </div>
-                        <div class="col-3">
+                        <div class="col-md-3">
                            <button id="btn-marked" type="button" class="btn btn-warning mr-4">
                               <i class="fa fa-bookmark"></i> Tandai
                            </button>
                            <button id="btn-reset" type="button" class="btn btn-light text-danger">Reset</button>
                         </div>
-                        <div class="col-6 text-right">
+                        <div class="col-md-6 text-right">
                            <button id="btn-kumpulkan" type="button" class="btn btn-danger" disabled>Kumpulkan</button>
                         </div>
                      </div>
