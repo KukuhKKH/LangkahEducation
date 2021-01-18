@@ -5,7 +5,7 @@
 @if ($pembayaran->gelombang->harga != 0)
 <h1 class="h3 mb-4 text-gray-800">Pembayaran</h1>
 <div class="row">
-    <div class="col-xl-4 col-lg-4">
+    <div class="col-xl-5 col-lg-5">
         <div class="card shadow mb-4">
             <div class="card-body">
                 <h6 class="m-0 font-weight-bold text-dark">Pilih Metode Pembayaran</h6>
@@ -14,8 +14,10 @@
                     <div class="row">
                         @foreach ($rekening as $value)
                             <div class="col-lg-6 form-group">
-                                <input class="mr-3 mt-3" type="radio" name="listBank" value="{{ $value->id }}">
+                                <label for="{{ $value->id }}">
+                                <input id="{{ $value->id }}"class="mr-3 mt-3" type="radio" name="listBank" value="{{ $value->id }}">
                                 <img class="img-fluid w-50" src="{{asset("upload/bank/$value->logo")}}" alt="">
+                            </label>
                             </div>
                         @endforeach
                     </div>
@@ -23,7 +25,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-8 col-lg-8">
+    <div class="col-xl-7 col-lg-7">
         <div class="card shadow mb-4">
             <div class="card-body">
                 <div class="row">
