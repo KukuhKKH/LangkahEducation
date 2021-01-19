@@ -132,7 +132,7 @@
                           <div class="progress-bar bg-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{ $nilai_user }}%">
                           </div>
                         </div>
-                        <div style="width: 3px; height: 100%; position: absolute; background: black; top: 0; left: {{ $pg1->passing_grade}}%;" title="{{$pg1->universitas->nama}}"></div>
+                        <div style="width: 3px; height: 100%; position: absolute; background: black; top: 0; left: {{trim($pg1->passing_grade)}}%;" title="{{$pg1->universitas->nama}}"></div>
                       </div>
 
                     @if ((double)trim($pg1->passing_grade) < $nilai_user) <p class="mb-4 mt-2">Status : <span
@@ -157,7 +157,7 @@
                           <div class="progress-bar bg-primary progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{ $nilai_user }}%">
                           </div>
                         </div>
-                        <div style="width: 3px; height: 100%; position: absolute; background: black; top: 0; left: {{ $pg2->passing_grade}}%;" title="{{$pg2->universitas->nama}}"></div>
+                        <div style="width: 3px; height: 100%; position: absolute; background: black; top: 0; left: {{trim($pg1->passing_grade)}}%;" title="{{$pg2->universitas->nama}}"></div>
                       </div>
 
                     @if ($pg2->passing_grade < $nilai_user) <p class="mb-4 mt-2">Status : <span

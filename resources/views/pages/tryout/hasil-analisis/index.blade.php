@@ -133,7 +133,7 @@
                           <div class="progress-bar bg-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{$nilai_user}}%">
                           </div>
                         </div>
-                        <div style="width: 3px; height: 100%; position: absolute; background: black; top: 0; left:{{trim($pg1->passing_grade)}}%;" title="{{$pg1->universitas->nama}}"></div>
+                        <div style="width: 3px; height: 100%; position: absolute; background: black; top: 0; left:{{ trim($pg1->passing_grade) }}%;" title="{{$pg1->universitas->nama}}"></div>
                       </div>
 
                     
