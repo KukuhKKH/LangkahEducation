@@ -169,5 +169,6 @@
 @section('js')
 <script>
    const total_soal = {{ count($paket) ?? 0 }}
+   let markedGroups = []
 </script>
 @endsection
