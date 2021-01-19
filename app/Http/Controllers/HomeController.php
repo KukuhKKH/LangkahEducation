@@ -330,8 +330,8 @@ class HomeController extends Controller
             $pg1 = PassingGrade::find($temp[0]->passing_grade_id)->passing_grade;
             $pg2 = PassingGrade::find($temp[1]->passing_grade_id)->passing_grade;
             // skor siswa >= skormaksimal * PG_prodi1
-            $minimal_pg1 = $pg1*$value->nilai_maksimal_new/100;
-            $minimal_pg2 = $pg2*$value->nilai_maksimal_new/100;
+            $minimal_pg1 = (float)$pg1*(float)$value->nilai_maksimal_new/100;
+            $minimal_pg2 = (float)$pg2*(float)$value->nilai_maksimal_new/100;
 
             if($temp[0]->kelompok_passing_grade_id == 1){
                 $maxSaintek = $value->nilai_maksimal_new;
