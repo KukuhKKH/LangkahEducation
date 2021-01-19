@@ -46,107 +46,111 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-xl-12">
-                        <div class="card shadow p-4">
-                            <div class="card-body d-flex flex-column align-items-center justify-content-center">
-                                <h4 class="font-weight-bold my-4">Try Out - {{ $paket->nama }}</h4>
-                                <div class="table-responsive">
-                                    <table class="table w-50">
-                                        <thead>
-                                            <tr>
-                                                <td> Jenis Kategori </td>
-                                                <td> Nama Kategori </td>
-                                                <td> Jumlah Soal </td>
-                                                <td> Waktu Pengerjaan </td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                           @foreach ($detail as $value)
-                                                <tr class="jenis-{{ strtoupper($value->tipe) }}">
-                                                    <td>
-                                                        {{ strtoupper($value->tipe) }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $value->nama }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $value->total }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $value->waktu }} menit
-                                                    </td>
-                                                </tr>
-                                           @endforeach
-                                                <tr class="text-center warning-kelompok">
-                                                    <td colspan="4" >Silahkan Pilih Kelompok Ujian</td>
-                                                </tr>
-                                        </tbody>
-                                    </table>
+                        <div class="card shadow p-4 align-items-center">
+                            <div class="card-body row w-50 " id="detail-menu">
+                                <div class="col-xl-12 text-center">
+                                    <h4 class="font-weight-bold my-4">Try Out - {{ $paket->nama }}</h4>
                                 </div>
-                            </div>
-                            <div class="d-flex justify-content-center">
-                                <form class="w-50" action="{{ route('tryout.mulai', ['gelombang_id' => $gelombang_id, 'slug' => $paket->slug, 'token' => $user_token]) }}" class="mt-4" method="get">
-                                    <div class="row">
-                                        <div class="col-xl-12">
-                                            <div class="form-group">
-                                                <label for="kelompok">Pilihan Kelompok</label><br>
-                                                <select name="kelompok" id="kelompok" class="form-control" required>
-                                                    <option value="" selected disabled>== Kelompok Pilihan ==</option>
-                                                    @forelse ($kelompok as $value)
-                                                        <option value="{{ $value->id }}">{{ strtoupper($value->nama) }}</option>
-                                                    @empty
-                                                        <option value="0" disabled selected>Tidak Ada Kelompok Ujian</option>
-                                                    @endforelse
-                                                </select>
+                                <div class="col-xl-12">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <td> Jenis Kategori </td>
+                                                    <td> Nama Kategori </td>
+                                                    <td> Jumlah Soal </td>
+                                                    <td> Waktu Pengerjaan </td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                               @foreach ($detail as $value)
+                                                    <tr class="jenis-{{ strtoupper($value->tipe) }}">
+                                                        <td>
+                                                            {{ strtoupper($value->tipe) }}
+                                                        </td>
+                                                        <td>
+                                                            {{ $value->nama }}
+                                                        </td>
+                                                        <td>
+                                                            {{ $value->total }}
+                                                        </td>
+                                                        <td>
+                                                            {{ $value->waktu }} menit
+                                                        </td>
+                                                    </tr>
+                                               @endforeach
+                                                    <tr class="text-center warning-kelompok">
+                                                        <td colspan="4" >Silahkan Pilih Kelompok Ujian</td>
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>  
+                                </div>
+                                <div class="col-xl-12">
+                                    <form action="{{ route('tryout.mulai', ['gelombang_id' => $gelombang_id, 'slug' => $paket->slug, 'token' => $user_token]) }}" class="mt-4" method="get">
+                                        <div class="row">
+                                            <div class="col-xl-12">
+                                                <div class="form-group">
+                                                    <label for="kelompok">Pilihan Kelompok</label><br>
+                                                    <select name="kelompok" id="kelompok" class="form-control" required>
+                                                        <option value="" selected disabled>== Kelompok Pilihan ==</option>
+                                                        @forelse ($kelompok as $value)
+                                                            <option value="{{ $value->id }}">{{ strtoupper($value->nama) }}</option>
+                                                        @empty
+                                                            <option value="0" disabled selected>Tidak Ada Kelompok Ujian</option>
+                                                        @endforelse
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6">
+                                                <div class="form-group">
+                                                    <label for="univ-1">Pilihan Universitas 1</label><br>
+                                                    <select name="univ-1" id="univ-1" class="form-control" required>
+                                                        <option value="" selected disabled>== Universitas Pilihan 1 ==</option>
+                                                        @forelse ($universitas as $value)
+                                                            <option value="{{ $value->id }}">{{ $value->nama }}</option>
+                                                        @empty
+                                                            <option value="0" disabled selected>Tidak Ada Universitas</option>
+                                                        @endforelse
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6">
+                                                <div class="form-group">
+                                                    <label for="prodi-1">Pilihan Prodi 1</label><br>
+                                                    <select name="prodi-1" id="prodi-1" class="form-control" required>
+                                                        <option value="" selected disabled>== Program Studi Pilihan 1 ==</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-xl-6">
-                                            <div class="form-group">
-                                                <label for="univ-1">Pilihan Universitas 1</label><br>
-                                                <select name="univ-1" id="univ-1" class="form-control" required>
-                                                    <option value="" selected disabled>== Universitas Pilihan 1 ==</option>
-                                                    @forelse ($universitas as $value)
-                                                        <option value="{{ $value->id }}">{{ $value->nama }}</option>
-                                                    @empty
-                                                        <option value="0" disabled selected>Tidak Ada Universitas</option>
-                                                    @endforelse
-                                                </select>
+        
+                                        <div class="row">
+                                            <div class="col-xl-6">
+                                                <div class="form-group">
+                                                    <label for="univ-2">Pilihan Universitas 2</label><br>
+                                                    <select name="univ-2" id="univ-2" class="form-control"required>
+                                                        <option value="" selected disabled>== Universitas Pilihan 2 ==</option>
+                                                        @forelse ($universitas as $value)
+                                                            <option value="{{ $value->id }}">{{ $value->nama }}</option>
+                                                        @empty
+                                                            <option value="0" disabled selected>Tidak Ada Universitas</option>
+                                                        @endforelse
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6">
+                                                <div class="form-group">
+                                                    <label for="prodi-2">Pilihan Prodi 2</label><br>
+                                                    <select name="prodi-2" id="prodi-2" class="form-control" required>
+                                                        <option value="" selected disabled>== Program Studi Pilihan 2 ==</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-xl-6">
-                                            <div class="form-group">
-                                                <label for="prodi-1">Pilihan Prodi 1</label><br>
-                                                <select name="prodi-1" id="prodi-1" class="form-control" required>
-                                                    <option value="" selected disabled>== Program Studi Pilihan 1 ==</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-    
-                                    <div class="row">
-                                        <div class="col-xl-6">
-                                            <div class="form-group">
-                                                <label for="univ-2">Pilihan Universitas 2</label><br>
-                                                <select name="univ-2" id="univ-2" class="form-control"required>
-                                                    <option value="" selected disabled>== Universitas Pilihan 2 ==</option>
-                                                    @forelse ($universitas as $value)
-                                                        <option value="{{ $value->id }}">{{ $value->nama }}</option>
-                                                    @empty
-                                                        <option value="0" disabled selected>Tidak Ada Universitas</option>
-                                                    @endforelse
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-6">
-                                            <div class="form-group">
-                                                <label for="prodi-2">Pilihan Prodi 2</label><br>
-                                                <select name="prodi-2" id="prodi-2" class="form-control" required>
-                                                    <option value="" selected disabled>== Program Studi Pilihan 2 ==</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="btn-lanjut"></div>
-                                </form>
+                                        <div id="btn-lanjut"></div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>

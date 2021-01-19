@@ -53,8 +53,12 @@
         }
 
         @media only screen and (max-width: 999px) {
-            #menu-soal{
+            .menu-soal{
                 display: none;
+            }
+
+            #detail-menu{
+                width: 100% !important;
             }
         }
     </style>
