@@ -291,11 +291,12 @@
       // Deklarasi variabel jika kosong isi dengan object kosong
       if(isSafari) {
          radioGroups = JSON.parse(Cookies.get(`selected-${gelombang_id}-${user}-${paket_slug}`) || '{}')
-      } else {
+      }else{
          radioGroups = JSON.parse(localStorage.getItem(`selected-${gelombang_id}-${user}-${paket_slug}`) || '{}')
+      }
          shortcutGroups = JSON.parse(localStorage.getItem(`answered-${gelombang_id}-${user}-${paket_slug}`) || '{}')
          markedGroups = JSON.parse(localStorage.getItem(`marked-${gelombang_id}-${user}-${paket_slug}`) || '{}')
-      }
+      
 
       // Pilih jawaban yang sudah tersimpan
       Object.values(radioGroups).forEach(function(radioId){
