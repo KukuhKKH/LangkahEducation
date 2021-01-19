@@ -34,6 +34,7 @@ function loadQuest(indexQuest) {
 
     document.getElementById("question"+indexQuest).classList.add('show');
     updateMarked(indexQuest)
+    updateShortcut()
 
     // Shortcut
     $("#listSoal"+indexQuest).removeClass('btn-outline-dark');
@@ -107,12 +108,9 @@ function updateShortcut(){
     }
  }
 
-
  $(document).ready(function() {
     loadQuesList();
     loadQuest(indexQuest);
     
-    updateShortcut()
-    updateMarked(indexQuest)
  })
 

@@ -100,7 +100,7 @@
                      </div>
                   </div>
                   <div class="card-footer">
-                     <div class="row">
+                     <div id="mobile-list">
                         <div class="col-lg-3" id="menu-soal">
                            <div class="row" id="daftar-soal">
                               
@@ -370,7 +370,7 @@
                localStorage.removeItem(`waktu-${gelombang_id}-${user}-${paket_slug}`)
                localStorage.removeItem(`selected-${gelombang_id}-${user}-${paket_slug}`)
             }
-            localStorage.removeItem("indexQuest")
+            localStorage.removeItem(`indexQuest-${gelombang_id}-${user}-${paket_slug}`)
             localStorage.removeItem(`answered-${gelombang_id}-${user}-${paket_slug}`);
             localStorage.removeItem(`marked-${gelombang_id}-${user}-${paket_slug}`);
             shortcutGroups = [];

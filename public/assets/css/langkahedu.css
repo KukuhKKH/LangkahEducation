@@ -301,3 +301,12 @@ input[type=number] {
 .sidebar-dark #sidebarToggle::after {
   color: rgba(255,255,255,1) !important;
 }
+
+#mobile-list{
+  width: 100%;
+  overflow: auto;
+}
+
+#mobile-list .col-lg-3{
+  display: inline-block;
+}
