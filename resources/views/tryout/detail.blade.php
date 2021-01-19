@@ -212,7 +212,8 @@
 <script src="{{ asset('assets/js/hasil-pg-prodi2.js') }}"></script> --}}
 <script>
     const URL_GET = `{{ url('api/v1/get-prodi') }}`
-    let lanjut = false
+    let lanjut_1 = false
+    let lanjut_2 = false
     $("#univ-1").select2();
     $("#univ-2").select2();
     $("#prodi-1").select2();
@@ -284,28 +285,28 @@
 
     $(document).ready(function() {
         if(typeof Storage !== "undefined") {
-            lanjut = true
+            lanjut_1 = true
         } else {
             swal.fire({
                 title: 'Maaf',
                 text: "Browser anda tidak mendukung Localstorage!",
                 icon: 'warning',
             })
-            lanjut = false
+            lanjut_1 = false
         }
 
         if (navigator.cookieEnabled) {
-            lanjut = true
+            lanjut_2 = true
         } else {
             swal.fire({
                 title: 'Maaf',
                 text: "Nyalakan Cookie dibrowser anda!",
                 icon: 'warning',
             })
-            lanjut = false
+            lanjut_2 = false
         }
 
-        if(lanjut) {
+        if(lanjut_1 || lanjut_2) {
             $('#btn-lanjut').html(`<button type="submit" class="btn btn-langkah btn-block mt-4">Kerjakan Sekarang</button>`)
         } else {
             $('#btn-lanjut').html(`<h4>Browser anda tidak mendukung untuk mengerjakan Tryout</h4>`)

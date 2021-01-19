@@ -55,8 +55,8 @@
                      <div class="col-lg-9 pr-5">
                         <?php $i = 1; ?>
                         <?php $k = 0; ?>
-                        @foreach ($paket as $value)
-                        <div id="question{{ $k }}" class="{{ $k == 0 ? 'show' : '' }} soal"
+                        @foreach ($paket as $key => $value)
+                        <div id="question{{ $k }}" class="{{ $key == 0 ? 'show' : '' }} soal"
                            data-kategori="{{ $value->kategori_soal->nama }}"
                            data-kode="{{ $value->kategori_soal->kode }}">
                            <h5 id="pertanyaan" class="h5 mt-3 mb-2 text-gray-800">
@@ -168,6 +168,6 @@
 
 @section('js')
 <script>
-   const total_soal = {{ count($paket) }}
+   const total_soal = {{ count($paket) ?? 0 }}
 </script>
 @endsection

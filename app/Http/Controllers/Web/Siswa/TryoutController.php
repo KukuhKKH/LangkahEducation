@@ -127,8 +127,6 @@ class TryoutController extends Controller
                 $waktu_array = explode(',', $waktu->waktu);
                 $kode_array = explode(',', $waktu->kode);
                 $soal = TryoutSoal::where('tryout_paket_id', $paket->id)
-                            // ->inRandomOrder()
-                            ->limit(10)
                             ->orderBy('tryout_kategori_soal_id', 'asc')
                             ->get();
                 return view('tryout.index', compact('soal', 'paket', 'waktu_array', 'kode_array'));

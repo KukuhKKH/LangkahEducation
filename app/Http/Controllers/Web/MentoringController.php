@@ -24,7 +24,7 @@ class MentoringController extends Controller
 {
     public function __construct() {
         $this->middleware('role:mentor|superadmin|admin', ['only' => ['index', 'mentoring', 'komentar_store']]);
-        $this->middleware('role:siswa', ['only' => ['siswa', 'pembahasan']]);
+        $this->middleware('role:siswa', ['only' => ['siswa']]);
         $this->middleware('role:sekolah', ['only' => ['mentoring_sekolah']]);
     }
 

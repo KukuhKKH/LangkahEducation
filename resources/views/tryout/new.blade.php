@@ -65,8 +65,8 @@
 
                            <?php $i = 1; ?>
                            <?php $k = 0; ?>
-                           @foreach ($soal as $value)
-                              <div id="question{{ $k }}" class=" soal" data-jawaban="{{ $value->id }}" data-kategori="{{ $value->kategori_soal->nama }}" data-kode="{{ $value->kategori_soal->kode }}">
+                           @foreach ($soal as $key => $value)
+                              <div id="question{{ $k }}" class="{{ $key == 0 ? 'show' : '' }} soal" data-jawaban="{{ $value->id }}" data-kategori="{{ $value->kategori_soal->nama }}" data-kode="{{ $value->kategori_soal->kode }}">
                                  <div class="badge badge-success"><small class="font-weight-bold">Kategori {{ $value->kategori_soal->nama }}</small></div>
                                  <h5 id="pertanyaan" class="h5 mt-3 mb-2 text-gray-800">
                                     {{-- {{ $i }}.  --}}
@@ -179,7 +179,7 @@
 <script src="{{ asset('assets/vendor/moment.js') }}"></script>
 <script>
    // window.onbeforeunload = function () {return false;}
-   const total_soal = {{ count($soal) }}
+   const total_soal = {{ count($soal) ?? 0 }}
    const paket_slug = `{{ $paket->slug }}`
    const gelombang_id = `{{ request()->segment(2) }}`
    const user = `{{ auth()->user()->name }}`
@@ -189,19 +189,19 @@
    let waktu
    $(document).ready(function() {
    // DISABLED RIGHT CLICK, COPY PASTE == KOMEN JIKA PROSES DEVELOPING
-      $(document).bind("contextmenu",function(e){
-         return false;
-      });
+      // $(document).bind("contextmenu",function(e){
+      //    return false;
+      // });
 
-      $('.soal').bind("copy",function(e) {
-         e.preventDefault();
-      });
+      // $('.soal').bind("copy",function(e) {
+      //    e.preventDefault();
+      // });
 
-      $(document).keydown(function(e) { 
-         if (e.ctrlKey == true && (e.which == '67')) { 
-            e.preventDefault();
-         } 
-      }); 
+      // $(document).keydown(function(e) { 
+      //    if (e.ctrlKey == true && (e.which == '67')) { 
+      //       e.preventDefault();
+      //    } 
+      // }); 
 
       //END
 
