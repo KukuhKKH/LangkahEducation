@@ -1,14 +1,17 @@
 var indexQuest = 0;
 var currentQuest = 0;
 
-if(localStorage.getItem("indexQuest") != null){
-    var indexQuest = parseInt(localStorage.getItem("indexQuest"));
-}
 
 // localStorage.removeItem(`marked-${gelombang_id}-${user}-${paket_slug}`)
 
 var answerArr = [];
 var lengthQuest = total_soal;
+
+if(localStorage.getItem(`indexQuest-${gelombang_id}-${user}-${paket_slug}`) != null){
+    var indexQuest = parseInt(localStorage.getItem(`indexQuest-${gelombang_id}-${user}-${paket_slug}`));
+    position.textContent = indexQuest + 1 + "/" + lengthQuest;
+}
+
 var position = document.getElementById("posisi-soal");
 var questList = document.getElementById("daftar-soal");
 
@@ -26,6 +29,9 @@ function loadQuest(indexQuest) {
         $("#btn-lanjut").prop("disabled", false);
         $("#btn-kembali").prop("disabled", false);
     }
+    console.log("HELLO")
+    position.textContent = indexQuest + 1 + "/" + lengthQuest;
+
     document.getElementById("question"+indexQuest).classList.add('show');
     updateMarked(indexQuest)
 
@@ -35,7 +41,6 @@ function loadQuest(indexQuest) {
     
     
     // Position
-    position.textContent = indexQuest + 1 + "/" + lengthQuest;
     currentQuest = indexQuest;
     return;
 }
@@ -58,7 +63,7 @@ function getChoice(currentQuest) {
 }
 
 function goToIndex(index){
-    localStorage.setItem("indexQuest", index);
+    localStorage.setItem(`indexQuest-${gelombang_id}-${user}-${paket_slug}`, index);
     getChoice(currentQuest);
     document.getElementById("question"+currentQuest).classList.remove('show');
 
@@ -110,3 +115,4 @@ function updateShortcut(){
     updateShortcut()
     updateMarked(indexQuest)
  })
+

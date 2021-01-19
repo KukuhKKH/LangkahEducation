@@ -14,8 +14,27 @@
                 <div class="col-lg-4 col-md-6 footer-links">
                     <h4>Hubungi Kami</h4>
                     <strong><i class="fa fa-home font-weight-bold mr-2"></i></strong>  {{ $data->alamat ?? '' }}<br>
-                    <strong><i class="fab fa-whatsapp font-weight-bold mr-2"></i></strong> {{ $data->noHP ?? '' }}<br>
-                    <strong><i class="fa fa-envelope font-weight-bold mr-2"></i></strong> {{ $data->email ?? '' }}<br>
+                    @php
+                        $noWA = 0;
+                        $nohp=$data->noHP;
+                        $nohp = str_replace(" ","",$nohp);
+                         $nohp = str_replace("(","",$nohp);
+                         $nohp = str_replace(")","",$nohp);
+                         $nohp = str_replace(".","",$nohp);
+                         
+                         // cek apakah no hp mengandung karakter + dan 0-9
+                         if(!preg_match('/[^+0-9]/',trim($nohp))){
+                             // cek apakah no hp karakter 1-3 adalah +62
+                             if(substr(trim($nohp), 0, 3)=='+62'){
+                                 $noWA = '62'.substr(trim($nohp), 0, 3);
+                             }
+                             elseif(substr(trim($nohp), 0, 1)=='0'){
+                                 $noWA = '62'.substr(trim($nohp), 1);
+                             }
+                         }
+                    @endphp
+                    <strong><i class="fab fa-whatsapp font-weight-bold mr-2"></i></strong><a class="text-dark" href="https://wa.me/{{$noWA}}">{{ $data->noHP ?? '' }}</a><br>
+                    <strong><i class="fa fa-envelope font-weight-bold mr-2"></i></strong> <a class="text-dark" href="mailto:{{ $data->email ?? '' }}">{{ $data->email ?? '' }}</a><br>
                     </p>
                 </div>
 
