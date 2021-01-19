@@ -56,7 +56,7 @@
                         <?php $i = 1; ?>
                         <?php $k = 0; ?>
                         @foreach ($paket as $key => $value)
-                        <div id="question{{ $k }}" class="{{ $key == 0 ? 'show' : '' }} soal"
+                        <div id="question{{ $k }}" class="soal"
                            data-kategori="{{ $value->kategori_soal->nama }}"
                            data-kode="{{ $value->kategori_soal->kode }}">
                            <h5 id="pertanyaan" class="h5 mt-3 mb-2 text-gray-800">
