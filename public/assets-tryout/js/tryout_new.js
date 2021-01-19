@@ -7,13 +7,13 @@ var currentQuest = 0;
 var answerArr = [];
 var lengthQuest = total_soal;
 
+var position = document.getElementById("posisi-soal");
+var questList = document.getElementById("daftar-soal");
+
 if(localStorage.getItem(`indexQuest-${gelombang_id}-${user}-${paket_slug}`) != null){
     var indexQuest = parseInt(localStorage.getItem(`indexQuest-${gelombang_id}-${user}-${paket_slug}`));
     position.textContent = indexQuest + 1 + "/" + lengthQuest;
 }
-
-var position = document.getElementById("posisi-soal");
-var questList = document.getElementById("daftar-soal");
 
 function loadQuest(indexQuest) {
     if (indexQuest == 0) {
