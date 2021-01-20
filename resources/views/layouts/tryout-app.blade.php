@@ -53,14 +53,43 @@
         }
 
         @media only screen and (max-width: 999px) {
-            .menu-soal{
+            /* .menu-soal{
                 display: none;
-            }
+            } */
 
             #detail-menu{
                 width: 100% !important;
             }
+/* 
+            #daftar-soal{
+            width: 100%;
+            overflow: auto;
+            }
+
+            #daftar-soal .col-auto{
+                display: inline-block;
+            } */
+            .desktop-list{
+                overflow: auto;
+                white-space: nowrap;
+                width: 100%;
+                flex-wrap: nowrap !important;
+            }
+
+            .desktop-list .col-auto{
+                display: inline-block;
+                white-space: normal;
+            }
+            
         }
+        .desktop-list{
+                display: -ms-flexbox;
+                display: flex;
+                -ms-flex-wrap: wrap;
+                flex-wrap: wrap;
+                margin-right: -15px;
+                margin-left: -15px;
+            }
     </style>
 
     @yield('css')

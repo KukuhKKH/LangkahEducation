@@ -10,10 +10,10 @@ var lengthQuest = total_soal;
 var position = document.getElementById("posisi-soal");
 var questList = document.getElementById("daftar-soal");
 
-if(localStorage.getItem(`indexQuest-${gelombang_id}-${user}-${paket_slug}`) != null){
-    var indexQuest = parseInt(localStorage.getItem(`indexQuest-${gelombang_id}-${user}-${paket_slug}`));
-    position.textContent = indexQuest + 1 + "/" + lengthQuest;
-}
+// if(localStorage.getItem(`indexQuest-${gelombang_id}-${user}-${paket_slug}`) != null){
+//     var indexQuest = parseInt(localStorage.getItem(`indexQuest-${gelombang_id}-${user}-${paket_slug}`));
+//     position.textContent = indexQuest + 1 + "/" + lengthQuest;
+// }
 
 function loadQuest(indexQuest) {
     if (indexQuest == 0) {
@@ -49,7 +49,7 @@ function loadQuest(indexQuest) {
 function loadQuesList() {
     var htmlSoal = "";
     for (let i = 0; i < lengthQuest; i++) {
-        htmlSoal += '<div class="p-0 col-lg-2 mr-1 mb-1"><button name="shortcutSoal" id="listSoal'+i+'" type="button" name="btnList" onclick="goToIndex(' + i + ')" class="btn btn-outline-dark quiz-list">' + (i + 1) + '</button></div>'
+        htmlSoal += '<div class="p-0 col-xl-2 col-auto mr-1 mb-1"><button name="shortcutSoal" id="listSoal'+i+'" type="button" name="btnList" onclick="goToIndex(' + i + ')" class="btn btn-outline-dark quiz-list">' + (i + 1) + '</button></div>'
     }
     questList.innerHTML = htmlSoal;
     // console.log(localStorage.getItem(`answered-${gelombang_id}-${user}-${paket_slug}`))
