@@ -253,6 +253,8 @@
       })
 
       $('#btn-reset').on('click', function() {
+         $("#listSoal"+currentQuest).removeClass('btn-answered');
+         
          let soal = $('.show')[0]
          let jwb = soal.dataset.jawaban
          let com_option = document.getElementsByName(`jawaban[${jwb}]`)
@@ -261,10 +263,14 @@
          }
          let data_old = JSON.parse(localStorage.getItem(`selected-${gelombang_id}-${user}-${paket_slug}`) || '{}')
          let answered_old = JSON.parse(localStorage.getItem(`answered-${gelombang_id}-${user}-${paket_slug}`) || '{}')
-         
+
          let prop = `jawaban[${jwb}]`
          delete data_old[prop]
          delete answered_old[indexQuest]
+         delete shortcutGroups[indexQuest]
+
+         localStorage.setItem(`answered-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(answered_old))
+         
          if(isSafari) {
             Cookies.set(`selected-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(data_old), {
                expires: 12/48
@@ -272,9 +278,6 @@
          } else {
             localStorage.setItem(`selected-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(data_old));
          }
-         localStorage.setItem(`answered-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(answered_old));
-
-         $("#listSoal"+currentQuest).removeClass('btn-answered');
       })
 
       // Deklarasi variabel jika kosong isi dengan object kosong
@@ -329,7 +332,7 @@
                localStorage.removeItem(`selected-${gelombang_id}-${user}-${paket_slug}`)
                localStorage.removeItem(`answered-${gelombang_id}-${user}-${paket_slug}`)
             }
-            localStorage.removeItem("indexQuest")
+            localStorage.removeItem(`indexQuest-${gelombang_id}-${user}-${paket_slug}`)
             localStorage.removeItem(`answered-${gelombang_id}-${user}-${paket_slug}`);
             localStorage.removeItem(`marked-${gelombang_id}-${user}-${paket_slug}`);
             shortcutGroups = [];

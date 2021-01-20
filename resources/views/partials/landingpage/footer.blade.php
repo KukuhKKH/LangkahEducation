@@ -41,11 +41,12 @@
                 <div class="col-lg-4 col-md-6 footer-links">
                     <h4>Media Sosial</h4>
                     <div class="mr-md-auto social-links text-center text-md-left pt-3 pt-md-0 mb-5">
-                        <a href="{{ $data->urlIG.$data->akunIG }}" class="instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="{{ $data->urlTwitter.$data->akunTwitter }}" class="twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="{{ $data->urlFB.$data->akunFB }}" class="facebook"><i class="fab fa-facebook"></i></a>
-                        <a href="{{ $data->urlYoutube.$data->akunYoutube }}" class="google-plus"><i class="fab fa-youtube"></i></a>
-                        <a href="{{ $data->urlLine.$data->akunLine }}" class="linkedin"><i class="fab fa-line"></i></a>
+                        <a href="{{ $data->urlIG.$data->akunIG }}" target="_blank" rel="noopener noreferrer" class="instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="{{ $data->urlTwitter.$data->akunTwitter }}" target="_blank" rel="noopener noreferrer" class="twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="{{ $data->urlFB.$data->akunFB }}" target="_blank" rel="noopener noreferrer" class="facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="{{ $data->urlYoutube.$data->akunYoutube }}" target="_blank" rel="noopener noreferrer" class="youtube"><i class="fab fa-youtube"></i></a>
+                        <a href="{{ $data->urlLine.$data->akunLine }}" target="_blank" rel="noopener noreferrer" class="line"><i class="fab fa-line"></i></a>
+                        <a href="{{ $data->urlLinkedin.$data->akunLinkedin }}" target="_blank" rel="noopener noreferrer" class="linkedin"><i class="fab fa-linkedin"></i></a>
                     </div>
 
                     <div class="copyright mt-5">
