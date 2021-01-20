@@ -6,7 +6,7 @@
 
    <div class="row mb-4">
    @forelse ($riwayat as $value)
-      <div class="col-xl-4">
+      <div class="col-lg-4 col-md-6">
          <div class="card mb-4">
             @if ($value->paket->image)
             <?php $foto = $value->paket->image ?>

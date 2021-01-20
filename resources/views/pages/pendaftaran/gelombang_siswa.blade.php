@@ -4,7 +4,8 @@
 @section('content')
 <div class="row">
 @php
-$kosong = false
+$ada = false;
+$kosong = false;
 @endphp
 @forelse($gelombang as $value)
     @if ($today > $value->tgl_awal && $today < $value->tgl_akhir)
@@ -39,9 +40,12 @@ $kosong = false
                 </div>
             </div>
         </div>
+        @php
+            $ada = true;
+        @endphp
     @else
     @php
-        $kosong = true
+        $kosong = true;
     @endphp
     @endif
 @empty
@@ -49,7 +53,7 @@ $kosong = false
         $kosong = true
     @endphp
 @endforelse
-@if($kosong)
+@if($kosong && !$ada)
 <div class="col-xl-12">
         <div class="text-center">
             <img class="img-fluid w-25 my-4" src="{{asset('assets/img/empty-illustration.svg')}}" alt="">

@@ -69,7 +69,6 @@
                               <div id="question{{ $k }}" class="soal" data-jawaban="{{ $value->id }}" data-kategori="{{ $value->kategori_soal->nama }}" data-kode="{{ $value->kategori_soal->kode }}">
                                  <div class="badge badge-success"><small class="font-weight-bold">Kategori {{ $value->kategori_soal->nama }}</small></div>
                                  <h5 id="pertanyaan" class="h5 mt-3 mb-2 text-gray-800">
-                                    {{-- {{ $i }}.  --}}
                                     {!! $value->soal !!}
                                  </h5>
                                  <input type="hidden" name="soal[{{ $i }}]" value="{{ $value->id }}">
@@ -102,7 +101,7 @@
                   <div class="card-footer">
 
                      <div class="row">
-                        <div class="col-md-3 mb-2">
+                        <div class="col-lg-3 col-auto mb-2">
                            <button id="btn-kembali" type="button" class="btn btn-dark mr-4">
                               <i class="fa fa-chevron-left"></i> Kembali
                            </button>
@@ -111,13 +110,13 @@
                               Lanjut <i class="fa fa-chevron-right"></i>
                            </button>
                         </div>
-                        <div class="col-md-3 mb-2">
+                        <div class="col-lg-3 col-auto mb-2">
                            <button id="btn-marked" type="button" class="btn btn-warning mr-4">
                               <i class="fa fa-bookmark"></i> Tandai
                            </button>
-                           <button id="btn-reset" type="button" class="btn btn-light text-danger">Reset</button>
+                           <button id="btn-reset" type="button" class="btn btn-light text-danger">Clear</button>
                         </div>
-                        <div class="col-md-6 text-right">
+                        <div class="col-lg-6 col-auto text-right">
                            <button id="btn-kumpulkan" type="button" class="btn btn-danger" disabled>Kumpulkan</button>
                         </div>
                      </div>
@@ -250,7 +249,6 @@
             $("#listSoal"+currentQuest).removeClass('btn-marked');
             $("#btn-marked").removeClass('text-dark');
             $("#btn-marked").html('<i class="fa fa-bookmark"></i> Tandai');
-
          }
       })
 
@@ -271,13 +269,10 @@
             Cookies.set(`selected-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(data_old), {
                expires: 12/48
             })
-            Cookies.set(`answered-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(answered_old), {
-               expires: 12/48
-            })
          } else {
             localStorage.setItem(`selected-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(data_old));
-            localStorage.setItem(`answered-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(answered_old));
          }
+         localStorage.setItem(`answered-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(answered_old));
 
          $("#listSoal"+currentQuest).removeClass('btn-answered');
       })
@@ -288,8 +283,8 @@
       }else{
          radioGroups = JSON.parse(localStorage.getItem(`selected-${gelombang_id}-${user}-${paket_slug}`) || '{}')
       }
-         shortcutGroups = JSON.parse(localStorage.getItem(`answered-${gelombang_id}-${user}-${paket_slug}`) || '{}')
-         markedGroups = JSON.parse(localStorage.getItem(`marked-${gelombang_id}-${user}-${paket_slug}`) || '{}')
+      shortcutGroups = JSON.parse(localStorage.getItem(`answered-${gelombang_id}-${user}-${paket_slug}`) || '{}')
+      markedGroups = JSON.parse(localStorage.getItem(`marked-${gelombang_id}-${user}-${paket_slug}`) || '{}')
       
 
       // Pilih jawaban yang sudah tersimpan
@@ -306,13 +301,11 @@
             Cookies.set(`selected-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(radioGroups), {
                expires: 12/48
             })
-            Cookies.set(`answered-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(shortcutGroups), {
-               expires: 12/48
-            })
          } else {
             localStorage.setItem(`selected-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(radioGroups));
-            localStorage.setItem(`answered-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(shortcutGroups));
          }
+         localStorage.setItem(`answered-${gelombang_id}-${user}-${paket_slug}`, JSON.stringify(shortcutGroups));
+
          updateShortcut()
       })
       updateShortcut()

@@ -17,7 +17,7 @@
             @php
                 $ada = true;
             @endphp
-                <div class="col-xl-4">
+                <div class="col-lg-4 col-md-6">
                     <div class="card mb-4">
                         @if ($item->image)
                         <img class="card-img-top img-cover" src="{{ asset("upload/paket-tryout/$item->image") }}" alt="Try Out" style="height:225px">

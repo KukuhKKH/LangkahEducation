@@ -1,4 +1,6 @@
-var indexQuest = 0;
+let indexQuest = localStorage.getItem(`indexQuest-${gelombang_id}-${user}-${paket_slug}`)||0;
+console.log(indexQuest)
+// var indexQuest = 0;
 var currentQuest = 0;
 
 
@@ -9,11 +11,6 @@ var lengthQuest = total_soal;
 
 var position = document.getElementById("posisi-soal");
 var questList = document.getElementById("daftar-soal");
-
-// if(localStorage.getItem(`indexQuest-${gelombang_id}-${user}-${paket_slug}`) != null){
-//     var indexQuest = parseInt(localStorage.getItem(`indexQuest-${gelombang_id}-${user}-${paket_slug}`));
-//     position.textContent = indexQuest + 1 + "/" + lengthQuest;
-// }
 
 function loadQuest(indexQuest) {
     if (indexQuest == 0) {
@@ -29,12 +26,10 @@ function loadQuest(indexQuest) {
         $("#btn-lanjut").prop("disabled", false);
         $("#btn-kembali").prop("disabled", false);
     }
-    console.log("HELLO")
-    position.textContent = indexQuest + 1 + "/" + lengthQuest;
+
+    position.textContent = parseInt(indexQuest)+ 1 + "/" + lengthQuest;
 
     document.getElementById("question"+indexQuest).classList.add('show');
-    updateMarked(indexQuest)
-    updateShortcut()
 
     // Shortcut
     $("#listSoal"+indexQuest).removeClass('btn-outline-dark');
@@ -49,7 +44,7 @@ function loadQuest(indexQuest) {
 function loadQuesList() {
     var htmlSoal = "";
     for (let i = 0; i < lengthQuest; i++) {
-        htmlSoal += '<div class="p-0 col-xl-2 col-auto mr-1 mb-1"><button name="shortcutSoal" id="listSoal'+i+'" type="button" name="btnList" onclick="goToIndex(' + i + ')" class="btn btn-outline-dark quiz-list">' + (i + 1) + '</button></div>'
+        htmlSoal += '<div class="p-0 col-xl-2 col-md-auto mr-1 mb-1"><button name="shortcutSoal" id="listSoal'+i+'" type="button" name="btnList" onclick="goToIndex(' + i + ')" class="btn btn-outline-dark quiz-list">' + (i + 1) + '</button></div>'
     }
     questList.innerHTML = htmlSoal;
     // console.log(localStorage.getItem(`answered-${gelombang_id}-${user}-${paket_slug}`))
@@ -68,11 +63,14 @@ function goToIndex(index){
     getChoice(currentQuest);
     document.getElementById("question"+currentQuest).classList.remove('show');
 
+
     $("#listSoal"+currentQuest).removeClass('btn-current');
     $("#listSoal"+currentQuest).addClass('btn-outline-dark');
 
     indexQuest = index;
+    updateShortcut()
     // loadQuesList()
+    updateMarked(indexQuest)
     loadQuest(indexQuest);
 }
 
@@ -111,6 +109,6 @@ function updateShortcut(){
  $(document).ready(function() {
     loadQuesList();
     loadQuest(indexQuest);
-    
+    updateMarked(indexQuest)
+    updateShortcut()
  })
-
