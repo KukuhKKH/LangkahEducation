@@ -46,6 +46,8 @@ class UpdateDataLandingPage extends FormRequest
             'urlLine' => 'required',
             'akunYoutube' => 'required',
             'urlYoutube' => 'required',
+            'akunLinkedin' => 'required',
+            'urlLinkedin' => 'required',
         ];
     }
 }

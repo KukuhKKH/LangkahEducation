@@ -82,6 +82,8 @@ class PageController extends Controller
                 'urlLine' => $request->urlLine,
                 'akunYoutube' => $request->akunYoutube,
                 'urlYoutube' => $request->urlYoutube,
+                'akunLinkedin' => $request->akunLinkedin,
+                'urlLinkedin' => $request->urlLinkedin,
             ]);
             return redirect()->back()->with(['success' => "Berhasil update data landing page"])->withInput();
         } catch(\Exception $e) {

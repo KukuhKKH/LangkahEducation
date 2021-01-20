@@ -25,6 +25,15 @@
     <link href="{{asset('assets-landingpage/vendor/owl.carousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
 
     <link href="{{asset('assets-landingpage/css/landing.css')}}" rel="stylesheet">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-74085S0Q6Y"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-74085S0Q6Y');
+    </script>
 
     <title>@yield('title', 'Langkah Education')</title>
     @yield('css')

@@ -362,6 +362,36 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="form-group">
+                                <label for="akunLinkedIn">Akun LinkedIn</label>
+                                <input type="text" name="akunLinkedin"
+                                    class="form-control @error('akunLinkedin') is-invalid @enderror"
+                                    placeholder="Masukkkan Nama Akun Linkedin"
+                                    value="{{ $data->akunLinkedin ?? old('akunLinkedin') }}">
+                                @error('akunLinkedin')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="form-group">
+                                <label for="">URL LinkedIn</label>
+                                <input type="text" name="urlLinkedin"
+                                    class="form-control @error('urlLinkedin') is-invalid @enderror"
+                                    placeholder="Masukkkan URL Linkedin"
+                                    value="{{ $data->urlLinkedin ?? old('urlLinkedin') }}">
+                                @error('urlLinkedin')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
