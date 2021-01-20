@@ -33,7 +33,7 @@
                          @if (count($user->siswa->sekolah) > 0)
                          <p class="text-success"><strong>{{ $user->siswa->sekolah[0]->nama }}</strong></p>
                          @else
-                         <p class="badge badge-warning text-dark p-2">Anda tidak tergabung pada sekolah</p>
+                         <p class="badge badge-warning text-dark p-2">Anda tidak tergabung pada program khusus</p>
                          @endif
                          @if (count($user->siswa->sekolah) == 0)
                          <form action="{{ route('profil.kode_referal', $user->siswa->id) }}" method="POST">
