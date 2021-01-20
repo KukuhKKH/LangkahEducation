@@ -239,6 +239,7 @@
                                     <td>{{ 0 }}</td>
                                     <td>{{ $total_soal_kategori }}</td>
                                     <td>{{ 0 }}</td>
+                                    <td><a href="{{ route('mentoring.pembahasan',['paket_id' => $paket->id, 'kategori_id' =>  $value->id, 'hasil_id' => $tryout->id]) }}" class="btn btn-primary">Lihat</a></td>
                                 </tr>
                                 @php
                                     $totalBenar += 0;
@@ -447,6 +448,61 @@
                 $('#prodi-2').empty()
                 data.forEach(element => {
                     $('#prodi-2').append(`<option value="${element.id}">${element.prodi}</option>`)
+                })
+                $('#prodi-2').removeAttr('disabled')
+            })
+            .fail(err => {
+                console.log(err)
+            })
+        })
+    })
+    
+    $(document).ready(function() {
+        let prodi_1 = `{{ (request()->get('prodi-1')) ? request()->get('prodi-1') : '' }}`
+        let prodi_2 = `{{ (request()->get('prodi-2')) ? request()->get('prodi-2') : '' }}`
+
+        let univ1 = $('#univ-1').val()
+        new Promise((resolve, reject) => {
+            $.ajax({
+                url: `${URL_GET}/${kelompok}/${univ1}`,
+                method: 'GET',
+                dataType: 'JSON'
+            })
+            .done(res => {
+                console.log(res)
+                let data = res.data
+                $('#prodi-1').empty()
+                data.forEach(element => {
+                    if(element.id == prodi_1) {
+                        $('#prodi-1').append(`<option value="${element.id}" selected>${element.prodi}</option>`)
+                    } else {
+                        $('#prodi-1').append(`<option value="${element.id}">${element.prodi}</option>`)
+                    }
+                })
+                $('#prodi-1').removeAttr('disabled')
+            })
+            .fail(err => {
+                console.log(err)
+            })
+        })
+
+        let univ2 = $('#univ-2').val()
+        new Promise((resolve, reject) => {
+            $.ajax({
+                url: `${URL_GET}/${kelompok}/${univ2}`,
+                method: 'GET',
+                dataType: 'JSON'
+            })
+            .done(res => {
+                console.log(res)
+                let data = res.data
+                $('#prodi-2').empty()
+                data.forEach(element => {
+                    if(element.id == prodi_2) {
+                        $('#prodi-2').append(`<option value="${element.id}" selected>${element.prodi}</option>`)
+                    } else {
+                        $('#prodi-2').append(`<option value="${element.id}">${element.prodi}</option>`)
+                    }
                 })
                 $('#prodi-2').removeAttr('disabled')
             })
