@@ -171,5 +171,6 @@
 <script>
    const total_soal = {{ count($paket) ?? 0 }}
    let markedGroups = []
+   let shortcutGroups = []
 </script>
 @endsection
