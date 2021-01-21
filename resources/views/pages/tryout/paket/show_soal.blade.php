@@ -19,7 +19,7 @@
                 <div id="question{{ $k }}">
                      <h3 class="badge badge-primary p-2">Kategori {{ $value->kategori_soal->nama }}</h3>
                     <h6>{{ 'Soal nomer '.$i }}</h6>
-                    <h3 id="pertanyaan" class="h4 mt-2 mb-2 text-gray-800 font-weight-bold">
+                    <h3 id="pertanyaan" class="h5 mt-2 mb-2 text-gray-80">
                         {!! $value->soal !!}
                     </h3>
                     <input type="hidden" name="soal[{{ $i }}]" value="{{ $value->id }}">

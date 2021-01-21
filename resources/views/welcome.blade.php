@@ -94,7 +94,7 @@
                 @forelse ($layanan as $value)
                 <div class="products-item p-4">
                     
-                    <div class="card shadow">
+                    <div class="card shadow bg-langkah text-white">
                         <div class="card-body text-center">
                         <div class="d-flex justify-content-center">
                             @if ($value->foto)
@@ -188,11 +188,26 @@
 }
 
 .owl-prev {
-	left: 10px;
+	left: -30px;
 }
 
 .owl-next {
-	right: 10px;
+	right: -30px;
+}
+
+@media (max-width: 767px) {
+    .owl-prev i, .owl-next i {
+        padding: 10px;
+        font-size: 18pt;
+        color: #4c4c4c !important;
+    }
+    .owl-prev {
+	    left: 10px;
+    }
+
+    .owl-next {
+        right: 10px;
+    }
 }
 
 button:focus, button:active {

@@ -96,9 +96,10 @@
                         @endforeach
                      </div>
 
-                     <div class="col-lg-3" id="menu-soal">
+                     <div class="col-lg-3 menu-soal" id="menu-soal">
                         <h5 class="h5 mt-3 mb-2 font-weight-bold">Daftar Soal</h5>
-                        <div class="row" id="daftar-soal">
+                        <div class="desktop-list mobile-list" id="daftar-soal">
+                           
                         </div>
                      </div>
                   </div>
