@@ -71,8 +71,11 @@
                     @endif
                 </div>
                 <div class="col-lg-6 pt-2 pt-lg-0 order-1 order-lg-2 mb-4">
-                    
-                    {!! $data->tentang_kami !!}
+                    <div class="card shadow bg-langkah" style="border: none">
+                        <div class="card-body text-white">
+                            {!! $data->tentang_kami !!}
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -89,7 +92,7 @@
             <div class="row justify-content-center mt-4">
                 <div class="owl-carousel products-carousel">
                 @forelse ($layanan as $value)
-                <div class="products-item">
+                <div class="products-item p-4">
                     
                     <div class="card shadow">
                         <div class="card-body text-center">
@@ -162,6 +165,42 @@
 </main><!-- End #main -->
 @endsection
 
+
+@section('css')
+<style>
+    /* owl nav */
+
+.owl-prev i, .owl-next i {
+    padding: 10px;
+    font-size: 18pt;
+	color: #ECB811 !important;
+}
+
+.owl-prev i:hover, 
+.owl-next i:hover {
+	color: #8199A3 !important;
+}
+
+.owl-prev, .owl-next {
+	position: absolute;
+    top: -15px;
+    height: 100%;
+}
+
+.owl-prev {
+	left: 10px;
+}
+
+.owl-next {
+	right: 10px;
+}
+
+button:focus, button:active {
+   outline: none;
+}
+
+</style>
+@endsection
 @section('js')
 <!-- Vendor JS Files -->
 <script src="{{asset('assets-landingpage/vendor/jquery/jquery.min.js')}}"></script>

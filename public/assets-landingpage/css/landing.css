@@ -623,7 +623,7 @@ section {
   display: inline-block;
   margin-left: -1.3em; /* same as padding-left set on li */
   width: 1.3em;
-  color: #ECB811;
+  /* color: #ECB811; */
   font-weight: 800;
 }
 
@@ -1323,6 +1323,9 @@ section {
 --------------------------------------------------------------*/
 .testimonials .testimonial-item {
     box-sizing: content-box;
+  }
+
+  #products .testimonials .testimonial-item{
     min-height: 320px;
   }
   

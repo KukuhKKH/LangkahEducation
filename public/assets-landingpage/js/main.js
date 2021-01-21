@@ -88,6 +88,8 @@
       autoplay: true,
       dots: true,
       loop: true,
+	    nav: true,
+	    navText: ['<i class="fa fa-chevron-circle-left "></i>','<i class="fa fa-chevron-circle-right "></i>'],
       responsive: {
         0: {
           items: 1
@@ -106,6 +108,8 @@
       autoplay: true,
       dots: true,
       loop: true,
+	    nav: true,
+	    navText: ['<i class="fa fa-chevron-circle-left "></i>','<i class="fa fa-chevron-circle-right "></i>'],
       responsive: {
         0: {
           items: 1
