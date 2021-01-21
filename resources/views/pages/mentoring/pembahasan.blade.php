@@ -145,22 +145,24 @@
 </a>
 
 <!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-   aria-hidden="true">
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-               <span aria-hidden="true">×</span>
-            </button>
-         </div>
-         <div class="modal-body">Pilih ‘Logout’ apabila Anda ingin menyudahi sesi ini.</div>
-         <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Kembali</button>
-            <button type="submit" class="btn btn-danger">Logout</button>
-         </div>
-      </div>
+       <div class="modal-content">
+           <form action="{{ route('logout') }}" method="post">
+               @csrf
+               <div class="modal-header">
+                   <h5 class="modal-title" id="exampleModalLabel">Apakah Anda benar-benar ingin keluar ?</h5>
+                   <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                       <span aria-hidden="true">×</span>
+                   </button>
+               </div>
+               <div class="modal-body">Pilih ‘Logout’ apabila Anda ingin menyudahi sesi ini.</div>
+               <div class="modal-footer">
+                   <button class="btn btn-secondary" type="button" data-dismiss="modal">Kembali</button>
+                   <button type="submit" class="btn btn-primary">Logout</button>
+               </div>
+           </form>
+       </div>
    </div>
 </div>
 
@@ -170,6 +172,9 @@
 @section('js')
 <script>
    const total_soal = {{ count($paket) ?? 0 }}
+   const paket_slug = ``
+   const gelombang_id = ``
+   const user = `{{ auth()->user()->name }}`
    let markedGroups = []
    let shortcutGroups = []
 </script>
