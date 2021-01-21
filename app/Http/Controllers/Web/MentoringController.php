@@ -18,6 +18,7 @@ use App\Models\TryoutHasilJawaban;
 use App\Models\TryoutKategoriSoal;
 use App\Http\Controllers\Controller;
 use App\Models\KelompokPassingGrade;
+use App\Models\TempProdi;
 use Illuminate\Support\Facades\Auth;
 
 class MentoringController extends Controller
@@ -99,8 +100,13 @@ class MentoringController extends Controller
 
     public function hasil_tryout($id) {
         try {
+            $result = [];
             $hasil = TryoutHasil::with(['gelombang', 'paket.temp', 'user.siswa'])->where('user_id', $id)->get();
-            return response()->json(['error' => false, 'data' => $hasil], 200);
+            foreach ($hasil as $key => $value) {
+                $temp = TempProdi::where('gelombang_id', $value->gelombang_id)->where('paket_id', $value->tryout_paket_id)->where('user_id', $value->user_id)->get();
+                $result[] = array_merge($value->toArray(), $temp->toArray());
+            }
+            return response()->json(['error' => false, 'data' => $result], 200);
         } catch(\Exception $e) {
             return response()->json(['error' => true, 'message' => $e->getMessage()], 500);
         }
