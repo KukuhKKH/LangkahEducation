@@ -78,7 +78,6 @@ class MentoringController extends Controller
             }
             return view('pages.mentoring.pembahasan', compact('paket', 'jawabanmu'));
         }  catch(\Exception $e) {
-            dd($e);
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
     }
