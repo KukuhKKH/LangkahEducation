@@ -94,6 +94,7 @@
                 </button>
             </div>
             <div class="modal-body">
+               <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -110,6 +111,7 @@
 
                     </tbody>
                 </table>
+               </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>

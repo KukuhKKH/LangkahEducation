@@ -25,7 +25,7 @@
                 </div>
 
                 <div class="d-flex justify-content-center">
-                  <div class="row text-center w-50">
+                  <div class="row text-center">
                      <div class="col-xl-12">
                          {{-- Role Siswa --}}
                          @role('siswa')

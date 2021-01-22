@@ -195,6 +195,10 @@
 	right: -30px;
 }
 
+#about .card p{
+    margin-bottom : 0 !important;
+}
+
 @media (max-width: 767px) {
     .owl-prev i, .owl-next i {
         padding: 10px;
@@ -207,6 +211,14 @@
 
     .owl-next {
         right: 10px;
+    }
+
+    #products .owl-prev{
+        margin-left:15px;
+    }
+    
+    #products .owl-next{
+        margin-right:15px;
     }
 }
 
