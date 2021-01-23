@@ -106,7 +106,7 @@ class ProfileController extends Controller
                 $user->siswa()->update([
                     'batch' => 1
                 ]);
-                Pembayaran::where('user_id', auth()->user()->id)->delete();
+                // Pembayaran::where('user_id', auth()->user()->id)->delete();
                 $sekolah->siswa()->attach($user->siswa->id);
                 DB::commit();
                 return redirect()->back()->with(['success' => 'Berhasil memakai kode referal']);
