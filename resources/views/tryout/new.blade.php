@@ -319,27 +319,43 @@
       swal.fire({
          icon: 'error',
          text: 'Waktu Ujian telah habis',
-         type: 'warning'
+         type: 'warning',
+         timer: 2000
       }).then(function (val) {
-         if(val) {
+         // if(val) {
             // window.location.reload()
-            if(isSafari) {
-               Cookies.remove(`waktu-${gelombang_id}-${user}-${paket_slug}`)
-               Cookies.remove(`selected-${gelombang_id}-${user}-${paket_slug}`)
-               Cookies.remove(`answered-${gelombang_id}-${user}-${paket_slug}`)
-            } else {
-               localStorage.removeItem(`waktu-${gelombang_id}-${user}-${paket_slug}`)
-               localStorage.removeItem(`selected-${gelombang_id}-${user}-${paket_slug}`)
-               localStorage.removeItem(`answered-${gelombang_id}-${user}-${paket_slug}`)
-            }
-            localStorage.removeItem(`indexQuest-${gelombang_id}-${user}-${paket_slug}`)
-            localStorage.removeItem(`answered-${gelombang_id}-${user}-${paket_slug}`);
-            localStorage.removeItem(`marked-${gelombang_id}-${user}-${paket_slug}`);
-            shortcutGroups = [];
-            markedGroups = [];
-            $('#form-data').submit()
-         }
+            // if(isSafari) {
+            //    Cookies.remove(`waktu-${gelombang_id}-${user}-${paket_slug}`)
+            //    Cookies.remove(`selected-${gelombang_id}-${user}-${paket_slug}`)
+            //    Cookies.remove(`answered-${gelombang_id}-${user}-${paket_slug}`)
+            // } else {
+            //    localStorage.removeItem(`waktu-${gelombang_id}-${user}-${paket_slug}`)
+            //    localStorage.removeItem(`selected-${gelombang_id}-${user}-${paket_slug}`)
+            //    localStorage.removeItem(`answered-${gelombang_id}-${user}-${paket_slug}`)
+            // }
+            // localStorage.removeItem(`indexQuest-${gelombang_id}-${user}-${paket_slug}`)
+            // localStorage.removeItem(`answered-${gelombang_id}-${user}-${paket_slug}`);
+            // localStorage.removeItem(`marked-${gelombang_id}-${user}-${paket_slug}`);
+            // shortcutGroups = [];
+            // markedGroups = [];
+            // $('#form-data').submit()
+         // }
       })
+      if(isSafari) {
+         Cookies.remove(`waktu-${gelombang_id}-${user}-${paket_slug}`)
+         Cookies.remove(`selected-${gelombang_id}-${user}-${paket_slug}`)
+         Cookies.remove(`answered-${gelombang_id}-${user}-${paket_slug}`)
+      } else {
+         localStorage.removeItem(`waktu-${gelombang_id}-${user}-${paket_slug}`)
+         localStorage.removeItem(`selected-${gelombang_id}-${user}-${paket_slug}`)
+         localStorage.removeItem(`answered-${gelombang_id}-${user}-${paket_slug}`)
+      }
+      localStorage.removeItem(`indexQuest-${gelombang_id}-${user}-${paket_slug}`)
+      localStorage.removeItem(`answered-${gelombang_id}-${user}-${paket_slug}`);
+      localStorage.removeItem(`marked-${gelombang_id}-${user}-${paket_slug}`);
+      shortcutGroups = [];
+      markedGroups = [];
+      $('#form-data').submit()
    }
 
    $('#btn-kumpulkan').on('click', function() {

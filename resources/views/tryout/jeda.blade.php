@@ -163,12 +163,14 @@
          text: 'Waktu Jeda telah habis',
          type: 'warning'
       }).then(function (val) {
-         if(val) {
+         // if(val) {
             // window.location.reload()
-            localStorage.removeItem(`waktu-${user}-${paket_slug}`)
-            $('#form-data').submit()
-         }
+            // localStorage.removeItem(`waktu-${user}-${paket_slug}`)
+            // $('#form-data').submit()
+         // }
       })
+      localStorage.removeItem(`waktu-${user}-${paket_slug}`)
+      $('#form-data').submit()
    }
 
    $('#btn-kumpulkan').on('click', function() {
@@ -180,7 +182,8 @@
          confirmButtonColor: '#3085d6',
          cancelButtonColor: '#d33',
          cancelButtonText: 'Tidak',
-         confirmButtonText: 'Ya!'
+         confirmButtonText: 'Ya!',
+         timer: 2000
       }).then((result) => {
          if (result.isConfirmed) {
             localStorage.removeItem(`waktu-${user}-${paket_slug}`)
