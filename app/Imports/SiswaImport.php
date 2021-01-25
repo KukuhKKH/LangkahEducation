@@ -38,10 +38,10 @@ class SiswaImport implements ToModel, WithStartRow
             $errMessage = 'Mohon pastikan kolom NISN tidak kosong.';
             throw new \Exception($errMessage);
         }
-        if(empty($row[3])){
-            $errMessage = 'Mohon pastikan kolom Tanggal Lahir tidak kosong.';
-            throw new \Exception($errMessage);
-        }
+        // if(empty($row[3])){
+        //     $errMessage = 'Mohon pastikan kolom Tanggal Lahir tidak kosong.';
+        //     throw new \Exception($errMessage);
+        // }
         if(empty($row[4])){
             $errMessage = 'Mohon pastikan kolom Nomer HP tidak kosong.';
             throw new \Exception($errMessage);
@@ -50,10 +50,12 @@ class SiswaImport implements ToModel, WithStartRow
             $errMessage = 'Mohon pastikan kolom Asal Sekolah tidak kosong.';
             throw new \Exception($errMessage);
         }
-        if(strpos($row[3], '/') > 0) {
-            $tgl_lahir = $row[3];
-        } else {
-            $tgl_lahir = Date::excelToDateTimeObject($row[3])->format('m/d/Y');
+        if($row[3] != '') {
+            if(strpos($row[3], '/') > 0) {
+                $tgl_lahir = $row[3];
+            } else {
+                $tgl_lahir = Date::excelToDateTimeObject($row[3])->format('m/d/Y');
+            }
         }
         // $tgl = explode('/',$row[3]);
         // dd($tgl);
@@ -68,7 +70,7 @@ class SiswaImport implements ToModel, WithStartRow
         $user->siswa()->create([
             'nisn' => $row[2],
             'asal_sekolah' => $row[5],
-            'tanggal_lahir' => $tgl_lahir,
+            'tanggal_lahir' => $tgl_lahir ?? '',
             'nomor_hp' => $row[4],
             'batch' => 0
         ]);
