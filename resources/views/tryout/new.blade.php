@@ -323,7 +323,7 @@
          type: 'warning',
          timer: 2000
       }).then(function (val) {
-         if(val) {
+         // if(val) {
             // window.location.reload()
             // if(isSafari) {
             //   Cookies.remove(`waktu-${gelombang_id}-${user}-${paket_slug}`)
