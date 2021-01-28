@@ -1,8 +1,8 @@
 @extends('layouts.dashboard-app')
-@section('title', 'Riwayat Try Out')
+@section('title', 'Riwayat Tryout')
 
 @section('content')
-   <h1 class="h3 mb-4 text-gray-800">Riwayat Try Out</h1>
+   <h1 class="h3 mb-4 text-gray-800">Riwayat Tryout</h1>
 
    <div class="row mb-4">
    @forelse ($riwayat as $value)
@@ -10,9 +10,9 @@
          <div class="card mb-4">
             @if ($value->paket->image)
             <?php $foto = $value->paket->image ?>
-               <img class="card-img-top img-cover" src="{{ asset("upload/paket-tryout/$foto") }}" alt="Try Out" style="height:225px">
+               <img class="card-img-top img-cover" src="{{ asset("upload/paket-tryout/$foto") }}" alt="Tryout" style="height:225px">
             @else
-               <img class="card-img-top img-cover" src="{{asset('assets/img/default-tryout.svg')}}" alt="Try Out">
+               <img class="card-img-top img-cover" src="{{asset('assets/img/default-tryout.svg')}}" alt="Tryout">
             @endif
             @php
             $prodi = App\Models\TempProdi::where('paket_id', $value->paket->id)
@@ -84,8 +84,8 @@
       @empty
       <div class="col-xl-12 text-center p-5">
          <img class="img-fluid" src="{{asset('assets/img/empty-illustration.svg')}}" alt="">
-         <h3 class="mt-3">Wah Kamu Belum mengikuti Try Out Apapun</h3>
-         <a class="btn btn-langkah mt-3" href="{{ route('gelombang.siswa') }}">Daftar Try Out</a>
+         <h3 class="mt-3">Wah Kamu Belum mengikuti Tryout Apapun</h3>
+         <a class="btn btn-langkah mt-3" href="{{ route('gelombang.siswa') }}">Daftar Tryout</a>
       </div>
       @endforelse
 @endsection

@@ -1,5 +1,5 @@
 @extends('layouts.tryout-app')
-@section('title', 'Try Out - LangkahEdukasi')
+@section('title', 'Tryout - LangkahEducation')
 
 @section('content')
 <!-- Page Wrapper -->
@@ -49,7 +49,7 @@
                         <div class="card shadow p-4 align-items-center">
                             <div class="card-body row w-50 " id="detail-menu">
                                 <div class="col-xl-12 text-center">
-                                    <h4 class="font-weight-bold my-4">Try Out - {{ $paket->nama }}</h4>
+                                    <h4 class="font-weight-bold my-4">Tryout - {{ $paket->nama }}</h4>
                                 </div>
                                 <div class="col-xl-12">
                                     <div class="table-responsive">

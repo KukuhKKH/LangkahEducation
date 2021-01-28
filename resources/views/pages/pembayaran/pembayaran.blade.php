@@ -53,7 +53,7 @@
                 <table class="table">
                     <tr>
                         <td>
-                            Pendaftaran Try Out - {{ $pembayaran->gelombang->nama }}
+                            Pendaftaran Tryout - {{ $pembayaran->gelombang->nama }}
                         </td>
                         <td>
                             RP. {{ number_format($pembayaran->gelombang->harga) }}
@@ -136,7 +136,7 @@
                 <table class="table">
                     <tr>
                         <td>
-                            Pendaftaran Try Out - {{ $pembayaran->gelombang->nama }}
+                            Pendaftaran Tryout - {{ $pembayaran->gelombang->nama }}
                         </td>
                         <td>
                             RP. {{ number_format($pembayaran->gelombang->harga) }}

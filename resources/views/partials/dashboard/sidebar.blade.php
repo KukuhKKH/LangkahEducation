@@ -29,11 +29,11 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTryOut"
             aria-expanded="{{ $nav_tryout }}" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-money-bill"></i>
-            <span>TryOut</span>
+            <span>Tryout</span>
         </a>
         <div id="collapseTryOut" class="{{ ($nav_tryout) ? 'show collapse' : 'collapse' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Try Out :</h6>
+                <h6 class="collapse-header">Tryout :</h6>
                 <a class="collapse-item {{ request()->is('dashboard/tryout/paket/*') || request()->is('dashboard/tryout/paket') ? 'active' : '' }}" href="{{ route('paket.index') }}">Paket Soal</a>
                 <a class="collapse-item {{ request()->is('dashboard/tryout/kategori-soal') || request()->is('dashboard/tryout/kategori-soal/*') ? 'active' : '' }}" href="{{ route('kategori-soal.index') }}">Kategori Soal</a>
             </div>
@@ -65,15 +65,29 @@
 
     @hasanyrole('siswa')
 
-    {{-- Try Out Siswa --}}
+    {{-- Tryout Siswa --}}
 
     <li class="nav-item {{ (request()->segment(2) == 'siswa' && request()->segment(3) == 'tryout') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('siswa.tryout.index') }}">
             <i class="fas fa-fw fa-desktop"></i>
-            <span>Try Out</span>
+            <span>Tryout</span>
         </a>
     </li>
 
+    <li class="nav-item {{ request()->is('dashboard/daftar/gelombang') ? 'active' : "" }}">
+        <a class="nav-link" href="{{ route('gelombang.siswa') }}">
+            <i class="fas fa-fw fa-newspaper"></i>
+            <span>Toko Tryout</span>
+        </a>
+    </li>
+
+    
+    <li class="nav-item {{ request()->is('dashboard/riwayat-tryout') ? 'active' : "" }}">
+        <a class="nav-link" href="{{ route('tryout.history') }}">
+            <i class="fas fa-fw fa-history"></i>
+            <span>Riwayat Tryout</span>
+        </a>
+    </li>
     {{-- <li class="nav-item">
         <a class="nav-link" href="#">
             <i class="fas fa-fw fa-percent"></i>
@@ -89,19 +103,6 @@
     </li>
     @endif
 
-    <li class="nav-item {{ request()->is('dashboard/daftar/gelombang') ? 'active' : "" }}">
-        <a class="nav-link" href="{{ route('gelombang.siswa') }}">
-            <i class="fas fa-fw fa-newspaper"></i>
-            <span>Daftar Try Out</span>
-        </a>
-    </li>
-
-    <li class="nav-item {{ request()->is('dashboard/riwayat-tryout') ? 'active' : "" }}">
-        <a class="nav-link" href="{{ route('tryout.history') }}">
-            <i class="fas fa-fw fa-history"></i>
-            <span>Riwayat Try Out</span>
-        </a>
-    </li>
     @endhasanyrole
     @hasanyrole('mentor')
     <li class="nav-item {{ (request()->segment(2) == 'mentoring') ? 'active' : '' }}">
@@ -198,7 +199,7 @@
     <li class="nav-item {{ (request()->is('dashboard/sekolah')) ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('sekolah.index') }}">
             <i class="fas fa-fw fa-school"></i>
-            <span>Sekolah</span>
+            <span>Program Khusus</span>
         </a>
     </li>
     <li class="nav-item {{ (request()->is('dashboard/mentor')) ? 'active' : '' }}">

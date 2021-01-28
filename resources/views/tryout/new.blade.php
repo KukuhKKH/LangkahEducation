@@ -188,22 +188,22 @@
    let markedGroups
    let waktu
    $(document).ready(function() {
-   // DISABLED RIGHT CLICK, COPY PASTE == KOMEN JIKA PROSES DEVELOPING
-      // $(document).bind("contextmenu",function(e){
-      //    return false;
-      // });
+   //  DISABLED RIGHT CLICK, COPY PASTE == KOMEN JIKA PROSES DEVELOPING
+       $(document).bind("contextmenu",function(e){
+          return false;
+       });
 
-      // $('.soal').bind("copy",function(e) {
-      //    e.preventDefault();
-      // });
+       $('.soal').bind("copy",function(e) {
+          e.preventDefault();
+       });
 
-      // $(document).keydown(function(e) { 
-      //    if (e.ctrlKey == true && (e.which == '67')) { 
-      //       e.preventDefault();
-      //    } 
-      // }); 
+       $(document).keydown(function(e) { 
+          if (e.ctrlKey == true && (e.which == '67')) { 
+             e.preventDefault();
+          } 
+       }); 
 
-      //END
+      // END
 
 
       if(isSafari) {
@@ -323,7 +323,7 @@
          type: 'warning',
          timer: 2000
       }).then(function (val) {
-         // if(val) {
+         if(val) {
             // window.location.reload()
             // if(isSafari) {
             //   Cookies.remove(`waktu-${gelombang_id}-${user}-${paket_slug}`)

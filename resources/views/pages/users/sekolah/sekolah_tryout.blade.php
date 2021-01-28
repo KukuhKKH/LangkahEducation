@@ -1,13 +1,13 @@
 @extends('layouts.dashboard-app')
-@section('title', 'Integrasi Tryout ke Sekolah '. $sekolah->user->nama)
+@section('title', 'Integrasi Tryout ke Program Khusus '. $sekolah->user->nama)
 
 @section('content')
-<h1 class="h3 mb-2 text-gray-800">Integrasi Tryout ke Sekolah {{ $sekolah->user->nama }} </h1>
+<h1 class="h3 mb-2 text-gray-800">Integrasi Tryout ke Program Khusus {{ $sekolah->user->nama }} </h1>
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <div class="d-flex justify-content-between mb-1">
-            <h6 class="m-0 font-weight-bold text-primary">Integrasi Tryout ke Sekolah {{ $sekolah->user->nama }}</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Integrasi Tryout ke Program Khusus {{ $sekolah->user->nama }}</h6>
         </div>
     </div>
     <div class="card-body container">
