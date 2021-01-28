@@ -48,7 +48,7 @@ class SekolahNisnController extends Controller
                 'sekolah_id' => $request->sekolah_id,
                 'nisn' => $request->nisn
             ]);
-            return redirect()->back()->with(['success' => 'Berhasil tambah nisn']);
+            return redirect()->back()->with(['success' => 'Berhasil tambah NISN']);
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
@@ -107,7 +107,7 @@ class SekolahNisnController extends Controller
             $nisn->update([
                 'nisn' => $request->nisn
             ]);
-            return redirect()->route('nisn.show', $nisn->sekolah->id)->with(['success' => 'Berhasil update nisn']);
+            return redirect()->route('nisn.show', $nisn->sekolah->id)->with(['success' => 'Berhasil update NISN']);
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
@@ -123,7 +123,7 @@ class SekolahNisnController extends Controller
     {
         try {
             NisnSekolah::find($id)->delete();
-            return redirect()->back()->with(['success' => 'Berhasil hapus nisn']);
+            return redirect()->back()->with(['success' => 'Berhasil hapus NISN']);
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }

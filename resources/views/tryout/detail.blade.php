@@ -56,10 +56,10 @@
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <td> Jenis Kategori </td>
-                                                    <td> Nama Kategori </td>
-                                                    <td> Jumlah Soal </td>
-                                                    <td> Waktu Pengerjaan </td>
+                                                    <td class="font-weight-bold"> Jenis Kategori </td>
+                                                    <td class="font-weight-bold"> Nama Kategori </td>
+                                                    <td class="font-weight-bold"> Jumlah Soal </td>
+                                                    <td class="font-weight-bold"> Waktu Pengerjaan </td>
                                                 </tr>
                                             </thead>
                                             <tbody>

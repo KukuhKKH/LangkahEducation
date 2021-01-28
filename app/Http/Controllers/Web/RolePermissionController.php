@@ -73,7 +73,7 @@ class RolePermissionController extends Controller
             Role::create([
                 'name' => $request->role
             ]);
-            return redirect()->route('role.index')->with(['success' => 'Sukses Tambah Role']);
+            return redirect()->route('role.index')->with(['success' => 'Sukses tambah role']);
         } catch (\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
@@ -120,7 +120,7 @@ class RolePermissionController extends Controller
             $role->update([
                 'name' => $request->name
             ]);
-            return redirect()->route('role.index')->with(['success' => 'Sukses Update Role']);
+            return redirect()->route('role.index')->with(['success' => 'Sukses update role']);
         } catch (\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
@@ -137,7 +137,7 @@ class RolePermissionController extends Controller
         try {
             $role = Role::findOrFail($id);
             $role->delete();
-            return redirect()->back()->with(['success' => 'Role: <strong>' . $role->name . '</strong> Dihapus']);
+            return redirect()->back()->with(['success' => 'Role: <strong>' . $role->name . '</strong> dihapus']);
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
@@ -174,7 +174,7 @@ class RolePermissionController extends Controller
             $permission->update([
                 'name' => $request->name
             ]);
-            return redirect()->route('role.permission')->with(['success' => 'Sukses Update Permission']);
+            return redirect()->route('role.permission')->with(['success' => 'Sukses update permission']);
         } catch (\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
@@ -185,7 +185,7 @@ class RolePermissionController extends Controller
         try {
             $permission = Permission::find($id);
             $permission->delete();
-            return redirect()->back()->with(['success' => 'Permission: <strong>' . $permission->name . '</strong> Dihapus']);
+            return redirect()->back()->with(['success' => 'Permission: <strong>' . $permission->name . '</strong> dihapus']);
         } catch(\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
