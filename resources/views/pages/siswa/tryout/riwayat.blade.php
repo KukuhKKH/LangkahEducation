@@ -24,19 +24,27 @@
                <div class="row">
                   @php
                      $valKelompok ="";
+                     $jenisProduk="";
                      if ($prodi[0]->kelompok_passing_grade_id == 1) {
                         $valKelompok = "Saintek";
                      }else if($prodi[0]->kelompok_passing_grade_id == 2){
                         $valKelompok = "Soshum";
                      }
+                     
+                     if($value->gelombang->jenis == 1){
+                        $jenisProduk="Umum";
+                     }else if($value->gelombang->jenis == 2){
+                        $jenisProduk="Khusus";
+                     }
+                     
                   @endphp
                   <div class="col-xl-12">
                      <strong>Kelompok</strong>
                      <h6>{{ $valKelompok }}</h6>
                   </div>
                   <div class="col-xl-12">
-                     <strong>Produk</strong>
-                     <h6>{{ $value->paket->nama }}</h6>
+                     <strong>Produk - {{$jenisProduk}}</strong>
+                     <h6>{{ $value->gelombang->nama }}</h6>
                   </div>
                   <div class="col-xl-12">
                      <strong>Mulai</strong>
@@ -82,7 +90,7 @@
          {{ $riwayat->links() }}
       </div>
       @empty
-      <div class="col-xl-12 text-center p-5">
+      <div class="col-xl-12 text-center" style="min-height: 80vh;">
          <img class="img-fluid" src="{{asset('assets/img/empty-illustration.svg')}}" alt="">
          <h3 class="mt-3">Wah Kamu Belum mengikuti Tryout Apapun</h3>
          <a class="btn btn-langkah mt-3" href="{{ route('gelombang.siswa') }}">Daftar Tryout</a>

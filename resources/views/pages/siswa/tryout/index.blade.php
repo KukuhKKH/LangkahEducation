@@ -29,7 +29,7 @@
                             <h5 class="card-text">{{ $item->nama }}</h5>
                             <div class="row">
                                 <div class="col-xl-12">
-                                    <strong>Produk</strong>
+                                    <strong>Produk - Khusus</strong>
                                     <h6>{{ $value->nama }}</h6>
                                 </div>
                                 <div class="col-xl-12">
@@ -107,7 +107,7 @@
                             <h5 class="card-text">{{ $item->nama }}</h5>
                             <div class="row">
                                 <div class="col-xl-12">
-                                        <strong>Produk - Sekolah</strong>
+                                        <strong>Produk - Umum</strong>
                                         <h6>{{ $value->nama }}</h6>
                                     <strong>Mulai</strong>
                                     <h6>Tanggal : {{ Carbon\Carbon::parse($item->tgl_awal)->format('d F Y') }}</h6>
@@ -165,7 +165,7 @@
     @endphp
 @endforelse
 @if ($kosong && $sekolah && !$ada)
-        <div class="col-xl-12 text-center p-5">
+        <div class="col-xl-12 text-center p-5" style="min-height: 80vh;">
             <img class="img-fluid" src="{{asset('assets/img/empty-illustration.svg')}}" alt="">
                 <h3 class="mt-3">Wah Kamu Belum mengikuti Tryout Apapun</h3>
                 <a class="btn btn-langkah mt-3" href="{{ route('gelombang.siswa') }}">Daftar Tryout</a>
