@@ -20,7 +20,7 @@
                   <label for="">Jenis Gelombang</label>
                   <select name="jenis" class="form-control @error('jenis') is-invalid @enderror" autocomplete="off">
                       <option value="1" {{ ($pendaftaran->jenis == 1) ? 'selected' : '' }}>Umum</option>
-                      <option value="2" {{ ($pendaftaran->jenis == 2) ? 'selected' : '' }}>Khusus</option>
+                      <option value="2" {{ ($pendaftaran->jenis == 2) ? 'selected' : '' }}>Program Khusus</option>
                   </select>
                   @error('jenis')
                       <span class="invalid-feedback" role="alert">

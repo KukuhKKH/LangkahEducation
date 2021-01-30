@@ -188,7 +188,7 @@
    let markedGroups
    let waktu
    $(document).ready(function() {
-    // DISABLED RIGHT CLICK, COPY PASTE == KOMEN JIKA PROSES DEVELOPING
+   //  DISABLED RIGHT CLICK, COPY PASTE == KOMEN JIKA PROSES DEVELOPING
        $(document).bind("contextmenu",function(e){
           return false;
        });
@@ -203,7 +203,7 @@
           } 
        }); 
 
-    //   END
+      // END
 
 
       if(isSafari) {

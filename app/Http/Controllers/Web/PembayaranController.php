@@ -215,7 +215,6 @@ class PembayaranController extends Controller
             if(auth()->user()->id !=$pembayaran->user_id){
                 abort(403);
             }
-            
             if($pembayaran->status !=0){
                 abort(403);
             }

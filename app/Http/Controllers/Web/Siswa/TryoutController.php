@@ -443,7 +443,7 @@ class TryoutController extends Controller
             $paket = TryoutPaket::findSlug($slug);
             // dd($this->isFuture($paket->tgl_akhir));
             if($this->isFuture($paket->tgl_akhir)) {
-                return redirect()->back()->with(['error' => 'Waktu Tryout Belum Selesai']);
+                return redirect()->back()->with(['error' => 'Waktu tryout belum selesai']);
             }
             if($paket->koreksi) {
                 $tryout = TryoutHasil::with(['user', 'paket', 'tryout_hasil_jawaban', 'tryout_hasil_detail'])
@@ -451,7 +451,7 @@ class TryoutController extends Controller
                                     ->where('tryout_paket_id', $paket->id)
                                     ->where('gelombang_id', $gelombang_id)->first();
                 if($tryout->nilai_maksimal_new == 0) {
-                    return redirect()->back()->with(['error' => 'Tryout Belum Dikoreksi sistem']);
+                    return redirect()->back()->with(['error' => 'Tryout belum dikoreksi sistem']);
                 }
                 if(count($user->siswa->mentor) > 0) {
                     $komentar = Komentar::where('tryout_hasil_id', $tryout->id)
@@ -548,11 +548,11 @@ class TryoutController extends Controller
                 $gelombang = Gelombang::find($gelombang_id);
                 return view('pages.tryout.hasil-analisis.index', compact('tryout','paket', 'passing_grade', 'nama_saingan', 'nilai_saingan', 'pg1', 'pg2', 'nilai_user', 'nilai_grafik', 'nama_paket', 'komentar', 'nil_pg1', 'nil_pg2', 'kelompok', 'kelompok_all', 'universitas', 'tryout_kategori_soal', 'hasil_to_kategori_id', 'gelombang'));
             } else {
-                return redirect()->back()->with(['error' => 'Try Out Belum Dikoreksi Sistem']);
+                return redirect()->back()->with(['error' => 'Tryout belum dikoreksi sistem']);
             }
         } catch(\Exception $e) {
-            dd($e);
-            return redirect()->route('siswa.tryout.index')->with(['error' => 'jangan merubah url bwang']);
+            // dd($e);
+            return redirect()->route('siswa.tryout.index')->with(['error' => 'URL tidak valid']);
         }
     }
 

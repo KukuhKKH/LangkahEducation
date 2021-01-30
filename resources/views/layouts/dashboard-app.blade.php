@@ -156,7 +156,6 @@
         .sidebar.toggled .nav-item .nav-link {
             width:100% !important;
         }
-        
         #wrapper{
             background: #f8f9fc!important;
         }

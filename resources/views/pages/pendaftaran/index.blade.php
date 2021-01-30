@@ -78,7 +78,7 @@
                                             <i class="fas fa-fw fa-users"></i>
                                         </a>
                                     @else
-                                        <a href="{{ route('pendaftaran.list.sekolah', $value->id) }}" class="btn btn-warning my-1" data-toggle="tooltip" data-placement="top" title="List sekolah yang tergabung">
+                                        <a href="{{ route('pendaftaran.list.sekolah', $value->id) }}" class="btn btn-warning my-1" data-toggle="tooltip" data-placement="top" title="List program khusus yang tergabung">
                                             <i class="fas fa-fw fa-school"></i>
                                         </a>
                                     @endif
