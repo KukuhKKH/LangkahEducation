@@ -1,14 +1,14 @@
 @extends('layouts.dashboard-app')
-@section('title', 'Sekolah')
+@section('title', 'Program Khusus')
 
 @section('content')
 <div class="row">
     <div class="col-xl-6">
-        <h1 class="h3 mb-4 text-gray-800">Sekolah</h1>
+        <h1 class="h3 mb-4 text-gray-800">Program Khusus</h1>
     </div>
     <div class="col-xl-6 text-right">
-        <a href="{{ asset('template/TemplateSekolah.xlsx') }}" download="" class="btn btn-success my-1"><i
-                class="fas fa-fw fa-file-excel"></i> Template Sekolah</a>
+        <a href="{{ asset('template/TemplateProgramKhusus.xlsx') }}" download="" class="btn btn-success my-1"><i
+                class="fas fa-fw fa-file-excel"></i> Template Program Khusus</a>
         <a href="{{ asset('template/TemplateNISNSiswa.xlsx') }}" download="" class="btn btn-success my-1"><i
                 class="fas fa-fw fa-file-excel"></i> Template NISN</a>
     </div>
@@ -37,7 +37,7 @@
             <div class="col-xl-4 text-right">
                 <div class="btn-group btn-group-md">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalData"><i
-                            class="fas fa-fw fa-plus"></i> Tambah Sekolah</button>
+                            class="fas fa-fw fa-plus"></i> Tambah Prorgam Khusus</button>
                 </div>
             </div>
         </div>
@@ -48,7 +48,7 @@
             <div class="row mb-4 justify-content-end align-items-center">
                 <div class="col-xl-5">
                     <div class="input-group">
-                        <input type="text" name="keyword" class="form-control" placeholder="Masukkan Nama Sekolah" aria-label="Masukkan Nama Sekolah" aria-describedby="basic-addon2">
+                        <input type="text" name="keyword" class="form-control" placeholder="Masukkan Nama Program Khusus" aria-label="Masukkan Nama Program Khusus" aria-describedby="basic-addon2">
                         <div class="input-group-append">
                           <button class="btn btn-primary" type="submit">Cari</button>
                         </div>
@@ -64,7 +64,7 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Nama Sekolah</th>
+                        <th>Nama Program Khusus</th>
                         <th>Email</th>
                         <th>Kode Referal</th>
                         <th>Total siswa yang terdaftar</th>
@@ -75,7 +75,7 @@
                 <tfoot>
                     <tr>
                         <th>No</th>
-                        <th>Nama Sekolah</th>
+                        <th>Nama Program Khusus</th>
                         <th>Email</th>
                         <th>Kode Referal</th>
                         <th>Total siswa yang terdaftar</th>
@@ -111,7 +111,7 @@
                                     <i class="fas fa-fw fa-user-friends"></i>
                                 </a>
                                 <a href="{{ route('sekolah.produk', $value->id) }}" class="btn btn-primary my-1"
-                                    data-toggle="tooltip" data-placement="top" title="Integrasi produk ke sekolah ini">
+                                    data-toggle="tooltip" data-placement="top" title="Integrasi produk ke program khusus ini">
                                     <i class="fas fa-fw fa-desktop"></i>
                                 </a>
                                 <button type="button" data-id="{{ $value->id }}" class="btn btn-danger my-1 hapus"
@@ -126,7 +126,7 @@
                         <td colspan="7">
                             <div class="text-center mb-3 p-5 bg-light">
                                 <img class="mb-3" height="50px" src="{{asset('assets/img/null-icon.svg')}}" alt="">
-                                <h6>Tidak Ada Data Sekolah</h6>
+                                <h6>Tidak Ada Data Program Khusus</h6>
                             </div>
                         </td>
                     </tr>
@@ -143,7 +143,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Sekolah</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Program Khusus</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -152,10 +152,10 @@
                 @csrf
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="name">Nama Sekolah</label>
+                        <label for="name">Nama Program Khusus</label>
                         <input name="name" type="text"
                             class="form-control form-control-user @error('name') is-invalid @enderror"
-                            id="exampleFirstName" placeholder="Nama Sekolah" value="{{ old('name') }}" required>
+                            id="exampleFirstName" placeholder="Nama Program Khusus" value="{{ old('name') }}" required>
                         @error('name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -176,10 +176,10 @@
                     <div class="row">
                         <div class="col-xl-6">
                             <div class="form-group">
-                                <label for="alamat">Alamat Sekolah</label>
+                                <label for="alamat">Alamat Program Khusus</label>
                                 <input name="alamat" type="text"
                                     class="form-control form-control-user @error('alamat') is-invalid @enderror"
-                                    placeholder="Alamat Sekolah" value="{{ old('alamat') }}" required>
+                                    placeholder="Alamat Program Khusus" value="{{ old('alamat') }}" required>
                                 @error('alamat')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -193,7 +193,7 @@
                                         generate kode referal</small></label>
                                 <input name="kode_referal" type="text"
                                     class="form-control form-control-user @error('kode_referal') is-invalid @enderror"
-                                    placeholder="Kode Referal Sekolah" value="{{ old('kode_referal') }}">
+                                    placeholder="Kode Referal Program Khusus" value="{{ old('kode_referal') }}">
                                 @error('kode_referal')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -221,11 +221,11 @@
                         </div>
                         <div class="col-xl-6">
                             <div class="form-group">
-                                <label for="">Logo Sekolah <small>Opsional</small></label>
+                                <label for="">Logo Program Khusus <small>Opsional</small></label>
                                 <div class="input-group mb-3">
                                     <div class="custom-file">
                                       <input type="file" id="fileLogo"  name="foto" class="form-control custom-file-input form-control" accept="image/*">
-                                      <label id="labelLogo" class="custom-file-label" for="fileNISN">Choose file</label>
+                                      <label id="labelLogo" class="custom-file-label" for="fileLogo">Choose file</label>
                                     </div>
                                   </div>
                             </div>
@@ -247,7 +247,7 @@
     $(".hapus").on('click', function () {
         Swal.fire({
             title: 'Yakin?',
-            text: "Ingin menghapus sekolah ini!",
+            text: "Ingin menghapus program khusus ini!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',

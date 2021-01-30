@@ -88,7 +88,7 @@ class ProfileController extends Controller
                 ]);
             }
             DB::commit();
-            return redirect()->route('profile.index')->with(['success' => "Berhasil update profile"]);
+            return redirect()->route('profile.index')->with(['success' => "Berhasil ubah profil"]);
         } catch(\Exception $e) {
             DB::rollback();
             return redirect()->back()->with(['error' => $e->getMessage()])->withInput();
@@ -100,7 +100,7 @@ class ProfileController extends Controller
             DB::beginTransaction();
             $user = auth()->user();
             $sekolah = Sekolah::where('kode_referal', $request->kode_referal)->first();
-            if($sekolah == null) return redirect()->back()->with(['error' => 'Kode Referal tidak ditemukan']);
+            if($sekolah == null) return redirect()->back()->with(['error' => 'Kode referral tidak ditemukan']);
             $cek = NisnSekolah::where('nisn', $user->siswa->nisn)->get();
             if(count($cek) > 0) {
                 $user->siswa()->update([
@@ -109,9 +109,9 @@ class ProfileController extends Controller
                 // Pembayaran::where('user_id', auth()->user()->id)->delete();
                 $sekolah->siswa()->attach($user->siswa->id);
                 DB::commit();
-                return redirect()->back()->with(['success' => 'Berhasil memakai kode referal']);
+                return redirect()->back()->with(['success' => 'Berhasil memakai kode referral']);
             }
-            return redirect()->back()->with(['error' => 'Nisn anda tidak tergabung pada sekolah ini']);
+            return redirect()->back()->with(['error' => 'Kamu tidak tergabung pada program ini']);
         } catch (\Exception $e) {
             DB::rollback();
             return redirect()->back()->with(['error' => $e->getMessage()])->withInput();

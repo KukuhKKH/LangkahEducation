@@ -1,9 +1,9 @@
 @extends('layouts.dashboard-app')
-@section('title', 'Kategori Try out')
+@section('title', 'Kategori Tryout')
 
 @section('content')
     <h1 class="h3 mb-2 text-gray-800">Kategori Ujian</h1>
-    <p class="mb-4">Kategori Try Out pada biasanya Saintek, Soshum dan Campuran (IPC)</p>
+    <p class="mb-4">Kategori Tryout</p>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -72,7 +72,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tambah Kategori Try Out</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Kategori Tryout</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

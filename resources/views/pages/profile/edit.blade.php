@@ -102,10 +102,10 @@
                 </div>
                 <div class="col-xl-6">
                     <div class="form-group only-number">
-                        <label for="">Nomer HP</label>
+                        <label for="">Nomor HP</label>
                         <input type="text" name="nomor_hp" minlength="10" maxlength="13" 
                             class="form-control number @error('nomor_hp') is-invalid @enderror"
-                            value="{{ $user->siswa->nomor_hp }}" placeholder="Nomer HP">
+                            value="{{ $user->siswa->nomor_hp }}" placeholder="Nomor HP">
                         @error('nomor_hp')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -172,10 +172,10 @@
     {{-- End Data Tabel Siswa --}}
     <div class="col-xl-6">
         <div class="form-group">
-            <label for="">Password Lama <small>Kosongkan jika tidak mengganti password</small></label>
+            <label for="">Password Lama <small>(Kosongkan jika tidak mengganti password)</small></label>
             <div class="input-group" id="show_old_password">
                 <input name="password_old" id="password_old"  type="password" class="form-control @error('password_old') is-invalid @enderror"
-                placeholder="Password Lama">
+                placeholder="Password Lama" autocomplete="new-password">
                 <div class="input-group-addon d-flex align-items-center">
                     <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
                   </div>    
@@ -189,7 +189,7 @@
     </div>
     <div class="col-xl-6">
         <div class="form-group">
-            <label for="">Password Baru <small>Kosongkan jika tidak mengganti password</small></label>
+            <label for="">Password Baru <small>(Kosongkan jika tidak mengganti password)</small></label>
             <div class="input-group" id="show_new_password">
                 <input id="password" type="password" name="password" class="form-control @error('password') is-invalid @enderror"
                 placeholder="Password Baru"> 
@@ -203,7 +203,7 @@
     </div>
     <div class="col-xl-6">
         <div class="form-group">
-            <label for="">Ulangi Password baru <small>Kosongkan jika tidak mengganti password</small></label>
+            <label for="">Ulangi Password baru <small>(Kosongkan jika tidak mengganti password)</small></label>
             <div class="input-group" id="show_new_password">
                 <input type="password" id="password_confirmation" name="password_confirmation" class="form-control "
                 placeholder="Ulangi Password Baru"> 

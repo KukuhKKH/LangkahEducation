@@ -33,7 +33,7 @@
                              }
                          }
                     @endphp
-                    <strong><i class="fab fa-whatsapp font-weight-bold mr-2"></i></strong><a class="text-dark" href="https://wa.me/{{$noWA}}">{{ $data->noHP ?? '' }}</a><br>
+                    <strong><i class="fab fa-whatsapp font-weight-bold mr-2"></i></strong><a class="text-dark" href="https://wa.me/{{$noWA}}"  target="_blank" rel="noopener noreferrer">{{ $data->noHP ?? '' }}</a><br>
                     <strong><i class="fa fa-envelope font-weight-bold mr-2"></i></strong> <a class="text-dark" href="mailto:{{ $data->email ?? '' }}">{{ $data->email ?? '' }}</a><br>
                     </p>
                 </div>

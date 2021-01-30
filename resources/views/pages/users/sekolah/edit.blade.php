@@ -2,12 +2,12 @@
 @section('title', 'Edit '.$sekolah->user->name)
 
 @section('content')
-<h1 class="h3 mb-2 text-gray-800">Update Sekolah</h1>
+<h1 class="h3 mb-2 text-gray-800">Update Program Khusus</h1>
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <div class="d-flex justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">Sekolah - {{ $sekolah->user->name }}</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Program Khusus - {{ $sekolah->user->name }}</h6>
         </div>
     </div>
     <div class="card-body">
@@ -29,7 +29,7 @@
             <div class="row">
                 <div class="col-xl-6">
                     <div class="form-group">
-                        <label for="">Nama Sekolah</label>
+                        <label for="">Nama Program Khusus</label>
                         <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
                             value="{{ $sekolah->user->name }}" placeholder="Nama / username">
                         @error('name')
@@ -51,12 +51,12 @@
                         @enderror
                     </div>
                 </div>
-                {{-- Data Tabel Sekolah --}}
+                {{-- Data Tabel Program Khusus --}}
                 <div class="col-xl-6">
                     <div class="form-group">
-                        <label for="">Alamat Sekolah</label>
+                        <label for="">Alamat Program Khusus</label>
                         <input type="text" name="alamat" class="form-control @error('alamat') is-invalid @enderror"
-                            value="{{ $sekolah->alamat }}" placeholder="Alamat Sekolah">
+                            value="{{ $sekolah->alamat }}" placeholder="Alamat Program Khusus">
                         @error('alamat')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -77,7 +77,7 @@
                         @enderror
                     </div>
                 </div>
-                {{-- End Data Tabel Sekolah --}}
+                {{-- End Data Tabel Program Khusus --}}
                 <div class="col-xl-6">
                     <div class="form-group">
                         <label for="">Password Lama <small>Kosongkan jika tidak mengganti password</small></label>

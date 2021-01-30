@@ -17,14 +17,14 @@ $kosong = false;
                 <div class="card-body p-4">
                     <div class="text-center">
                         <div class="alert alert-primary font-weight-bold" role="alert">
-                            Dibuka Pendaftaran Try Out!
+                            Dibuka Pendaftaran Tryout!
                         </div>
                         <h4 class="font-weight-bold">{{ $value->nama }}</h4>
                         <img class="img-fluid w-50 my-4" src="{{asset('assets/img/welcome-illustration.svg')}}" alt="">
                     </div>
             
                     <div class="ml-4">
-                        <h6 class="font-weight-bold">Fasilitas <span class="font-weight-normal">{{ count($value->tryout) }}x Try Out</span></h6>
+                        <h6 class="font-weight-bold">Fasilitas <span class="font-weight-normal">{{ count($value->tryout) }}x Tryout</span></h6>
                         <h6 class="font-weight-bold">Tanggal Pendaftaran
                             : <span class="font-weight-normal">{{ Carbon\Carbon::parse($value->tgl_awal)->format('d F Y') }}
                             </span></h6>
@@ -54,9 +54,9 @@ $kosong = false;
     @endphp
 @endforelse
 @if($kosong && !$ada)
-<div class="col-xl-12">
-        <div class="text-center">
-            <img class="img-fluid w-25 my-4" src="{{asset('assets/img/empty-illustration.svg')}}" alt="">
+<div class="col-xl-12 d-flex align-items-center" style="min-height: 80vh;">
+        <div class="text-center w-100">
+            <img class="img-fluid my-4" src="{{asset('assets/img/empty-illustration.svg')}}" alt="">
             <h3>Yahh.. Saat ini belum ada dibuka Pendaftaran</h3>
         </div>
     </div>

@@ -163,7 +163,7 @@
                 </div>
                 <div class="modal-body">Pilih ‘Logout’ apabila Anda ingin menyudahi sesi ini.</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Kembali</button>
+                    <button id="logout-accept" class="btn btn-secondary" type="button" data-dismiss="modal">Kembali</button>
                     <button type="submit" class="btn btn-danger">Logout</button>
                 </div>
             </form>
@@ -188,22 +188,22 @@
    let markedGroups
    let waktu
    $(document).ready(function() {
-   // DISABLED RIGHT CLICK, COPY PASTE == KOMEN JIKA PROSES DEVELOPING
-      // $(document).bind("contextmenu",function(e){
-      //    return false;
-      // });
+    // DISABLED RIGHT CLICK, COPY PASTE == KOMEN JIKA PROSES DEVELOPING
+       $(document).bind("contextmenu",function(e){
+          return false;
+       });
 
-      // $('.soal').bind("copy",function(e) {
-      //    e.preventDefault();
-      // });
+       $('.soal').bind("copy",function(e) {
+          e.preventDefault();
+       });
 
-      // $(document).keydown(function(e) { 
-      //    if (e.ctrlKey == true && (e.which == '67')) { 
-      //       e.preventDefault();
-      //    } 
-      // }); 
+       $(document).keydown(function(e) { 
+          if (e.ctrlKey == true && (e.which == '67')) { 
+             e.preventDefault();
+          } 
+       }); 
 
-      //END
+    //   END
 
 
       if(isSafari) {
@@ -315,6 +315,7 @@
    })
 
    function waktuHabis() {
+
       // selesai();
       swal.fire({
          icon: 'error',
@@ -322,16 +323,16 @@
          type: 'warning',
          timer: 2000
       }).then(function (val) {
-         // if(val) {
+         if(val) {
             // window.location.reload()
             // if(isSafari) {
-            //    Cookies.remove(`waktu-${gelombang_id}-${user}-${paket_slug}`)
-            //    Cookies.remove(`selected-${gelombang_id}-${user}-${paket_slug}`)
-            //    Cookies.remove(`answered-${gelombang_id}-${user}-${paket_slug}`)
+            //   Cookies.remove(`waktu-${gelombang_id}-${user}-${paket_slug}`)
+            //   Cookies.remove(`selected-${gelombang_id}-${user}-${paket_slug}`)
+            //   Cookies.remove(`answered-${gelombang_id}-${user}-${paket_slug}`)
             // } else {
-            //    localStorage.removeItem(`waktu-${gelombang_id}-${user}-${paket_slug}`)
-            //    localStorage.removeItem(`selected-${gelombang_id}-${user}-${paket_slug}`)
-            //    localStorage.removeItem(`answered-${gelombang_id}-${user}-${paket_slug}`)
+            //   localStorage.removeItem(`waktu-${gelombang_id}-${user}-${paket_slug}`)
+            //   localStorage.removeItem(`selected-${gelombang_id}-${user}-${paket_slug}`)
+            //   localStorage.removeItem(`answered-${gelombang_id}-${user}-${paket_slug}`)
             // }
             // localStorage.removeItem(`indexQuest-${gelombang_id}-${user}-${paket_slug}`)
             // localStorage.removeItem(`answered-${gelombang_id}-${user}-${paket_slug}`);
@@ -339,23 +340,25 @@
             // shortcutGroups = [];
             // markedGroups = [];
             // $('#form-data').submit()
-         // }
+         }
       })
-      if(isSafari) {
-         Cookies.remove(`waktu-${gelombang_id}-${user}-${paket_slug}`)
-         Cookies.remove(`selected-${gelombang_id}-${user}-${paket_slug}`)
-         Cookies.remove(`answered-${gelombang_id}-${user}-${paket_slug}`)
-      } else {
-         localStorage.removeItem(`waktu-${gelombang_id}-${user}-${paket_slug}`)
-         localStorage.removeItem(`selected-${gelombang_id}-${user}-${paket_slug}`)
-         localStorage.removeItem(`answered-${gelombang_id}-${user}-${paket_slug}`)
-      }
-      localStorage.removeItem(`indexQuest-${gelombang_id}-${user}-${paket_slug}`)
-      localStorage.removeItem(`answered-${gelombang_id}-${user}-${paket_slug}`);
-      localStorage.removeItem(`marked-${gelombang_id}-${user}-${paket_slug}`);
-      shortcutGroups = [];
-      markedGroups = [];
-      $('#form-data').submit()
+      
+        if(isSafari) {
+           Cookies.remove(`waktu-${gelombang_id}-${user}-${paket_slug}`)
+           Cookies.remove(`selected-${gelombang_id}-${user}-${paket_slug}`)
+           Cookies.remove(`answered-${gelombang_id}-${user}-${paket_slug}`)
+        } else {
+           localStorage.removeItem(`waktu-${gelombang_id}-${user}-${paket_slug}`)
+           localStorage.removeItem(`selected-${gelombang_id}-${user}-${paket_slug}`)
+           localStorage.removeItem(`answered-${gelombang_id}-${user}-${paket_slug}`)
+        }
+        localStorage.removeItem(`indexQuest-${gelombang_id}-${user}-${paket_slug}`)
+        localStorage.removeItem(`answered-${gelombang_id}-${user}-${paket_slug}`);
+        localStorage.removeItem(`marked-${gelombang_id}-${user}-${paket_slug}`);
+        shortcutGroups = [];
+        markedGroups = [];
+        $('#form-data').submit()
+
    }
 
    $('#btn-kumpulkan').on('click', function() {
@@ -386,6 +389,23 @@
          }
       })
    })
+   
+  $('#logout-accept').on('click', function() {
+    if(isSafari) {
+        Cookies.remove(`waktu-${gelombang_id}-${user}-${paket_slug}`)
+        Cookies.remove(`selected-${gelombang_id}-${user}-${paket_slug}`)
+    } else {
+        localStorage.removeItem(`waktu-${gelombang_id}-${user}-${paket_slug}`)
+        localStorage.removeItem(`selected-${gelombang_id}-${user}-${paket_slug}`)
+    }
+    localStorage.removeItem(`indexQuest-${gelombang_id}-${user}-${paket_slug}`)
+    localStorage.removeItem(`answered-${gelombang_id}-${user}-${paket_slug}`);
+    localStorage.removeItem(`marked-${gelombang_id}-${user}-${paket_slug}`);
+    shortcutGroups = [];
+    markedGroups = [];
+    $('#form-data').submit()
+
+   })
    history.pushState(null, null, document.URL);
    window.addEventListener('popstate', function () {
       swal.fire({
@@ -394,6 +414,7 @@
          icon: 'warning',
       })
       history.pushState(null, null, document.URL);
+      location.reload();
    })
    (function (global) { 
       if(typeof (global) === "undefined") {

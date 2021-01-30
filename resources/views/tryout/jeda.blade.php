@@ -55,7 +55,7 @@
             <div class="card p-3">
                <form action="{{ route('tryout.mulai', ['gelombang_id' => $gelombang_id, 'slug' => $paket->slug, 'token' => $user_token]) }}" method="get" id="form-data">
                @csrf
-               <input type="hidden" name="lanjut" value="sg apik tulisane">
+               <input type="hidden" name="lanjut" value="true">
                   <div class="card-body">
                       <div class="text-center mb-3">
                           <h4 class="h4 font-weight-bold text-success">Kamu Telah Selesai Mengerjakan Soal Tes Potensi Skolastik</h4>
@@ -161,16 +161,17 @@
       swal.fire({
          icon: 'error',
          text: 'Waktu Jeda telah habis',
-         type: 'warning'
+         type: 'warning',
+         timer: 2000
       }).then(function (val) {
-         // if(val) {
+         if(val) {
             // window.location.reload()
             // localStorage.removeItem(`waktu-${user}-${paket_slug}`)
             // $('#form-data').submit()
-         // }
+         }
       })
       localStorage.removeItem(`waktu-${user}-${paket_slug}`)
-      $('#form-data').submit()
+    $('#form-data').submit()
    }
 
    $('#btn-kumpulkan').on('click', function() {
@@ -182,8 +183,7 @@
          confirmButtonColor: '#3085d6',
          cancelButtonColor: '#d33',
          cancelButtonText: 'Tidak',
-         confirmButtonText: 'Ya!',
-         timer: 2000
+         confirmButtonText: 'Ya!'
       }).then((result) => {
          if (result.isConfirmed) {
             localStorage.removeItem(`waktu-${user}-${paket_slug}`)

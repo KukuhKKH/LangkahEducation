@@ -96,12 +96,12 @@
                   </div>
                   <div class="card-footer">
                      <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-md-6">
                            <button id="btn-kembali" type="button" class="btn btn-dark">Kembali</button>
 
                            <button id="btn-lanjut" type="button" class="btn btn-success">Lanjut</button>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-md-6">
                            <button id="btn-kumpulkan" type="button" class="btn btn-danger" disabled>Kumpulkan</button>
                         </div>
                      </div>

@@ -22,6 +22,15 @@
     <!-- Favicons -->
     <link href="{{asset('assets-landingpage/img/favicon.png')}}" rel="icon">
     <link href="{{asset('assets-landingpage/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-74085S0Q6Y"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-74085S0Q6Y');
+    </script>
 
     @yield('css')
 </head>

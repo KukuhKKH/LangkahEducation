@@ -212,6 +212,13 @@ class PembayaranController extends Controller
     public function detail_pembayaran($id) {
         try {
             $pembayaran = Pembayaran::find($id);
+            if(auth()->user()->id !=$pembayaran->user_id){
+                abort(403);
+            }
+            
+            if($pembayaran->status !=0){
+                abort(403);
+            }
             if($pembayaran->gelombang->harga == 0){
                 $rekening = Bank::where('bayar', 0)->orderBy('id', 'DESC')->limit(1)->get();
             }else{
@@ -220,7 +227,7 @@ class PembayaranController extends Controller
             // $rekening = Bank::where('bayar', $bayar);
             return view('pages.pembayaran.pembayaran', compact('pembayaran', 'rekening'));
         } catch(\Exception $e) {
-            dd($e);
+            
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
     }

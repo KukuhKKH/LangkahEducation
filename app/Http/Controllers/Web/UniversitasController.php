@@ -23,9 +23,10 @@ class UniversitasController extends Controller
         $kelompok = KelompokPassingGrade::all();
         if($request->get('keyword') != '') {
             $nama = $request->get('keyword');
-            $universitas = Universitas::latest()->where('nama', 'LIKE', "%$nama%")->paginate(10);
+            $universitas = Universitas::where('nama', 'LIKE', "%$nama%")->paginate(10);
         } else {
-            $universitas = Universitas::with('passing_grade')->latest()->paginate(10);
+            // $universitas = Universitas::with('passing_grade')->latest()->paginate(10);
+            $universitas = Universitas::with('passing_grade')->paginate(10);
         }
         return view('pages.passing-grade.index', compact('universitas', 'kelompok', 'data'));
     }

@@ -1,5 +1,5 @@
 @extends('layouts.tryout-app')
-@section('title', 'Try Out - LangkahEdukasi')
+@section('title', 'Tryout - LangkahEducation')
 
 @section('content')
 <!-- Page Wrapper -->
@@ -56,10 +56,10 @@
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <td> Jenis Kategori </td>
-                                                    <td> Nama Kategori </td>
-                                                    <td> Jumlah Soal </td>
-                                                    <td> Waktu Pengerjaan </td>
+                                                    <td class="font-weight-bold"> Jenis Kategori </td>
+                                                    <td class="font-weight-bold"> Nama Kategori </td>
+                                                    <td class="font-weight-bold"> Jumlah Soal </td>
+                                                    <td class="font-weight-bold"> Waktu Pengerjaan </td>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -216,8 +216,7 @@
 <script src="{{ asset('assets/js/hasil-pg-prodi2.js') }}"></script> --}}
 <script>
     const URL_GET = `{{ url('api/v1/get-prodi') }}`
-    let lanjut_1 = false
-    let lanjut_2 = false
+    let lanjut = false
     $("#univ-1").select2();
     $("#univ-2").select2();
     $("#prodi-1").select2();
@@ -289,28 +288,28 @@
 
     $(document).ready(function() {
         if(typeof Storage !== "undefined") {
-            lanjut_1 = true
+            lanjut = true
         } else {
             swal.fire({
                 title: 'Maaf',
                 text: "Browser anda tidak mendukung Localstorage!",
                 icon: 'warning',
             })
-            lanjut_1 = false
+            lanjut = false
         }
 
         if (navigator.cookieEnabled) {
-            lanjut_2 = true
+            lanjut = true
         } else {
             swal.fire({
                 title: 'Maaf',
                 text: "Nyalakan Cookie dibrowser anda!",
                 icon: 'warning',
             })
-            lanjut_2 = false
+            lanjut = false
         }
 
-        if(lanjut_1 || lanjut_2) {
+        if(lanjut) {
             $('#btn-lanjut').html(`<button type="submit" class="btn btn-langkah btn-block mt-4">Kerjakan Sekarang</button>`)
         } else {
             $('#btn-lanjut').html(`<h4>Browser anda tidak mendukung untuk mengerjakan Tryout</h4>`)

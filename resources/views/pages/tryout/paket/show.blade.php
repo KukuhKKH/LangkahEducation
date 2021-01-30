@@ -1,10 +1,10 @@
 @extends('layouts.dashboard-app')
-@section('title', "Paket Try out - ".$kategori->nama)
+@section('title', "Paket Tryout - ".$kategori->nama)
 
 @section('content')
     <div class="row">
         <div class="col-10">
-            <h1 class="h3 mb-2 text-gray-800">Paket Try out - {{ $kategori->nama }}</h1>
+            <h1 class="h3 mb-2 text-gray-800">Paket Tryout - {{ $kategori->nama }}</h1>
         </div>
         <div class="col-2 text-right">
             <a href="#" download="" class="btn btn-success"><i class="fas fa-fw fa-file-excel"></i> Template Excel</a>

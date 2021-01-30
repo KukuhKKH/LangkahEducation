@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Langkah Education')
+@section('title', 'Langkah Education - #OneStepForThousandFutures')
 @section('deskripsi'){{ $data->deskripsi}}@endsection
 
 @section('content')

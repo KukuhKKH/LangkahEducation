@@ -49,6 +49,16 @@ class HelperController extends Controller {
         Artisan::call('config:cache');
         return redirect()->route('dashboard')->with(['success' => 'Berhasil clear Cache Dan kawan kawan']);
     }
+    
+    public function down() {
+        Artisan::call('down --allow=112.215.241.185');
+        return 'down';
+    }
+    
+    public function up() {
+        Artisan::call('up');
+        return 'up';
+    }
 
     private static function getIP() {
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {

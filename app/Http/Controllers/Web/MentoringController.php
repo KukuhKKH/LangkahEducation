@@ -115,7 +115,7 @@ class MentoringController extends Controller
         try {
             $paket = TryoutPaket::findSlug($slug);
             if($this->isFuture($paket->tgl_akhir)) {
-                return redirect()->back()->with(['error' => 'Waktu Tryout Belum Selesai']);
+                return redirect()->back()->with(['error' => 'Waktu tryout belum selesai']);
             }
             $tryout = TryoutHasil::with([
                                     'user', 'paket', 'tryout_hasil_jawaban', 'tryout_hasil_detail'
@@ -124,7 +124,7 @@ class MentoringController extends Controller
                                 ->where('tryout_paket_id', $paket->id)
                                 ->find($id);
             if($tryout->nilai_maksimal_new == 0) {
-                return redirect()->back()->with(['error' => 'Tryout Belum Dikoreksi sistem']);
+                return redirect()->back()->with(['error' => 'Tryout belum dikoreksi sistem']);
             }
             $raw_kelompok = $request->get('kelompok');
             if($raw_kelompok) {

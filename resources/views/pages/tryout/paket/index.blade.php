@@ -1,14 +1,14 @@
 @extends('layouts.dashboard-app')
-@section('title', "Paket Try out")
+@section('title', "Paket Tryout")
 
 @section('content')
-<h1 class="h3 mb-4 text-gray-800">Paket Try out</h1>
+<h1 class="h3 mb-4 text-gray-800">Paket Tryout</h1>
 
 
 <div class="card shadow mb-4">
     <div class="card-header">
         <div class="d-flex justify-content-between align-items-center">
-            <h6 class="font-weight-bold text-primary">Paket Try out</h6>
+            <h6 class="font-weight-bold text-primary">Paket Tryout</h6>
             <div class="btn-group btn-group-md">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalData"><i
                         class="fa fa-plus"></i> Tambah Paket</button>

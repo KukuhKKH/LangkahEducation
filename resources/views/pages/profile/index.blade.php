@@ -5,7 +5,7 @@
 
 <div class="card shadow mb-4">
     <div class="card-header text-right">
-        <a href="{{ route('profile.edit', $user->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+        <a href="{{ route('profile.edit', $user->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i> Ubah Profil</a>
     </div>
     <div class="card-body">
         <div class="row">
@@ -42,7 +42,7 @@
                                  <div class="col-xl-10">
                                      <div class="form-group">
                                          <input type="text" class="form-control"
-                                             placeholder="Masukkan Kode Referal" name="kode_referal" required>
+                                             placeholder="Masukkan Kode Referral" name="kode_referal" required>
                                      </div>
                                  </div>
                                  <div class="col-xl-2">

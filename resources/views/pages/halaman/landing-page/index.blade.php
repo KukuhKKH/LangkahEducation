@@ -5,10 +5,10 @@
 <form action="{{ route('landing_page.update', 1) }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="row">
-        <div class="col-10">
+        <div class="col-8">
             <h1 class="h3 mb-4 text-gray-800">Pengaturan Landing Page</h1>
         </div>
-        <div class="col-2 text-right">
+        <div class="col-4 text-right">
             <button class="btn btn-primary" type="submit">Simpan Perubahan</button>
         </div>
     </div>

@@ -156,6 +156,10 @@
         .sidebar.toggled .nav-item .nav-link {
             width:100% !important;
         }
+        
+        #wrapper{
+            background: #f8f9fc!important;
+        }
     </style>
     {{-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-EM1ZQM2LE7"></script>
     <script>

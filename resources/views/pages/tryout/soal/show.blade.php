@@ -1,10 +1,10 @@
 @extends('layouts.dashboard-app')
-@section('title', "Soal Try out - ".$paket->nama)
+@section('title', "Soal Tryout - ".$paket->nama)
 
 @section('content')
 <div class="row mb-4">
     <div class="col-xl-6">
-        <h1 class="h3 text-gray-800">Soal Try out - {{ $paket->nama }}</h1>
+        <h1 class="h3 text-gray-800">Soal Tryout - {{ $paket->nama }}</h1>
     </div>
     <div class="col-xl-6 text-right">
         <a href="{{ asset('template/TemplateSoalBatch.xlsx') }}" download="" class="btn btn-success my-1"><i

@@ -2,12 +2,12 @@
 @section('title', 'List Sekolah')
 
 @section('content')
-<h1 class="h3 mb-2 text-gray-800">List Sekolah</h1>
+<h1 class="h3 mb-2 text-gray-800">List Program Khusus</h1>
 
 <div class="card shadow mb-4">
    <div class="card-header py-3">
       <div class="d-flex justify-content-between mb-1">
-         <h6 class="m-0 font-weight-bold text-primary">List Sekolah</h6>
+         <h6 class="m-0 font-weight-bold text-primary">List Program Khusus</h6>
       </div>
       <div class="text-center" id="loading" style="display: none">
          <div class="spinner-border text-primary spinner-border-lg" role="status">
@@ -21,7 +21,7 @@
             <thead>
                <tr>
                   <th>No</th>
-                  <th>Nama Sekolah</th>
+                  <th>Nama Program Khusus</th>
                   <th>Total Siswa</th>
                   {{-- <th width="25%">Aksi</th> --}}
                </tr>
@@ -29,7 +29,7 @@
             <tfoot>
                <tr>
                   <th>No</th>
-                  <th>Nama Sekolah</th>
+                  <th>Nama Program Khusus</th>
                   <th>Total Siswa</th>
                   {{-- <th width="25%">Aksi</th> --}}
                </tr>

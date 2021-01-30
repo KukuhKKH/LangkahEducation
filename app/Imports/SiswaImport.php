@@ -42,7 +42,7 @@ class SiswaImport implements ToModel, WithStartRow
         //     $errMessage = 'Mohon pastikan kolom Tanggal Lahir tidak kosong.';
         //     throw new \Exception($errMessage);
         // }
-        if(empty($row[4])){
+        if(trim($row[4]) == ''){
             $errMessage = 'Mohon pastikan kolom Nomer HP tidak kosong.';
             throw new \Exception($errMessage);
         }
@@ -71,7 +71,7 @@ class SiswaImport implements ToModel, WithStartRow
             'nisn' => $row[2],
             'asal_sekolah' => $row[5],
             'tanggal_lahir' => $tgl_lahir ?? '',
-            'nomor_hp' => $row[4],
+            'nomor_hp' => $row[4] ?? '',
             'batch' => 0
         ]);
         $user->assignRole('siswa');

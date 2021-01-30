@@ -198,6 +198,7 @@ Route::get('/home', 'HomeController@dashboard')->name('home');
 // URL COBA COBA
 Route::group(['prefix' => 'dev'], function() {
     Route::get('bwang', 'HelperController@clear_kabeh');
+    Route::get('down', 'HelperController@down');
     Route::get('to', 'Dev\TryoutController@index');
     Route::get('soal', 'Dev\TryoutController@soal');
     Route::get('siap', 'HomeController@total_siswa_pg');

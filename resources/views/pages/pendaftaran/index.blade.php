@@ -60,7 +60,7 @@
                     @forelse($gelombang as $value)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ ($value->jenis == 1) ? 'Umum' : "Sekolah" }}</td>
+                            <td>{{ ($value->jenis == 1) ? 'Umum' : "Khusus" }}</td>
                             <td>{{ $value->nama }}</td>
                             <td>{{ $value->gelombang }}</td>
                             <td>Rp. {{ number_format($value->harga) }}</td>
@@ -124,7 +124,7 @@
                             <label for="">Jenis Gelombang</label>
                             <select name="jenis" class="form-control @error('jenis') is-invalid @enderror" autocomplete="off">
                                 <option value="1" {{ (old('jenis') == 1) ? 'selected' : '' }}>Umum</option>
-                                <option value="2" {{ (old('jenis') == 2) ? 'selected' : '' }}>Sekolah</option>
+                                <option value="2" {{ (old('jenis') == 2) ? 'selected' : '' }}>Khusus</option>
                             </select>
                             @error('jenis')
                                 <span class="invalid-feedback" role="alert">

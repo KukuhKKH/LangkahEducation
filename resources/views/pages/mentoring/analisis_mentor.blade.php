@@ -7,7 +7,7 @@
 
 
 <div class="row">
-    <div class="{{ (request()->get('prodi-1') || request()->get('prodi-2')) ? 'col-xl-6' : 'col-xl-12' }}">
+    <div class="{{ (request()->get('prodi-1') || request()->get('prodi-2')) ? 'col-xl-8' : 'col-xl-12' }}">
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-dark">Try Out - {{ $tryout->paket->nama }}</h6>
@@ -116,7 +116,7 @@
         </div>
     </div>
     @if(request()->get('prodi-1') || request()->get('prodi-2'))
-    <div class="col-xl-6">
+    <div class="col-xl-4">
         <div class="card shadow mb-4" height="100%">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-dark">Presentase Nilai</h6>
@@ -157,7 +157,7 @@
                           <div class="progress-bar bg-primary progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{ $nilai_user }}%">
                           </div>
                         </div>
-                        <div style="width: 3px; height: 100%; position: absolute; background: black; top: 0; left: {{trim($pg1->passing_grade)}}%;" title="{{$pg2->universitas->nama}}"></div>
+                        <div style="width: 3px; height: 100%; position: absolute; background: black; top: 0; left: {{trim($pg2->passing_grade)}}%;" title="{{$pg2->universitas->nama}}"></div>
                       </div>
 
                     @if ($pg2->passing_grade < $nilai_user) <p class="mb-4 mt-2">Status : <span

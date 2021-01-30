@@ -1,8 +1,8 @@
 @extends('layouts.dashboard-app')
-@section('title', 'Riwayat Try Out')
+@section('title', 'Riwayat Tryout')
 
 @section('content')
-   <h1 class="h3 mb-4 text-gray-800">Riwayat Try Out</h1>
+   <h1 class="h3 mb-4 text-gray-800">Riwayat Tryout</h1>
 
    <div class="row mb-4">
    @forelse ($riwayat as $value)
@@ -10,9 +10,9 @@
          <div class="card mb-4">
             @if ($value->paket->image)
             <?php $foto = $value->paket->image ?>
-               <img class="card-img-top img-cover" src="{{ asset("upload/paket-tryout/$foto") }}" alt="Try Out" style="height:225px">
+               <img class="card-img-top img-cover" src="{{ asset("upload/paket-tryout/$foto") }}" alt="Tryout" style="height:225px">
             @else
-               <img class="card-img-top img-cover" src="{{asset('assets/img/default-tryout.svg')}}" alt="Try Out">
+               <img class="card-img-top img-cover" src="{{asset('assets/img/default-tryout.svg')}}" alt="Tryout">
             @endif
             @php
             $prodi = App\Models\TempProdi::where('paket_id', $value->paket->id)
@@ -24,19 +24,27 @@
                <div class="row">
                   @php
                      $valKelompok ="";
+                     $jenisProduk="";
                      if ($prodi[0]->kelompok_passing_grade_id == 1) {
-                        $valKelompok = "Saintek";
+                        $valKelompok = "SAINTEK";
                      }else if($prodi[0]->kelompok_passing_grade_id == 2){
-                        $valKelompok = "Soshum";
+                        $valKelompok = "SOSHUM";
                      }
+                     
+                     if($value->gelombang->jenis == 1){
+                        $jenisProduk="Umum";
+                     }else if($value->gelombang->jenis == 2){
+                        $jenisProduk="Khusus";
+                     }
+                     
                   @endphp
                   <div class="col-xl-12">
                      <strong>Kelompok</strong>
                      <h6>{{ $valKelompok }}</h6>
                   </div>
                   <div class="col-xl-12">
-                     <strong>Produk</strong>
-                     <h6>{{ $value->paket->nama }}</h6>
+                     <strong>Produk - {{$jenisProduk}}</strong>
+                     <h6>{{ $value->gelombang->nama }}</h6>
                   </div>
                   <div class="col-xl-12">
                      <strong>Mulai</strong>
@@ -82,10 +90,10 @@
          {{ $riwayat->links() }}
       </div>
       @empty
-      <div class="col-xl-12 text-center p-5">
+      <div class="col-xl-12 text-center" style="min-height: 80vh;">
          <img class="img-fluid" src="{{asset('assets/img/empty-illustration.svg')}}" alt="">
-         <h3 class="mt-3">Wah Kamu Belum mengikuti Try Out Apapun</h3>
-         <a class="btn btn-langkah mt-3" href="{{ route('gelombang.siswa') }}">Daftar Try Out</a>
+         <h3 class="mt-3">Wah Kamu Belum mengikuti Tryout Apapun</h3>
+         <a class="btn btn-langkah mt-3" href="{{ route('gelombang.siswa') }}">Daftar Tryout</a>
       </div>
       @endforelse
 @endsection

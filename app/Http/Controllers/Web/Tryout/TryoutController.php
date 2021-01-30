@@ -197,6 +197,7 @@ class TryoutController extends Controller
                 Excel::import(new SoalImportBatch($paket_id), $file);
                 return redirect()->back()->with(['success' => 'Import Soal berhasil']);
             } catch (\Exception $e) {
+                dd($e);
                 $message = $e->getMessage();
                 if (!$message == "Start row (2) is beyond highest row (1)") throw $e;
                 return \redirect()->back()->with(['error' => $message])->withInput();
