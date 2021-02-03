@@ -126,10 +126,12 @@
 
 @section('js')
 <script src="{{ asset('assets/vendor/moment.js') }}"></script>
+<script src="{{ asset('assets/vendor/js.cookie-2.2.1.min.js') }}"></script>
 <script>
    // const total_soal = 1
    // window.onbeforeunload = function () {return false;}
    const paket_slug = `{{ $paket->slug }}`
+   const gelombang_id = `{{ request()->segment(2) }}`
    const user = `{{ auth()->user()->name }}`
    $(document).ready(function() {
       let waktu = localStorage.getItem(`waktu-${user}-${paket_slug}`)

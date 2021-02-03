@@ -194,7 +194,7 @@ class TryoutController extends Controller
             ]);
             // return "Berhaasil";
         //     DB::commit();
-            return redirect()->route('siswa.tryout.index')->with(['success' => "Termikasih telah melaksanakan tryout"]);
+            return redirect()->route('siswa.tryout.index')->with(['success' => "Terima kasih telah melaksanakan tryout"]);
         // } catch(\Exception $e) {
         //     DB::rollback();
         //     return redirect()->route('siswa.tryout.index')->with(['error' => $e->getMessage()]);
@@ -209,6 +209,7 @@ class TryoutController extends Controller
                             ->selectRaw('tryout_kategori_soal.nama as nama, count(tryout_soal.id) as total, tryout_kategori_soal.waktu as waktu, tryout_kategori_soal.tipe as tipe')
                             ->join('tryout_kategori_soal', 'tryout_soal.tryout_kategori_soal_id', '=', 'tryout_kategori_soal.id', 'LEFT')
                             ->where('tryout_paket_id', $paket->id)
+                            ->orderBy('tryout_kategori_soal.tipe', 'DESC')
                             ->groupBy('tryout_soal.tryout_kategori_soal_id')
                             ->get();
             $user_token = $token;
@@ -276,19 +277,23 @@ class TryoutController extends Controller
                 if(!$request->session()->has($gelombang_id.'-'.$slug.'-'.'kategori_id')) {
                     $kelompok = KelompokPassingGrade::find($request->get('kelompok'));
                     if($kelompok->nama == 'saintek') {
-                        $kategori_soal_id = TryoutKategoriSoal::where('tipe', 'umum')->orWhere('tipe', 'saintek')->get()->pluck('id');
+                        $kategori_soal_id = TryoutKategoriSoal::where('tipe', 'umum')->orWhere('tipe', 'saintek')->orderBy('tipe', 'DESC')->get()->pluck('id')->toArray();
                     } elseif($kelompok->nama == 'soshum') {
-                        $kategori_soal_id = TryoutKategoriSoal::where('tipe', 'umum')->orWhere('tipe', 'soshum')->get()->pluck('id');
+                        $kategori_soal_id = TryoutKategoriSoal::where('tipe', 'umum')->orWhere('tipe', 'soshum')->orderBy('tipe', 'DESC')->get()->pluck('id')->toArray();
                     } else {
-                        $kategori_soal_id = TryoutKategoriSoal::all()->pluck('id');
+                        $kategori_soal_id = TryoutKategoriSoal::all()->pluck('id')->toArray();
                     }
-                    $kategori_id = $paket->soal()
+                    $raw_kategori_id = $paket->soal()
                                         ->distinct()
                                         ->select('tryout_kategori_soal_id')
                                         ->whereIn('tryout_kategori_soal_id', $kategori_soal_id)
                                         ->get()->pluck('tryout_kategori_soal_id')
                                         ->toArray();
-                                        // dd($kategori_id);
+                    $inter_kategori_id = array_intersect($kategori_soal_id, $raw_kategori_id);
+                    $kategori_id = [];
+                    foreach($inter_kategori_id as $key => $value) {
+                        $kategori_id[] = $value;
+                    }
                     $request->session()->put($gelombang_id.'-'.$slug.'-'.'kategori_id', $kategori_id);
                 } else {
                     $kategori_id = $request->session()->get($gelombang_id.'-'.$slug.'-'.'kategori_id');
@@ -299,7 +304,7 @@ class TryoutController extends Controller
                     $kategori_dua = TryoutKategoriSoal::find($kategori_id[$temp_index - 1])->tipe;
                     if($kategori_satu != $kategori_dua) {
                         if(empty($request->get('lanjut'))) {
-                            $waktu = 5;
+                            $waktu = 10;
                             $user_token = $token;
                             if($kategori_satu == 'saintek') {
                                 // $yt = "https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1";
@@ -326,112 +331,103 @@ class TryoutController extends Controller
                     return view('tryout.new', compact('soal', 'paket', 'waktu', 'gelombang_id'));
                 // }
             } else {
-                return redirect()->route('siswa.tryout.index')->with(['error' => 'Ini bukan link anda']);
+                return redirect()->route('siswa.tryout.index')->with(['error' => 'Link tidak valid']);
             }
         } catch(\Exception $e) {
+            dd($e);
             if($e->getMessage() == 'The payload is invalid.') {
-                return redirect()->route('siswa.tryout.index')->with(['error' => 'Ini bukan link anda'])->withInput();
+                return redirect()->route('siswa.tryout.index')->with(['error' => 'Link tidak valid'])->withInput();
             }
             return redirect()->back()->with(['error' => $e->getMessage()])->withInput();
         }
     }
 
     public function tryout_store_baru(Request $request, $gelombang_id, $paket_slug) {
-        DB::beginTransaction();
-        try {
-            $paket_id = TryoutPaket::findSlug($paket_slug)->id;
+        $paket_id = TryoutPaket::findSlug($paket_slug)->id;
 
-            $data_hasil = Auth::user()->tryout_hasil()->firstOrCreate([
-                'tryout_paket_id' => $paket_id,
-                'gelombang_id' => $gelombang_id,
-            ],[
-                'kelompok_passing_grade_id' => $request->session()->get($gelombang_id.'-'.$paket_slug.'-'."kelompok_passing_grade"),
-                'nilai_awal' => 0,
-                'nilai_sekarang' => 0,
-                'nilai_maksimal' => 0
-            ]);
-            $nilai_sekarang = $data_hasil->nilai_sekarang ?? 0;
-            $nilai_maksimal = $data_hasil->nilai_maksimal ?? 0;
-            $hasil_detail = [];
-            
-            $kosong = false;
-            foreach ($request->input('soal', []) as $key => $value) {
-                if(!empty($request->jawaban[$value])) {
-                    $soal = TryoutSoal::find($value);
-                    $benar = $soal->benar;
-                    $salah = $soal->salah;
-                    $kateogri = TryoutKategoriSoal::find($soal->tryout_kategori_soal_id);
-                    if (TryoutJawaban::find($request->jawaban[$value])->benar) {
-                        $nilai_sekarang += $benar;
-                        empty($hasil_detail[$kateogri->id]['nilai']) ? $hasil_detail[$kateogri->id]['nilai'] = $benar : $hasil_detail[$kateogri->id]['nilai'] += $benar;
-                        empty($hasil_detail[$kateogri->id]['benar']) ? $hasil_detail[$kateogri->id]['benar'] = 1 : $hasil_detail[$kateogri->id]['benar'] += 1;
-                    } else {
-                        $nilai_sekarang -= $salah;
-                        empty($hasil_detail[$kateogri->id]['nilai']) ? $hasil_detail[$kateogri->id]['nilai'] = -$salah : $hasil_detail[$kateogri->id]['nilai'] -= $salah;
-                        empty($hasil_detail[$kateogri->id]['salah']) ? $hasil_detail[$kateogri->id]['salah'] = 1 : $hasil_detail[$kateogri->id]['salah'] += 1;
-                    }
-    
-                    $data_hasil->tryout_hasil_jawaban()->create([
-                        'tryout_soal_id' => $value,
-                        'tryout_jawaban_id' => $request->jawaban[$value]
-                    ]);
-                    $kosong = false;
+        $data_hasil = Auth::user()->tryout_hasil()->firstOrCreate([
+            'tryout_paket_id' => $paket_id,
+            'gelombang_id' => $gelombang_id,
+        ],[
+            'kelompok_passing_grade_id' => $request->session()->get($gelombang_id.'-'.$paket_slug.'-'."kelompok_passing_grade"),
+            'nilai_awal' => 0,
+            'nilai_sekarang' => 0,
+            'nilai_maksimal' => 0
+        ]);
+        $nilai_sekarang = $data_hasil->nilai_sekarang ?? 0;
+        $nilai_maksimal = $data_hasil->nilai_maksimal ?? 0;
+        $hasil_detail = [];
+        
+        $kosong = false;
+        $kosong_asli = false;
+        foreach ($request->input('soal', []) as $key => $value) {
+            if(!empty($request->jawaban[$value])) {
+                $soal = TryoutSoal::find($value);
+                $benar = $soal->benar;
+                $salah = $soal->salah;
+                $kateogri = TryoutKategoriSoal::find($soal->tryout_kategori_soal_id);
+                if (TryoutJawaban::find($request->jawaban[$value])->benar) {
+                    $nilai_sekarang += $benar;
+                    empty($hasil_detail[$kateogri->id]['nilai']) ? $hasil_detail[$kateogri->id]['nilai'] = $benar : $hasil_detail[$kateogri->id]['nilai'] += $benar;
+                    empty($hasil_detail[$kateogri->id]['benar']) ? $hasil_detail[$kateogri->id]['benar'] = 1 : $hasil_detail[$kateogri->id]['benar'] += 1;
                 } else {
-                    $kosong = true;
+                    $nilai_sekarang -= $salah;
+                    empty($hasil_detail[$kateogri->id]['nilai']) ? $hasil_detail[$kateogri->id]['nilai'] = -$salah : $hasil_detail[$kateogri->id]['nilai'] -= $salah;
+                    empty($hasil_detail[$kateogri->id]['salah']) ? $hasil_detail[$kateogri->id]['salah'] = 1 : $hasil_detail[$kateogri->id]['salah'] += 1;
                 }
+
+                $data_hasil->tryout_hasil_jawaban()->create([
+                    'tryout_soal_id' => $value,
+                    'tryout_jawaban_id' => $request->jawaban[$value]
+                ]);
+                $kosong = false;
+                $kosong_asli = true;
+            } else {
+                $kosong = true;
             }
-    
-            // Set nilai Maksimal
-            if($kosong == false) {
-                $all_soal = TryoutSoal::where('tryout_kategori_soal_id', $soal->tryout_kategori_soal_id)->get();
-                foreach ($all_soal as $key => $value) {
-                    $nilai_maksimal += $value->benar;
-                }
-                foreach ($hasil_detail as $key => $value) {
-                    $total_soal = TryoutSoal::where('tryout_kategori_soal_id', $key)
-                                            ->where('tryout_paket_id', $paket_id)
-                                            ->count();
-                    TryoutHasilDetail::create([
-                        'tryout_paket_id' => $paket_id,
-                        'tryout_hasil_id' => $data_hasil->id,
-                        'tryout_kategori_soal_id' => $key,
-                        'user_id' => Auth::user()->id,
-                        'nilai' => $value['nilai'],
-                        'benar' => $value['benar'] ?? 0,
-                        'salah' => $value['salah'] ?? 0,
-                        'kosong' => $total_soal - (($value['benar'] ?? 0) + ($value['salah'] ?? 0)),
-                    ]);
-                }
-                $data_hasil->update([
-                    'nilai_awal' => $nilai_sekarang,
-                    'nilai_sekarang' => 0,
-                    'nilai_maksimal' => $nilai_maksimal
+        }
+
+        // Set nilai Maksimal
+        if($kosong == false && $kosong_asli = true) {
+            $all_soal = TryoutSoal::where('tryout_kategori_soal_id', $soal->tryout_kategori_soal_id)->get();
+            foreach ($all_soal as $key => $value) {
+                $nilai_maksimal += $value->benar;
+            }
+            foreach ($hasil_detail as $key => $value) {
+                $total_soal = TryoutSoal::where('tryout_kategori_soal_id', $key)
+                                        ->where('tryout_paket_id', $paket_id)
+                                        ->count();
+                TryoutHasilDetail::create([
+                    'tryout_paket_id' => $paket_id,
+                    'tryout_hasil_id' => $data_hasil->id,
+                    'tryout_kategori_soal_id' => $key,
+                    'user_id' => Auth::user()->id,
+                    'nilai' => $value['nilai'],
+                    'benar' => $value['benar'] ?? 0,
+                    'salah' => $value['salah'] ?? 0,
+                    'kosong' => $total_soal - (($value['benar'] ?? 0) + ($value['salah'] ?? 0)),
                 ]);
             }
-                
-            $index_kategori = $request->session()->get($gelombang_id.'-'.$paket_slug.'-'."index_kategori");
-            $kategori_id = $request->session()->get($gelombang_id.'-'.$paket_slug.'-'.'kategori_id');
-            if($index_kategori == (count($kategori_id) - 1)) {
-                $request->session()->forget($gelombang_id.'-'.$paket_slug.'-'.'kategori_id');
-                $request->session()->forget($gelombang_id.'-'.$paket_slug.'-'."index_kategori");
-                $request->session()->forget($gelombang_id.'-'.$paket_slug.'-'."kelompok_passing_grade");
-                DB::commit();
-                return redirect()->route('siswa.tryout.index')->with(['success' => "Termikasih telah melaksanakan tryout"]);
-            } else {
-                $index_sekarang = $index_kategori + 1;
-                $request->session()->put($gelombang_id.'-'.$paket_slug.'-'."index_kategori", $index_sekarang);
-            }
-            $user_token = Crypt::encrypt(Auth::user()->api_token);
-            DB::commit();
-            return redirect()->route('tryout.mulai', ['gelombang_id' => $gelombang_id, 'slug' => $paket_slug, 'token' => $user_token])->withInput();
-        } catch(\Exception $e) {
-            DB::rollBack();
-            $index_kategori = $request->session()->get($gelombang_id.'-'.$paket_slug.'-'."index_kategori");
-            $index_sekarang = $index_kategori - 1;
-            $request->session()->put($gelombang_id.'-'.$paket_slug.'-'."index_kategori", $index_sekarang);
-            $user_token = Crypt::encrypt(Auth::user()->api_token);
-            return redirect()->route('tryout.mulai', ['gelombang_id' => $gelombang_id, 'slug' => $paket_slug, 'token' => $user_token])->withInput();
+            $data_hasil->update([
+                'nilai_awal' => $nilai_sekarang,
+                'nilai_sekarang' => 0,
+                'nilai_maksimal' => $nilai_maksimal
+            ]);
         }
+            
+        $index_kategori = $request->session()->get($gelombang_id.'-'.$paket_slug.'-'."index_kategori");
+        $kategori_id = $request->session()->get($gelombang_id.'-'.$paket_slug.'-'.'kategori_id');
+        if($index_kategori == (count($kategori_id) - 1)) {
+            $request->session()->forget($gelombang_id.'-'.$paket_slug.'-'.'kategori_id');
+            $request->session()->forget($gelombang_id.'-'.$paket_slug.'-'."index_kategori");
+            $request->session()->forget($gelombang_id.'-'.$paket_slug.'-'."kelompok_passing_grade");
+            return redirect()->route('siswa.tryout.index')->with(['success' => "Terima kasih telah melaksanakan tryout"]);
+        } else {
+            $index_sekarang = $index_kategori + 1;
+            $request->session()->put($gelombang_id.'-'.$paket_slug.'-'."index_kategori", $index_sekarang);
+        }
+        $user_token = Crypt::encrypt(Auth::user()->api_token);
+        return redirect()->route('tryout.mulai', ['gelombang_id' => $gelombang_id, 'slug' => $paket_slug, 'token' => $user_token])->withInput();
     }
 
     // End Tryout Baru
@@ -484,9 +480,9 @@ class TryoutController extends Controller
                 $id_soal_kategori = TryoutSoal::where('tryout_paket_id', $paket->id)->distinct()->pluck('tryout_kategori_soal_id')->toArray();
                 $result_kategori_id = array_intersect($kategori_soal_id->toarray(), $id_soal_kategori);
                 // $saingan = TryoutHasil::where('tryout_paket_id', $paket->id)->with(['user'])->orderBy('nilai_awal', 'ASC')->get();
-                $tryout_kategori_soal = TryoutKategoriSoal::whereIn('id', $result_kategori_id)->get();
+                $tryout_kategori_soal = TryoutKategoriSoal::orderBy('tipe', 'DESC')->whereIn('id', $result_kategori_id)->get();
                 $hasil_to_kategori_id = $tryout->tryout_hasil_detail()->pluck('tryout_kategori_soal_id')->toArray();
-                // Data Grafik User
+                // Data Grafik Userra
                 $nilai_by_user = TryoutHasil::with(['user', 'paket', 'tryout_hasil_jawaban', 'tryout_hasil_detail'])->where('user_id', auth()->user()->id)->get();
                 if($raw_kelompok) {
                     if($raw_kelompok != 3) {
@@ -563,18 +559,20 @@ class TryoutController extends Controller
         $hasil = TryoutHasil::where('gelombang_id', $gelombang_id)->where('tryout_paket_id', $paket_id)->get();
         $detail = [];
         foreach ($hasil as $key => $value) {
-            $detail[] = $value->tryout_hasil_jawaban()->with(['hasil.user', 'soal'])->orderBy('tryout_soal_id', 'ASC')->get();
+            $detail[] = $value->tryout_hasil_jawaban()->with(['hasil.user', 'soal.kategori_soal' => function($q) {
+                $q->orderBy('tipe', 'DESC');
+            }])->orderBy('tryout_soal_id', 'ASC')->get();
         }
         $id_soal = TryoutSoal::where('tryout_paket_id', $paket->id)->get()->pluck('id')->toArray();
         $id_soal_saintek = TryoutSoal::whereHas('kategori_soal', function($q) {
-            $q->where('tipe', 'umum')->orWhere('tipe', 'saintek');
+            $q->where('tipe', 'umum')->orWhere('tipe', 'saintek')->orderBy('tipe', 'DESC');
         })->where('tryout_paket_id', $paket->id)->get()->pluck('id')->toArray();
         $id_soal_soshum = TryoutSoal::whereHas('kategori_soal', function($q) {
-            $q->where('tipe', 'umum')->orWhere('tipe', 'soshum');
+            $q->where('tipe', 'umum')->orWhere('tipe', 'soshum')->orderBy('tipe', 'DESC');
         })->where('tryout_paket_id', $paket->id)->get()->pluck('id')->toArray();
         $data = [];
         $i = 0;
-
+// dd($detail[0][0], 1);
         $indeks_detail = 0;
         $user_id = 0;
         foreach ($detail as $key => $value) {
@@ -714,7 +712,7 @@ class TryoutController extends Controller
                 $raw_poin[$key] = 3;
             } elseif($value > $paket->poin_3 && $value <= $paket->poin_2) {
                 $raw_poin[$key] = 2;
-            } elseif($value > $paket->poin_2) {
+            } elseif($value > $paket->poin_2 && $value <= $paket->poin_1) {
                 $raw_poin[$key] = 1;
             }
         }
@@ -738,39 +736,80 @@ class TryoutController extends Controller
         $temp_detail = [];
         foreach ($detail as $key => $value) {
             $temp_nilai = 0;
+            $temp_benar = 0;
+            $temp_salah = 0;
+            $temp_soal = 0;
+            $temp_kosong = 0;
             $temp_id_kategori = null;
             $user_id = null;
+            $raw_tryout_hasil_id = null;
             foreach ($value as $k => $v) {
                 if($v->status == 'kosong') {
                     $user_id = $v->user_id;
+                    $raw_tryout_hasil_id = $raw_tryout_hasil_id;
+                    $temp_soal += 1;
                 } else {
+                    $raw_tryout_hasil_id = $v->tryout_hasil_id;
                     if($k > 0) {
-                        if($temp_id_kategori != $v->soal->kategori_soal->id) {
+                        if($temp_id_kategori != $v->soal->tryout_kategori_soal_id) {
                             $temp_nilai = 0;
+                            $temp_benar = 0;
+                            $temp_salah = 0;
+                            $temp_soal = 0;
                         }
                     }
                     $user_id = $v->hasil->user_id;
                     $kategori_soal_id = $v->soal->kategori_soal->id;
                     if(TryoutJawaban::find($v->tryout_jawaban_id)->benar) {
                         $temp_nilai += $raw_poin[$v->tryout_soal_id];
+                        $temp_benar += 1;
+                        $temp_soal += 1;
                     } else {
                         $temp_nilai -= $v->soal->salah;
+                        $temp_salah += 1;
+                        $temp_soal += 1;
                     }
-                    $temp_detail[$user_id][$kategori_soal_id] = $temp_nilai;
-                    $temp_id_kategori = $kategori_soal_id;
                 }
+                isset($temp_detail[$user_id]) ? $temp_detail[$user_id] = $temp_detail[$user_id] : $temp_detail[$user_id] = [];
+                $temp_kosong = $temp_soal - ($temp_benar + $temp_salah);
+                
+                // $temp_detail[$user_id][$kategori_soal_id] = $temp_nilai;
+                
+                $data_detail['kategori_soal_id'] = $kategori_soal_id;
+                $data_detail['temp_nilai'] = $temp_nilai;
+                $data_detail['temp_benar'] = $temp_benar;
+                $data_detail['temp_salah'] = $temp_salah;
+                $data_detail['temp_kosong'] = $temp_kosong;
+                
+                array_push($temp_detail[$user_id], $data_detail);
+                $temp_id_kategori = $kategori_soal_id;
             }
-            $nilai_sekarang[$user_id] = \array_sum($temp_detail[$user_id]);
+            $nilai_sekarang[$user_id] = 0;
+            foreach($temp_detail[$user_id] as $key => $value){
+                $nilai_sekarang[$user_id] += $value['temp_nilai'];
+            }
+            // $nilai_sekarang[$user_id] = \array_sum($temp_detail[$user_id]['temp_nilai']);
             // $nilai_sekarang[$user_id] = $temp_nilai;
             // Harus e di sini Update Nilai mulai detail sama hasil detail
             // Update Detail per kategori
             foreach ($temp_detail[$user_id] as $key => $value) {
-                TryoutHasilDetail::where('tryout_paket_id', $paket_id)
-                            ->where('tryout_kategori_soal_id', $key)
-                            ->where('user_id', $user_id)
-                            ->update([
-                                'nilai' => $value
-                            ]);
+                // TryoutHasilDetail::where('tryout_paket_id', $paket_id)
+                //             ->where('tryout_kategori_soal_id', $key)
+                //             ->where('user_id', $user_id)
+                //             ->update([
+                //                 'nilai' => $value
+                //             ]);
+                TryoutHasilDetail::updateOrCreate([
+                    'tryout_paket_id' => $paket_id,
+                    'tryout_kategori_soal_id' => $value['kategori_soal_id'],
+                    'user_id' => $user_id,
+                    'tryout_hasil_id' => $raw_tryout_hasil_id
+                ], [
+                    'benar' => $value['temp_benar'],
+                    'salah' => $value['temp_salah'],
+                    'kosong' => $value['temp_kosong'],
+                    'nilai' => $value['temp_nilai']
+                ]);
             }
             $kategori_to = TempProdi::where('gelombang_id', $gelombang_id)
                             ->where('paket_id', $paket_id)
@@ -796,7 +835,7 @@ class TryoutController extends Controller
             'koreksi' => 1
         ]);
         $nama_gelombang = Gelombang::find($gelombang_id)->nama;
-        return redirect()->back()->with(['success' => "Paket $paket->nama pada gelombang $nama_gelombang Berhasil dikoreksi"]);
+        return redirect()->back()->with(['success' => "Paket $paket->nama pada gelombang $nama_gelombang berhasil dikoreksi"]);
     }
 
     public function riwayat_tryout() {

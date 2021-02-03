@@ -70,7 +70,7 @@
                         'kelompok' => $prodi[0]->kelompok_passing_grade_id,
                         'slug' => $value->paket->slug,
                         'prodi-1' => $prodi[0]->passing_grade_id,
-                        'prodi-2' => $prodi[1]->passing_grade_id
+                        'prodi-2' => $prodi[1]->passing_grade_id ?? $prodi[0]->passing_grade_id
                      ]) }}" {{ ($koreksi) ? '' : 'disabled' }}>
                         Hasil Analisis
                      </a>

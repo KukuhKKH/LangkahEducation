@@ -112,6 +112,8 @@ class HelperController extends Controller {
             if (preg_match($regex, $u_agent)) {
                 $platform    =   $value;
                 break;
+            } else {
+                $platform    =   'Tidak diketahui';
             }
         }
 
@@ -134,6 +136,9 @@ class HelperController extends Controller {
         } elseif (preg_match('/Netscape/i', $u_agent)) {
             $bname = 'Netscape';
             $ub = "Netscape";
+        } else {
+            $bname = 'Tidak diketahui';
+            $ub = "Tidak diketahui";
         }
 
         //  finally get the correct version number
