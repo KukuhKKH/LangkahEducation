@@ -121,9 +121,9 @@
                             html += `<tr>
                               <td>${element.user.name}</td>
                               <td>${element.paket.nama}</td>
-                              <td>${element.nilai_awal}</td>
+                              <td>${element.nilai_sekarang}</td>
                               <td>${tgl}</td>
-                              <td><a href="${URL}/${element.id}/${element.paket.slug}/${element.user_id}/detail?kelompok=${element.kelompok_passing_grade_id}&prodi-1=${element.paket.temp[0].passing_grade_id}&prodi-2=${element.paket.temp[1].passing_grade_id}"><i class="fas fa-eye"></i></a></td>
+                              <td><a href="${URL}/${element.id}/${element.paket.slug}/${element.user_id}/detail?kelompok=${element.kelompok_passing_grade_id}&prodi-1=${element[0].passing_grade_id}&prodi-2=${element[1].passing_grade_id}"><i class="fas fa-eye"></i></a></td>
                            </tr>`
                         })
                         $('#body_table').html(html)

@@ -328,7 +328,7 @@ class HomeController extends Controller
            
             $temp = TempProdi::where('paket_id', $value->tryout_paket_id)->where('user_id', $value->user_id)->get();
             $pg1 = PassingGrade::find($temp[0]->passing_grade_id)->passing_grade;
-            $pg2 = PassingGrade::find($temp[1]->passing_grade_id)->passing_grade;
+            $pg2 = isset($temp[1]) ? PassingGrade::find($temp[1]->passing_grade_id)->passing_grade : PassingGrade::find($temp[0]->passing_grade_id)->passing_grade;
             // skor siswa >= skormaksimal * PG_prodi1
             $minimal_pg1 = (float)$pg1*(float)$value->nilai_maksimal_new/100;
             $minimal_pg2 = (float)$pg2*(float)$value->nilai_maksimal_new/100;

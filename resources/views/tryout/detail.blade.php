@@ -87,7 +87,7 @@
                                     </div>  
                                 </div>
                                 <div class="col-xl-12">
-                                    <form action="{{ route('tryout.mulai', ['gelombang_id' => $gelombang_id, 'slug' => $paket->slug, 'token' => $user_token]) }}" class="mt-4" method="get">
+                                    <form action="{{ route('tryout.mulai', ['gelombang_id' => $gelombang_id, 'slug' => $paket->slug, 'token' => $user_token]) }}" class="mt-4" method="get" id="form-tryout">
                                         <div class="row">
                                             <div class="col-xl-12">
                                                 <div class="form-group">
@@ -310,9 +310,23 @@
         }
 
         if(lanjut) {
-            $('#btn-lanjut').html(`<button type="submit" class="btn btn-langkah btn-block mt-4">Kerjakan Sekarang</button>`)
+            $('#btn-lanjut').html(`<button type="button" id="btn-lanjut" class="btn btn-langkah btn-block mt-4">Kerjakan Sekarang</button>`)
         } else {
             $('#btn-lanjut').html(`<h4>Browser anda tidak mendukung untuk mengerjakan Tryout</h4>`)
+        }
+    })
+
+    $("#btn-lanjut").on('click', function(e) {
+        let prodi1 = $('#prodi-1').val()
+        let prodi2 = $('#prodi-2').val()
+        if(prodi1 == prodi2) {
+            swal.fire({
+                title: 'Maaf',
+                text: "Prodi 1 dan Prodi 2 tidak boleh sama!",
+                icon: 'warning',
+            })
+        } else {
+            $("#form-tryout").submit()
         }
     })
 </script>
