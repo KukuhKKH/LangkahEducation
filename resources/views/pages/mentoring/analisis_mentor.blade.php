@@ -16,6 +16,24 @@
                 <table>
                     <tr>
                         <td class="font-weight-bold w-50">
+                            Nama Siswa
+                        </td>
+                        <td>:</td>
+                        <td>
+                            {{ $tryout->user->name }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="font-weight-bold w-50">
+                            Asal Sekolah
+                        </td>
+                        <td>:</td>
+                        <td>
+                            {{ $tryout->user->siswa->asal_sekolah }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="font-weight-bold w-50">
                             Tanggal
                         </td>
                         <td>:</td>

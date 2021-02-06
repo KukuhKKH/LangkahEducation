@@ -216,13 +216,11 @@ class MentoringController extends Controller
     }
 
     public function komentar_store(Request $request, $hasil_id) {
-        $this->validate($request, [
-            'komentar' => 'required|max:191'
-        ]);
         try {
-            Komentar::create([
+            Komentar::updateOrCreate([
                 'mentor_id' => auth()->user()->mentor()->first()->id,
-                'tryout_hasil_id' => $hasil_id,
+                'tryout_hasil_id' => $hasil_id
+            ],[
                 'komentar' => $request->komentar
             ]);
             return redirect()->back()->with(['success' => "Berhasil mengirim komentar"]);

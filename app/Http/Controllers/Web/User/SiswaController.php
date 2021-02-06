@@ -86,8 +86,12 @@ class SiswaController extends Controller
     public function edit($id)
     {
         $user = Siswa::with('user')->find($id);
-        $tgl = explode('/',$user->tanggal_lahir);
-        $user->tanggal_lahir = "$tgl[1]/$tgl[0]/$tgl[2]";
+        if($user->tanggal_lahir) {
+            $tgl = explode('/',$user->tanggal_lahir);
+            $user->tanggal_lahir = "$tgl[1]/$tgl[0]/$tgl[2]";
+        } else {
+            $user->tanggal_lahir = "";
+        }
         return view('pages.users.siswa.edit', compact('user'));
     }
 
@@ -119,11 +123,13 @@ class SiswaController extends Controller
                     return redirect()->back()->with(['error' => 'Password lama tidak cocok']);
                 }
             }
-            $tgl = explode('/',$request->tanggal_lahir);
-            $tgl_lahir = "$tgl[1]/$tgl[0]/$tgl[2]";
+            if($request->tanggal_lahir) {
+                $tgl = explode('/',$request->tanggal_lahir);
+                $tgl_lahir = "$tgl[1]/$tgl[0]/$tgl[2]";
+            }
             $siswa->update([
                 'nisn' => $request->nisn,
-                'tanggal_lahir' => $tgl_lahir,
+                'tanggal_lahir' => $tgl_lahir ?? '',
                 'asal_sekolah' => $request->asal_sekolah,
                 'nomor_hp' => $request->nomor_hp
             ]);
