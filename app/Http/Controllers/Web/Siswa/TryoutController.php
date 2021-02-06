@@ -711,7 +711,11 @@ class TryoutController extends Controller
         }
         
         foreach ($raw_benar as $key => $value) {
-            $raw_presentase[$key] = ceil($raw_benar[$key]/$raw_jumlah[$key] * 100);
+            if($raw_jumlah[$key] != 1){
+                $raw_presentase[$key] = ceil($raw_benar[$key]/$raw_jumlah[$key] * 100);
+            }else{
+                $raw_presentase[$key] = 50;
+            }
         }
         
         // Menghitung Poin setiap soal bwang
