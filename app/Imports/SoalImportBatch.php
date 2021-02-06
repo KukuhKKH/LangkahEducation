@@ -48,27 +48,27 @@ class SoalImportBatch implements ToModel, WithStartRow
         //     throw new \Exception($errMessage);
         // }
 
-        if(trim($row[3]) == ''){
+        if(empty($row[3])){
             $errMessage = 'Mohon pastikan kolom Jawaban A tidak kosong.';
             throw new \Exception($errMessage);
         }
 
-        if(trim($row[4]) == ''){
+        if(empty($row[4])){
             $errMessage = 'Mohon pastikan kolom Jawaban B tidak kosong.';
             throw new \Exception($errMessage);
         }
 
-        if(trim($row[5]) == ''){
+        if(empty($row[5])){
             $errMessage = 'Mohon pastikan kolom Jawaban C tidak kosong.';
             throw new \Exception($errMessage);
         }
 
-        if(trim($row[6]) == ''){
+        if(empty($row[6])){
             $errMessage = 'Mohon pastikan kolom Jawaban D tidak kosong.';
             throw new \Exception($errMessage);
         }
 
-        if(trim($row[7]) == ''){
+        if(empty($row[7])){
             $errMessage = 'Mohon pastikan kolom Jawaban E tidak kosong.';
             throw new \Exception($errMessage);
         }

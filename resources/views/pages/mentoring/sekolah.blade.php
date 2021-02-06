@@ -78,20 +78,22 @@
                 </button>
             </div>
             <div class="modal-body">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Nama Siswa</th>
-                            <th>Paket Tryout</th>
-                            <th>Nilai</th>
-                            <th>Tanggal Tryout</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody id="body_table">
-
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Nama Siswa</th>
+                                <th>Paket Tryout</th>
+                                <th>Nilai</th>
+                                <th>Tanggal Tryout</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="body_table">
+    
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
