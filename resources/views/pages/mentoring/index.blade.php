@@ -1,5 +1,5 @@
 @extends('layouts.dashboard-app')
-@section('title', 'Dashboard')
+@section('title', 'Mnetoring')
 
 @section('content')
 <div class="row">
@@ -23,7 +23,7 @@
                 @if ($value->pengirim == 'siswa')
                     <div class="chat your-chat">
                         <div class="font-weight-bold mb-1">Kamu</div>
-                        <p>{{ $value->pesan }}</p>
+                        <p>{!! $value->pesan !!}</p> 
                         <div class="send-time">
                             {{ Carbon\Carbon::parse($value->created_at)->format('d F Y H:i:s') }}
                         </div>
@@ -31,7 +31,7 @@
                 @else
                     <div class="chat other-chat">
                         <div class="font-weight-bold mb-1">{{ $user->siswa->mentor->first()->user->name }}</div>
-                        <p>{{ $value->pesan }}</p>
+                        <p>{!! $value->pesan !!}</p>
                         <div class="send-time">
                             {{ Carbon\Carbon::parse($value->created_at)->format('d F Y H:i:s') }}
                         </div>
@@ -50,7 +50,7 @@
                     @csrf
                     <input type="hidden" name="pengirim" value="siswa">
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                       <input type="text" name="pesan" class="form-control mr-2" placeholder="Tulis Pesan">
+                       <textarea type="text" name="pesan" class="form-control mr-2" placeholder="Tulis Pesan" rows="2"></textarea>
                        <button type="submit" class="btn btn-langkah">Kirim</button>
                     </div>
                  </form>
@@ -70,6 +70,5 @@
     $(function() {
         getMessages();
     });
-
 </script>
 @endsection

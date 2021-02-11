@@ -1,6 +1,5 @@
 @extends('layouts.dashboard-app')
-@section('title', 'Dashboard')
-
+@section('title', 'Mentoring')
 @section('content')
 <div class="row">
     <div class="col-xl-12 col-lg-12">
@@ -60,4 +59,20 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('js')
+<script>
+    function getMessages(letter) {
+    var div = $("#mentoring");
+    div.scrollTop(div.prop('scrollHeight'));
+    }
+
+    $(function() {
+        getMessages();
+    });
+    
+    
+
+</script>
 @endsection
