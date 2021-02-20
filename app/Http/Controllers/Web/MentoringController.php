@@ -205,6 +205,8 @@ class MentoringController extends Controller
             $komentar = '';
             if(auth()->user()->getRoleNames()->first() == 'mentor') {
                 $komentar = Komentar::where('mentor_id', auth()->user()->mentor()->first()->id)->where('tryout_hasil_id', $id)->first();
+            } else {
+                $komentar = Komentar::where('tryout_hasil_id', $tryout->id)->first();
             }
             $kelompok_all = KelompokPassingGrade::all();
             $universitas = Universitas::all();
