@@ -88,7 +88,7 @@ class MentoringController extends Controller
                 'siswa_id' => $siswa_id,
                 'mentor_id' => $mentor_id,
                 'pengirim' => $request->pengirim,
-                'pesan' => $request->pesan,
+                'pesan' => nl2br($request->pesan),
                 'status' => 0,
             ]);
             return redirect()->back()->with(['success' => 'Berhasil mengirim pesan']);

@@ -46,6 +46,16 @@
     }
   });
 
+    // Preloader
+    $(window).on('load', function() {
+      aos_init();
+      if ($('#preloader').length) {
+        $('#preloader').delay(0).fadeOut('slow', function() {
+          $(this).remove();
+        });
+      }
+    });
+
   // Mobile Navigation
   if ($('.nav-menu').length) {
     var $mobile_nav = $('.nav-menu').clone().prop({
@@ -180,5 +190,13 @@
     }, 1500, 'easeInOutExpo');
     return false;
   });
+
+  // Init AOS
+  function aos_init() {
+    AOS.init({
+      duration: 1000,
+      once: true
+    });
+  }
 
 })(jQuery);

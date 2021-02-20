@@ -47,6 +47,7 @@
 
 <body>
 @yield('content')
+<div id="preloader"></div>
 
 @include('partials.landingpage.footer')
 @yield('js')

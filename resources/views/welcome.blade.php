@@ -37,9 +37,9 @@
                 @endif
             </div>
             <div class="col-lg-6 pt-2 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
-                <h1 class="mt-3">{{ $data->headline }}</h1>
-                <h2>{{ $data->tagline}}</h2>
-                <div class="mt-4 mb-5">
+                <h1 class="mt-3" data-aos="fade-up" data-aos-delay="100" >{{ $data->headline }}</h1>
+                <h2 data-aos="fade-up" data-aos-delay="200" >{{ $data->tagline}}</h2>
+                <div class="mt-4 mb-5" data-aos="fade-up" data-aos-delay="300" >
                     @auth
                     <a href="{{ route('dashboard') }}" class="btn-outline-langkah">Buka Dashboard</a>
                     @else
@@ -167,6 +167,7 @@
 
 
 @section('css')
+    <link href="{{asset('assets-landingpage/vendor/aos/aos.css')}}" rel="stylesheet">
 <style>
     /* owl nav */
 
@@ -234,6 +235,7 @@ button:focus, button:active {
 <script src="{{asset('assets-landingpage/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('assets-landingpage/vendor/jquery.easing/jquery.easing.min.js')}}"></script>
 <script src="{{asset('assets-landingpage/vendor/owl.carousel/owl.carousel.min.js')}}"></script>
+<script src="{{asset('assets-landingpage/vendor/aos/aos.js')}}"></script>
 
 <!-- Template Main JS File -->
 <script src="{{ asset('assets/vendor/sweet-alert/sweetalert.min.js') }}"></script>
