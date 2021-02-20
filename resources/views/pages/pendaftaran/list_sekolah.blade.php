@@ -29,11 +29,7 @@
             <tfoot>
                <tr>
                   <th>No</th>
-<<<<<<< HEAD
-                  <th>Nama Program Khusus</th>
-=======
                   <th>Nama Progam Khusus</th>
->>>>>>> e2d67f37b2d77f17c791f2dc2e465ee605771834
                   <th>Total Siswa</th>
                   {{-- <th width="25%">Aksi</th> --}}
                </tr>
