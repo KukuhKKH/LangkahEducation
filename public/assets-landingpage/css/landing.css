@@ -139,7 +139,8 @@ h6 {
 .nav-menu a {
     display: block;
     position: relative;
-    color: #fff;
+    /* color: #fff; */
+    color: #434175 !important;
     transition: 0.3s;
     font-size: 15px;
     font-family: "Open Sans", sans-serif;
@@ -159,7 +160,8 @@ h6 {
 .nav-menu a:hover,
 .nav-menu .active>a,
 .nav-menu li:hover>a {
-    color: #fff;
+    /* color: #fff; */
+    color: #ECB811 !important;
 }
 
 .nav-menu .drop-down ul {
@@ -387,6 +389,13 @@ h6 {
     font-weight: 600;
 }
 
+.underline-text {
+  background-image: linear-gradient(120deg, #ecb91167 0%, #ecb91167 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 0.3em;
+  background-position: 0 80%;
+}
+
 
 /*--------------------------------------------------------------
 # Hero Section
@@ -394,7 +403,8 @@ h6 {
 #hero {
     width: 100%;
     height: 750px;
-    background: linear-gradient(45deg, rgba(236, 185, 17, 0.9) 0%, rgba(255, 196, 0, 0.9)  100%), url(../img/hero-bg.jpg) center center no-repeat;
+    /* background: linear-gradient(45deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9)  100%), url(../img/hero-bg.jpg) center center no-repeat; */
+    background-image: url(../img/hero-bg.png);
     border-bottom: 2px solid white;
     background-size: cover;
 }
@@ -408,7 +418,8 @@ h6 {
     font-size: 48px;
     font-weight: bold;
     line-height: 56px;
-    color: #fff;
+    /* color: #fff; */
+    color: #ECB811;
     font-family: "Poppins", sans-serif;
 }
 
@@ -416,7 +427,8 @@ h6 {
     font-weight: bold;
     margin: 10px 0 0 0;
     font-size: 20px;
-    color: #fff;
+    /* color: #fff; */
+    color: #444444;
 }
 
 #hero ul {
@@ -458,9 +470,9 @@ h6 {
 }
 
 .btn-langkah {
-    background: #fff;
-    color: #ECB811;
-    border: 2px solid #fff;
+    background: #ECB811;
+    color: #fff;
+    border: 2px solid #ECB811;
     margin-right: 10px;
 }
 
@@ -470,13 +482,23 @@ h6 {
 }
 
 .btn-outline-langkah {
-    color: #fff;
-    border: 2px solid#fff;
+    color: #ECB811;
+    border: 2px solid#ECB811;
 }
 
 .btn-outline-langkah:hover {
-    background: #fff;
-    color: #ECB811;
+    background: #ECB811;
+    color: #fff;
+}
+
+#blog .btn-outline-langkah {
+  color: #fff;
+  border: 2px solid#fff;
+}
+
+#blog .btn-outline-langkah:hover {
+  background: #fff;
+  color: #ECB811;
 }
 
 @media (min-width: 1024px) {
@@ -647,23 +669,33 @@ section {
   height: 300px;
 }
 
-.products .img-circle{
-  width: 75px;
-  height: 75px;
-  border-radius: 100px;
+.products .img-products{
+  width: 200px;
+  height: 200px;
+  /* border-radius: 100px; */
 }
 
 .products .box {
+    border-radius: 10px;
     padding: 50px 30px;
     box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
     transition: all ease-in-out 0.3s;
+}
+
+.products .box img{
+  transition: 0.5s;
+  transform: scale(1.0);
+}
+
+.products .box:hover img{
+  transform: scale(0.9);
 }
 
 .products .box .price {
     display: block;
     font-size: 18px;
     font-weight: 600;
-    color: #aaaaaa;
+    color: #444444;
 }
 
 .products .box h4 {
@@ -683,24 +715,24 @@ section {
 }
 
 .products .box p {
-    color: #aaaaaa;
+    color: #444444;
     font-size: 15px;
     margin: 0;
     padding: 0;
 }
 
-.products .box:hover {
+/* .products .box:hover {
     background: #ECB811;
     padding: 30px 30px 70px 30px;
     box-shadow: 10px 15px 30px rgba(0, 0, 0, 0.18);
-}
+} */
 
-.products .box:hover span,
+/* .products .box:hover span,
 .products .box:hover h4,
 .products .box:hover p,
 .products .box:hover h6 {
     color: #fff;
-}
+} */
 
 .products .box:hover .btn-buy{
   background: #fff !important;
@@ -753,6 +785,7 @@ section {
 /*--------------------------------------------------------------
 # Blog
 --------------------------------------------------------------*/
+
 #blog .container{
   padding-top: 80px;
 }

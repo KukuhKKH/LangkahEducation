@@ -7,7 +7,7 @@
 <header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center justify-content-between">
         <!-- Uncomment below if you prefer to use an image logo -->
-        <a href="{{ url('/') }}" class="logo"><img id="navLogo" src="assets/img/logo-primary.svg" alt=""
+        <a href="{{ url('/') }}" class="logo"><img id="navLogo" src="assets/img/logo-secondary.svg" alt=""
                 class="img-fluid"></a>
 
         <nav class="nav-menu d-none d-lg-block">
@@ -37,11 +37,11 @@
                 @endif
             </div>
             <div class="col-lg-6 pt-2 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
-                <h1 class="mt-3" data-aos="fade-up" data-aos-delay="100" ><span class="underline-text">{{ $data->headline }}</span></h1>
+                <h1 class="mt-3" data-aos="fade-up" data-aos-delay="100" >{{ $data->headline }}</h1>
                 <h2 data-aos="fade-up" data-aos-delay="200" >{{ $data->tagline}}</h2>
                 <div class="mt-4 mb-5" data-aos="fade-up" data-aos-delay="300" >
                     @auth
-                    <a href="{{ route('dashboard') }}" class="btn-langkah">Buka Dashboard</a>
+                    <a href="{{ route('dashboard') }}" class="btn-outline-langkah">Buka Dashboard</a>
                     @else
                     <a href="{{ route('register') }}" class="btn-langkah">Register</a>
                     <a href="{{ route('login') }}" class="btn-outline-langkah">Login</a>
@@ -59,7 +59,7 @@
     <section id="about" class="about my-5">
         <div class="container">
             <div class="section-title"  data-aos="fade-up" data-aos-delay="100" >
-                <h2><span class="underline-text">Tentang</span> Kami</h2>
+                <h2>Tentang Kami</h2>
             </div>
             <div class="row content align-items-center">
                 <div class="col-lg-6 order-1 order-lg-1 hero-img text-center"  data-aos="fade-up" data-aos-delay="200" >
@@ -71,7 +71,11 @@
                     @endif
                 </div>
                 <div class="col-lg-6 pt-2 pt-lg-0 order-1 order-lg-2 mb-4"  data-aos="fade-up" data-aos-delay="300" >
-                    {!! $data->tentang_kami !!}
+                    <div class="card shadow bg-langkah" style="border: none">
+                        <div class="card-body text-white">
+                            {!! $data->tentang_kami !!}
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -82,32 +86,29 @@
     <section id="products" class="products mt-3">
         <div class="container">
             <div class="section-title" >
-                <h2 data-aos="fade-up" data-aos-delay="100"><span class="underline-text">Produk</span></h2>
+                <h2 data-aos="fade-up" data-aos-delay="100">Produk</h2>
                 <div data-aos="fade-up" data-aos-delay="200">{!! $data->headline_produk !!}</div>
             </div>
             <div class="row justify-content-center mt-4">
+                <div class="owl-carousel products-carousel">
                 @php
                     $delay_products = 300;
                 @endphp
                 @forelse ($layanan as $value)
-                <div class="col-md-3 mb-4" data-aos="fade-up" data-aos-delay="{{$delay_products}}" >
-                    <div class="box text-center">
-                        @if ($value->foto)
-                        <img class="img-cover img-products"src="{{asset("upload/layanan/$value->foto")}}" alt="">
-                        @else
-                        <img class="img-cover img-products"src="{{asset('assets/img/logo-circle-primary.svg')}}" alt="">
-                        @endif
-                        <h4 class="mt-4 font-weight-bold">{{ $value->nama }}</h4>
-                        <p>{!! $value->deskripsi !!}</p>
-                    </div>
-                    {{-- <div class="card shadow">
+                <div class="products-item p-4" data-aos="fade-up" data-aos-delay="{{$delay_products}}" >
+                    <div class="card shadow bg-langkah text-white">
                         <div class="card-body text-center">
                         <div class="d-flex justify-content-center">
-                            
+                            @if ($value->foto)
+                            <img class="img-cover img-circle"src="{{asset("upload/layanan/$value->foto")}}" alt="">
+                            @else
+                            <img class="img-cover img-circle "src="{{asset('assets/img/logo-circle-primary.svg')}}" alt="">
+                            @endif
                         </div>
-                            
+                            <h5 class="mt-4 font-weight-bold">{{ $value->nama }}</h5>
+                            {!! $value->deskripsi !!}
                         </div>
-                    </div> --}}
+                    </div>
                 </div>
                 @php
                     $delay_products += 100;
@@ -115,20 +116,22 @@
                 @empty
                     
                 @endforelse
+                </div>
+
             </div>
         </div>
     </section><!-- End Why Us Section -->
 
-    <section id="blog" class="blog bg-langkah section-light">
+    <section id="blog" class="blog bg-dark section-light">
         <div class="container py-4">
-            <div class="section-title" data-aos="fade-up" data-aos-delay="100">
+            <div class="section-title">
                 <h2>Blog</h2>
                 <p class="text-white">{!! $data->headline_blog !!}</p>
                 {{-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
                     consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
                     fugiat sit
                     in iste officiis commodi quidem hic quas.</p> --}}
-                <a data-aos="fade-up" data-aos-delay="200" href="{{ route('page.blog.index') }}" class="btn-outline-langkah mt-5">Kunjungi Blog Kami </a>
+                <a href="{{ route('page.blog.index') }}" class="btn-outline-langkah mt-5">Kunjungi Blog Kami </a>
             </div>
         </div>
     </section>
@@ -137,16 +140,14 @@
     <section id="testimoni" class="testimonials mb-4">
         <div class="container">
 
-            <div class="section-title" data-aos="fade-up" data-aos-delay="100">
-                <h2 ><span class="underline-text">Testimonial</span></h2>
+            <div class="section-title">
+                <h2>Testimonial</h2>
                 {!! $data->headline_testimoni !!}
             </div>
-            @php
-                $delay_testimoni = 200;
-            @endphp
+
             <div class="owl-carousel testimonials-carousel">
                 @forelse ($testimoni as $value)
-                <div class="testimonial-item" data-aos-delay="{{$delay_testimoni}}" >
+                <div class="testimonial-item">
                     <p>
                         <i class="bx bxs-quote-alt-left quote-icon-left"></i>
                         {{ $value->testimoni }}
@@ -160,9 +161,6 @@
                     <h3>{{ $value->nama }}</h3>
                     <h4>{{ $value->role }}</h4>
                 </div>
-                @php
-                    $delay_testimoni += 100;
-                @endphp
                 @empty
                 @endforelse
             </div>
