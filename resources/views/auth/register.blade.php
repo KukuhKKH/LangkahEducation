@@ -15,7 +15,7 @@
                         <form class="user" action="{{ route('register') }}" method="POST">
                             @csrf
                             <div class="form-group">
-                                <input name="name" type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleFirstName" placeholder="Nama Lengkap" value="{{ old('name') }}">
+                                <input name="name" type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleFirstName" placeholder="Nama Lengkap" value="{{ old('name') }}" autocomplete="off">
                                 @error('name')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -23,7 +23,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <input name="email" type="email" class="form-control form-control-user @error('email') is-invalid @enderror" id="exampleInputEmail" placeholder="Alamat Email" value="{{ old('email') }}">
+                                <input name="email" type="email" class="form-control form-control-user @error('email') is-invalid @enderror" id="exampleInputEmail" placeholder="Alamat Email" value="{{ old('email') }}" autocomplete="off">
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -32,7 +32,7 @@
                             </div>
                             <div class="form-group row only-number">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input name="nisn" type="text" minlength="10" maxlength="11" class="form-control number form-control-user @error('nisn') is-invalid @enderror" placeholder="NISN" oninvalid="setCustomValidity('NISN Tidak Valid')"  onchange="try{setCustomValidity('')}catch(e){}" value="{{ old('nisn') }}">
+                                    <input name="nisn" type="text" minlength="10" maxlength="11" class="form-control number form-control-user @error('nisn') is-invalid @enderror" placeholder="NISN" oninvalid="setCustomValidity('NISN Tidak Valid')"  onchange="try{setCustomValidity('')}catch(e){}" value="{{ old('nisn') }}" autocomplete="off">
                                     @error('nisn')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -40,7 +40,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-sm-6 mb-sm-0">
-                                    <input name="asal_sekolah" type="text" class="form-control form-control-user @error('asal_sekolah') is-invalid @enderror" placeholder="Asal Sekolah/Instansi" value="{{ old('asal_sekolah') }}">
+                                    <input name="asal_sekolah" type="text" class="form-control form-control-user @error('asal_sekolah') is-invalid @enderror" placeholder="Asal Sekolah/Instansi" value="{{ old('asal_sekolah') }}" autocomplete="off">
                                     @error('asal_sekolah')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -50,7 +50,7 @@
                             </div>
                             <div class="form-group row only-number">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input name="nomor_hp" type="text" minlength="10" maxlength="13" class="form-control form-control-user number @error('nomor_hp') is-invalid @enderror" onchange="try{setCustomValidity('')}catch(e){}"  oninvalid="setCustomValidity('No HP Tidak Valid')" placeholder="Nomer HP Aktif" value="{{ old('nomor_hp') }}" >
+                                    <input name="nomor_hp" type="text" minlength="10" maxlength="13" class="form-control form-control-user number @error('nomor_hp') is-invalid @enderror" onchange="try{setCustomValidity('')}catch(e){}"  oninvalid="setCustomValidity('No HP Tidak Valid')" placeholder="Nomer HP Aktif" value="{{ old('nomor_hp') }}" autocomplete="off">
                                     @error('nomor_hp')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -58,7 +58,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-sm-6 mb-sm-0">
-                                    <input name="tanggal_lahir" type="text" class="datepicker form-control form-control-user @error('tanggal_lahir') is-invalid @enderror" placeholder="Tanggal Lahir" value="{{ old('tanggal_lahir') }}">
+                                    <input name="tanggal_lahir" type="text" class="datepicker form-control form-control-user @error('tanggal_lahir') is-invalid @enderror" placeholder="Tanggal Lahir" value="{{ old('tanggal_lahir') }}" autocomplete="off">
                                     @error('tanggal_lahir')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

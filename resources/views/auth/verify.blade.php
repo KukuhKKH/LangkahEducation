@@ -25,7 +25,7 @@
                             </div>
 
                             {{-- {{ route('verification.resend') }} --}}
-                            <form class="user" method="POST" action="">
+                            <form class="user" method="POST" action="{{ route('email.new_token') }}">
                                 @csrf
                                 <p class="mb-5">Silahkan cek email kamu untuk mendapatkan link verifikasi. Jika kamu tidak menerima email, silahkan klik tombol dibawah ini</p>
                                 <button type="submit" class="btn btn-langkah btn-user btn-block mt-5">
