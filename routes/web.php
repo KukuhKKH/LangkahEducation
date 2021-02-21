@@ -24,13 +24,11 @@ Auth::routes();
 Route::group(['middleware' => ['auth']], function() {
     Route::get('email/verification', 'EmailController@verification')->name('email.verfication');
     Route::post('email/new-token', 'EmailController@token_baru')->name('email.new_token');
+
+    Route::get('dashboard', 'HomeController@dashboard')->name('dashboard');
 });
 
 Route::get('verify/{token}', 'HomeController@verifyUserRegistration')->name('user.verify');
-
-Route::group(['middleware' => ['auth', 'status_user']], function() {
-    Route::get('dashboard', 'HomeController@dashboard')->name('dashboard');
-});
 
 Route::group(['middleware' => ['auth', 'status_user', 'status_email']], function() {
 
