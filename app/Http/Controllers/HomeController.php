@@ -42,6 +42,9 @@ class HomeController extends Controller
 
     public function dashboard(Request $request) {
         $user = Auth::user();
+        if($user->email_verified_at == '') {
+            return redirect()->route('email.verfication');
+        }
         $gelombang = Gelombang::all();
         if($user->getRoleNames()->first() == 'superadmin' || $user->getRoleNames()->first() == 'admin') {
             $sekolah = Sekolah::count();
@@ -303,7 +306,7 @@ class HomeController extends Controller
 			]);
 			return redirect()->route('dashboard')->with(['success' => "Berhasil Aktivasi Akun"]);
 		}
-		return redirect(route('login'))->with(['error' => 'Token salah']);
+		return redirect(route('email.verfication'))->with(['error' => 'Token salah']);
     }
 
     // $id_siswa = array
