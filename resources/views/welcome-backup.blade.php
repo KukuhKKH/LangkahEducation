@@ -119,6 +119,39 @@
                 </div>
 
             </div>
+
+            
+            <div class="row justify-content-center mt-4">
+                @php
+                    $delay_products = 300;
+                @endphp
+                @forelse ($layanan as $value)
+                <div class="col-md-3 mb-4" data-aos="fade-up" data-aos-delay="{{$delay_products}}" >
+                    <div class="box text-center">
+                        @if ($value->foto)
+                        <img class="img-cover img-products"src="{{asset("upload/layanan/$value->foto")}}" alt="">
+                        @else
+                        <img class="img-cover img-products"src="{{asset('assets/img/logo-circle-primary.svg')}}" alt="">
+                        @endif
+                        <h4 class="mt-4 font-weight-bold">{{ $value->nama }}</h4>
+                        <p>{!! $value->deskripsi !!}</p>
+                    </div>
+                    {{-- <div class="card shadow">
+                        <div class="card-body text-center">
+                        <div class="d-flex justify-content-center">
+                            
+                        </div>
+                            
+                        </div>
+                    </div> --}}
+                </div>
+                @php
+                    $delay_products += 100;
+                @endphp
+                @empty
+                    
+                @endforelse
+            </div>
         </div>
     </section><!-- End Why Us Section -->
 

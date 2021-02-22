@@ -114,24 +114,24 @@
     });
 
     // PRODUCTS CAROUSEL
-    // $(".products-carousel").owlCarousel({
-    //   autoplay: true,
-    //   dots: true,
-    //   loop: true,
-	  //   nav: true,
-	  //   navText: ['<i class="fa fa-chevron-circle-left "></i>','<i class="fa fa-chevron-circle-right "></i>'],
-    //   responsive: {
-    //     0: {
-    //       items: 1
-    //     },
-    //     768: {
-    //       items: 2
-    //     },
-    //     900: {
-    //       items: 3
-    //     }
-    //   }
-    // });
+    $(".products-carousel").owlCarousel({
+      // autoplay: true,
+      dots: true,
+      loop: true,
+	    nav: true,
+	    navText: ['<i class="fa fa-chevron-circle-left "></i>','<i class="fa fa-chevron-circle-right "></i>'],
+      responsive: {
+        0: {
+          items: 1
+        },
+        768: {
+          items: 2
+        },
+        900: {
+          items: 4
+        }
+      }
+    });
   // Navigation active state on scroll
   var nav_sections = $('section');
   var main_nav = $('.nav-menu, #mobile-nav');
@@ -164,8 +164,7 @@
 
     } else {
       $('#header').removeClass('header-scrolled');
-      $("#navLogo").attr("src","/assets/img/logo-primary.svg");
-      // $("#navLogo").attr("src","/assets/img/logo-secondary.svg");
+      $("#navLogo").attr("src","/assets/img/logo-secondary.svg");
       $('#mobileNav').removeClass('mobilenav-scrolled');
 
     }

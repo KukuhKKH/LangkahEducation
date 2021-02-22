@@ -12,7 +12,7 @@
                     <p>{{ $deskripsi }}</p>
                 </div>
                 <div class="col-lg-4 col-md-6 footer-links">
-                    <h4><span class="underline-text">Hubungi</span> Kami</h4>
+                    <h4><span class="underline-text">Hubungi Kami</span></h4>
                     <strong><i class="fa fa-home font-weight-bold mr-2"></i></strong>  {{ $data->alamat ?? '' }}<br>
                     @php
                         $noWA = 0;
@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="col-lg-4 col-md-6 footer-links">
-                    <h4><span class="underline-text">Media</span> Sosial</h4>
+                    <h4><span class="underline-text">Media Sosial</span></h4>
                     <div class="mr-md-auto social-links text-center text-md-left pt-3 pt-md-0 mb-5">
                         <a href="{{ $data->urlIG.$data->akunIG }}" target="_blank" rel="noopener noreferrer" class="instagram"><i class="fab fa-instagram"></i></a>
                         <a href="{{ $data->urlTwitter.$data->akunTwitter }}" target="_blank" rel="noopener noreferrer" class="twitter"><i class="fab fa-twitter"></i></a>

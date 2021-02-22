@@ -7,7 +7,7 @@
 <header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center justify-content-between">
         <!-- Uncomment below if you prefer to use an image logo -->
-        <a href="{{ url('/') }}" class="logo"><img id="navLogo" src="assets/img/logo-primary.svg" alt=""
+        <a href="{{ url('/') }}" class="logo"><img id="navLogo" src="assets/img/logo-secondary.svg" alt=""
                 class="img-fluid"></a>
 
         <nav class="nav-menu d-none d-lg-block">
@@ -30,18 +30,18 @@
         <div class="row">
             <div class="col-lg-6 order-1 order-lg-2 hero-img">
                 @if ($data->foto_hero)
-                <img src="{{asset("landing-page/foto/$data->foto_hero")}}" class="img-fluid" alt="" width="955"
+                <img src="{{asset("landing-page/foto/$data->foto_hero")}}" class="img-fluid  img-hover" alt="" width="955"
                     height="1024">
                 @else
-                <img src="{{asset('assets-landingpage/img/hero-img.png')}}" class="img-fluid" alt="">
+                <img src="{{asset('assets-landingpage/img/hero-img.png')}}" class="img-fluid  img-hover" alt="">
                 @endif
             </div>
             <div class="col-lg-6 pt-2 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
-                <h1 class="mt-3" data-aos="fade-up" data-aos-delay="100" ><span class="underline-text">{{ $data->headline }}</span></h1>
+                <h1 class="mt-3" data-aos="fade-up" data-aos-delay="100" ><span class="underline-text-white">{{ $data->headline }}</span></h1>
                 <h2 data-aos="fade-up" data-aos-delay="200" >{{ $data->tagline}}</h2>
                 <div class="mt-4 mb-5" data-aos="fade-up" data-aos-delay="300" >
                     @auth
-                    <a href="{{ route('dashboard') }}" class="btn-langkah">Buka Dashboard</a>
+                    <a href="{{ route('dashboard') }}" class="btn--outline-langkah">Buka Dashboard</a>
                     @else
                     <a href="{{ route('register') }}" class="btn-langkah">Register</a>
                     <a href="{{ route('login') }}" class="btn-outline-langkah">Login</a>
@@ -59,15 +59,15 @@
     <section id="about" class="about my-5">
         <div class="container">
             <div class="section-title"  data-aos="fade-up" data-aos-delay="100" >
-                <h2><span class="underline-text">Tentang</span> Kami</h2>
+                <h2><span class="underline-text">Tentang Kami</span></h2>
             </div>
             <div class="row content align-items-center">
                 <div class="col-lg-6 order-1 order-lg-1 hero-img text-center"  data-aos="fade-up" data-aos-delay="200" >
                     @if ($data->foto_tentang_kami)
-                    <img src="{{asset("landing-page/foto/$data->foto_tentang_kami")}}" class="img-fluid w-75 mb-3" alt=""
+                    <img src="{{asset("landing-page/foto/$data->foto_tentang_kami")}}" class="img-fluid img-hover mb-3" alt=""
                         width="955" height="1024">
                     @else
-                    <img src="{{asset('assets-landingpage/img/hero-img.png')}}" class="img-fluid" alt="">
+                    <img src="{{asset('assets-landingpage/img/hero-img.png')}}" class="img-fluid img-hover mb-3" alt="">
                     @endif
                 </div>
                 <div class="col-lg-6 pt-2 pt-lg-0 order-1 order-lg-2 mb-4"  data-aos="fade-up" data-aos-delay="300" >
@@ -86,28 +86,24 @@
                 <div data-aos="fade-up" data-aos-delay="200">{!! $data->headline_produk !!}</div>
             </div>
             <div class="row justify-content-center mt-4">
+                <div class="owl-carousel products-carousel">
                 @php
                     $delay_products = 300;
                 @endphp
                 @forelse ($layanan as $value)
-                <div class="col-md-3 mb-4" data-aos="fade-up" data-aos-delay="{{$delay_products}}" >
-                    <div class="box text-center">
-                        @if ($value->foto)
-                        <img class="img-cover img-products"src="{{asset("upload/layanan/$value->foto")}}" alt="">
-                        @else
-                        <img class="img-cover img-products"src="{{asset('assets/img/logo-circle-primary.svg')}}" alt="">
-                        @endif
-                        <h4 class="mt-4 font-weight-bold">{{ $value->nama }}</h4>
-                        <p>{!! $value->deskripsi !!}</p>
+                <div class="products-item p-4 " data-aos="fade-up" data-aos-delay="{{$delay_products}}" >
+                    <div class="box text-center align-items-center d-flex">
+                        <div>
+                            @if ($value->foto)
+                            <img class="img-cover img-products"src="{{asset("upload/layanan/$value->foto")}}" alt="">
+                            @else
+                            <img class="img-cover img-products"src="{{asset('assets/img/logo-circle-primary.svg')}}" alt="">
+                            @endif
+                            <h4 class="mt-2 font-weight-bold">{{ $value->nama }}</h4>
+                            <p>{!! $value->deskripsi !!}</p>
+                            
+                        </div>
                     </div>
-                    {{-- <div class="card shadow">
-                        <div class="card-body text-center">
-                        <div class="d-flex justify-content-center">
-                            
-                        </div>
-                            
-                        </div>
-                    </div> --}}
                 </div>
                 @php
                     $delay_products += 100;
@@ -115,14 +111,17 @@
                 @empty
                     
                 @endforelse
+                </div>
+
             </div>
+
         </div>
     </section><!-- End Why Us Section -->
 
     <section id="blog" class="blog bg-langkah section-light">
         <div class="container py-4">
             <div class="section-title" data-aos="fade-up" data-aos-delay="100">
-                <h2>Blog</h2>
+                <h2><span class="underline-text-white">Blog</span></h2>
                 <p class="text-white">{!! $data->headline_blog !!}</p>
                 {{-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
                     consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
@@ -146,7 +145,7 @@
             @endphp
             <div class="owl-carousel testimonials-carousel">
                 @forelse ($testimoni as $value)
-                <div class="testimonial-item" data-aos-delay="{{$delay_testimoni}}" >
+                <div class="testimonial-item" data-aos="fade-up" data-aos-delay="{{$delay_testimoni}}" >
                     <p>
                         <i class="bx bxs-quote-alt-left quote-icon-left"></i>
                         {{ $value->testimoni }}
